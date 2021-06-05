@@ -4,7 +4,7 @@ When we start this app two processes will run simultaneously:
 1. one-community-fe Nuxt front end client
 2. sanity-studio instance 
 
-This is where pm2 is used for. So first please install PM2: https://pm2.keymetrics.io/docs/usage/quick-start/ 
+This is what pm2 is used for. So first please install PM2: https://pm2.keymetrics.io/docs/usage/quick-start/ 
 
 PM2 has different commands, but for this project these are the ones mostly used:
 1. ```bash
