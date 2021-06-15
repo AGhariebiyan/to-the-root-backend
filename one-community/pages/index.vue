@@ -11,12 +11,17 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, namespace } from "nuxt-property-decorator";
-// Vuex Store boilerplate
-const articles = namespace("articles");
+import { defineComponent, onMounted, useStore } from "@nuxtjs/composition-api";
 
-@Component
-export default class OverviewPage extends Vue {
+export default defineComponent({
+  setup() {
+    const store = useStore();
+    // const articles = namespace("articles");
+    // console.log(store)
+    onMounted(async () => {
+
+    })
+  },
   // // Vuex Store boilerplate
   // @articles.State
   // public articles!: [];
@@ -25,12 +30,16 @@ export default class OverviewPage extends Vue {
   // @articles.Action
   // public getArticles!: () => [];
 
-  async mounted() {
+  // async mounted() {
     // // Vuex Store boilerplate
     // this.getArticles();
     // console.log("articles", this.articles);
-  }
-}
+  // }
+
+
+})
+
+
 </script>
 
 <style>
