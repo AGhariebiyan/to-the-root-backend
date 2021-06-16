@@ -10,20 +10,24 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "nuxt-property-decorator";
-import { groq } from "@nuxtjs/sanity";
+import { defineComponent, ref, onMounted, useContext } from "@nuxtjs/composition-api";
+  import { groq } from "@nuxtjs/sanity";
 
-const query = groq`*[_type == "post"]`;
+export default defineComponent({
+  setup() {
+    const context = useContext();
 
-@Component
-export default class Articles extends Vue {
-  public articles: string = "";
+    let articles = ref({});
+    onMounted(async () => {
+      console.log(context.$axios);
+      articles.value = await context.store.$sanity.fetch(query)
+    }) 
 
-  async mounted() {
-    console.log("hello from front-end");
-    this.articles = await this.$sanity.fetch<string>(query);
+    const query = groq`*[_type == "post"]`;
+
+    return { articles };
   }
-}
+})
 </script>
 
 <style>

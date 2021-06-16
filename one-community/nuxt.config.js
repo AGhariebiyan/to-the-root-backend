@@ -30,8 +30,9 @@ export default {
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
     // https://go.nuxtjs.dev/typescript
+    '@nuxtjs/composition-api/module',
     '@nuxt/typescript-build',
-    '@nuxtjs/sanity/module'
+    '@nuxtjs/sanity/module',
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -41,5 +42,10 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
-  }
+  },
+    generate: {
+      // choose to suit your project
+      interval: 200,
+    }
+
 }
