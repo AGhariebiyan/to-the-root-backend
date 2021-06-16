@@ -19,7 +19,7 @@ export default defineComponent({
 
     let articles = ref({});
     onMounted(async () => {
-      console.log("hello from front-end");
+      console.log(context.$axios);
       articles.value = await context.store.$sanity.fetch(query)
     }) 
 

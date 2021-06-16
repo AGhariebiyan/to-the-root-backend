@@ -3,7 +3,7 @@ import { GetterTree, ActionTree, MutationTree } from 'vuex'
 
 
 export const state = () => ({
-    articles: [] = [],
+  articles: [] = [],
   name: 'Me',
 })
 
@@ -19,7 +19,7 @@ export const mutations: MutationTree<RootState> = {
 
 export const actions: ActionTree<RootState, RootState> = {
   async fetchThings({ commit }) {
-    const things = await this.$axios.$get('/things')
+    const things = await $axios.$get('/things')
     console.log(things)
     commit('CHANGE_NAME', 'New name')
   },
