@@ -99,3 +99,4 @@
 *.swp
 /one-community/*.swp
 /sanity-studio/*.swp
+one-community/package-lock.json
