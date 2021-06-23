@@ -81,6 +81,9 @@
 # Serverless directories
 /one-community/.serverless
 
+# package.json
+/one-community/package-lock.json
+
 # IDE / Editor
 .idea
 /one-community/.idea

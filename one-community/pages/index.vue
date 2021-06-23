@@ -18,9 +18,7 @@ export default defineComponent({
     const store = useStore();
     // const articles = namespace("articles");
     // console.log(store)
-    onMounted(async () => {
-
-    })
+    onMounted(async () => {});
   },
   // // Vuex Store boilerplate
   // @articles.State
@@ -31,15 +29,11 @@ export default defineComponent({
   // public getArticles!: () => [];
 
   // async mounted() {
-    // // Vuex Store boilerplate
-    // this.getArticles();
-    // console.log("articles", this.articles);
+  // // Vuex Store boilerplate
+  // this.getArticles();
+  // console.log("articles", this.articles);
   // }
-
-
-})
-
-
+});
 </script>
 
 <style>

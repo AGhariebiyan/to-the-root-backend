@@ -10,8 +10,13 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, onMounted, useContext } from "@nuxtjs/composition-api";
-  import { groq } from "@nuxtjs/sanity";
+import {
+  defineComponent,
+  ref,
+  onMounted,
+  useContext,
+} from "@nuxtjs/composition-api";
+import { groq } from "@nuxtjs/sanity";
 
 export default defineComponent({
   setup() {
@@ -20,14 +25,14 @@ export default defineComponent({
     let articles = ref({});
     onMounted(async () => {
       console.log(context.$axios);
-      articles.value = await context.store.$sanity.fetch(query)
-    }) 
+      articles.value = await context.store.$sanity.fetch(query);
+    });
 
     const query = groq`*[_type == "post"]`;
 
     return { articles };
-  }
-})
+  },
+});
 </script>
 
 <style>
