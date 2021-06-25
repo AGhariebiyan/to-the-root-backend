@@ -9,8 +9,5 @@
     "parser": "@typescript-eslint/parser",
     "sourceType": "module"
   },
-  "plugins": ["vue", "@typescript-eslint"],
-  "rules": {
-    "no-console": 0
-  }
+  "plugins": ["vue", "@typescript-eslint"]
 }
