@@ -15,26 +15,24 @@ import {
   ref,
   onMounted,
   useContext,
-} from "@nuxtjs/composition-api";
-import { groq } from "@nuxtjs/sanity";
+} from "@nuxtjs/composition-api"
+import { groq } from "@nuxtjs/sanity"
 
 export default defineComponent({
   setup() {
-    const context = useContext();
+    const context = useContext()
 
-    let articles = ref({});
+    const articles = ref({})
     onMounted(async () => {
-      console.log(context.$axios);
-      articles.value = await context.store.$sanity.fetch(query);
-    });
+      console.log(context.$axios)
+      articles.value = await context.store.$sanity.fetch(query)
+    })
 
-    const query = groq`*[_type == "post"]`;
+    const query = groq`*[_type == "post"]`
 
-    return { articles };
+    return { articles }
   },
-});
+})
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>

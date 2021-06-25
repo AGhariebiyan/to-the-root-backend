@@ -1,22 +1,22 @@
-import { NuxtAxiosInstance } from "@nuxtjs/axios";
+import { NuxtAxiosInstance } from '@nuxtjs/axios'
 
-declare module "vue/types/vue" {
+declare module 'vue/types/vue' {
   interface Vue {
-    $axios: NuxtAxiosInstance;
+    $axios: NuxtAxiosInstance
   }
 }
 
-declare module "@nuxt/types" {
+declare module '@nuxt/types' {
   interface NuxtAppOptions {
-    $axios: NuxtAxiosInstance;
+    $axios: NuxtAxiosInstance
   }
   interface Context {
-    $axios: NuxtAxiosInstance;
+    $axios: NuxtAxiosInstance
   }
 }
 
-declare module "vue/types/index" {
+declare module 'vue/types/index' {
   interface Store<S> {
-    $axios: NuxtAxiosInstance;
+    $axios: NuxtAxiosInstance
   }
 }

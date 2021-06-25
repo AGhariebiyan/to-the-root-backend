@@ -1,97 +1,103 @@
 // Roboto
 @font-face {
-    font-family: 'Roboto';
-    font-style: normal;
-    font-weight: 400;
-    font-display: fallback;
-    src: url('~assets/fonts/Roboto/Roboto-Regular.ttf') format('truetype');
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  font-display: fallback;
+  src: url('~assets/fonts/Roboto/Roboto-Regular.ttf') format('truetype');
 }
 
 @font-face {
-    font-family: 'RobotoItalic';
-    font-style: normal;
-    font-weight: 400;
-    font-display: fallback;
-    src: url('~assets/fonts/Roboto/Roboto-Italic.ttf') format('truetype');
+  font-family: 'RobotoItalic';
+  font-style: normal;
+  font-weight: 400;
+  font-display: fallback;
+  src: url('~assets/fonts/Roboto/Roboto-Italic.ttf') format('truetype');
 }
 
 @font-face {
-    font-family: 'RobotoBold';
-    font-style: normal;
-    font-weight: 400;
-    font-display: fallback;
-    src: url('~assets/fonts/Roboto/Roboto-Bold.ttf') format('truetype');
+  font-family: 'RobotoBold';
+  font-style: normal;
+  font-weight: 400;
+  font-display: fallback;
+  src: url('~assets/fonts/Roboto/Roboto-Bold.ttf') format('truetype');
 }
 
 @font-face {
-    font-family: 'RobotoBoldItalic';
-    font-style: normal;
-    font-weight: 400;
-    font-display: fallback;
-    src: url('~assets/fonts/Roboto/Roboto-BoldItalic.ttf') format('truetype');
+  font-family: 'RobotoBoldItalic';
+  font-style: normal;
+  font-weight: 400;
+  font-display: fallback;
+  src: url('~assets/fonts/Roboto/Roboto-BoldItalic.ttf') format('truetype');
 }
 
 @font-face {
-    font-family: 'RobotoLight';
-    font-style: normal;
-    font-weight: 400;
-    font-display: fallback;
-    src: url('~assets/fonts/Roboto/Roboto-Light.ttf') format('truetype');
+  font-family: 'RobotoLight';
+  font-style: normal;
+  font-weight: 400;
+  font-display: fallback;
+  src: url('~assets/fonts/Roboto/Roboto-Light.ttf') format('truetype');
 }
 
 @font-face {
-    font-family: 'RobotoLightItalic';
-    font-style: normal;
-    font-weight: 400;
-    font-display: fallback;
-    src: url('~assets/fonts/Roboto/Roboto-LightItalic.ttf') format('truetype');
+  font-family: 'RobotoLightItalic';
+  font-style: normal;
+  font-weight: 400;
+  font-display: fallback;
+  src: url('~assets/fonts/Roboto/Roboto-LightItalic.ttf') format('truetype');
 }
 
 // Roboto Condensed
 @font-face {
-    font-family: 'RobotoCondensed';
-    font-style: normal;
-    font-weight: 400;
-    font-display: fallback;
-    src: url('~assets/fonts/Roboto_Condensed/RobotoCondensed-Regular.ttf') format('truetype');
+  font-family: 'RobotoCondensed';
+  font-style: normal;
+  font-weight: 400;
+  font-display: fallback;
+  src: url('~assets/fonts/Roboto_Condensed/RobotoCondensed-Regular.ttf')
+    format('truetype');
 }
 
 @font-face {
-    font-family: 'RobotoCondensedItalic';
-    font-style: normal;
-    font-weight: 400;
-    font-display: fallback;
-    src: url('~assets/fonts/Roboto_Condensed/RobotoCondensed-Italic.ttf') format('truetype');
+  font-family: 'RobotoCondensedItalic';
+  font-style: normal;
+  font-weight: 400;
+  font-display: fallback;
+  src: url('~assets/fonts/Roboto_Condensed/RobotoCondensed-Italic.ttf')
+    format('truetype');
 }
 
 @font-face {
-    font-family: 'RobotoCondensedBold';
-    font-style: normal;
-    font-weight: 400;
-    font-display: fallback;
-    src: url('~assets/fonts/Roboto_Condensed/RobotoCondensed-Bold.ttf') format('truetype');
+  font-family: 'RobotoCondensedBold';
+  font-style: normal;
+  font-weight: 400;
+  font-display: fallback;
+  src: url('~assets/fonts/Roboto_Condensed/RobotoCondensed-Bold.ttf')
+    format('truetype');
 }
 
 @font-face {
-    font-family: 'RobotoCondensedBoldItalic';
-    font-style: normal;
-    font-weight: 400;
-    font-display: fallback;
-    src: url('~assets/fonts/Roboto_Condensed/RobotoCondensed-BoldItalic.ttf') format('truetype');
+  font-family: 'RobotoCondensedBoldItalic';
+  font-style: normal;
+  font-weight: 400;
+  font-display: fallback;
+  src: url('~assets/fonts/Roboto_Condensed/RobotoCondensed-BoldItalic.ttf')
+    format('truetype');
 }
 
 @font-face {
-    font-family: 'RobotoCondensedLight';
-    font-style: normal;
-    font-weight: 400;
-    font-display: fallback;
-    src: url('~assets/fonts/Roboto_Condensed/RobotoCondensed-Light.ttf') format('truetype');
+  font-family: 'RobotoCondensedLight';
+  font-style: normal;
+  font-weight: 400;
+  font-display: fallback;
+  src: url('~assets/fonts/Roboto_Condensed/RobotoCondensed-Light.ttf')
+    format('truetype');
 }
 
 @font-face {
-    font-family: 'RobotoCondensedLightItalic';
-    font-style: normal;
-    font-weight: 400;
-    font-display: fallback;
-    src: url('~assets/fonts/Roboto_Condensed/RobotoCondensed-LightItalic.ttf') format('truetype');
+  font-family: 'RobotoCondensedLightItalic';
+  font-style: normal;
+  font-weight: 400;
+  font-display: fallback;
+  src: url('~assets/fonts/Roboto_Condensed/RobotoCondensed-LightItalic.ttf')
+    format('truetype');
 }

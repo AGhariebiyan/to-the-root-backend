@@ -11,14 +11,14 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, useStore } from "@nuxtjs/composition-api";
+import { defineComponent, onMounted, useStore } from '@nuxtjs/composition-api'
 
 export default defineComponent({
   setup() {
-    const store = useStore();
+    const store = useStore()
     // const articles = namespace("articles");
     // console.log(store)
-    onMounted(async () => {});
+    onMounted(async () => {})
   },
   // // Vuex Store boilerplate
   // @articles.State
@@ -33,9 +33,7 @@ export default defineComponent({
   // this.getArticles();
   // console.log("articles", this.articles);
   // }
-});
+})
 </script>
 
-<style lang="scss">
-
-</style>
+<style lang="scss"></style>
