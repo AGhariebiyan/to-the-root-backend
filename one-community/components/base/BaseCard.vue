@@ -1,9 +1,9 @@
 <template>
-    <section>
+    <div>
         <slot>
             BASECARD
         </slot>
-    </section>
+    </div>
 </template>
 
 <script lang="ts">
