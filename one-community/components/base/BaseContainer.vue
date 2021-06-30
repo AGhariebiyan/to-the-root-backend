@@ -1,17 +1,15 @@
 <template>
-    <section>
-        <slot>
-            BASECONTAINER
-        </slot>
-    </section>
+  <section>
+    <slot> BASECONTAINER </slot>
+  </section>
 </template>
 
 <script lang="ts">
-import { defineComponent, useStore } from "@nuxtjs/composition-api";
+import { defineComponent, useStore } from '@nuxtjs/composition-api'
 
 export default defineComponent({
   setup() {
-    const store = useStore();
+    const store = useStore()
   },
 })
 </script>

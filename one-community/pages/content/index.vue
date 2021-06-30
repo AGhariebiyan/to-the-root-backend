@@ -14,8 +14,8 @@ import {
   ref,
   onMounted,
   useContext,
-} from "@nuxtjs/composition-api"
-import { groq } from "@nuxtjs/sanity"
+} from '@nuxtjs/composition-api'
+import { groq } from '@nuxtjs/sanity'
 
 export default defineComponent({
   setup() {

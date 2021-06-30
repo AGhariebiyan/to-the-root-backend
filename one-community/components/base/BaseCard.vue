@@ -1,13 +1,11 @@
 <template>
-    <div>
-        <slot>
-            BASECARD
-        </slot>
-    </div>
+  <div>
+    <slot> BASECARD </slot>
+  </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, useStore } from "@nuxtjs/composition-api";
+import { defineComponent, useStore } from '@nuxtjs/composition-api'
 
 export default defineComponent({
   props: {
@@ -17,11 +15,11 @@ export default defineComponent({
       default: 'article',
       validator(value: string) {
         return ['article', 'general'].includes(value)
-      }
-    }
+      },
+    },
   },
   setup() {
-    const store = useStore();
+    const store = useStore()
   },
 })
 </script>

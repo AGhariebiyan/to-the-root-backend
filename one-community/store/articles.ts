@@ -2,7 +2,7 @@ import { $axios } from '~/utils/api'
 import { GetterTree, ActionTree, MutationTree } from 'vuex'
 
 export const state = () => ({
-  articles: [] = [],
+  articles: ([] = []),
   name: 'Me',
 })
 

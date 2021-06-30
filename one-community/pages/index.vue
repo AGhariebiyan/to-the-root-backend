@@ -1,6 +1,6 @@
 <template>
   <BaseContainer>
-      <h1>COMMUNITY</h1>
+    <h1>COMMUNITY</h1>
   </BaseContainer>
 </template>
 
