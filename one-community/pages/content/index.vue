@@ -1,12 +1,11 @@
 <template>
-  <div>
-    <NuxtLink to="/">Home Page</NuxtLink>
+  <BaseContainer>
     <div v-if="articles" class="container">
       <div v-for="article in articles" :key="article._id">
         <h1>{{ article.title }}</h1>
       </div>
     </div>
-  </div>
+  </BaseContainer>
 </template>
 
 <script lang="ts">
@@ -21,7 +20,7 @@ export default defineComponent({
     onMounted(async () => {
       console.log(context.$axios);
       articles.value = await context.store.$sanity.fetch(query)
-    }) 
+    })
 
     const query = groq`*[_type == "post"]`;
 

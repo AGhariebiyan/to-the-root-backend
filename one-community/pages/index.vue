@@ -1,13 +1,7 @@
 <template>
-  <div class="container">
-    <div>
-      <Logo />
-      <h1 class="title">one-community</h1>
-      <div class="links">
-        <NuxtLink to="/articles">Article Pages</NuxtLink>
-      </div>
-    </div>
-  </div>
+  <BaseContainer>
+      <h1>COMMUNITY</h1>
+  </BaseContainer>
 </template>
 
 <script lang="ts">
@@ -42,6 +36,4 @@ export default defineComponent({
 
 </script>
 
-<style lang="scss">
-
-</style>
+<style lang="scss" scoped></style>
