@@ -1,6 +1,5 @@
 <template>
   <BaseContainer>
-    <NuxtLink to="/">Home Page</NuxtLink>
     <div v-if="articles" class="container">
       <div v-for="article in articles" :key="article._id">
         <h1>{{ article.title }}</h1>

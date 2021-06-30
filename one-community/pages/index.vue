@@ -1,9 +1,6 @@
 <template>
   <BaseContainer>
       <h1>COMMUNITY</h1>
-      <div class="links">
-        <NuxtLink to="/content">Article Pages</NuxtLink>
-      </div>
   </BaseContainer>
 </template>
 

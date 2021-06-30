@@ -1,10 +1,12 @@
 <template>
   <header>
-      <NuxtLink to="/">Community</NuxtLink>
-      <NuxtLink to="/content">Content</NuxtLink>
-      <NuxtLink to="/events">Events</NuxtLink>
-      <NuxtLink to="/contact">Contact</NuxtLink>
-      <NuxtLink to="/about">About Ordina</NuxtLink>
+      <nav>
+        <NuxtLink to="/">Community</NuxtLink>
+        <NuxtLink to="/content">Content</NuxtLink>
+        <NuxtLink to="/events">Events</NuxtLink>
+        <NuxtLink to="/contact">Contact</NuxtLink>
+        <NuxtLink to="/about">About Ordina</NuxtLink>
+      </nav>
   </header>
 </template>
 
