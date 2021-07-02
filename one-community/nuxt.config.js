@@ -13,6 +13,10 @@ export default {
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
   },
 
+  publicRuntimeConfig: {
+    strapiUrl: process.env.STRAPI_URL
+  },
+
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: ['~/assets/scss/main.scss'],
 
@@ -27,11 +31,14 @@ export default {
     // https://go.nuxtjs.dev/typescript
     '@nuxtjs/composition-api/module',
     '@nuxt/typescript-build',
-    '@nuxtjs/sanity/module',
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
-  modules: ['@nuxtjs/axios'],
+  modules: ['@nuxtjs/axios', '@nuxtjs/strapi'],
+  strapi: {
+    entities: ['articles', 'authors', 'categories'],
+    url: 'http://localhost:1337'
+  },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},

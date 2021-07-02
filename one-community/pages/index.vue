@@ -5,14 +5,27 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, useStore } from '@nuxtjs/composition-api'
+import {
+  defineComponent,
+  onMounted,
+  useStore,
+  useContext,
+} from '@nuxtjs/composition-api'
 
 export default defineComponent({
   setup() {
     const store = useStore()
+    const context = useContext()
     // const articles = namespace("articles");
     // console.log(store)
-    onMounted(async () => {})
+    onMounted(async () => {
+      try {
+        await context.$strapi.find('categories')
+      } catch (error) {
+        console.error(error)
+      }
+      console.log(context)
+    })
   },
   // // Vuex Store boilerplate
   // @articles.State
