@@ -14,11 +14,11 @@ export default {
   },
 
   publicRuntimeConfig: {
-    strapiUrl: process.env.STRAPI_URL
+    strapiUrl: process.env.STRAPI_URL,
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
-  css: ['~/assets/scss/main.scss'],
+  // css: ['@/assets/scss/variables.scss'],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: ['~/plugins/axios-accessor.ts'],
@@ -34,10 +34,10 @@ export default {
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
-  modules: ['@nuxtjs/axios', '@nuxtjs/strapi'],
+  modules: ['@nuxtjs/axios', '@nuxtjs/strapi', '@nuxtjs/style-resources'],
   strapi: {
     entities: ['articles', 'authors', 'categories'],
-    url: 'http://localhost:1337'
+    url: 'http://localhost:1337',
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
@@ -45,5 +45,8 @@ export default {
   generate: {
     // choose to suit your project
     interval: 200,
+  },
+  styleResources: {
+    scss: ['~/assets/scss/variables.scss'],
   },
 }
