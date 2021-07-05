@@ -29,7 +29,8 @@ export default defineComponent({
 .header {
   display: flex;
   justify-content: center;
-  padding: 0.5rem;
+  align-items: center;
+  padding: 1rem;
   background-color: $gray-light;
 }
 
@@ -56,10 +57,24 @@ export default defineComponent({
 }
 
 .nav-link {
-  padding: 0.5rem;
+  text-decoration: none;
+  position: relative;
+  &:not(:last-child) {
+    margin-right: 2.5rem;
+  }
+  &:link,
+  &:visited {
+    color: $gray-darkest;
+  }
 }
 
-.nuxt-link-active {
-  color: red;
+.nuxt-link-exact-active::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 0.1875rem;
+  background-color: $ordina-orange;
+  top: $default-font-size * 1.25;
+  left: 0;
 }
 </style>
