@@ -1,7 +1,9 @@
 <template>
   <header class="header">
     <div class="box logo-box">
-      <img class="logo" src="@/assets/Logo.svg" alt="Logo" />
+      <NuxtLink to="/">
+        <img class="logo" src="@/assets/Logo.svg" alt="Logo" />
+      </NuxtLink>
     </div>
     <nav class="box nav-links">
       <NuxtLink class="nav-link" to="/">Community</NuxtLink>
@@ -71,15 +73,15 @@ export default defineComponent({
   &:visited {
     color: $gray-darkest;
   }
-}
 
-.nuxt-link-exact-active::after {
-  content: '';
-  position: absolute;
-  width: 100%;
-  height: 0.1875rem;
-  background-color: $ordina-orange;
-  top: $default-font-size * 1.375;
-  left: 0;
+  &.nuxt-link-exact-active::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 0.1875rem;
+    background-color: $ordina-orange;
+    top: $default-font-size * 1.375;
+    left: 0;
+  }
 }
 </style>
