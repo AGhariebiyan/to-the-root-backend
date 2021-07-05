@@ -1,7 +1,7 @@
 <template>
   <header class="header">
-    <div class="box logo">
-      <img src="@/assets/Logo.svg" alt="Logo" />
+    <div class="box logo-box">
+      <img class="logo" src="@/assets/Logo.svg" alt="Logo" />
     </div>
     <nav class="box nav-links">
       <NuxtLink class="nav-link" to="/">Community</NuxtLink>
@@ -42,9 +42,14 @@ export default defineComponent({
   }
 }
 
-.logo {
+.logo-box {
   flex: 0 0 14rem;
   margin-right: auto;
+  padding-top: 0.5rem;
+}
+
+.logo {
+  height: 2rem;
 }
 
 .nav-links {
@@ -74,7 +79,7 @@ export default defineComponent({
   width: 100%;
   height: 0.1875rem;
   background-color: $ordina-orange;
-  top: $default-font-size * 1.25;
+  top: $default-font-size * 1.375;
   left: 0;
 }
 </style>
