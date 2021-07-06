@@ -3,6 +3,11 @@
     <div v-if="articles" class="container">
       <div v-for="article in articles" :key="article._id">
         <h1>{{ article.title }}</h1>
+        <p>{{ article.description }}</p>
+        <img
+          :src="`${url}${article.cover_image.url}`"
+          alt="Peter is the best"
+        />
       </div>
     </div>
   </BaseContainer>
@@ -15,21 +20,17 @@ import {
   onMounted,
   useContext,
 } from '@nuxtjs/composition-api'
-import { groq } from '@nuxtjs/sanity'
 
 export default defineComponent({
   setup() {
     const context = useContext()
-
+    const url: string = context.$config.strapiUrl
     const articles = ref({})
     onMounted(async () => {
-      console.log(context.$axios)
-      articles.value = await context.store.$sanity.fetch(query)
+      articles.value = await context.$strapi.find('articles')
     })
 
-    const query = groq`*[_type == "post"]`
-
-    return { articles }
+    return { articles, url }
   },
 })
 </script>

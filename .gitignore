@@ -37,19 +37,19 @@
 # Dependency directories
 /one-community/node_modules/
 /one-community/jspm_packages/
-/sanity-studio/node_modules/
-/sanity-studio/jspm_packages/
+
+# env
+/one-community/.env
+
 
 # TypeScript v1 declaration files
 /one-community/typings/
 
 # Optional npm cache directory
 /one-community/.npm
-/sanity-studio/.npm
 
 # Optional eslint cache
 /one-community/.eslintcache
-/sanity-studio/.eslintcache
 
 # Optional REPL history
 /one-community/.node_repl_history
@@ -59,9 +59,6 @@
 
 # Yarn Integrity file
 /one-community/.yarn-integrity
-
-# dotenv environment variables file
-/one-community/.env
 
 # parcel-bundler cache (https://parceljs.org/)
 /one-community/.cache
@@ -87,7 +84,6 @@
 # IDE / Editor
 .idea
 /one-community/.idea
-/sanity-studio/.idea
 
 # Service worker
 /one-community/sw.*
@@ -96,10 +92,125 @@
 # macOS
 .DS_Store
 /one-community/.DS_Store
-/sanity-studio/DS_Store
 
 # Vim swap files
 *.swp
 /one-community/*.swp
-/sanity-studio/*.swp
 one-community/package-lock.json
+
+
+############################
+# OS X
+############################
+
+/one-community-backend/.DS_Store
+/one-community-backend/.AppleDouble
+/one-community-backend/.LSOverride
+/one-community-backend/Icon
+/one-community-backend/.Spotlight-V100
+/one-community-backend/.Trashes
+/one-community-backend/._*
+
+
+############################
+# Linux
+############################
+
+*~
+
+
+############################
+# Windows
+############################
+
+/one-community-backend/Thumbs.db
+/one-community-backend/ehthumbs.db
+/one-community-backend/Desktop.ini
+/one-community-backend/$RECYCLE.BIN/
+*.cab
+*.msi
+*.msm
+*.msp
+
+
+############################
+# Packages
+############################
+
+*.7z
+*.csv
+*.dat
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.seed
+*.so
+*.swo
+*.swp
+*.swn
+*.swm
+*.out
+*.pid
+
+
+############################
+# Logs and databases
+############################
+
+/one-community-backend/.tmp
+*.log
+*.sql
+*.sqlite
+*.sqlite3
+
+
+############################
+# Misc.
+############################
+
+*#
+/one-community-backend/ssl
+/one-community-backend/.idea
+/one-community-backend/nbproject
+/one-community-backend/public/uploads/*
+/one-community-backend/!public/uploads/.gitkeep
+
+############################
+# Node.js
+############################
+
+/one-community-backend/lib-cov
+/one-community-backend/lcov.info
+/one-community-backend/pids
+/one-community-backend/logs
+/one-community-backend/results
+/one-community-backend/node_modules
+/one-community-backend/.node_history
+
+############################
+# Tests
+############################
+
+/one-community-backend/testApp
+/one-community-backend/coverage
+
+############################
+# Strapi
+############################
+
+/one-community-backend/.env
+/one-community-backend/license.txt
+/one-community-backend/exports
+/one-community-backend/*.cache
+/one-community-backend/build
+/one-community-backend/.strapi-updater.json
+
