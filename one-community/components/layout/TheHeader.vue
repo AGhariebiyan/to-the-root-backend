@@ -12,7 +12,7 @@
       <NuxtLink class="nav-link" to="/contact">Get in touch</NuxtLink>
     </nav>
     <div class="box login-box">
-      <span class="login">Login</span>
+      <NuxtLink to="/login">Login</NuxtLink>
     </div>
   </header>
 </template>
