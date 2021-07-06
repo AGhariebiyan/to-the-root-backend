@@ -1,36 +1,6 @@
 <template>
   <BaseContainer>
-    <template v-if="isRegistering">
-      <h1 class="heading">Register</h1>
-      <form class="form" @submit.prevent="registerUser">
-        <div class="form-input">
-          <label for="username">Username</label>
-          <input type="text" name="username" id="username" v-model="username" />
-        </div>
-
-        <div class="form-input">
-          <label for="email">Email</label>
-          <input type="text" name="email" id="email" v-model="email" />
-        </div>
-
-        <div class="form-input">
-          <label for="password">Password</label>
-          <input
-            type="password"
-            name="password"
-            id="password"
-            v-model="password"
-          />
-        </div>
-
-        <button class="btn btn-primary" type="submit">Register</button>
-        <button class="btn btn-secondary" @click="isRegistering = false">
-          Log in
-        </button>
-      </form>
-    </template>
-
-    <template v-if="!isRegistering">
+    <template v-if="showLogin">
       <h1 class="heading">Login</h1>
       <form class="form" @submit.prevent="loginUser">
         <div class="form-input">
@@ -54,8 +24,38 @@
         </div>
 
         <button class="btn btn-primary" type="submit">Login</button>
-        <button class="btn btn-secondary" @click="isRegistering = true">
-          Sign up
+        <button class="btn btn-secondary" @click="showLogin = false">
+          Sign up instead
+        </button>
+      </form>
+    </template>
+
+    <template v-else>
+      <h1 class="heading">Sign up</h1>
+      <form class="form" @submit.prevent="registerUser">
+        <div class="form-input">
+          <label for="username">Username</label>
+          <input type="text" name="username" id="username" v-model="username" />
+        </div>
+
+        <div class="form-input">
+          <label for="email">Email</label>
+          <input type="text" name="email" id="email" v-model="email" />
+        </div>
+
+        <div class="form-input">
+          <label for="password">Password</label>
+          <input
+            type="password"
+            name="password"
+            id="password"
+            v-model="password"
+          />
+        </div>
+
+        <button class="btn btn-primary" type="submit">Sign up</button>
+        <button class="btn btn-secondary" @click="showLogin = true">
+          Log in instead
         </button>
       </form>
     </template>
@@ -76,7 +76,7 @@ export default defineComponent({
   setup() {
     const store = useStore()
     const { $axios } = useContext()
-    const isRegistering = ref(true)
+    const showLogin = ref(true)
 
     const password = ref('')
 
@@ -151,7 +151,7 @@ export default defineComponent({
     return {
       email,
       identifier,
-      isRegistering,
+      showLogin,
       loginUser,
       password,
       registerUser,
