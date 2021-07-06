@@ -15,6 +15,9 @@ export default {
 
   publicRuntimeConfig: {
     strapiUrl: process.env.STRAPI_URL,
+    axios: {
+      baseURL: process.env.STRAPI_URL,
+    },
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
@@ -37,7 +40,7 @@ export default {
   modules: ['@nuxtjs/axios', '@nuxtjs/strapi', '@nuxtjs/style-resources'],
   strapi: {
     entities: ['articles', 'authors', 'categories'],
-    url: 'http://localhost:1337',
+    url: process.env.STRAPI_URL,
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
