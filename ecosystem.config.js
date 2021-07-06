@@ -2,13 +2,15 @@ module.exports = {
   apps: [
     {
       name: "one-community-fe",
-      script: "cd ./one-community && npm run dev",
-      watch: "true",
+      cwd: "./one-community",
+      script: "npm",
+      args: "dev",
     },
     {
       name: "strapi",
-      script: "cd ./one-community-backend && npm run develop",
-      watch: "true",
+      cwd: "./one-community-backend",
+      script: "npm",
+      args: "develop",
     },
   ],
 
