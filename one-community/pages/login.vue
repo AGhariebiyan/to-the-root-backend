@@ -81,8 +81,7 @@ export default defineComponent({
     const password = ref('')
 
     // Login
-    const email = ref('')
-    const username = ref('')
+    const identifier = ref('')
 
     const validateLogin = computed(() => {
       return !!identifier.value && !!password.value
@@ -93,30 +92,22 @@ export default defineComponent({
       password.value = ''
     }
 
-    function loginUser() {
+    async function loginUser() {
       if (!validateLogin.value) {
         // TODO show errors / toast
         return
       }
-      $axios
-        .$post(`/auth/local`, {
-          identifier: identifier.value,
-          password: password.value,
-        })
-        .then((res) => {
-          // TODO store the token somewhere
-          // TODO show logged in message and redirect
-          resetLoginValues()
-          console.log(res)
-        })
-        .catch((err) => {
-          // TODO show error message
-          console.log(errorMessageFromResponse(err))
-        })
-    }
+      const result = await store.dispatch('auth/loginUser', {
+        identifier: identifier.value,
+        password: password.value,
+      })
 
+      resetLoginValues()
+      console.log(result)
+    }
     // Register
-    const identifier = ref('')
+    const email = ref('')
+    const username = ref('')
 
     const validatePassword = function () {
       return true
