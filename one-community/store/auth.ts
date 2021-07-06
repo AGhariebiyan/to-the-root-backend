@@ -12,24 +12,51 @@ export const getters: GetterTree<RootState, RootState> = {
 }
 
 export const mutations: MutationTree<RootState> = {
-  SET_TOKEN: (state, token: string) => (state.token = token),
+  SET_TOKEN: (state, token: string) => {
+    state.token = token
+  },
 }
 
 export const actions: ActionTree<RootState, RootState> = {
-  async registerUser({ commit }, { username, email, password }) {
-    const response = await $axios.$post(`/auth/local/register`, {
-      username,
-      email,
-      password,
-    })
+  async loginUser({ commit }, { identifier, password }) {
+    const response = await $axios
+      .$post(`/auth/local`, {
+        identifier,
+        password,
+      })
+      .catch((err) => {
+        console.log('Error!', err.response.data)
+        return err.response.data
+      })
 
-    if (!response.ok) {
-      console.log('Error!', response, response.text())
+    if (!response.jwt) {
+      console.log('Error!', response, response)
       return response
     }
 
     commit('SET_TOKEN', response.jwt)
-    console.log('Good!', response, response.text())
+    console.log('Good!', response, response)
+    return response
+  },
+
+  async registerUser({ commit }, { username, email, password }) {
+    const response = await $axios
+      .$post(`/auth/local/register`, {
+        username,
+        email,
+        password,
+      })
+      .catch((err) => {
+        console.log('Error!', err, err.data)
+        return err
+      })
+
+    if (!response.jwt) {
+      return response
+    }
+
+    commit('SET_TOKEN', response.jwt)
+    console.log('Good!', response)
     return response
   },
 }

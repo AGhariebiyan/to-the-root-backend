@@ -1,63 +1,73 @@
 <template>
   <BaseContainer>
-    <template v-if="showLogin">
-      <h1 class="heading">Login</h1>
-      <form class="form" @submit.prevent="loginUser">
-        <div class="form-input">
-          <label for="identifier">Username or Email</label>
-          <input
-            type="text"
-            name="identifier"
-            id="identifier"
-            v-model="identifier"
-          />
-        </div>
-
-        <div class="form-input">
-          <label for="password">Password</label>
-          <input
-            type="password"
-            name="password"
-            id="password"
-            v-model="password"
-          />
-        </div>
-
-        <button class="btn btn-primary" type="submit">Login</button>
-        <button class="btn btn-secondary" @click="showLogin = false">
-          Sign up instead
-        </button>
-      </form>
+    <template v-if="isLoggedIn">
+      <p>logged in!</p>
     </template>
-
     <template v-else>
-      <h1 class="heading">Sign up</h1>
-      <form class="form" @submit.prevent="registerUser">
-        <div class="form-input">
-          <label for="username">Username</label>
-          <input type="text" name="username" id="username" v-model="username" />
-        </div>
+      <template v-if="showLogin">
+        <h1 class="heading">Login</h1>
+        <form class="form" @submit.prevent="loginUser">
+          <div class="form-input">
+            <label for="identifier">Username or Email</label>
+            <input
+              type="text"
+              name="identifier"
+              id="identifier"
+              v-model="identifier"
+            />
+          </div>
 
-        <div class="form-input">
-          <label for="email">Email</label>
-          <input type="text" name="email" id="email" v-model="email" />
-        </div>
+          <div class="form-input">
+            <label for="password">Password</label>
+            <input
+              type="password"
+              name="password"
+              id="password"
+              v-model="password"
+            />
+          </div>
 
-        <div class="form-input">
-          <label for="password">Password</label>
-          <input
-            type="password"
-            name="password"
-            id="password"
-            v-model="password"
-          />
-        </div>
+          <button class="btn btn-primary" type="submit">Login</button>
+          <button class="btn btn-secondary" @click="showLogin = false">
+            Sign up instead
+          </button>
+        </form>
+      </template>
 
-        <button class="btn btn-primary" type="submit">Sign up</button>
-        <button class="btn btn-secondary" @click="showLogin = true">
-          Log in instead
-        </button>
-      </form>
+      <template v-else>
+        <h1 class="heading">Sign up</h1>
+        <form class="form" @submit.prevent="registerUser">
+          <div class="form-input">
+            <label for="username">Username</label>
+            <input
+              type="text"
+              name="username"
+              id="username"
+              v-model="username"
+            />
+          </div>
+
+          <div class="form-input">
+            <label for="email">Email</label>
+            <input type="text" name="email" id="email" v-model="email" />
+          </div>
+
+          <div class="form-input">
+            <label for="password">Password</label>
+            <input
+              type="password"
+              name="password"
+              id="password"
+              v-model="password"
+            />
+          </div>
+
+          <button class="btn btn-primary" type="submit">Sign up</button>
+          <button class="btn btn-secondary" @click="showLogin = true">
+            Log in instead
+          </button>
+        </form>
+      </template>
     </template>
   </BaseContainer>
 </template>
@@ -79,6 +89,10 @@ export default defineComponent({
     const showLogin = ref(true)
 
     const password = ref('')
+
+    const isLoggedIn = computed(() => {
+      return !!store.getters['auth/token']
+    })
 
     // Login
     const identifier = ref('')
@@ -133,15 +147,17 @@ export default defineComponent({
         email: email.value,
         password: password.value,
       })
+
       resetRegisterValues()
 
       // TODO show error message
-      console.log(result)
+      console.log('registered', result)
     }
 
     return {
       email,
       identifier,
+      isLoggedIn,
       showLogin,
       loginUser,
       password,
