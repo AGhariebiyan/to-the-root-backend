@@ -1,29 +1,31 @@
 <template>
   <BaseContainer>
-    <h1>Register</h1>
-    <form class="login-form" @submit.prevent="registerUser">
-      <div class="form-input">
-        <label for="username">Username</label>
-        <input type="text" name="username" id="username" v-model="username" />
-      </div>
+    <template v-if="isRegistering">
+      <h1>Register</h1>
+      <form class="login-form" @submit.prevent="registerUser">
+        <div class="form-input">
+          <label for="username">Username</label>
+          <input type="text" name="username" id="username" v-model="username" />
+        </div>
 
-      <div class="form-input">
-        <label for="email">Email</label>
-        <input type="text" name="email" id="email" v-model="email" />
-      </div>
+        <div class="form-input">
+          <label for="email">Email</label>
+          <input type="text" name="email" id="email" v-model="email" />
+        </div>
 
-      <div class="form-input">
-        <label for="password">Password</label>
-        <input
-          type="password"
-          name="password"
-          id="password"
-          v-model="password"
-        />
-      </div>
+        <div class="form-input">
+          <label for="password">Password</label>
+          <input
+            type="password"
+            name="password"
+            id="password"
+            v-model="password"
+          />
+        </div>
 
-      <button type="submit">Register</button>
-    </form>
+        <button type="submit">Register</button>
+      </form>
+    </template>
   </BaseContainer>
 </template>
 
@@ -42,6 +44,7 @@ export default defineComponent({
     const email = ref('')
     const username = ref('')
     const password = ref('')
+    const isRegistering = ref(true)
 
     const validatePassword = function () {
       return true
@@ -86,7 +89,7 @@ export default defineComponent({
     //   console.log(res)
     // }
 
-    return { email, username, password, registerUser }
+    return { email, username, password, registerUser, isRegistering }
   },
 })
 </script>
