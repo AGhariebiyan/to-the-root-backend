@@ -180,5 +180,13 @@ input {
 }
 .btn {
   padding: 0.5rem 1rem;
+  cursor: pointer;
+  &-secondary {
+    background-color: transparent;
+    border: none;
+  }
+  &:hover {
+    text-decoration: underline;
+  }
 }
 </style>
