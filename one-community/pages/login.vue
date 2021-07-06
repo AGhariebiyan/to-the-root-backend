@@ -68,7 +68,7 @@ import {
   ref,
   defineComponent,
   computed,
-  // useStore,
+  useStore,
 } from '@nuxtjs/composition-api'
 import { errorMessageFromResponse } from '@/utils/helpers'
 
@@ -102,28 +102,22 @@ export default defineComponent({
       password.value = ''
     }
 
+    const store = useStore()
     const { $axios } = useContext()
-    function registerUser() {
+
+    async function registerUser() {
       if (!validateRegister.value) {
         // TODO show errors / toast
         return
       }
-      $axios
-        .$post(`/auth/local/register`, {
-          username: username.value,
-          email: email.value,
-          password: password.value,
-        })
-        .then((res) => {
-          // TODO store the token somewhere
-          // TODO show logged in message and redirect
-          resetRegisterValues()
-          console.log(res)
-        })
-        .catch((err) => {
-          // TODO show error message
-          console.log(errorMessageFromResponse(err))
-        })
+      const result = await store.dispatch('auth/registerUser', {
+        username: username.value,
+        email: email.value,
+        password: password.value,
+      })
+
+      // TODO show error message
+      console.log(result)
     }
 
     function loginUser() {
