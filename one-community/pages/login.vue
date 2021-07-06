@@ -1,7 +1,7 @@
 <template>
   <BaseContainer>
     <template v-if="isRegistering">
-      <h1>Register</h1>
+      <h1 class="heading">Register</h1>
       <form class="login-form" @submit.prevent="registerUser">
         <div class="form-input">
           <label for="username">Username</label>
@@ -104,6 +104,9 @@ export default defineComponent({
 }
 .form-input {
   margin-bottom: 1rem;
+}
+.heading {
+  align-self: flex-start;
 }
 input {
   width: 100%;
