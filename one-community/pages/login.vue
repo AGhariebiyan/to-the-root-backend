@@ -74,50 +74,23 @@ import { errorMessageFromResponse } from '@/utils/helpers'
 
 export default defineComponent({
   setup() {
-    const email = ref('')
-    const username = ref('')
-    const password = ref('')
-    const identifier = ref('')
+    const store = useStore()
+    const { $axios } = useContext()
     const isRegistering = ref(true)
 
-    const validatePassword = function () {
-      return true
-    }
+    const password = ref('')
 
-    const validateRegister = computed(() => {
-      return !!email.value && !!username.value && validatePassword()
-    })
+    // Login
+    const email = ref('')
+    const username = ref('')
 
     const validateLogin = computed(() => {
-      return !!identifier.value && validatePassword()
+      return !!identifier.value && !!password.value
     })
 
-    const resetRegisterValues = () => {
-      username.value = ''
-      email.value = ''
-      password.value = ''
-    }
     const resetLoginValues = () => {
       identifier.value = ''
       password.value = ''
-    }
-
-    const store = useStore()
-    const { $axios } = useContext()
-
-    async function registerUser() {
-      if (!validateRegister.value) {
-        // TODO show errors / toast
-        return
-      }
-      const result = await store.dispatch('auth/registerUser', {
-        username: username.value,
-        email: email.value,
-        password: password.value,
-      })
-
-      // TODO show error message
-      console.log(result)
     }
 
     function loginUser() {
@@ -141,18 +114,39 @@ export default defineComponent({
           console.log(errorMessageFromResponse(err))
         })
     }
-    // const store = useStore()
-    // const registerUser = async function () {
-    //   if (!validateUser) {
-    //     return
-    //   }
-    //   const res = await store.dispatch('registerUser', {
-    //     username: username.value,
-    //     email: email.value,
-    //     password: password.value,
-    //   })
-    //   console.log(res)
-    // }
+
+    // Register
+    const identifier = ref('')
+
+    const validatePassword = function () {
+      return true
+    }
+
+    const validateRegister = computed(() => {
+      return !!email.value && !!username.value && validatePassword()
+    })
+
+    const resetRegisterValues = () => {
+      username.value = ''
+      email.value = ''
+      password.value = ''
+    }
+
+    async function registerUser() {
+      if (!validateRegister.value) {
+        // TODO show errors / toast
+        return
+      }
+      const result = await store.dispatch('auth/registerUser', {
+        username: username.value,
+        email: email.value,
+        password: password.value,
+      })
+      resetRegisterValues()
+
+      // TODO show error message
+      console.log(result)
+    }
 
     return {
       email,
