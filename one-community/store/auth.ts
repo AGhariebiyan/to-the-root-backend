@@ -1,19 +1,18 @@
 import { $axios } from '~/utils/api'
 import { GetterTree, ActionTree, MutationTree } from 'vuex'
 
-export const state = () => ({
-  token: '',
-})
+export const state = () => ({})
 
 export type RootState = ReturnType<typeof state>
 
 export const getters: GetterTree<RootState, RootState> = {
-  token: (state) => state.token,
+  token: (state) => (process.browser ? window.$nuxt.$cookies.get('token') : ''),
 }
 
 export const mutations: MutationTree<RootState> = {
   SET_TOKEN: (state, token: string) => {
     state.token = token
+    window.$nuxt.$cookies.set('token', token)
   },
 }
 
