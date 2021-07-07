@@ -1,17 +1,23 @@
 <template>
-  <section>
+  <div class="container">
     <slot> BASECONTAINER </slot>
-  </section>
+  </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, useStore } from '@nuxtjs/composition-api'
+import { defineComponent } from '@nuxtjs/composition-api'
 
 export default defineComponent({
-  setup() {
-    const store = useStore()
-  },
+  setup() {},
 })
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: fit-content;
+  margin: 0 auto;
+}
+</style>

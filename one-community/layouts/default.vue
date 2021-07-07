@@ -9,11 +9,9 @@
 </template>
 
 <style lang="scss">
-@use "~assets/scss/main";
-
 * {
   font-family: 'Roboto', sans-serif;
-  font-size: main.$default-font-size;
+  font-size: $default-font-size;
   word-spacing: 1px;
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
