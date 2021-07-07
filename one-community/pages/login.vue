@@ -1,5 +1,7 @@
 <template>
   <BaseContainer>
+    <button @click="showAuthUser">auth user</button>
+    <button @click="logout">Logout</button>
     <template v-if="isLoggedIn">
       <p>logged in!</p>
     </template>
@@ -31,6 +33,10 @@
           <button class="btn btn-secondary" @click="showLogin = false">
             Sign up instead
           </button>
+
+          <div class="providers">
+            <a href="">Github</a>
+          </div>
         </form>
       </template>
 
@@ -85,13 +91,14 @@ import { errorMessageFromResponse } from '@/utils/helpers'
 export default defineComponent({
   setup() {
     const store = useStore()
-    const { $axios } = useContext()
+    const { $auth } = useContext()
     const showLogin = ref(true)
+    const error = ref('')
 
     const password = ref('')
 
     const isLoggedIn = computed(() => {
-      return !!store.getters['auth/token']
+      return $auth.$state.loggedIn
     })
 
     // Login
@@ -105,20 +112,42 @@ export default defineComponent({
       identifier.value = ''
       password.value = ''
     }
-
     async function loginUser() {
-      if (!validateLogin.value) {
-        // TODO show errors / toast
-        return
-      }
-      const result = await store.dispatch('auth/loginUser', {
-        identifier: identifier.value,
-        password: password.value,
-      })
+      error.value = ''
+      try {
+        const test = await $auth.loginWith('local', {
+          data: {
+            identifier: identifier.value,
+            password: password.value,
+          },
+        })
 
-      resetLoginValues()
+        console.log(test)
+        // this.$router.push('/')
+      } catch (e) {
+        error.value = e.response.data.message[0].messages[0].message
+      }
+    }
+
+    // Logout
+    async function logout() {
+      const result = await $auth.logout()
       console.log(result)
     }
+
+    // async function loginUser() {
+    //   if (!validateLogin.value) {
+    //     // TODO show errors / toast
+    //     return
+    //   }
+    //   const result = await store.dispatch('auth/loginUser', {
+    //     identifier: identifier.value,
+    //     password: password.value,
+    //   })
+
+    //   resetLoginValues()
+    //   console.log(result)
+    // }
     // Register
     const email = ref('')
     const username = ref('')
@@ -160,10 +189,16 @@ export default defineComponent({
       isLoggedIn,
       showLogin,
       loginUser,
+      logout,
       password,
       registerUser,
       username,
     }
+  },
+  methods: {
+    showAuthUser() {
+      console.log(this.$auth)
+    },
   },
 })
 </script>

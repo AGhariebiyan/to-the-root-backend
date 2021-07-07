@@ -34,7 +34,40 @@ export default {
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
-  modules: ['@nuxtjs/axios', '@nuxtjs/strapi', '@nuxtjs/style-resources'],
+  modules: [
+    '@nuxtjs/auth-next',
+    '@nuxtjs/axios',
+    '@nuxtjs/strapi',
+    '@nuxtjs/style-resources',
+  ],
+  auth: {
+    redirect: {
+      login: '/login',
+      logout: '/login',
+      home: '/login',
+    },
+    strategies: {
+      local: {
+        user: {
+          property: false,
+        },
+        token: {
+          property: 'jwt',
+        },
+        endpoints: {
+          login: {
+            url: 'auth/local',
+            method: 'post',
+          },
+          user: {
+            url: 'users/me',
+            method: 'get',
+          },
+          logout: false,
+        },
+      },
+    },
+  },
   strapi: {
     entities: ['articles', 'authors', 'categories'],
     url: process.env.STRAPI_URL,
