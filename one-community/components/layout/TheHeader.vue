@@ -6,10 +6,13 @@
       </NuxtLink>
     </div>
     <nav class="nav-links">
-      <NuxtLink class="nav-links__item" to="/">Community</NuxtLink>
-      <NuxtLink class="nav-links__item" to="/content">Content</NuxtLink>
-      <NuxtLink class="nav-links__item" to="/events">Events</NuxtLink>
-      <NuxtLink class="nav-links__item" to="/contact">Get in touch</NuxtLink>
+      <NuxtLink
+        class="nav-links__item"
+        v-for="link in links"
+        :key="link.name"
+        :to="link.to"
+        >{{ link.name }}</NuxtLink
+      >
     </nav>
     <div class="login">
       <NuxtLink class="login__link" to="/login">Login</NuxtLink>
@@ -18,11 +21,29 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, useStore } from '@nuxtjs/composition-api'
+import { defineComponent } from '@nuxtjs/composition-api'
 
 export default defineComponent({
   setup() {
-    const store = useStore()
+    const links = [
+      {
+        name: 'Community',
+        to: '/',
+      },
+      {
+        name: 'Content',
+        to: '/content',
+      },
+      {
+        name: 'Events',
+        to: '/events',
+      },
+      {
+        name: 'Get in touch',
+        to: '/contact',
+      },
+    ]
+    return { links }
   },
 })
 </script>
