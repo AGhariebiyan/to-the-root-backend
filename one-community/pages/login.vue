@@ -24,7 +24,7 @@
 
         <div class="buttons">
           <button class="btn btn-primary" type="submit">Login</button>
-          <button>
+          <button class="btn btn-secondary">
             <NuxtLink class="login-box__link" to="/signup"
               >Sign up instead</NuxtLink
             >
@@ -80,7 +80,6 @@ export default defineComponent({
         })
 
         console.log(test)
-        // this.$router.push('/')
       } catch (e) {
         error.value = e.response.data.message[0].messages[0].message
       }
@@ -103,6 +102,13 @@ export default defineComponent({
   &-secondary {
     background-color: transparent;
     border: none;
+    & > a {
+      &:link,
+      &:visited {
+        color: black;
+        text-decoration: none;
+      }
+    }
   }
   &:hover {
     text-decoration: underline;
