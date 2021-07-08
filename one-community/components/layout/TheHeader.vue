@@ -11,19 +11,16 @@
       <NuxtLink class="nav-link" to="/events">Events</NuxtLink>
       <NuxtLink class="nav-link" to="/contact">Get in touch</NuxtLink>
     </nav>
-    <div class="login-box">
-      <NuxtLink to="/login">Login</NuxtLink>
-    </div>
+    <LoginBox />
   </header>
 </template>
 
 <script lang="ts">
-import { defineComponent, useStore } from '@nuxtjs/composition-api'
+import { defineComponent } from '@nuxtjs/composition-api'
+import LoginBox from '../global/LoginBox.vue'
 
 export default defineComponent({
-  setup() {
-    const store = useStore()
-  },
+  components: { LoginBox },
 })
 </script>
 
@@ -35,6 +32,7 @@ export default defineComponent({
   padding: 1rem;
   background-color: $gray-light;
 }
+
 .logo-box {
   flex: 0 0 $header-item-width;
   margin-right: auto;

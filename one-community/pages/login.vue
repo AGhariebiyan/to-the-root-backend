@@ -1,7 +1,5 @@
 <template>
   <BaseContainer>
-    <button @click="showAuthUser">auth user</button>
-    <button @click="logout">Logout</button>
     <template v-if="isLoggedIn">
       <p>logged in!</p>
     </template>
@@ -129,12 +127,6 @@ export default defineComponent({
       }
     }
 
-    // Logout
-    async function logout() {
-      const result = await $auth.logout()
-      console.log(result)
-    }
-
     // async function loginUser() {
     //   if (!validateLogin.value) {
     //     // TODO show errors / toast
@@ -189,16 +181,10 @@ export default defineComponent({
       isLoggedIn,
       showLogin,
       loginUser,
-      logout,
       password,
       registerUser,
       username,
     }
-  },
-  methods: {
-    showAuthUser() {
-      console.log(this.$auth)
-    },
   },
 })
 </script>
