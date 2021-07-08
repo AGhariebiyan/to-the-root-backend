@@ -1,7 +1,6 @@
 <template>
   <div class="login-box">
     <template v-if="isLoggedIn">
-      <p class="login-box__hello">Hello, {{ $auth.user.username }}</p>
       <button class="login-box__logout" @click="logout">Log out</button>
     </template>
 
@@ -21,6 +20,7 @@ import { computed, useContext } from '@nuxtjs/composition-api'
 export default {
   setup() {
     const { $auth } = useContext()
+
     const isLoggedIn = computed(() => {
       return $auth.$state.loggedIn
     })
@@ -30,7 +30,7 @@ export default {
       const result = await $auth.logout()
     }
 
-    return { $auth, isLoggedIn, logout }
+    return { isLoggedIn, logout }
   },
 }
 </script>
