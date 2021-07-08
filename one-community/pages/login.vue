@@ -4,7 +4,7 @@
       <p>already logged in! redirect to profile!</p>
     </template>
     <template v-else>
-      <BaseForm class="form" @submit.prevent="loginUser">
+      <BaseForm class="form" @submit="loginUser">
         <h1 class="heading">Login</h1>
         <label for="identifier">Username or Email</label>
         <input
