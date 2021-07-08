@@ -1,73 +1,36 @@
 <template>
   <BaseContainer>
     <template v-if="isLoggedIn">
-      <p>logged in!</p>
+      <p>already logged in! redirect to profile!</p>
     </template>
     <template v-else>
-      <template v-if="showLogin">
-        <h1 class="heading">Login</h1>
-        <form class="form" @submit.prevent="loginUser">
-          <div class="form-input">
-            <label for="identifier">Username or Email</label>
-            <input
-              type="text"
-              name="identifier"
-              id="identifier"
-              v-model="identifier"
-            />
-          </div>
+      <h1 class="heading">Login</h1>
+      <form class="form" @submit.prevent="loginUser">
+        <div class="form-input">
+          <label for="identifier">Username or Email</label>
+          <input
+            type="text"
+            name="identifier"
+            id="identifier"
+            v-model="identifier"
+          />
+        </div>
 
-          <div class="form-input">
-            <label for="password">Password</label>
-            <input
-              type="password"
-              name="password"
-              id="password"
-              v-model="password"
-            />
-          </div>
+        <div class="form-input">
+          <label for="password">Password</label>
+          <input
+            type="password"
+            name="password"
+            id="password"
+            v-model="password"
+          />
+        </div>
 
-          <button class="btn btn-primary" type="submit">Login</button>
-          <button class="btn btn-secondary" @click="showLogin = false">
-            Sign up instead
-          </button>
-        </form>
-      </template>
-
-      <template v-else>
-        <h1 class="heading">Sign up</h1>
-        <form class="form" @submit.prevent="registerUser">
-          <div class="form-input">
-            <label for="username">Username</label>
-            <input
-              type="text"
-              name="username"
-              id="username"
-              v-model="username"
-            />
-          </div>
-
-          <div class="form-input">
-            <label for="email">Email</label>
-            <input type="text" name="email" id="email" v-model="email" />
-          </div>
-
-          <div class="form-input">
-            <label for="password">Password</label>
-            <input
-              type="password"
-              name="password"
-              id="password"
-              v-model="password"
-            />
-          </div>
-
-          <button class="btn btn-primary" type="submit">Sign up</button>
-          <button class="btn btn-secondary" @click="showLogin = true">
-            Log in instead
-          </button>
-        </form>
-      </template>
+        <button class="btn btn-primary" type="submit">Login</button>
+        <button class="btn btn-secondary" @click="goTo('signup')">
+          Sign up instead
+        </button>
+      </form>
     </template>
   </BaseContainer>
 </template>
@@ -85,18 +48,15 @@ import { errorMessageFromResponse } from '@/utils/helpers'
 export default defineComponent({
   setup() {
     const store = useStore()
-    const { $auth } = useContext()
-    const showLogin = ref(true)
+    const { $auth, redirect } = useContext()
     const error = ref('')
 
+    const identifier = ref('')
     const password = ref('')
 
     const isLoggedIn = computed(() => {
       return $auth.$state.loggedIn
     })
-
-    // Login
-    const identifier = ref('')
 
     const validateLogin = computed(() => {
       return !!identifier.value && !!password.value
@@ -123,51 +83,16 @@ export default defineComponent({
       }
     }
 
-    // Register
-
-    const email = ref('')
-    const username = ref('')
-
-    const validatePassword = function () {
-      return true
-    }
-
-    const validateRegister = computed(() => {
-      return !!email.value && !!username.value && validatePassword()
-    })
-
-    const resetRegisterValues = () => {
-      username.value = ''
-      email.value = ''
-      password.value = ''
-    }
-
-    async function registerUser() {
-      if (!validateRegister.value) {
-        // TODO show errors / toast
-        return
-      }
-      const result = await store.dispatch('auth/registerUser', {
-        username: username.value,
-        email: email.value,
-        password: password.value,
-      })
-
-      resetRegisterValues()
-
-      // TODO show error message
-      console.log('registered', result)
+    function goTo(page) {
+      redirect(`/${page}`)
     }
 
     return {
-      email,
+      goTo,
       identifier,
       isLoggedIn,
-      showLogin,
       loginUser,
       password,
-      registerUser,
-      username,
     }
   },
 })

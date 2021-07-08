@@ -9,7 +9,7 @@
         <NuxtLink class="login-box__link" to="/login">Login</NuxtLink>
       </button>
       <button>
-        <NuxtLink class="login-box__link" to="/register">Sign up</NuxtLink>
+        <NuxtLink class="login-box__link" to="/signup">Sign up</NuxtLink>
       </button>
     </template>
   </div>
