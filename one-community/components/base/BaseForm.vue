@@ -35,6 +35,8 @@ input {
 }
 
 label {
+  display: inline-block;
+  margin-bottom: 0.25rem;
   font-size: 0.75rem;
 }
 

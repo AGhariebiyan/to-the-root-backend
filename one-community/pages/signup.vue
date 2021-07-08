@@ -39,6 +39,7 @@ import {
 export default defineComponent({
   setup() {
     const email = ref('')
+    const error = ref('')
     const username = ref('')
     const password = ref('')
 
@@ -59,20 +60,33 @@ export default defineComponent({
     }
 
     async function registerUser() {
-      if (!validateRegister.value) {
-        // TODO show errors / toast
-        return
+      try {
+        if (!validateRegister.value) {
+          // TODO show errors / toast
+          return
+        }
+        const result = await $axios.post('/auth/local/register', {
+          username: username.value,
+          email: email.value,
+          password: password.value,
+        })
+
+        console.log('registered', result)
+
+        const loginResult = await $auth.loginWith('local', {
+          data: {
+            identifier: username.value,
+            password: password.value,
+          },
+        })
+
+        resetRegisterValues()
+
+        console.log(loginResult)
+      } catch (e) {
+        error.value = e.response.data.message[0].messages[0].message
       }
-      const result = await $axios.post('/auth/local/register', {
-        username: username.value,
-        email: email.value,
-        password: password.value,
-      })
-
-      resetRegisterValues()
-
       // TODO show error message
-      console.log('registered', result)
     }
 
     return {
