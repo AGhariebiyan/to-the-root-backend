@@ -11,6 +11,7 @@
           type="text"
           name="identifier"
           id="identifier"
+          required
           v-model="identifier"
         />
 
@@ -20,6 +21,7 @@
           name="password"
           id="password"
           v-model="password"
+          required
         />
 
         <div class="buttons">
@@ -69,7 +71,11 @@ export default defineComponent({
       identifier.value = ''
       password.value = ''
     }
+
     async function loginUser() {
+      if (!validateLogin.value) {
+        return
+      }
       error.value = ''
       try {
         const test = await $auth.loginWith('local', {
