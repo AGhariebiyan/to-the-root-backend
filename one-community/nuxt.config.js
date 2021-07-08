@@ -40,6 +40,7 @@ export default {
     '@nuxtjs/axios',
     '@nuxtjs/strapi',
     '@nuxtjs/style-resources',
+    '@nuxtjs/toast',
   ],
   auth: {
     redirect: {
@@ -68,6 +69,11 @@ export default {
         },
       },
     },
+  },
+  toast: {
+    position: 'bottom-center',
+    closeOnSwipe: false,
+    duration: 3000,
   },
   strapi: {
     entities: ['articles', 'authors', 'categories'],

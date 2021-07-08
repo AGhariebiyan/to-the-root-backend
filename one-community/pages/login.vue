@@ -53,7 +53,7 @@ export default defineComponent({
 
   setup() {
     const store = useStore()
-    const { $auth } = useContext()
+    const { $auth, $toast } = useContext()
     const error = ref('')
 
     const identifier = ref('')
@@ -77,6 +77,8 @@ export default defineComponent({
         return
       }
       error.value = ''
+      $toast.show('Je bent ingelogd!')
+      return
       try {
         const test = await $auth.loginWith('local', {
           data: {
