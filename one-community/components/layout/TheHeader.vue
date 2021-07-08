@@ -95,7 +95,7 @@ export default defineComponent({
   }
 }
 
-.login {
+.login-box {
   flex: 0 0 $header-item-width;
   display: flex;
   justify-content: flex-end;

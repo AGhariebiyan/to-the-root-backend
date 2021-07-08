@@ -31,10 +31,6 @@
           <button class="btn btn-secondary" @click="showLogin = false">
             Sign up instead
           </button>
-
-          <div class="providers">
-            <a href="">Github</a>
-          </div>
         </form>
       </template>
 
@@ -127,20 +123,8 @@ export default defineComponent({
       }
     }
 
-    // async function loginUser() {
-    //   if (!validateLogin.value) {
-    //     // TODO show errors / toast
-    //     return
-    //   }
-    //   const result = await store.dispatch('auth/loginUser', {
-    //     identifier: identifier.value,
-    //     password: password.value,
-    //   })
-
-    //   resetLoginValues()
-    //   console.log(result)
-    // }
     // Register
+
     const email = ref('')
     const username = ref('')
 
@@ -193,6 +177,7 @@ export default defineComponent({
 .heading {
   align-self: flex-start;
 }
+
 .form {
   width: 20rem;
   padding: 1rem;
@@ -200,12 +185,15 @@ export default defineComponent({
   border-radius: 0.375rem;
   margin: 1rem 0;
 }
+
 .form-input {
   margin-bottom: 1rem;
 }
+
 input {
   width: 100%;
 }
+
 .btn {
   padding: 0.5rem 1rem;
   cursor: pointer;
