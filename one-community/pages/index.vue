@@ -1,6 +1,11 @@
 <template>
   <BaseContainer>
     <h1>COMMUNITY</h1>
+    <BaseButton :buttonType="'primary'">Primary</BaseButton>
+    <BaseButton :buttonType="'secondary'">Secondary</BaseButton>
+    <BaseButton :buttonType="'warning'">Warning</BaseButton>
+    <BaseButton :buttonType="'danger'">Danger</BaseButton>
+    <BaseButton :buttonType="'pill'">Pill Button</BaseButton>
   </BaseContainer>
 </template>
 
@@ -11,8 +16,10 @@ import {
   useStore,
   useContext,
 } from '@nuxtjs/composition-api'
+import BaseButton from '~/components/base/BaseButton.vue'
 
 export default defineComponent({
+  components: { BaseButton },
   setup() {
     const store = useStore()
     const context = useContext()

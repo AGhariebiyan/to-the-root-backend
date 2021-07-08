@@ -29,6 +29,18 @@ h6 {
   font-family: 'RobotoBold', sans-serif;
 }
 
+h1 {
+  font-size: 3rem;
+}
+
+h2 {
+  font-size: 2.25rem;
+}
+
+h3 {
+  font-size: 1.5rem;
+}
+
 *,
 *::before,
 *::after {
