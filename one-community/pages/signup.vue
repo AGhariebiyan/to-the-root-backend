@@ -65,7 +65,7 @@ export default defineComponent({
         // TODO show errors / toast
         return
       }
-      const result = await $axios.get('auth/registerUser', {
+      const result = await $axios.post('/auth/local/register', {
         username: username.value,
         email: email.value,
         password: password.value,
