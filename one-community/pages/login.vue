@@ -4,33 +4,33 @@
       <p>already logged in! redirect to profile!</p>
     </template>
     <template v-else>
-      <h1 class="heading">Login</h1>
-      <form class="form" @submit.prevent="loginUser">
-        <div class="form-input">
-          <label for="identifier">Username or Email</label>
-          <input
-            type="text"
-            name="identifier"
-            id="identifier"
-            v-model="identifier"
-          />
-        </div>
+      <BaseForm class="form" @submit.prevent="loginUser">
+        <h1 class="heading">Login</h1>
+        <label for="identifier">Username or Email</label>
+        <input
+          type="text"
+          name="identifier"
+          id="identifier"
+          v-model="identifier"
+        />
 
-        <div class="form-input">
-          <label for="password">Password</label>
-          <input
-            type="password"
-            name="password"
-            id="password"
-            v-model="password"
-          />
-        </div>
+        <label for="password">Password</label>
+        <input
+          type="password"
+          name="password"
+          id="password"
+          v-model="password"
+        />
 
-        <button class="btn btn-primary" type="submit">Login</button>
-        <button class="btn btn-secondary" @click="goTo('signup')">
-          Sign up instead
-        </button>
-      </form>
+        <div class="buttons">
+          <button class="btn btn-primary" type="submit">Login</button>
+          <button>
+            <NuxtLink class="login-box__link" to="/signup"
+              >Sign up instead</NuxtLink
+            >
+          </button>
+        </div>
+      </BaseForm>
     </template>
   </BaseContainer>
 </template>
@@ -44,11 +44,14 @@ import {
   useStore,
 } from '@nuxtjs/composition-api'
 import { errorMessageFromResponse } from '@/utils/helpers'
+import BaseForm from '../components/base/BaseForm.vue'
 
 export default defineComponent({
+  components: { BaseForm },
+
   setup() {
     const store = useStore()
-    const { $auth, redirect } = useContext()
+    const { $auth } = useContext()
     const error = ref('')
 
     const identifier = ref('')
@@ -83,12 +86,7 @@ export default defineComponent({
       }
     }
 
-    function goTo(page) {
-      redirect(`/${page}`)
-    }
-
     return {
-      goTo,
       identifier,
       isLoggedIn,
       loginUser,
@@ -99,26 +97,6 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.heading {
-  align-self: flex-start;
-}
-
-.form {
-  width: 20rem;
-  padding: 1rem;
-  border: 0.125rem solid $gray-dark;
-  border-radius: 0.375rem;
-  margin: 1rem 0;
-}
-
-.form-input {
-  margin-bottom: 1rem;
-}
-
-input {
-  width: 100%;
-}
-
 .btn {
   padding: 0.5rem 1rem;
   cursor: pointer;

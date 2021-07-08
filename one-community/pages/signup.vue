@@ -23,9 +23,7 @@
       </div>
 
       <button class="btn btn-primary" type="submit">Sign up</button>
-      <button class="btn btn-secondary" @click="goTo('login')">
-        Log in instead
-      </button>
+      <NuxtLink class="login-box__link" to="/login">Log in instead</NuxtLink>
     </form>
   </BaseContainer>
 </template>
@@ -44,7 +42,7 @@ export default defineComponent({
     const username = ref('')
     const password = ref('')
 
-    const { $auth, $axios, redirect } = useContext()
+    const { $auth, $axios } = useContext()
 
     const validatePassword = function () {
       return true
@@ -77,16 +75,11 @@ export default defineComponent({
       console.log('registered', result)
     }
 
-    function goTo(page) {
-      redirect(`/${page}`)
-    }
-
     return {
-      registerUser,
-      goTo,
       email,
-      username,
       password,
+      registerUser,
+      username,
     }
   },
 })
