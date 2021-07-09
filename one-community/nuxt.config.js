@@ -73,7 +73,7 @@ export default {
   toast: {
     position: 'bottom-center',
     closeOnSwipe: false,
-    duration: 3000,
+    duration: 4000,
   },
   strapi: {
     entities: ['articles', 'authors', 'categories'],

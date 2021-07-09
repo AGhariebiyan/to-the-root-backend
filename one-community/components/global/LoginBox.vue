@@ -1,7 +1,13 @@
 <template>
   <div class="login-box">
     <template v-if="isLoggedIn">
-      <button class="login-box__logout" @click="logout">Log out</button>
+      <button
+        :title="$auth.user.username"
+        class="login-box__logout"
+        @click="logout"
+      >
+        Log out
+      </button>
     </template>
 
     <template v-else>
@@ -19,7 +25,7 @@
 import { computed, useContext } from '@nuxtjs/composition-api'
 export default {
   setup() {
-    const { $auth } = useContext()
+    const { $auth, $toast } = useContext()
 
     const isLoggedIn = computed(() => {
       return $auth.$state.loggedIn
@@ -27,7 +33,16 @@ export default {
 
     // Logout
     async function logout() {
-      const result = await $auth.logout()
+      try {
+        await $auth.logout()
+        $toast.show(`Logout successful`, {
+          type: 'success',
+        })
+      } catch {
+        $toast.show('Something went wrong logging you out', {
+          type: 'error',
+        })
+      }
     }
 
     return { isLoggedIn, logout }

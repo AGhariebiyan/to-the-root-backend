@@ -77,19 +77,23 @@ export default defineComponent({
         return
       }
       error.value = ''
-      $toast.show('Je bent ingelogd!')
-      return
       try {
-        const test = await $auth.loginWith('local', {
+        await $auth.loginWith('local', {
           data: {
             identifier: identifier.value,
             password: password.value,
           },
         })
-
-        console.log(test)
+        resetLoginValues()
+        $toast.show(`Welcome, ${$auth.user.username}!`, {
+          type: 'success',
+        })
       } catch (e) {
-        error.value = e.response.data.message[0].messages[0].message
+        const errorMessage = errorMessageFromResponse(e)
+        $toast.show(errorMessage, {
+          type: 'error',
+        })
+        error.value = errorMessage
       }
     }
 

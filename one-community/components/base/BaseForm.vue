@@ -22,7 +22,6 @@ export default defineComponent({
 }
 
 form {
-  width: 20rem;
   padding: 3rem;
   background-color: $accelerate-blue-5;
 }
