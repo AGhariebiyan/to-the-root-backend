@@ -1,15 +1,16 @@
 <template>
   <BaseContainer>
-    <h1>PROFILE</h1>
+    <h1>Logged in as {{ $auth.user.username }}</h1>
   </BaseContainer>
 </template>
 
 <script lang="ts">
-import { defineComponent, useStore } from '@nuxtjs/composition-api'
+import { defineComponent, useContext } from '@nuxtjs/composition-api'
 
 export default defineComponent({
+  middleware: 'auth',
   setup() {
-    const store = useStore()
+    const { $auth } = useContext()
   },
 })
 </script>
