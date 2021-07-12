@@ -6,7 +6,7 @@
         class="profile"
         :title="`Logged in as ${$auth.user.username}`"
       >
-        <span class="material-icons">face</span>
+        <span class="material-icons">account_circle</span>
       </NuxtLink>
       <button
         :title="$auth.user.username"
@@ -75,5 +75,10 @@ export default {
 
 .profile {
   margin-right: 1rem;
+  color: $discovery-blue-primary;
+  &:active,
+  &:hover {
+    color: $gray-darkest;
+  }
 }
 </style>

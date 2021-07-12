@@ -88,7 +88,7 @@ export default defineComponent({
       position: absolute;
       width: 100%;
       height: 0.1875rem;
-      background-color: $ordina-orange;
+      background-color: $discovery-blue-primary;
       top: $default-font-size * 1.375;
       left: 0;
     }
