@@ -35,14 +35,14 @@ button {
   cursor: pointer;
 }
 
-button.primary {
-  background-color: $ordina-orange;
+button.secondary {
+  background-color: $accelerate-blue-3;
   &:hover {
-    background-color: $ordina-orange-hover;
+    background-color: $accelerate-blue-3-hover;
   }
 }
 
-button.secondary {
+button.primary {
   color: $white;
   background-color: $discovery-blue-primary;
   &:hover {
@@ -66,10 +66,11 @@ button.danger {
 }
 
 button.pill {
-  height: 35px;
-  padding: 9px;
+  height: 27px;
+  padding: 7px;
   border-radius: 20px;
   font-family: 'Roboto', sans-serif;
+  font-size: 12px;
   background-color: $discovery-blue-4;
   &:hover {
     background-color: $discovery-blue-4-hover;

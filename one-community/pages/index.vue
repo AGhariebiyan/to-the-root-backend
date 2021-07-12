@@ -1,5 +1,5 @@
 <template>
-  <BaseContainer>
+  <BaseContainer :containerType="'color'">
     <h1>COMMUNITY</h1>
     <BaseButton :buttonType="'primary'">Primary</BaseButton>
     <BaseButton :buttonType="'secondary'">Secondary</BaseButton>
