@@ -40,6 +40,9 @@
           >
         </button>
       </div>
+      <div class="github">
+        <button @click="loginWithGithub">Login with Github</button>
+      </div>
     </BaseForm>
   </BaseContainer>
 </template>
@@ -67,7 +70,6 @@ export default defineComponent({
     })
 
     const error = ref('')
-    const isLoading = ref(false)
 
     const identifier = ref('')
     const password = ref('')
@@ -88,7 +90,6 @@ export default defineComponent({
         return
       }
       error.value = ''
-      isLoading.value = true
       try {
         await $auth.loginWith('local', {
           data: {
@@ -96,17 +97,15 @@ export default defineComponent({
             password: password.value,
           },
         })
-        setTimeout(() => {
-          isLoading.value = false
-        }, 5000)
 
         resetInput()
       } catch (e) {
         const errorMessage = errorMessageFromResponse(e)
         error.value = errorMessage
-        isLoading.value = false
       }
     }
+
+    async function loginWithGithub() {}
 
     return {
       error,
