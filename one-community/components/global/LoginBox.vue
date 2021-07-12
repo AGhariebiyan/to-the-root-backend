@@ -6,7 +6,7 @@
         class="profile"
         :title="`Logged in as ${$auth.user.username}`"
       >
-        <span class="material-icons">account_circle</span>
+        <span class="material-icons">person_outline</span>
       </NuxtLink>
       <button
         :title="$auth.user.username"
@@ -43,14 +43,7 @@ export default {
     async function logout() {
       try {
         await $auth.logout()
-        $toast.show(`Logout successful`, {
-          type: 'success',
-        })
-      } catch {
-        $toast.show('Something went wrong logging you out', {
-          type: 'error',
-        })
-      }
+      } catch {}
     }
 
     return { isLoggedIn, logout }

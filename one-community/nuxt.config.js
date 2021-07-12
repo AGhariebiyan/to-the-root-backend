@@ -40,7 +40,6 @@ export default {
     '@nuxtjs/axios',
     '@nuxtjs/strapi',
     '@nuxtjs/style-resources',
-    '@nuxtjs/toast',
     'nuxt-material-design-icons',
   ],
   auth: {

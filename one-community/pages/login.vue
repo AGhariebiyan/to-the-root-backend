@@ -85,14 +85,8 @@ export default defineComponent({
           },
         })
         resetLoginValues()
-        $toast.show(`Welcome, ${$auth.user?.username}!`, {
-          type: 'success',
-        })
       } catch (e) {
         const errorMessage = errorMessageFromResponse(e)
-        $toast.show(errorMessage, {
-          type: 'error',
-        })
         error.value = errorMessage
       }
     }
