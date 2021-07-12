@@ -74,4 +74,9 @@ export default {
     color: $gray-darkest;
   }
 }
+
+.material-icons {
+  display: inline-block;
+  margin-top: 0.375rem;
+}
 </style>
