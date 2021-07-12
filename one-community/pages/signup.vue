@@ -2,28 +2,20 @@
   <BaseContainer>
     <BaseForm class="form" @submit="registerUser">
       <h1 class="heading">Sign up</h1>
-      <div class="form-input">
-        <label for="username">Username</label>
-        <input type="text" name="username" id="username" v-model="username" />
-      </div>
 
-      <div class="form-input">
-        <label for="email">Email</label>
-        <input type="text" name="email" id="email" v-model="email" />
-      </div>
+      <label for="username">Username</label>
+      <input type="text" name="username" id="username" v-model="username" />
 
-      <div class="form-input">
-        <label for="password">Password</label>
-        <input
-          type="password"
-          name="password"
-          id="password"
-          v-model="password"
-        />
-      </div>
+      <label for="email">Email</label>
+      <input type="text" name="email" id="email" v-model="email" />
 
-      <button class="btn btn-primary" type="submit">Sign up</button>
-      <NuxtLink class="login-box__link" to="/login">Log in instead</NuxtLink>
+      <label for="password">Password</label>
+      <input type="password" name="password" id="password" v-model="password" />
+
+      <div class="buttons">
+        <button class="btn btn-primary" type="submit">Sign up</button>
+        <NuxtLink class="login-box__link" to="/login">Log in instead</NuxtLink>
+      </div>
     </BaseForm>
   </BaseContainer>
 </template>
