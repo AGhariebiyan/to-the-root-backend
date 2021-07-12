@@ -8,6 +8,7 @@
         name="identifier"
         id="identifier"
         required
+        :disabled="isLoggedIn"
         v-model="identifier"
       />
 
@@ -17,11 +18,14 @@
         name="password"
         id="password"
         v-model="password"
+        :disabled="isLoggedIn"
         required
       />
 
       <div class="buttons">
-        <button class="btn btn-primary" type="submit">Login</button>
+        <button class="btn btn-primary" type="submit" :disabled="isLoggedIn">
+          Login
+        </button>
         <button class="btn btn-secondary">
           <NuxtLink class="login-box__link" to="/signup"
             >Sign up instead</NuxtLink
@@ -38,10 +42,10 @@ import {
   ref,
   defineComponent,
   computed,
+  onBeforeMount,
 } from '@nuxtjs/composition-api'
 import { errorMessageFromResponse } from '@/utils/helpers'
 import BaseForm from '../components/base/BaseForm.vue'
-import { redBright } from 'chalk'
 
 export default defineComponent({
   components: { BaseForm },
@@ -52,10 +56,6 @@ export default defineComponent({
     const isLoggedIn = computed(() => {
       return $auth.$state.loggedIn
     })
-
-    if (isLoggedIn) {
-      redirect('/profile')
-    }
 
     const error = ref('')
 
