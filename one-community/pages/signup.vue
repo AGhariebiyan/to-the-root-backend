@@ -65,13 +65,11 @@ export default defineComponent({
           // TODO show errors / toast
           return
         }
-        const result = await $axios.post('/auth/local/register', {
+        await $axios.post('/auth/local/register', {
           username: username.value,
           email: email.value,
           password: password.value,
         })
-
-        console.log('registered', result)
 
         const loginResult = await $auth.loginWith('local', {
           data: {
