@@ -1,7 +1,7 @@
 <template>
   <BaseContainer>
-    <h1 class="heading">Sign up</h1>
-    <form class="form" @submit.prevent="registerUser">
+    <BaseForm class="form" @submit="registerUser">
+      <h1 class="heading">Sign up</h1>
       <div class="form-input">
         <label for="username">Username</label>
         <input type="text" name="username" id="username" v-model="username" />
@@ -24,7 +24,7 @@
 
       <button class="btn btn-primary" type="submit">Sign up</button>
       <NuxtLink class="login-box__link" to="/login">Log in instead</NuxtLink>
-    </form>
+    </BaseForm>
   </BaseContainer>
 </template>
 
