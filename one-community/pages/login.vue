@@ -42,7 +42,6 @@ import {
   ref,
   defineComponent,
   computed,
-  onBeforeMount,
 } from '@nuxtjs/composition-api'
 import { errorMessageFromResponse } from '@/utils/helpers'
 import BaseForm from '../components/base/BaseForm.vue'
@@ -51,7 +50,7 @@ export default defineComponent({
   components: { BaseForm },
 
   setup() {
-    const { $auth, redirect } = useContext()
+    const { $auth } = useContext()
 
     const isLoggedIn = computed(() => {
       return $auth.$state.loggedIn
