@@ -1,9 +1,13 @@
 <template>
   <div class="login-box">
     <template v-if="isLoggedIn">
-      <NuxtLink to="/profile" class="profile"
-        ><span class="material-icons">face</span></NuxtLink
+      <NuxtLink
+        to="/profile"
+        class="profile"
+        :title="`Logged in as ${$auth.user.username}`"
       >
+        <span class="material-icons">face</span>
+      </NuxtLink>
       <button
         :title="$auth.user.username"
         class="login-box__logout"
@@ -67,5 +71,9 @@ export default {
   &__logout {
     cursor: pointer;
   }
+}
+
+.profile {
+  margin-right: 1rem;
 }
 </style>
