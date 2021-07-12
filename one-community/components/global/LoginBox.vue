@@ -1,6 +1,9 @@
 <template>
   <div class="login-box">
     <template v-if="isLoggedIn">
+      <NuxtLink to="/profile" class="profile"
+        ><span class="material-icons">face</span></NuxtLink
+      >
       <button
         :title="$auth.user.username"
         class="login-box__logout"
@@ -23,6 +26,7 @@
 
 <script>
 import { computed, useContext } from '@nuxtjs/composition-api'
+
 export default {
   setup() {
     const { $auth, $toast } = useContext()
