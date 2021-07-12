@@ -9,11 +9,19 @@
         name="username"
         id="username"
         v-model="username"
+        @input="resetError"
         required
       />
 
       <label for="email">Email</label>
-      <input type="text" name="email" id="email" v-model="email" required />
+      <input
+        type="text"
+        name="email"
+        id="email"
+        v-model="email"
+        @input="resetError"
+        required
+      />
 
       <label for="password">Password</label>
       <input
@@ -21,6 +29,7 @@
         name="password"
         id="password"
         v-model="password"
+        @input="resetError"
         required
       />
 
