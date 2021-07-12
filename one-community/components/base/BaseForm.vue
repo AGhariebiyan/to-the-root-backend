@@ -42,4 +42,10 @@ label {
 .buttons {
   margin-top: 2rem;
 }
+
+.error-message {
+  padding: 0.5rem;
+  border: $error solid 1px;
+  background-color: rgba($error, 0.2);
+}
 </style>

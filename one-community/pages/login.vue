@@ -7,6 +7,7 @@
         type="text"
         name="identifier"
         id="identifier"
+        @input="resetError"
         required
         :disabled="isLoggedIn"
         v-model="identifier"
@@ -19,11 +20,18 @@
         id="password"
         v-model="password"
         :disabled="isLoggedIn"
+        @input="resetError"
         required
       />
 
+      <p class="error-message" v-if="error">{{ error }}</p>
+
       <div class="buttons">
-        <button class="btn btn-primary" type="submit" :disabled="isLoggedIn">
+        <button
+          class="btn btn-primary"
+          type="submit"
+          :disabled="isLoggedIn || error.length > 0"
+        >
           Login
         </button>
         <button class="btn btn-secondary">
@@ -47,6 +55,8 @@ import { errorMessageFromResponse } from '@/utils/helpers'
 import BaseForm from '../components/base/BaseForm.vue'
 
 export default defineComponent({
+  name: 'PageLogin',
+
   components: { BaseForm },
 
   setup() {
@@ -57,6 +67,7 @@ export default defineComponent({
     })
 
     const error = ref('')
+    const isLoading = ref(false)
 
     const identifier = ref('')
     const password = ref('')
@@ -65,16 +76,19 @@ export default defineComponent({
       return !!identifier.value && !!password.value
     })
 
-    const resetLoginValues = () => {
+    const resetInput = () => {
       identifier.value = ''
       password.value = ''
     }
-
+    const resetError = () => {
+      error.value = ''
+    }
     async function loginUser() {
       if (!validateLogin.value) {
         return
       }
       error.value = ''
+      isLoading.value = true
       try {
         await $auth.loginWith('local', {
           data: {
@@ -82,18 +96,25 @@ export default defineComponent({
             password: password.value,
           },
         })
-        resetLoginValues()
+        setTimeout(() => {
+          isLoading.value = false
+        }, 5000)
+
+        resetInput()
       } catch (e) {
         const errorMessage = errorMessageFromResponse(e)
         error.value = errorMessage
+        isLoading.value = false
       }
     }
 
     return {
+      error,
       identifier,
       isLoggedIn,
       loginUser,
       password,
+      resetError,
     }
   },
 })
