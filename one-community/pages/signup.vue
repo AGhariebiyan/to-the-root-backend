@@ -4,13 +4,27 @@
       <h1 class="heading">Sign up</h1>
 
       <label for="username">Username</label>
-      <input type="text" name="username" id="username" v-model="username" />
+      <input
+        type="text"
+        name="username"
+        id="username"
+        v-model="username"
+        required
+      />
 
       <label for="email">Email</label>
-      <input type="text" name="email" id="email" v-model="email" />
+      <input type="text" name="email" id="email" v-model="email" required />
 
       <label for="password">Password</label>
-      <input type="password" name="password" id="password" v-model="password" />
+      <input
+        type="password"
+        name="password"
+        id="password"
+        v-model="password"
+        required
+      />
+
+      <p class="error-message" v-if="error">{{ error }}</p>
 
       <div class="buttons">
         <button class="btn btn-primary" type="submit">Sign up</button>
@@ -27,6 +41,7 @@ import {
   computed,
   useContext,
 } from '@nuxtjs/composition-api'
+import { errorMessageFromResponse } from '@/utils/helpers'
 
 export default defineComponent({
   setup() {
@@ -45,16 +60,19 @@ export default defineComponent({
       return !!email.value && !!username.value && validatePassword()
     })
 
-    const resetRegisterValues = () => {
+    const resetInput = () => {
       username.value = ''
       email.value = ''
       password.value = ''
     }
 
+    const resetError = () => {
+      error.value = ''
+    }
+
     async function registerUser() {
       try {
         if (!validateRegister.value) {
-          // TODO show errors / toast
           return
         }
         await $axios.post('/auth/local/register', {
@@ -63,26 +81,25 @@ export default defineComponent({
           password: password.value,
         })
 
-        const loginResult = await $auth.loginWith('local', {
+        await $auth.loginWith('local', {
           data: {
             identifier: username.value,
             password: password.value,
           },
         })
 
-        resetRegisterValues()
-
-        console.log(loginResult)
+        resetInput()
       } catch (e) {
-        error.value = e.response.data.message[0].messages[0].message
+        error.value = errorMessageFromResponse(e)
       }
-      // TODO show error message
     }
 
     return {
       email,
+      error,
       password,
       registerUser,
+      resetError,
       username,
     }
   },
