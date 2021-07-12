@@ -33,7 +33,7 @@ import { computed, useContext } from '@nuxtjs/composition-api'
 
 export default {
   setup() {
-    const { $auth, $toast } = useContext()
+    const { $auth } = useContext()
 
     const isLoggedIn = computed(() => {
       return $auth.$state.loggedIn
