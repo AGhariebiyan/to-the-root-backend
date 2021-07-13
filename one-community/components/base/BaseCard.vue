@@ -24,12 +24,13 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.article {
-  // article card styles here
+.card {
   box-shadow: 0px 0.25rem 0.25rem rgba(0, 0, 0, 0.25);
   border-radius: 3px;
   margin-bottom: 3rem;
   width: 21.875rem;
+}
+.article {
   img {
     width: 100%;
     height: 13.6875rem;
@@ -41,7 +42,7 @@ export default defineComponent({
     .card__description {
       font-size: 1.125rem;
       height: calc(1.3125rem * 4);
-      line-height: 1.3125rem;
+      line-height: $line-height;
       overflow: hidden;
       position: relative;
       &:after {
@@ -50,12 +51,12 @@ export default defineComponent({
         position: absolute;
         bottom: 0;
         right: 0;
-        width: 50%;
+        width: 100%;
         height: 1.3125rem;
         background: linear-gradient(
-          to right,
+          to bottom,
           rgba(255, 255, 255, 0),
-          rgba(255, 255, 255, 1) 60%
+          rgba(255, 255, 255, 1) 90%
         );
       }
     }
@@ -70,7 +71,7 @@ export default defineComponent({
       color: $gray-dark;
     }
   }
-  @media screen and (max-width: 425px) {
+  @media screen and (max-width: 26.5625em) {
     width: 18rem;
   }
 }

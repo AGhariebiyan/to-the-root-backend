@@ -51,7 +51,7 @@ export default defineComponent({
   max-width: 630px;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 48em) {
   .container,
   .container.color {
     padding: 3rem;
