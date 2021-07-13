@@ -40,10 +40,11 @@
           >
         </button>
       </div>
-      <div class="github">
-        <button @click="loginWithGithub">Login with Github</button>
-      </div>
     </BaseForm>
+    <div class="github">
+      <button @click="loginWithGithub">Login with Github</button>
+    </div>
+    <a href="http://dd29726e86d3.ngrok.io/connect/github">Github with link</a>
   </BaseContainer>
 </template>
 
@@ -63,7 +64,7 @@ export default defineComponent({
   components: { BaseForm },
 
   setup() {
-    const { $auth } = useContext()
+    const { $axios, $auth } = useContext()
 
     const isLoggedIn = computed(() => {
       return $auth.$state.loggedIn
@@ -105,13 +106,18 @@ export default defineComponent({
       }
     }
 
-    async function loginWithGithub() {}
+    async function loginWithGithub() {
+      console.log('before loginwith')
+      const response = await $auth.loginWith('github')
+      console.log('after loginwith')
+    }
 
     return {
       error,
       identifier,
       isLoggedIn,
       loginUser,
+      loginWithGithub,
       password,
       resetError,
     }

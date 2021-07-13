@@ -68,6 +68,11 @@ export default {
           logout: false,
         },
       },
+      github: {
+        redirectUri: `${process.env.STRAPI_URL}/connect/github/callback`,
+        clientId: process.env.GITHUB_CLIENT_ID,
+        clientSecret: process.env.GITHUB_CLIENT_SECRET,
+      },
     },
   },
   toast: {
