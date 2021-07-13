@@ -1,11 +1,11 @@
 <template>
-  <BaseContainer :containerType="'color'">
+  <BaseContainer containerType="color">
     <h1>COMMUNITY</h1>
-    <BaseButton :buttonType="'primary'">Primary</BaseButton>
-    <BaseButton :buttonType="'secondary'">Secondary</BaseButton>
-    <BaseButton :buttonType="'warning'">Warning</BaseButton>
-    <BaseButton :buttonType="'danger'">Danger</BaseButton>
-    <BaseButton :buttonType="'pill'">Pill Button</BaseButton>
+    <BaseButton buttonType="primary">Primary</BaseButton>
+    <BaseButton buttonType="secondary">Secondary</BaseButton>
+    <BaseButton buttonType="warning">Warning</BaseButton>
+    <BaseButton buttonType="danger">Danger</BaseButton>
+    <BaseButton buttonType="pill">Pill Button</BaseButton>
   </BaseContainer>
 </template>
 

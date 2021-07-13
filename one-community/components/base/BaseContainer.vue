@@ -50,4 +50,11 @@ export default defineComponent({
 .container.narrow-grid {
   max-width: 630px;
 }
+
+@media screen and (max-width: 768px) {
+  .container,
+  .container.color {
+    padding: 3rem;
+  }
+}
 </style>

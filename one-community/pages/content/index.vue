@@ -15,10 +15,10 @@
           <h3>{{ article.title }}</h3>
           <p class="card__description">{{ article.description }}</p>
           <BaseButton
-            :buttonType="'pill'"
-            v-for="(cat, i) in article.categories"
-            :key="i"
-            >{{ cat.name }}</BaseButton
+            buttonType="pill"
+            v-for="(category, index) in article.categories"
+            :key="index"
+            >{{ category.name }}</BaseButton
           >
         </div>
       </BaseCard>
@@ -52,11 +52,8 @@ export default defineComponent({
 <style lang="scss" scoped>
 .content__container {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   flex-direction: row;
   flex-wrap: wrap;
-  .card {
-    flex-basis: 30%;
-  }
 }
 </style>

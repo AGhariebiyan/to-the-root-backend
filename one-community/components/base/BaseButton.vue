@@ -27,8 +27,8 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 button {
-  height: 50px;
-  padding: 14px;
+  height: 3.125rem;
+  padding: 0.875rem;
   font-family: 'RobotoBold', sans-serif;
   border: none;
   border-radius: 3px;
@@ -66,11 +66,11 @@ button.danger {
 }
 
 button.pill {
-  height: 27px;
-  padding: 7px;
-  border-radius: 20px;
+  height: 1.6875rem;
+  padding: 0.43rem;
+  border-radius: 1.25rem;
   font-family: 'Roboto', sans-serif;
-  font-size: 12px;
+  font-size: 0.875rem;
   background-color: $discovery-blue-4;
   &:hover {
     background-color: $discovery-blue-4-hover;
