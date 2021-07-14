@@ -18,11 +18,8 @@ export default defineComponent({
   background-color: $accelerate-blue-5;
 
   &__heading {
-    align-self: flex-start;
-    font-family: 'Roboto';
+    font-family: 'RobotoLight';
     margin-bottom: 1rem;
-    font-weight: 400;
-    font-size: 1.125rem;
   }
 
   &__input {

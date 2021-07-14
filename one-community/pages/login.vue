@@ -1,7 +1,7 @@
 <template>
   <BaseContainer>
     <BaseForm @submit="loginUser">
-      <h1 class="form__heading">Login</h1>
+      <h4 class="form__heading">Login</h4>
       <label class="form__label" for="identifier">Username or Email</label>
       <input
         class="form__input"
