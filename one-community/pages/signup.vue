@@ -39,7 +39,9 @@
       <p class="form__error-message" v-if="error">{{ error }}</p>
 
       <div class="form__buttons">
-        <button class="form__button" type="submit">Sign up</button>
+        <BaseButton buttonType="primary" class="form__button" type="submit"
+          >Sign up</BaseButton
+        >
         <NuxtLink class="form__button secondary-link" to="/login"
           >Log in instead</NuxtLink
         >
@@ -56,8 +58,10 @@ import {
   useContext,
 } from '@nuxtjs/composition-api'
 import { errorMessageFromResponse } from '@/utils/helpers'
+import BaseButton from '../components/base/BaseButton.vue'
 
 export default defineComponent({
+  components: { BaseButton },
   setup() {
     const email = ref('')
     const error = ref('')
