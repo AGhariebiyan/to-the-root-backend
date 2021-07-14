@@ -104,7 +104,7 @@ export default defineComponent({
         resetInput()
       } catch (e) {
         const errorMessage = errorMessageFromResponse(e)
-        error.value = errorMessage
+        error.value = errorMessage.replace('Identifier', 'Username or Email')
       }
     }
 
@@ -127,23 +127,4 @@ export default defineComponent({
 })
 </script>
 
-<style lang="scss" scoped>
-.btn {
-  padding: 0.5rem 1rem;
-  cursor: pointer;
-  &-secondary {
-    background-color: transparent;
-    border: none;
-    & > a {
-      &:link,
-      &:visited {
-        color: black;
-        text-decoration: none;
-      }
-    }
-  }
-  &:hover {
-    text-decoration: underline;
-  }
-}
-</style>
+<style lang="scss" scoped></style>
