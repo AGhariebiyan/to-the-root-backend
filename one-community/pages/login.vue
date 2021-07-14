@@ -1,5 +1,5 @@
 <template>
-  <BaseContainer>
+  <BaseContainer class="narrow-grid">
     <BaseForm @submit="loginUser">
       <h4 class="form__heading">Login</h4>
       <label class="form__label" for="identifier">Username or Email</label>

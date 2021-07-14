@@ -1,5 +1,5 @@
 <template>
-  <BaseContainer>
+  <BaseContainer class="narrow-grid">
     <BaseForm @submit="registerUser">
       <h4 class="form__heading">Sign up</h4>
 
