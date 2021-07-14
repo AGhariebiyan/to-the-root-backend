@@ -1,30 +1,52 @@
 <template>
   <BaseContainer>
-    <h1 class="heading">Sign up</h1>
-    <form class="form" @submit.prevent="registerUser">
-      <div class="form-input">
-        <label for="username">Username</label>
-        <input type="text" name="username" id="username" v-model="username" />
-      </div>
+    <BaseForm @submit="registerUser">
+      <h4 class="form__heading">Sign up</h4>
 
-      <div class="form-input">
-        <label for="email">Email</label>
-        <input type="text" name="email" id="email" v-model="email" />
-      </div>
+      <label class="form__label" for="username">Username</label>
+      <input
+        class="form__input"
+        type="text"
+        name="username"
+        id="username"
+        v-model="username"
+        @input="resetError"
+        required
+      />
 
-      <div class="form-input">
-        <label for="password">Password</label>
-        <input
-          type="password"
-          name="password"
-          id="password"
-          v-model="password"
-        />
-      </div>
+      <label class="form__label" for="email">Email</label>
+      <input
+        class="form__input"
+        type="text"
+        name="email"
+        id="email"
+        v-model="email"
+        @input="resetError"
+        required
+      />
 
-      <button class="btn btn-primary" type="submit">Sign up</button>
-      <NuxtLink class="login-box__link" to="/login">Log in instead</NuxtLink>
-    </form>
+      <label class="form__label" for="password">Password</label>
+      <input
+        class="form__input"
+        type="password"
+        name="password"
+        id="password"
+        v-model="password"
+        @input="resetError"
+        required
+      />
+
+      <p class="form__error-message" v-if="error">{{ error }}</p>
+
+      <div class="form__buttons">
+        <BaseButton buttonType="primary" class="form__button" type="submit"
+          >Sign up</BaseButton
+        >
+        <NuxtLink class="form__button secondary-link" to="/login"
+          >Log in instead</NuxtLink
+        >
+      </div>
+    </BaseForm>
   </BaseContainer>
 </template>
 
@@ -35,8 +57,11 @@ import {
   computed,
   useContext,
 } from '@nuxtjs/composition-api'
+import { errorMessageFromResponse } from '@/utils/helpers'
+import BaseButton from '../components/base/BaseButton.vue'
 
 export default defineComponent({
+  components: { BaseButton },
   setup() {
     const email = ref('')
     const error = ref('')
@@ -53,16 +78,19 @@ export default defineComponent({
       return !!email.value && !!username.value && validatePassword()
     })
 
-    const resetRegisterValues = () => {
+    const resetInput = () => {
       username.value = ''
       email.value = ''
       password.value = ''
     }
 
+    const resetError = () => {
+      error.value = ''
+    }
+
     async function registerUser() {
       try {
         if (!validateRegister.value) {
-          // TODO show errors / toast
           return
         }
         await $axios.post('/auth/local/register', {
@@ -71,26 +99,25 @@ export default defineComponent({
           password: password.value,
         })
 
-        const loginResult = await $auth.loginWith('local', {
+        await $auth.loginWith('local', {
           data: {
             identifier: username.value,
             password: password.value,
           },
         })
 
-        resetRegisterValues()
-
-        console.log(loginResult)
+        resetInput()
       } catch (e) {
-        error.value = e.response.data.message[0].messages[0].message
+        error.value = errorMessageFromResponse(e)
       }
-      // TODO show error message
     }
 
     return {
       email,
+      error,
       password,
       registerUser,
+      resetError,
       username,
     }
   },
