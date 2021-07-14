@@ -41,7 +41,7 @@ export default defineComponent({
     padding: 1.3rem;
     .card__description {
       font-size: 1.125rem;
-      height: calc(1.3125rem * 4);
+      height: calc($line-height * 4);
       line-height: $line-height;
       overflow: hidden;
       position: relative;
@@ -52,7 +52,7 @@ export default defineComponent({
         bottom: 0;
         right: 0;
         width: 100%;
-        height: 1.3125rem;
+        height: $line-height;
         background: linear-gradient(
           to bottom,
           rgba(255, 255, 255, 0),
