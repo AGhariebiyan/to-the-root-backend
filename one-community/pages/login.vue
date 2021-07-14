@@ -1,9 +1,10 @@
 <template>
   <BaseContainer>
-    <BaseForm class="form" @submit="loginUser">
-      <h1 class="heading">Login</h1>
-      <label for="identifier">Username or Email</label>
+    <BaseForm @submit="loginUser">
+      <h1 class="form__heading">Login</h1>
+      <label class="form__label" for="identifier">Username or Email</label>
       <input
+        class="form__input"
         type="text"
         name="identifier"
         id="identifier"
@@ -13,8 +14,9 @@
         v-model="identifier"
       />
 
-      <label for="password">Password</label>
+      <label class="form__label" for="password">Password</label>
       <input
+        class="form__input"
         type="password"
         name="password"
         id="password"
@@ -24,9 +26,9 @@
         required
       />
 
-      <p class="error-message" v-if="error">{{ error }}</p>
+      <p class="form__error-message" v-if="error">{{ error }}</p>
 
-      <div class="buttons">
+      <div class="form__buttons">
         <button
           class="btn btn-primary"
           type="submit"
