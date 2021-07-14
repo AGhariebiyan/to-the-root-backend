@@ -12,12 +12,14 @@
     "format": "npx prettier --write ."
   },
   "dependencies": {
+    "@nuxtjs/auth-next": "^5.0.0-1624817847.21691f1",
     "@nuxtjs/axios": "^5.13.4",
     "@nuxtjs/composition-api": "^0.24.4",
     "@nuxtjs/strapi": "^0.3.1",
     "chalk": "^4.1.1",
     "core-js": "^3.9.1",
-    "nuxt": "^2.15.3"
+    "nuxt": "^2.15.3",
+    "nuxt-material-design-icons": "^1.0.4"
   },
   "devDependencies": {
     "@nuxt/types": "^2.15.3",

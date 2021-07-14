@@ -24,8 +24,9 @@ export default {
   plugins: ['~/plugins/axios-accessor.ts'],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
-  components: true,
-
+  components: {
+    dirs: ['~/components', '~/components/global'],
+  },
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
     // https://go.nuxtjs.dev/typescript
@@ -34,7 +35,41 @@ export default {
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
-  modules: ['@nuxtjs/axios', '@nuxtjs/strapi', '@nuxtjs/style-resources'],
+  modules: [
+    '@nuxtjs/auth-next',
+    '@nuxtjs/axios',
+    '@nuxtjs/strapi',
+    '@nuxtjs/style-resources',
+    'nuxt-material-design-icons',
+  ],
+  auth: {
+    redirect: {
+      login: '/login',
+      logout: '/login',
+      home: '/',
+    },
+    strategies: {
+      local: {
+        user: {
+          property: false,
+        },
+        token: {
+          property: 'jwt',
+        },
+        endpoints: {
+          login: {
+            url: 'auth/local',
+            method: 'post',
+          },
+          user: {
+            url: 'users/me',
+            method: 'get',
+          },
+          logout: false,
+        },
+      },
+    },
+  },
   strapi: {
     entities: ['articles', 'authors', 'categories'],
     url: process.env.STRAPI_URL,

@@ -14,16 +14,16 @@
         >{{ link.name }}</NuxtLink
       >
     </nav>
-    <div class="login">
-      <NuxtLink class="login__link" to="/login">Login</NuxtLink>
-    </div>
+    <LoginBox />
   </header>
 </template>
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
+import LoginBox from '../global/LoginBox.vue'
 
 export default defineComponent({
+  components: { LoginBox },
   setup() {
     const links = [
       {
@@ -61,6 +61,7 @@ export default defineComponent({
   flex: 0 0 $header-item-width;
   margin-right: auto;
   padding-top: 0.5rem;
+
   &__image {
     height: 2rem;
   }
@@ -87,14 +88,14 @@ export default defineComponent({
       position: absolute;
       width: 100%;
       height: 0.1875rem;
-      background-color: $ordina-orange;
+      background-color: $discovery-blue-primary;
       top: $default-font-size * 1.375;
       left: 0;
     }
   }
 }
 
-.login {
+.login-box {
   flex: 0 0 $header-item-width;
   display: flex;
   justify-content: flex-end;

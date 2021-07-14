@@ -1,64 +1,47 @@
 <template>
   <BaseContainer>
-    <template v-if="isRegistering">
-      <h1 class="heading">Register</h1>
-      <form class="form" @submit.prevent="registerUser">
-        <div class="form-input">
-          <label for="username">Username</label>
-          <input type="text" name="username" id="username" v-model="username" />
-        </div>
+    <BaseForm @submit="loginUser">
+      <h4 class="form__heading">Login</h4>
+      <label class="form__label" for="identifier">Username or Email</label>
+      <input
+        class="form__input"
+        type="text"
+        name="identifier"
+        id="identifier"
+        @input="resetError"
+        required
+        :disabled="isLoggedIn"
+        v-model="identifier"
+      />
 
-        <div class="form-input">
-          <label for="email">Email</label>
-          <input type="text" name="email" id="email" v-model="email" />
-        </div>
+      <label class="form__label" for="password">Password</label>
+      <input
+        class="form__input"
+        type="password"
+        name="password"
+        id="password"
+        v-model="password"
+        :disabled="isLoggedIn"
+        @input="resetError"
+        required
+      />
 
-        <div class="form-input">
-          <label for="password">Password</label>
-          <input
-            type="password"
-            name="password"
-            id="password"
-            v-model="password"
-          />
-        </div>
+      <p class="form__error-message" v-if="error">{{ error }}</p>
 
-        <button class="btn btn-primary" type="submit">Register</button>
-        <button class="btn btn-secondary" @click="isRegistering = false">
-          Log in
-        </button>
-      </form>
-    </template>
-
-    <template v-if="!isRegistering">
-      <h1 class="heading">Login</h1>
-      <form class="form" @submit.prevent="loginUser">
-        <div class="form-input">
-          <label for="identifier">Username or Email</label>
-          <input
-            type="text"
-            name="identifier"
-            id="identifier"
-            v-model="identifier"
-          />
-        </div>
-
-        <div class="form-input">
-          <label for="password">Password</label>
-          <input
-            type="password"
-            name="password"
-            id="password"
-            v-model="password"
-          />
-        </div>
-
-        <button class="btn btn-primary" type="submit">Login</button>
-        <button class="btn btn-secondary" @click="isRegistering = true">
-          Sign up
-        </button>
-      </form>
-    </template>
+      <div class="form__buttons">
+        <BaseButton
+          class="form__button"
+          buttonType="primary"
+          type="submit"
+          :disabled="isLoggedIn || error.length > 0"
+        >
+          Login
+        </BaseButton>
+        <NuxtLink class="form__button secondary-link" to="/signup"
+          >Sign up instead</NuxtLink
+        >
+      </div>
+    </BaseForm>
   </BaseContainer>
 </template>
 
@@ -68,117 +51,75 @@ import {
   ref,
   defineComponent,
   computed,
-  useStore,
 } from '@nuxtjs/composition-api'
 import { errorMessageFromResponse } from '@/utils/helpers'
+import BaseForm from '../components/base/BaseForm.vue'
+import BaseButton from '../components/base/BaseButton.vue'
 
 export default defineComponent({
+  name: 'PageLogin',
+
+  components: { BaseForm, BaseButton },
+
   setup() {
-    const store = useStore()
-    const { $axios } = useContext()
-    const isRegistering = ref(true)
+    const { $auth } = useContext()
 
+    const isLoggedIn = computed(() => {
+      return $auth.$state.loggedIn
+    })
+
+    const error = ref('')
+    const isLoading = ref(false)
+
+    const identifier = ref('')
     const password = ref('')
-
-    // Login
-    const email = ref('')
-    const username = ref('')
 
     const validateLogin = computed(() => {
       return !!identifier.value && !!password.value
     })
 
-    const resetLoginValues = () => {
+    const resetInput = () => {
       identifier.value = ''
       password.value = ''
     }
-
-    function loginUser() {
+    const resetError = () => {
+      error.value = ''
+    }
+    async function loginUser() {
       if (!validateLogin.value) {
-        // TODO show errors / toast
         return
       }
-      $axios
-        .$post(`/auth/local`, {
-          identifier: identifier.value,
-          password: password.value,
+      error.value = ''
+      isLoading.value = true
+      try {
+        await $auth.loginWith('local', {
+          data: {
+            identifier: identifier.value,
+            password: password.value,
+          },
         })
-        .then((res) => {
-          // TODO store the token somewhere
-          // TODO show logged in message and redirect
-          resetLoginValues()
-          console.log(res)
-        })
-        .catch((err) => {
-          // TODO show error message
-          console.log(errorMessageFromResponse(err))
-        })
-    }
+        setTimeout(() => {
+          isLoading.value = false
+        }, 5000)
 
-    // Register
-    const identifier = ref('')
-
-    const validatePassword = function () {
-      return true
-    }
-
-    const validateRegister = computed(() => {
-      return !!email.value && !!username.value && validatePassword()
-    })
-
-    const resetRegisterValues = () => {
-      username.value = ''
-      email.value = ''
-      password.value = ''
-    }
-
-    async function registerUser() {
-      if (!validateRegister.value) {
-        // TODO show errors / toast
-        return
+        resetInput()
+      } catch (e) {
+        const errorMessage = errorMessageFromResponse(e)
+        error.value = errorMessage.replace('Identifier', 'Username or Email')
+        isLoading.value = false
       }
-      const result = await store.dispatch('auth/registerUser', {
-        username: username.value,
-        email: email.value,
-        password: password.value,
-      })
-      resetRegisterValues()
-
-      // TODO show error message
-      console.log(result)
     }
 
     return {
-      email,
+      error,
       identifier,
-      isRegistering,
+      isLoggedIn,
       loginUser,
       password,
-      registerUser,
-      username,
+      resetError,
     }
   },
 })
 </script>
 
-<style lang="scss" scoped>
-.heading {
-  align-self: flex-start;
-}
-.form {
-  width: 20rem;
-  padding: 1rem;
-  border: 0.125rem solid $gray-dark;
-  border-radius: 0.375rem;
-  margin: 1rem 0;
-}
-.form-input {
-  margin-bottom: 1rem;
-}
-input {
-  width: 100%;
-}
-.btn {
-  padding: 0.5rem 1rem;
-}
-</style>
+<style lang="scss" scoped></style>
