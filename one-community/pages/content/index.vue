@@ -42,7 +42,6 @@ export default defineComponent({
     onMounted(async () => {
       articles.value = await context.$strapi.find('articles')
     })
-    console.log(articles)
 
     return { articles, url }
   },
