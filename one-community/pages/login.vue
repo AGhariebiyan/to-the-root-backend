@@ -1,9 +1,10 @@
 <template>
   <BaseContainer>
-    <BaseForm class="form" @submit="loginUser">
-      <h1 class="heading">Login</h1>
-      <label for="identifier">Username or Email</label>
+    <BaseForm @submit="loginUser">
+      <h4 class="form__heading">Login</h4>
+      <label class="form__label" for="identifier">Username or Email</label>
       <input
+        class="form__input"
         type="text"
         name="identifier"
         id="identifier"
@@ -13,8 +14,9 @@
         v-model="identifier"
       />
 
-      <label for="password">Password</label>
+      <label class="form__label" for="password">Password</label>
       <input
+        class="form__input"
         type="password"
         name="password"
         id="password"
@@ -24,21 +26,20 @@
         required
       />
 
-      <p class="error-message" v-if="error">{{ error }}</p>
+      <p class="form__error-message" v-if="error">{{ error }}</p>
 
-      <div class="buttons">
-        <button
-          class="btn btn-primary"
+      <div class="form__buttons">
+        <BaseButton
+          class="form__button"
+          buttonType="primary"
           type="submit"
           :disabled="isLoggedIn || error.length > 0"
         >
           Login
-        </button>
-        <button class="btn btn-secondary">
-          <NuxtLink class="login-box__link" to="/signup"
-            >Sign up instead</NuxtLink
-          >
-        </button>
+        </BaseButton>
+        <NuxtLink class="form__button secondary-link" to="/signup"
+          >Sign up instead</NuxtLink
+        >
       </div>
     </BaseForm>
     <div class="github">
@@ -57,11 +58,12 @@ import {
 } from '@nuxtjs/composition-api'
 import { errorMessageFromResponse } from '@/utils/helpers'
 import BaseForm from '../components/base/BaseForm.vue'
+import BaseButton from '../components/base/BaseButton.vue'
 
 export default defineComponent({
   name: 'PageLogin',
 
-  components: { BaseForm },
+  components: { BaseForm, BaseButton },
 
   setup() {
     const { $axios, $auth } = useContext()

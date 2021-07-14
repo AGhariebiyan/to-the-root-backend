@@ -75,11 +75,6 @@ export default {
       },
     },
   },
-  toast: {
-    position: 'bottom-center',
-    closeOnSwipe: false,
-    duration: 4000,
-  },
   strapi: {
     entities: ['articles', 'authors', 'categories'],
     url: process.env.STRAPI_URL,

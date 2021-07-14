@@ -1,10 +1,11 @@
 <template>
   <BaseContainer>
-    <BaseForm class="form" @submit="registerUser">
-      <h1 class="heading">Sign up</h1>
+    <BaseForm @submit="registerUser">
+      <h4 class="form__heading">Sign up</h4>
 
-      <label for="username">Username</label>
+      <label class="form__label" for="username">Username</label>
       <input
+        class="form__input"
         type="text"
         name="username"
         id="username"
@@ -13,8 +14,9 @@
         required
       />
 
-      <label for="email">Email</label>
+      <label class="form__label" for="email">Email</label>
       <input
+        class="form__input"
         type="text"
         name="email"
         id="email"
@@ -23,8 +25,9 @@
         required
       />
 
-      <label for="password">Password</label>
+      <label class="form__label" for="password">Password</label>
       <input
+        class="form__input"
         type="password"
         name="password"
         id="password"
@@ -33,11 +36,15 @@
         required
       />
 
-      <p class="error-message" v-if="error">{{ error }}</p>
+      <p class="form__error-message" v-if="error">{{ error }}</p>
 
-      <div class="buttons">
-        <button class="btn btn-primary" type="submit">Sign up</button>
-        <NuxtLink class="login-box__link" to="/login">Log in instead</NuxtLink>
+      <div class="form__buttons">
+        <BaseButton buttonType="primary" class="form__button" type="submit"
+          >Sign up</BaseButton
+        >
+        <NuxtLink class="form__button secondary-link" to="/login"
+          >Log in instead</NuxtLink
+        >
       </div>
     </BaseForm>
   </BaseContainer>
@@ -51,8 +58,10 @@ import {
   useContext,
 } from '@nuxtjs/composition-api'
 import { errorMessageFromResponse } from '@/utils/helpers'
+import BaseButton from '../components/base/BaseButton.vue'
 
 export default defineComponent({
+  components: { BaseButton },
   setup() {
     const email = ref('')
     const error = ref('')

@@ -29,6 +29,31 @@ h6 {
   font-family: 'RobotoBold', sans-serif;
 }
 
+h1 {
+  font-size: 3rem;
+}
+
+h2 {
+  font-size: 2.25rem;
+}
+
+h3 {
+  font-size: 1.5rem;
+}
+
+.secondary-link {
+  text-decoration: none;
+  color: inherit;
+  &:link,
+  &:visited {
+  }
+
+  &:hover,
+  &:active {
+    text-decoration: underline;
+  }
+}
+
 *,
 *::before,
 *::after {
