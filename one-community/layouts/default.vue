@@ -41,6 +41,19 @@ h3 {
   font-size: 1.5rem;
 }
 
+.secondary-link {
+  text-decoration: none;
+  color: inherit;
+  &:link,
+  &:visited {
+  }
+
+  &:hover,
+  &:active {
+    text-decoration: underline;
+  }
+}
+
 *,
 *::before,
 *::after {
