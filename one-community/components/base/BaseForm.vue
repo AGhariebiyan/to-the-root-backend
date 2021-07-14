@@ -42,6 +42,12 @@ export default defineComponent({
     margin-top: 2rem;
   }
 
+  &__button {
+    &:not(:first-child) {
+      margin-left: 1rem;
+    }
+  }
+
   &__error-message {
     padding: 0.5rem;
     border: $danger-red solid 1px;

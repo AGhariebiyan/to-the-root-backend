@@ -29,18 +29,17 @@
       <p class="form__error-message" v-if="error">{{ error }}</p>
 
       <div class="form__buttons">
-        <button
-          class="btn btn-primary"
+        <BaseButton
+          class="form__button"
+          buttonType="primary"
           type="submit"
           :disabled="isLoggedIn || error.length > 0"
         >
           Login
-        </button>
-        <button class="btn btn-secondary">
-          <NuxtLink class="login-box__link" to="/signup"
-            >Sign up instead</NuxtLink
-          >
-        </button>
+        </BaseButton>
+        <NuxtLink class="form__button secondary-link" to="/signup"
+          >Sign up instead</NuxtLink
+        >
       </div>
     </BaseForm>
   </BaseContainer>
@@ -55,11 +54,12 @@ import {
 } from '@nuxtjs/composition-api'
 import { errorMessageFromResponse } from '@/utils/helpers'
 import BaseForm from '../components/base/BaseForm.vue'
+import BaseButton from '../components/base/BaseButton.vue'
 
 export default defineComponent({
   name: 'PageLogin',
 
-  components: { BaseForm },
+  components: { BaseForm, BaseButton },
 
   setup() {
     const { $auth } = useContext()

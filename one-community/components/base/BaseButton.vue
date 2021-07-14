@@ -35,18 +35,18 @@ button {
   cursor: pointer;
 }
 
-button.secondary {
-  background-color: $accelerate-blue-3;
-  &:hover {
-    background-color: $accelerate-blue-3-hover;
-  }
-}
-
 button.primary {
   color: $white;
   background-color: $discovery-blue-primary;
   &:hover {
     background-color: $discovery-blue-primary-hover;
+  }
+}
+
+button.secondary {
+  background-color: $accelerate-blue-3;
+  &:hover {
+    background-color: $accelerate-blue-3-hover;
   }
 }
 
