@@ -53,28 +53,30 @@ export default defineComponent({
   setup() {
     const coreValues = [
       {
-        name: 'fun',
-        heading: 'Have fun',
-        icon: 'something',
-        description: 'sample text sparkling unicorns lorem ipsum rainbows',
+        name: 'discover',
+        heading: 'Discover',
+        icon: 'compass',
+        description:
+          'Discover the possibilities of contributing to open source',
       },
       {
         name: 'learn',
         heading: 'Learn',
-        icon: 'something',
-        description: 'sample text sparkling unicorns lorem ipsum rainbows',
+        icon: 'learn',
+        description: 'Get better at programming by learning from your peers',
       },
       {
         name: 'contribute',
         heading: 'Contribute',
-        icon: 'something',
-        description: 'sample text sparkling unicorns lorem ipsum rainbows',
+        icon: 'git_merge',
+        description:
+          'Make and share your contribution to the open source world',
       },
       {
         name: 'network',
         heading: 'Network',
-        icon: 'something',
-        description: 'sample text sparkling unicorns lorem ipsum rainbows',
+        icon: 'network',
+        description: 'See what other opportunities lie ahead for your career',
       },
     ]
     return { coreValues }
@@ -97,6 +99,9 @@ export default defineComponent({
   }
 
   &__item {
+    &:not(:last-child) {
+      margin-right: 1rem;
+    }
   }
 }
 .mission {
