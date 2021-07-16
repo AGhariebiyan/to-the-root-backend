@@ -89,6 +89,11 @@ export default defineComponent({
 
   &__list {
     list-style: none;
+    display: flex;
+
+    @media screen and (max-width: 48em) {
+      flex-direction: column;
+    }
   }
 
   &__item {
