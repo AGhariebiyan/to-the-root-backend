@@ -27,7 +27,7 @@ export default {
   background-color: white;
   border-radius: 10px;
   box-shadow: 0px 0.25rem 0.25rem rgba(0, 0, 0, 0.25);
-  padding: 1rem;
+  padding: 2rem;
   display: flex;
   align-items: center;
   flex-direction: column;

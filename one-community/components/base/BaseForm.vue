@@ -40,8 +40,8 @@ export default defineComponent({
   }
 
   &__button {
-    &:not(:first-child) {
-      margin-left: 1rem;
+    &:not(:last-child) {
+      margin-right: 1rem;
     }
   }
 

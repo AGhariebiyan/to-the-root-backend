@@ -18,8 +18,8 @@
       </section>
     </BaseContainer>
     <BaseContainer class="mission narrow-grid">
-      <h2>Our mission</h2>
-      <p>
+      <h2 class="mission__heading">Our mission</h2>
+      <p class="mission__paragraph">
         Lorem ipsum, dolor sit amet consectetur adipisicing elit. Commodi
         incidunt voluptas atque sequi similique illo dolor exercitationem in
         repellendus inventore consequuntur error laudantium ratione consequatur,
@@ -28,14 +28,15 @@
         molestiae quidem dolores repellendus cupiditate non illo animi dolorem
         omnis quaerat rem facilis fuga praesentium, mollitia necessitatibus
         corporis. Deserunt perspiciatis animi magnam quibusdam aut porro at
-        quidem aliquid, minus totam dignissimos laudantium, officia, nobis sit
-        itaque dolores sequi molestiae earum magni! Quasi animi, dolorem
-        doloribus commodi, minus, sapiente minima ratione tempora veritatis quia
-        itaque nemo tenetur.
+        quidem aliquid, minus totam dignissimos laudantium.
       </p>
       <div class="mission__buttons">
-        <BaseButton buttonType="primary">Contact</BaseButton>
-        <BaseButton buttonType="primary">Join</BaseButton>
+        <NuxtLink to="/contact"
+          ><BaseButton buttonType="primary">Contact</BaseButton></NuxtLink
+        >
+        <NuxtLink to="/signup"
+          ><BaseButton buttonType="primary">Join</BaseButton></NuxtLink
+        >
       </div>
     </BaseContainer>
   </BasePageLayout>
@@ -87,6 +88,8 @@ export default defineComponent({
 <style lang="scss" scoped>
 .core-values {
   &__heading {
+    text-align: center;
+    margin-bottom: 4rem;
   }
 
   &__list {
@@ -100,12 +103,29 @@ export default defineComponent({
 
   &__item {
     &:not(:last-child) {
-      margin-right: 1rem;
+      margin-right: 3rem;
     }
   }
 }
 .mission {
   display: flex;
   flex-direction: column;
+  &__heading {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  &__paragraph {
+    margin-bottom: 4rem;
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: center;
+
+    & > a:not(:last-child) {
+      margin-right: 2rem;
+    }
+  }
 }
 </style>
