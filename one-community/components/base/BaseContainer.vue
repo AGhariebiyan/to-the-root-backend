@@ -1,5 +1,5 @@
 <template>
-  <div
+  <section
     v-if="containerType === 'color'"
     class="container"
     :class="containerType"
@@ -7,10 +7,11 @@
     <div class="color-container__inner">
       <slot> BASECONTAINER </slot>
     </div>
-  </div>
-  <div class="container" v-else>
+  </section>
+
+  <section class="container" v-else>
     <slot> BASECONTAINER </slot>
-  </div>
+  </section>
 </template>
 
 <script lang="ts">
