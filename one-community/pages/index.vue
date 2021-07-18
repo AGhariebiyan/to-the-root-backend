@@ -96,7 +96,7 @@ export default defineComponent({
     list-style: none;
     display: flex;
 
-    @media screen and (max-width: 48em) {
+    @include respond(tab-land) {
       flex-direction: column;
     }
   }
@@ -104,6 +104,10 @@ export default defineComponent({
   &__item {
     &:not(:last-child) {
       margin-right: 3rem;
+      @include respond(tab-land) {
+        margin-right: 0;
+        margin-bottom: 3rem;
+      }
     }
   }
 }
