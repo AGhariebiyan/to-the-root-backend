@@ -71,7 +71,7 @@ export default defineComponent({
       color: $gray-dark;
     }
   }
-  @media screen and (max-width: 26.5625em) {
+  @include respond(tab-land) {
     width: 18rem;
   }
 }
