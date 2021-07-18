@@ -1,15 +1,15 @@
 <template>
-  <section
-    v-if="containerType === 'color'"
-    class="container"
-    :class="containerType"
-  >
-    <div class="color-container__inner">
+  <section v-if="containerType === 'color'" class="container container--color">
+    <div class="container__inner">
       <slot> BASECONTAINER </slot>
     </div>
   </section>
 
-  <section class="container" v-else>
+  <section
+    class="container"
+    :class="containerType ? `container--${containerType}` : ''"
+    v-else
+  >
     <slot> BASECONTAINER </slot>
   </section>
 </template>
@@ -37,25 +37,25 @@ export default defineComponent({
   max-width: 1260px;
   margin: 0 auto;
   padding: 5rem;
-}
 
-.container.color {
-  max-width: none;
-  background-color: $discovery-blue-4;
-  padding: 5rem;
-  .color-container__inner {
-    max-width: 1260px;
-  }
-}
-
-.container.narrow-grid {
-  max-width: 630px;
-}
-
-@include respond(tab-land) {
-  .container,
-  .container.color {
+  @include respond(tab-land) {
     padding: 3rem;
+  }
+
+  &--color {
+    max-width: none;
+    width: 100%;
+    background-color: $discovery-blue-4;
+    padding: 0;
+  }
+
+  &__inner {
+    max-width: 1260px;
+    padding: 5rem;
+  }
+
+  &--narrow {
+    max-width: 630px;
   }
 }
 </style>

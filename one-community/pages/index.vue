@@ -17,7 +17,7 @@
         </ul>
       </section>
     </BaseContainer>
-    <BaseContainer class="mission narrow-grid">
+    <BaseContainer class="mission" containerType="narrow">
       <h2 class="mission__heading">Our mission</h2>
       <p class="mission__paragraph">
         Lorem ipsum, dolor sit amet consectetur adipisicing elit. Commodi
@@ -45,12 +45,11 @@
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
 import BaseButton from '~/components/base/BaseButton.vue'
-import BaseCard from '../components/base/BaseCard.vue'
-import BaseContainer from '../components/base/BaseContainer.vue'
-import BasePageLayout from '../components/base/BasePageLayout.vue'
+import BaseContainer from '~/components/base/BaseContainer.vue'
+import BasePageLayout from '~/components/base/BasePageLayout.vue'
 
 export default defineComponent({
-  components: { BaseButton, BaseContainer, BasePageLayout, BaseCard },
+  components: { BaseButton, BaseContainer, BasePageLayout },
   setup() {
     const coreValues = [
       {
@@ -104,6 +103,7 @@ export default defineComponent({
   &__item {
     &:not(:last-child) {
       margin-right: 3rem;
+
       @include respond(tab-land) {
         margin-right: 0;
         margin-bottom: 3rem;
