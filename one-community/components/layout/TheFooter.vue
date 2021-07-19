@@ -99,7 +99,7 @@ export default defineComponent({
   fill: $gray-darker;
 }
 
-@media screen and (max-width: 48em) {
+@include respond(tab-portrait) {
   .footer,
   .footer__nav {
     flex-direction: column;
