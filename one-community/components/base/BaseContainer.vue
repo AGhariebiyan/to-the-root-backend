@@ -33,7 +33,7 @@ export default defineComponent({
 .container {
   display: flex;
   justify-content: center;
-  max-width: 1260px;
+  max-width: $desktop-max-width;
   margin: 0 auto;
   padding: 5rem;
 }
@@ -43,7 +43,7 @@ export default defineComponent({
   background-color: $discovery-blue-4;
   padding: 5rem;
   .color-container__inner {
-    max-width: 1260px;
+    max-width: $desktop-max-width;
   }
 }
 
