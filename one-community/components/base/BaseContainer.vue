@@ -1,16 +1,17 @@
 <template>
-  <div
-    v-if="containerType === 'color'"
-    class="container"
-    :class="containerType"
-  >
-    <div class="color-container__inner">
+  <section v-if="containerType === 'color'" class="container container--color">
+    <div class="container__inner">
       <slot> BASECONTAINER </slot>
     </div>
-  </div>
-  <div class="container" v-else>
+  </section>
+
+  <section
+    class="container"
+    :class="containerType ? `container--${containerType}` : ''"
+    v-else
+  >
     <slot> BASECONTAINER </slot>
-  </div>
+  </section>
 </template>
 
 <script lang="ts">
@@ -21,7 +22,7 @@ export default defineComponent({
     containerType: {
       type: String,
       validator(value: string) {
-        return ['color', 'narrow-grid'].includes(value)
+        return ['color', 'narrow'].includes(value)
       },
     },
   },
@@ -36,25 +37,25 @@ export default defineComponent({
   max-width: $desktop-max-width;
   margin: 0 auto;
   padding: 5rem;
-}
 
-.container.color {
-  max-width: none;
-  background-color: $discovery-blue-4;
-  padding: 5rem;
-  .color-container__inner {
-    max-width: $desktop-max-width;
-  }
-}
-
-.container.narrow-grid {
-  max-width: 630px;
-}
-
-@media screen and (max-width: 48em) {
-  .container,
-  .container.color {
+  @include respond(tab-landscape) {
     padding: 3rem;
+  }
+
+  &--color {
+    max-width: none;
+    width: 100%;
+    background-color: $discovery-blue-4;
+    padding: 0;
+  }
+
+  &__inner {
+    max-width: $desktop-max-width;
+    padding: 5rem;
+  }
+
+  &--narrow {
+    max-width: 630px;
   }
 }
 </style>

@@ -1,29 +1,32 @@
 <template>
-  <BaseContainer>
-    <div class="content__container" v-if="articles">
-      <BaseCard
-        :cardType="'article'"
-        v-for="article in articles"
-        :key="article._id"
-      >
-        <img
-          :src="`${url}${article.cover_image.url}`"
-          alt="Peter is the best"
-        />
-        <div class="card__content">
-          <p class="card__date">{{ article.original_date }}</p>
-          <h3>{{ article.title }}</h3>
-          <p class="card__description">{{ article.description }}</p>
-          <BaseButton
-            buttonType="pill"
-            v-for="(category, index) in article.categories"
-            :key="index"
-            >{{ category.name }}</BaseButton
-          >
-        </div>
-      </BaseCard>
-    </div>
-  </BaseContainer>
+  <BasePageLayout>
+    <BaseContainer>
+      <div class="content__container" v-if="articles">
+        <BaseCard
+          :cardType="'article'"
+          v-for="article in articles"
+          :key="article._id"
+        >
+          <img
+            :src="`${url}${article.cover_image.url}`"
+            alt="Peter is the best"
+          />
+          <div class="card__content">
+            <p class="card__date">{{ article.original_date }}</p>
+            <h3>{{ article.title }}</h3>
+            <p class="card__description">{{ article.description }}</p>
+            <BaseButton
+              buttonType="pill"
+              v-for="(category, index) in article.categories"
+              :key="index"
+            >
+              {{ category.name }}
+            </BaseButton>
+          </div>
+        </BaseCard>
+      </div>
+    </BaseContainer>
+  </BasePageLayout>
 </template>
 
 <script lang="ts">

@@ -1,7 +1,9 @@
 <template>
-  <BaseContainer>
-    <h1>EVENTS</h1>
-  </BaseContainer>
+  <BasePageLayout>
+    <BaseContainer>
+      <h1>EVENTS</h1>
+    </BaseContainer>
+  </BasePageLayout>
 </template>
 
 <script lang="ts">

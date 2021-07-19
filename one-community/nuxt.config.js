@@ -82,6 +82,6 @@ export default {
     interval: 200,
   },
   styleResources: {
-    scss: ['~/assets/scss/variables.scss'],
+    scss: ['~/assets/scss/variables.scss', '~/assets/scss/mixins.scss'],
   },
 }

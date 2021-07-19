@@ -1,9 +1,7 @@
 <template>
   <div>
     <LayoutTheHeader />
-    <main>
-      <Nuxt />
-    </main>
+    <Nuxt />
     <LayoutTheFooter />
   </div>
 </template>
@@ -59,5 +57,6 @@ h3 {
 *::after {
   box-sizing: border-box;
   margin: 0;
+  padding: 0;
 }
 </style>
