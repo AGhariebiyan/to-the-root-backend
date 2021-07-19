@@ -22,7 +22,7 @@ export default defineComponent({
     containerType: {
       type: String,
       validator(value: string) {
-        return ['color', 'narrow-grid'].includes(value)
+        return ['color', 'narrow'].includes(value)
       },
     },
   },
