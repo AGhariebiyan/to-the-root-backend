@@ -24,9 +24,7 @@ export default {
 
 <style lang="scss" scoped>
 .core-value {
-  background-color: white;
   border-radius: 0.625rem;
-  box-shadow: 0px 0.25rem 0.25rem rgba(0, 0, 0, 0.25);
   padding: 2rem;
   display: flex;
   align-items: center;
@@ -38,7 +36,7 @@ export default {
 
   &__heading {
     font-family: 'Roboto';
-    margin-top: 0.5rem;
+    margin-top: 1rem;
     padding-bottom: 0.625rem;
     border-bottom: solid $discovery-blue-primary 0.1875rem;
     margin-bottom: 1.25rem;
