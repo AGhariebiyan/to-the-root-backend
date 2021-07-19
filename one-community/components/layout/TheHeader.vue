@@ -1,20 +1,22 @@
 <template>
   <header class="header">
-    <div class="logo">
-      <NuxtLink class="logo__link" to="/">
-        <img class="logo__image" src="@/assets/Logo.svg" alt="Logo" />
-      </NuxtLink>
+    <div class="header__content">
+      <div class="logo">
+        <NuxtLink class="logo__link" to="/">
+          <img class="logo__image" src="@/assets/Logo.svg" alt="Logo" />
+        </NuxtLink>
+      </div>
+      <nav class="nav-links">
+        <NuxtLink
+          class="nav-links__item"
+          v-for="link in links"
+          :key="link.name"
+          :to="link.to"
+          >{{ link.name }}</NuxtLink
+        >
+      </nav>
+      <LoginBox />
     </div>
-    <nav class="nav-links">
-      <NuxtLink
-        class="nav-links__item"
-        v-for="link in links"
-        :key="link.name"
-        :to="link.to"
-        >{{ link.name }}</NuxtLink
-      >
-    </nav>
-    <LoginBox />
   </header>
 </template>
 
@@ -50,11 +52,16 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .header {
+  background-color: $gray-light;
+  padding: 1rem;
+}
+
+.header__content {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 1rem;
-  background-color: $gray-light;
+  max-width: $nav-max-width;
+  margin: 0 auto;
 }
 
 .logo {
