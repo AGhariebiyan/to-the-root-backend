@@ -19,8 +19,9 @@
               buttonType="pill"
               v-for="(category, index) in article.categories"
               :key="index"
-              >{{ category.name }}</BaseButton
             >
+              {{ category.name }}
+            </BaseButton>
           </div>
         </BaseCard>
       </div>

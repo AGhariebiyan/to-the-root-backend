@@ -38,9 +38,9 @@
           >
             Login
           </BaseButton>
-          <NuxtLink class="form__button secondary-link" to="/signup"
-            >Sign up instead</NuxtLink
-          >
+          <NuxtLink class="form__button secondary-link" to="/signup">
+            Sign up instead
+          </NuxtLink>
         </div>
       </BaseForm>
     </BaseContainer>
