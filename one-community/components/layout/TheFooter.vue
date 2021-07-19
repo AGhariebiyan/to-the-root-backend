@@ -9,7 +9,7 @@
       }}</NuxtLink>
     </nav>
     <div class="footer__social-icons">
-      <a class="footer__social-icons-1" href="https://www.facebook.com/ordina/"
+      <a class="footer__social-link" href="https://www.facebook.com/ordina/"
         ><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20">
           <path
             d="M15 4.129h-2.856c-.338 0-.715.444-.715 1.039V7.23H15v2.94h-3.571V19H8.057v-8.829H5V7.23h3.057V5.5c0-2.481 1.722-4.5 4.086-4.5H15v3.129z"
@@ -17,7 +17,7 @@
           /></svg
       ></a>
       <a
-        class="footer__social-icons-2"
+        class="footer__social-link"
         href="https://www.linkedin.com/company/ordina/"
         ><svg width="18" height="17" xmlns="http://www.w3.org/2000/svg">
           <path
@@ -60,7 +60,7 @@ export default defineComponent({
   justify-content: center;
   align-items: center;
   padding: 1rem;
-  max-width: 95%;
+  max-width: $nav-max-width;
   margin: 0 auto;
 }
 
@@ -84,11 +84,18 @@ export default defineComponent({
   align-self: flex-start;
 }
 
-.footer__social-icons-1 {
+.footer__social-icons {
+  flex-grow: 1;
+  max-width: 9rem;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.footer__social-link:not(:last-child) {
   margin-right: 0.5rem;
 }
 
-.footer__social-icons a:hover svg path {
+.footer__social-link a:hover svg path {
   fill: $gray-darker;
 }
 
