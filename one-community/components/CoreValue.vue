@@ -24,7 +24,6 @@ export default {
 
 <style lang="scss" scoped>
 .core-value {
-  border-radius: 0.625rem;
   padding: 2rem;
   display: flex;
   align-items: center;
