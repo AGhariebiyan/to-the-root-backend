@@ -95,7 +95,7 @@ export default defineComponent({
     list-style: none;
     display: flex;
 
-    @include respond(tab-land) {
+    @include respond(tab-landscape) {
       flex-direction: column;
     }
   }
@@ -104,7 +104,7 @@ export default defineComponent({
     &:not(:last-child) {
       margin-right: 3rem;
 
-      @include respond(tab-land) {
+      @include respond(tab-landscape) {
         margin-right: 0;
         margin-bottom: 3rem;
       }

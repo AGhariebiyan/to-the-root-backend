@@ -71,7 +71,8 @@ export default defineComponent({
       color: $gray-dark;
     }
   }
-  @include respond(tab-land) {
+
+  @include respond(tab-landscape) {
     width: 18rem;
   }
 }

@@ -38,7 +38,7 @@ export default defineComponent({
   margin: 0 auto;
   padding: 5rem;
 
-  @include respond(tab-land) {
+  @include respond(tab-landscape) {
     padding: 3rem;
   }
 
