@@ -8,22 +8,23 @@
       >
         <span class="material-icons">person_outline</span>
       </NuxtLink>
-      <button
+      <BaseButton
+        buttonType="primary"
         :title="$auth.user.username"
         class="login-box__logout"
         @click="logout"
       >
         Log out
-      </button>
+      </BaseButton>
     </template>
 
     <template v-else>
-      <button>
+      <BaseButton class="header__button" buttonType="primary">
         <NuxtLink class="login-box__link" to="/login">Login</NuxtLink>
-      </button>
-      <button>
+      </BaseButton>
+      <BaseButton class="header__button" buttonType="secondary">
         <NuxtLink class="login-box__link" to="/signup">Sign up</NuxtLink>
-      </button>
+      </BaseButton>
     </template>
   </div>
 </template>
@@ -78,5 +79,9 @@ export default {
 .material-icons {
   display: inline-block;
   margin-top: 0.375rem;
+}
+
+.header__button:not(:first-child) {
+  margin-left: 1rem;
 }
 </style>

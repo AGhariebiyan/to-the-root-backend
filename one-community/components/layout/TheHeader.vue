@@ -65,7 +65,7 @@ export default defineComponent({
 }
 
 .logo {
-  flex: 0 0 $header-item-width;
+  width: $header-item-width;
   margin-right: auto;
   padding-top: 0.5rem;
 
@@ -103,7 +103,7 @@ export default defineComponent({
 }
 
 .login-box {
-  flex: 0 0 $header-item-width;
+  width: $header-item-width;
   display: flex;
   justify-content: flex-end;
 }
