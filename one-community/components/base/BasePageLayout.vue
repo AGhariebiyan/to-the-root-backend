@@ -1,6 +1,6 @@
 <template>
   <main class="main">
-    <slot />
+    <slot>BASE_PAGE_LAYOUT</slot>
   </main>
 </template>
 
