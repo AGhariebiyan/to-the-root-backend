@@ -25,7 +25,7 @@ export default {
 <style lang="scss" scoped>
 .core-value {
   background-color: white;
-  border-radius: 10px;
+  border-radius: 0.625rem;
   box-shadow: 0px 0.25rem 0.25rem rgba(0, 0, 0, 0.25);
   padding: 2rem;
   display: flex;
