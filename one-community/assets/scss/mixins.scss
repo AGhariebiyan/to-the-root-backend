@@ -1,0 +1,32 @@
+@mixin respond($breakpoint) {
+  @if $breakpoint == tab-landscape {
+    @media only screen and (max-width: 64em) {
+      // 1024px
+      @content;
+    }
+  }
+  @if $breakpoint == tab-portrait {
+    @media only screen and (max-width: 48em) {
+      // 768px
+      @content;
+    }
+  }
+  @if $breakpoint == phone {
+    @media only screen and (max-width: 26.5625em) {
+      // 425px
+      @content;
+    }
+  }
+  @if $breakpoint == tiny {
+    @media only screen and (max-width: 22.5em) {
+      // 360px
+      @content;
+    }
+  }
+  @if $breakpoint == header {
+    @media only screen and (max-width: 48.5625em) {
+      // 777px, where the header starts to look squished too far
+      @content;
+    }
+  }
+}
