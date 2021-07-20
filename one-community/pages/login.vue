@@ -42,10 +42,7 @@
         >
       </div>
     </BaseForm>
-    <div class="github">
-      <button @click="loginWithGithub">Login with Github</button>
-    </div>
-    <a href="http://dd29726e86d3.ngrok.io/connect/github">Github with link</a>
+    <a :href="loginWithGithubUrl">Test</a>
   </BaseContainer>
 </template>
 
@@ -67,6 +64,7 @@ export default defineComponent({
 
   setup() {
     const { $axios, $auth } = useContext()
+    const loginWithGithubUrl = `${process.env.STRAPI_URL}/connect/github`
 
     const isLoggedIn = computed(() => {
       return $auth.$state.loggedIn
@@ -108,18 +106,12 @@ export default defineComponent({
       }
     }
 
-    async function loginWithGithub() {
-      console.log('before loginwith')
-      const response = await $auth.loginWith('github')
-      console.log('after loginwith')
-    }
-
     return {
       error,
       identifier,
       isLoggedIn,
       loginUser,
-      loginWithGithub,
+      loginWithGithubUrl,
       password,
       resetError,
     }
