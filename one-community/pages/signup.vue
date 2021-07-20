@@ -1,53 +1,55 @@
 <template>
-  <BaseContainer class="narrow-grid">
-    <BaseForm @submit="registerUser">
-      <h4 class="form__heading">Sign up</h4>
+  <BasePageLayout>
+    <BaseContainer containerType="narrow">
+      <BaseForm @submit="registerUser">
+        <h4 class="form__heading">Sign up</h4>
 
-      <label class="form__label" for="username">Username</label>
-      <input
-        class="form__input"
-        type="text"
-        name="username"
-        id="username"
-        v-model="username"
-        @input="resetError"
-        required
-      />
+        <label class="form__label" for="username">Username</label>
+        <input
+          class="form__input"
+          type="text"
+          name="username"
+          id="username"
+          v-model="username"
+          @input="resetError"
+          required
+        />
 
-      <label class="form__label" for="email">Email</label>
-      <input
-        class="form__input"
-        type="text"
-        name="email"
-        id="email"
-        v-model="email"
-        @input="resetError"
-        required
-      />
+        <label class="form__label" for="email">Email</label>
+        <input
+          class="form__input"
+          type="text"
+          name="email"
+          id="email"
+          v-model="email"
+          @input="resetError"
+          required
+        />
 
-      <label class="form__label" for="password">Password</label>
-      <input
-        class="form__input"
-        type="password"
-        name="password"
-        id="password"
-        v-model="password"
-        @input="resetError"
-        required
-      />
+        <label class="form__label" for="password">Password</label>
+        <input
+          class="form__input"
+          type="password"
+          name="password"
+          id="password"
+          v-model="password"
+          @input="resetError"
+          required
+        />
 
-      <p class="form__error-message" v-if="error">{{ error }}</p>
+        <p class="form__error-message" v-if="error">{{ error }}</p>
 
-      <div class="form__buttons">
-        <BaseButton buttonType="primary" class="form__button" type="submit"
-          >Sign up</BaseButton
-        >
-        <NuxtLink class="form__button secondary-link" to="/login"
-          >Log in instead</NuxtLink
-        >
-      </div>
-    </BaseForm>
-  </BaseContainer>
+        <div class="form__buttons">
+          <BaseButton buttonType="primary" class="form__button" type="submit"
+            >Sign up</BaseButton
+          >
+          <NuxtLink class="form__button secondary-link" to="/login"
+            >Log in instead</NuxtLink
+          >
+        </div>
+      </BaseForm>
+    </BaseContainer>
+  </BasePageLayout>
 </template>
 
 <script lang="ts">

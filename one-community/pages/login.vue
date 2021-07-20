@@ -1,49 +1,51 @@
 <template>
-  <BaseContainer class="narrow-grid">
-    <BaseForm @submit="loginUser">
-      <h4 class="form__heading">Login</h4>
-      <label class="form__label" for="identifier">Username or Email</label>
-      <input
-        class="form__input"
-        type="text"
-        name="identifier"
-        id="identifier"
-        @input="resetError"
-        required
-        :disabled="isLoggedIn"
-        v-model="identifier"
-      />
+  <BasePageLayout>
+    <BaseContainer containerType="narrow">
+      <BaseForm @submit="loginUser">
+        <h4 class="form__heading">Login</h4>
+        <label class="form__label" for="identifier">Username or Email</label>
+        <input
+          class="form__input"
+          type="text"
+          name="identifier"
+          id="identifier"
+          @input="resetError"
+          required
+          :disabled="isLoggedIn"
+          v-model="identifier"
+        />
 
-      <label class="form__label" for="password">Password</label>
-      <input
-        class="form__input"
-        type="password"
-        name="password"
-        id="password"
-        v-model="password"
-        :disabled="isLoggedIn"
-        @input="resetError"
-        required
-      />
+        <label class="form__label" for="password">Password</label>
+        <input
+          class="form__input"
+          type="password"
+          name="password"
+          id="password"
+          v-model="password"
+          :disabled="isLoggedIn"
+          @input="resetError"
+          required
+        />
 
-      <p class="form__error-message" v-if="error">{{ error }}</p>
+        <p class="form__error-message" v-if="error">{{ error }}</p>
 
-      <div class="form__buttons">
-        <BaseButton
-          class="form__button"
-          buttonType="primary"
-          type="submit"
-          :disabled="isLoggedIn || error.length > 0"
-        >
-          Login
-        </BaseButton>
-        <NuxtLink class="form__button secondary-link" to="/signup"
-          >Sign up instead</NuxtLink
-        >
-      </div>
-    </BaseForm>
-    <a :href="loginWithGithubUrl">Test</a>
-  </BaseContainer>
+        <div class="form__buttons">
+          <BaseButton
+            class="form__button"
+            buttonType="primary"
+            type="submit"
+            :disabled="isLoggedIn || error.length > 0"
+          >
+            Login
+          </BaseButton>
+          <NuxtLink class="form__button secondary-link" to="/signup"
+            >Sign up instead</NuxtLink
+          >
+        </div>
+      </BaseForm>
+      <a :href="loginWithGithubUrl">Test</a>
+    </BaseContainer>
+  </BasePageLayout>
 </template>
 
 <script lang="ts">

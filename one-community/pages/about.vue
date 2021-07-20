@@ -1,10 +1,9 @@
 <template>
-  <BaseContainer>
-    <h1>ABOUT</h1>
-    <div class="github">
-      <button @click="loginWithGithub">Login with Github</button>
-    </div>
-  </BaseContainer>
+  <BasePageLayout>
+    <BaseContainer>
+      <h1>ABOUT</h1>
+    </BaseContainer>
+  </BasePageLayout>
 </template>
 
 <script lang="ts">

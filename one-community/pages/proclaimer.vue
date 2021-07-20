@@ -1,9 +1,7 @@
 <template>
-  <BasePageLayout>
-    <BaseContainer>
-      <h1>EVENTS</h1>
-    </BaseContainer>
-  </BasePageLayout>
+  <BaseContainer>
+    <h1>PROCLAIMER</h1>
+  </BaseContainer>
 </template>
 
 <script lang="ts">
