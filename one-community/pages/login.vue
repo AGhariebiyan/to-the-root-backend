@@ -63,8 +63,9 @@ export default defineComponent({
   components: { BaseForm, BaseButton },
 
   setup() {
-    const { $axios, $auth } = useContext()
-    const loginWithGithubUrl = `${process.env.STRAPI_URL}/connect/github`
+    const { $axios, $auth, $config } = useContext()
+
+    const loginWithGithubUrl = `${$config.strapiUrl}/connect/github`
 
     const isLoggedIn = computed(() => {
       return $auth.$state.loggedIn
