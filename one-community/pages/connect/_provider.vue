@@ -1,38 +1,27 @@
 <template>
   <div>
-    <h1>user page</h1>
+    <h1>Redirecting...</h1>
   </div>
 </template>
 
 <script>
-import { onMounted, useContext, useRoute } from '@nuxtjs/composition-api'
 export default {
-  setup() {
-    const route = useRoute()
-    const { $auth, $axios, redirect } = useContext()
-    const provider = route.value.params.provider
-    const accessToken = route.value.query.access_token
+  data() {
+    return {
+      provider: this.$route.params.provider,
+      access_token: this.$route.query.access_token,
+    }
+  },
+  async mounted() {
+    const res = await this.$axios.$get(
+      `/auth/${this.provider}/callback?access_token=${this.access_token}`,
+    )
+    const { jwt, user } = res
 
-    onMounted(async () => {
-      const res = await $axios.$get(
-        `/auth/${provider}/callback?access_token=${accessToken}`,
-      )
-      console.log('response', res)
-      const { jwt, user } = res
-      // store jwt and user object in localStorage
-      $auth.$state.loggedIn = true
-      $auth.$storage.setUniversal('jwt', jwt)
-      $auth.$storage.setUniversal('user', {
-        username: user.username,
-        id: user.id,
-        email: user.email,
-      })
+    await this.$auth.setUserToken(jwt)
+    this.$auth.setUser(user)
 
-      //   await $auth.loginWith('github')
-
-      console.log('cookie user', $auth.$storage.getUniversal('user'))
-      redirect(`/profile`)
-    })
+    this.$router.push(`/`)
   },
 }
 </script>
