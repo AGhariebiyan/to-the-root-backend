@@ -1,6 +1,14 @@
 <template>
   <BasePageLayout>
     <BaseContainer containerType="narrow">
+      <ul class="auth-providers">
+        <li class="auth-providers__item">
+          <a class="auth-providers__link" :href="loginWithGithubUrl"
+            >Login with GitHub</a
+          >
+        </li>
+      </ul>
+      <div class="divider">Or login with email</div>
       <BaseForm @submit="loginUser">
         <h4 class="form__heading">Login</h4>
         <label class="form__label" for="identifier">Username or Email</label>
@@ -43,7 +51,6 @@
           >
         </div>
       </BaseForm>
-      <a :href="loginWithGithubUrl">Test</a>
     </BaseContainer>
   </BasePageLayout>
 </template>
@@ -122,4 +129,23 @@ export default defineComponent({
 })
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.auth-providers {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  margin-top: 2rem;
+
+  &__item {
+  }
+
+  &__link {
+    &:link,
+    &:visited {
+    }
+    &:hover {
+      text-decoration: none;
+    }
+  }
+}
+</style>
