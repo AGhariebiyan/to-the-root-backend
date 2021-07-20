@@ -52,6 +52,9 @@ export default defineComponent({
   &__inner {
     max-width: $desktop-max-width;
     padding: 5rem;
+    @include respond(tiny) {
+      padding: 3rem;
+    }
   }
 
   &--narrow {

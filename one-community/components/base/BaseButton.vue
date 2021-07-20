@@ -81,4 +81,10 @@ button.pill {
     background-color: $discovery-blue-4-hover;
   }
 }
+
+@include respond(tab-portrait) {
+  button {
+    width: 100%;
+  }
+}
 </style>

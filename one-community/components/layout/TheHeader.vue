@@ -6,7 +6,13 @@
           <img class="logo__image" src="@/assets/Logo.svg" alt="Logo" />
         </NuxtLink>
       </div>
-      <nav class="nav-links">
+      <span
+        class="material-icons header__menu-button"
+        @click="openMobileNavMenu"
+        @touch="openMobileNavMenu"
+        >menu</span
+      >
+      <nav class="nav-links--desktop">
         <NuxtLink
           class="nav-links__item"
           v-for="link in links"
@@ -16,12 +22,24 @@
         >
       </nav>
       <LoginBox />
+      <div class="header__menu--mobile" v-if="headerMobileMenuActive">
+        <nav class="nav-links--mobile">
+          <NuxtLink
+            class="nav-links__item"
+            v-for="link in links"
+            :key="link.name"
+            :to="link.to"
+            >{{ link.name }}</NuxtLink
+          >
+        </nav>
+        <LoginBox />
+      </div>
     </div>
   </header>
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@nuxtjs/composition-api'
+import { defineComponent, ref } from '@nuxtjs/composition-api'
 import LoginBox from '../global/LoginBox.vue'
 
 export default defineComponent({
@@ -45,7 +63,12 @@ export default defineComponent({
         to: '/contact',
       },
     ]
-    return { links }
+    const headerMobileMenuActive = ref(false)
+
+    function openMobileNavMenu() {
+      headerMobileMenuActive.value = !headerMobileMenuActive.value
+    }
+    return { links, headerMobileMenuActive, openMobileNavMenu }
   },
 })
 </script>
@@ -54,6 +77,8 @@ export default defineComponent({
 .header {
   background-color: $gray-light;
   padding: 1rem;
+  position: sticky;
+  top: 0;
 }
 
 .header__content {
@@ -62,6 +87,7 @@ export default defineComponent({
   align-items: center;
   max-width: $nav-max-width;
   margin: 0 auto;
+  position: relative;
 }
 
 .logo {
@@ -74,32 +100,55 @@ export default defineComponent({
   }
 }
 
-.nav-links {
+.nav-links--desktop {
   flex-grow: 1;
   display: flex;
   justify-content: center;
+}
 
-  &__item {
-    text-decoration: none;
-    position: relative;
-    &:not(:last-child) {
-      margin-right: 2.5rem;
-    }
-    &:link,
-    &:visited {
-      color: $gray-darkest;
-    }
-
-    &.nuxt-link-exact-active::after {
-      content: '';
-      position: absolute;
-      width: 100%;
-      height: 0.1875rem;
-      background-color: $discovery-blue-primary;
-      top: $default-font-size * 1.375;
-      left: 0;
-    }
+.nav-links__item {
+  text-decoration: none;
+  position: relative;
+  &:not(:last-child) {
+    margin-right: 2.5rem;
   }
+  &:link,
+  &:visited {
+    color: $gray-darkest;
+  }
+
+  &.nuxt-link-exact-active::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 0.1875rem;
+    background-color: $discovery-blue-primary;
+    top: $default-font-size * 1.375;
+    left: 0;
+  }
+}
+
+.header__menu--mobile {
+  width: 100vw;
+  position: absolute;
+  background-color: $gray-light;
+  top: 3rem;
+  padding: 1rem;
+}
+
+.nav-links--mobile {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  .nav-links__item {
+    margin: 0.5rem 0 0.5rem 0;
+  }
+}
+
+.nav-links--mobile + .login-box {
+  width: 100%;
+  flex-direction: column;
 }
 
 .login-box {
@@ -108,15 +157,21 @@ export default defineComponent({
   justify-content: flex-end;
 }
 
+.header__menu-button {
+  display: none;
+}
+
 @include respond(header) {
-  .header__content {
-    flex-direction: column;
+  .nav-links--desktop {
+    display: none;
   }
-  .nav-links {
-    flex-direction: column;
+  .nav-links--desktop + .login-box {
+    display: none;
   }
-  .login-box {
-    flex-direction: column;
+  .header__menu-button {
+    width: $header-item-width;
+    display: flex;
+    justify-content: flex-end;
   }
 }
 </style>

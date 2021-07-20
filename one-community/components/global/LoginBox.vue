@@ -84,4 +84,13 @@ export default {
 .header__button:not(:first-child) {
   margin-left: 1rem;
 }
+
+@include respond(header) {
+  .header__button:not(:first-child) {
+    margin-left: 0;
+  }
+  .header__button {
+    margin-top: 1rem;
+  }
+}
 </style>
