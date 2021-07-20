@@ -25,20 +25,33 @@ For detailed explanation on how things work, check out [Nuxt.js docs](https://nu
 
 Open an ngrok pipeline on the backend:
 
-- Download ngrok.exe
-- Go to the exe's location in a terminal
-- Type ./ngrok http 1337
-- Copy the ngrok location (http://54847af08315.ngrok.io or something)
+- [Download ngrok.exe](https://ngrok.com/download)
+- Go to the ngrok location in a terminal
+- Type `./ngrok http 1337`
+- Copy the `<ngrok-url>` (it should look like `http://54847af08315.ngrok.io`)
 
-### Change server.js
+### Add a GitHub OAuth application
 
-In server.js add a line to the object:
-`url: "<ngrok-url>",`
+[Add a GitHub application](https://github.com/settings/applications/new)
+As application homepage, use the `<ngrok-url>`.
 
-This should reset the running server to that location (localhost:1337 still works and is much faster)
+As callback url, add `<nrgok-url>/connect/github/callback`
 
-### Change .env
+Copy the Client ID and Client secret of the application and save for later.
 
-.env
+### Change both .env's
 
-- change STRAPI_URL to <ngrok-url>
+Change STRAPI_URL in the frontend .env to `<ngrok-url>`
+Change URL in the backend .env to `<ngrok-url>`
+
+Reset both applications.
+
+### Setup Strapi provider
+
+In Strapi, go to Settings > Providers > Github
+
+- Enable the GitHub provider
+- Add the Client ID and Client secret from the Github app
+- As a redirect URL to your front-end app, add: `http://localhost:3000/connect/github`
+
+This will redirect the user to `\_provider.vue`, where the logging in is handled.
