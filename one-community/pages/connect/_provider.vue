@@ -17,7 +17,6 @@ export default {
     return {
       provider: this.$route.params.provider,
       access_token: this.$route.query.access_token,
-      isLoading: true,
     }
   },
   async mounted() {
