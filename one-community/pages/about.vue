@@ -7,20 +7,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, useContext } from '@nuxtjs/composition-api'
+import { defineComponent } from '@nuxtjs/composition-api'
 
 export default defineComponent({
-  setup() {
-    const { $axios } = useContext()
-
-    async function loginWithGithub() {
-      console.log('test')
-      const response = await $axios.get('/connect/github')
-      console.log(response)
-    }
-
-    return { loginWithGithub }
-  },
+  setup() {},
 })
 </script>
 
