@@ -22,8 +22,8 @@
         </a>
       </li>
     </ul>
-    <div v-if="hasDivider" class="divider">
-      <span class="divider__text">Or login with email</span>
+    <div v-if="dividerText" class="divider">
+      <span class="divider__text">{{ dividerText }}</span>
     </div>
   </div>
 </template>
@@ -31,7 +31,7 @@
 <script>
 import { useContext } from '@nuxtjs/composition-api'
 export default {
-  props: ['hasDivider'],
+  props: ['dividerText'],
   setup() {
     const { $config } = useContext()
 

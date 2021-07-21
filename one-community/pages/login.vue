@@ -3,7 +3,7 @@
     <BaseContainer containerType="narrow">
       <BaseForm @submit="loginUser">
         <template v-slot:socials>
-          <LoginSocials has-divider="true" />
+          <LoginSocials divider-text="Or login with email" />
         </template>
         <template v-slot:form>
           <label class="form__label" for="identifier">Username or Email</label>
