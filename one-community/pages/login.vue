@@ -1,55 +1,51 @@
 <template>
   <BasePageLayout>
     <BaseContainer containerType="narrow">
-      <ul class="auth-providers">
-        <li class="auth-providers__item">
-          <a class="auth-providers__link" :href="loginWithGithubUrl"
-            >Login with GitHub</a
-          >
-        </li>
-      </ul>
-      <div class="divider">Or login with email</div>
       <BaseForm @submit="loginUser">
-        <h4 class="form__heading">Login</h4>
-        <label class="form__label" for="identifier">Username or Email</label>
-        <input
-          class="form__input"
-          type="text"
-          name="identifier"
-          id="identifier"
-          @input="resetError"
-          required
-          :disabled="isLoggedIn"
-          v-model="identifier"
-        />
+        <template v-slot:socials>
+          <LoginSocials has-divider="true" />
+        </template>
+        <template v-slot:form>
+          <label class="form__label" for="identifier">Username or Email</label>
+          <input
+            class="form__input"
+            type="text"
+            name="identifier"
+            id="identifier"
+            @input="resetError"
+            required
+            :disabled="isLoggedIn"
+            v-model="identifier"
+          />
 
-        <label class="form__label" for="password">Password</label>
-        <input
-          class="form__input"
-          type="password"
-          name="password"
-          id="password"
-          v-model="password"
-          :disabled="isLoggedIn"
-          @input="resetError"
-          required
-        />
+          <label class="form__label" for="password">Password</label>
+          <input
+            class="form__input"
+            type="password"
+            name="password"
+            id="password"
+            v-model="password"
+            :disabled="isLoggedIn"
+            @input="resetError"
+            required
+          />
 
-        <p class="form__error-message" v-if="error">{{ error }}</p>
+          <p class="form__error-message" v-if="error">{{ error }}</p>
 
-        <div class="form__buttons">
-          <BaseButton
-            class="form__button"
-            buttonType="primary"
-            type="submit"
-            :disabled="isLoggedIn || error.length > 0"
-          >
-            Login
-          </BaseButton>
-          <NuxtLink class="form__button secondary-link" to="/signup"
-            >Sign up instead</NuxtLink
-          >
-        </div>
+          <div class="form__buttons">
+            <BaseButton
+              class="form__button"
+              buttonType="primary"
+              type="submit"
+              :disabled="isLoggedIn || error.length > 0"
+            >
+              Login
+            </BaseButton>
+            <NuxtLink class="form__button secondary-link" to="/signup"
+              >Sign up instead</NuxtLink
+            >
+          </div>
+        </template>
       </BaseForm>
     </BaseContainer>
   </BasePageLayout>
@@ -72,9 +68,7 @@ export default defineComponent({
   components: { BaseForm, BaseButton },
 
   setup() {
-    const { $axios, $auth, $config } = useContext()
-
-    const loginWithGithubUrl = `${$config.strapiUrl}/connect/github`
+    const { $axios, $auth } = useContext()
 
     const isLoggedIn = computed(() => {
       return $auth.$state.loggedIn
@@ -121,7 +115,6 @@ export default defineComponent({
       identifier,
       isLoggedIn,
       loginUser,
-      loginWithGithubUrl,
       password,
       resetError,
     }
@@ -129,23 +122,4 @@ export default defineComponent({
 })
 </script>
 
-<style lang="scss" scoped>
-.auth-providers {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  margin-top: 2rem;
-
-  &__item {
-  }
-
-  &__link {
-    &:link,
-    &:visited {
-    }
-    &:hover {
-      text-decoration: none;
-    }
-  }
-}
-</style>
+<style lang="scss" scoped></style>
