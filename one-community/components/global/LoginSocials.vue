@@ -8,7 +8,6 @@
             class="provider-button"
             @click.prevent=""
           >
-            <span class="provider-button__text">Login with GitHub</span>
             <svg class="provider-button__svg provider-button__svg--github">
               <path
                 class="provider-button__logo"
@@ -18,6 +17,7 @@
                 fill-rule="evenodd"
               />
             </svg>
+            <span class="provider-button__text">Login with GitHub</span>
           </BaseButton>
         </a>
       </li>
@@ -103,9 +103,9 @@ export default {
 
   &__text {
     display: block;
-    margin-right: 1rem;
   }
   &__svg {
+    margin-right: 1rem;
     &--github {
       width: 2rem;
       height: 2rem;
