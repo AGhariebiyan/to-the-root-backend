@@ -1,7 +1,10 @@
 <template>
-  <form class="form" @submit.prevent="$emit('submit')">
-    <slot></slot>
-  </form>
+  <div class="form-wrapper">
+    <slot name="socials" />
+    <form class="form" @submit.prevent="$emit('submit')">
+      <slot name="form"></slot>
+    </form>
+  </div>
 </template>
 
 <script lang="ts">
@@ -13,10 +16,18 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.form {
+.form-wrapper {
   padding: 3rem;
   background-color: $accelerate-blue-5;
 
+  @include respond(phone) {
+    padding: 2rem;
+  }
+  @include respond(tiny) {
+    padding: 1rem;
+  }
+}
+.form {
   &__heading {
     font-family: 'RobotoLight';
     margin-bottom: 1rem;
