@@ -41,6 +41,15 @@ export default defineComponent({
   @include respond(tab-landscape) {
     padding: 3rem;
   }
+  @include respond(tab-portrait) {
+    padding: 2rem;
+  }
+  @include respond(phone) {
+    padding: 1rem;
+  }
+  @include respond(tiny) {
+    padding: 0.5rem;
+  }
 
   &--color {
     max-width: none;
@@ -57,6 +66,15 @@ export default defineComponent({
   &--narrow {
     max-width: $desktop-half-width;
     padding: 3rem;
+    @include respond(tab-portrait) {
+      padding: 2rem;
+    }
+    @include respond(phone) {
+      padding: 1rem;
+    }
+    @include respond(tiny) {
+      padding: 0.5rem;
+    }
   }
 }
 </style>
