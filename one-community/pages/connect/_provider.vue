@@ -1,15 +1,23 @@
 <template>
-  <div>
-    <h1>Redirecting...</h1>
-  </div>
+  <BasePageLayout>
+    <base-container>
+      <ClipLoader color="#3da4bf" />
+    </base-container>
+  </BasePageLayout>
 </template>
 
 <script>
+import BasePageLayout from '~/components/base/BasePageLayout.vue'
+import BaseContainer from '~/components/base/BaseContainer.vue'
+import ClipLoader from 'vue-spinner/src/ClipLoader.vue'
+
 export default {
+  components: { BaseContainer, BasePageLayout, ClipLoader },
   data() {
     return {
       provider: this.$route.params.provider,
       access_token: this.$route.query.access_token,
+      isLoading: true,
     }
   },
   async mounted() {
