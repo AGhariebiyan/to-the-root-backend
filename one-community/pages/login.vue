@@ -68,7 +68,7 @@ export default defineComponent({
   components: { BaseForm, BaseButton },
 
   setup() {
-    const { $axios, $auth } = useContext()
+    const { $auth } = useContext()
 
     const isLoggedIn = computed(() => {
       return $auth.$state.loggedIn
