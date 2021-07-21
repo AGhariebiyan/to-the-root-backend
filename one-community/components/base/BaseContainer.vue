@@ -55,7 +55,8 @@ export default defineComponent({
   }
 
   &--narrow {
-    max-width: 630px;
+    max-width: $desktop-half-width;
+    padding: 3rem;
   }
 }
 </style>
