@@ -183,7 +183,6 @@ one-community/package-lock.json
 /one-community-backend/nbproject
 /one-community-backend/public/uploads/*
 /one-community-backend/!public/uploads/.gitkeep
-/one-community-backend/config/server.js
 
 ############################
 # Node.js
