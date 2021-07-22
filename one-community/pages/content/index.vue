@@ -3,7 +3,7 @@
     <BaseContainer>
       <div class="content__container" v-if="articles">
         <BaseCard
-          :cardType="'article'"
+          cardType="article"
           v-for="article in articles"
           :key="article._id"
         >
