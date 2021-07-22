@@ -19,10 +19,8 @@
     </template>
 
     <template v-else>
+      <NuxtLink class="login-box__link" to="/login">Login</NuxtLink>
       <BaseButton class="header__button" buttonType="primary">
-        <NuxtLink class="login-box__link" to="/login">Login</NuxtLink>
-      </BaseButton>
-      <BaseButton class="header__button" buttonType="secondary">
         <NuxtLink class="login-box__link" to="/signup">Sign up</NuxtLink>
       </BaseButton>
     </template>
@@ -58,12 +56,13 @@ export default {
   justify-content: flex-end;
   align-items: center;
 
-  &__hello {
-    margin-right: 0.5rem;
-  }
-
   &__logout {
     cursor: pointer;
+  }
+
+  &__link {
+    text-decoration: none;
+    color: inherit;
   }
 }
 
@@ -85,12 +84,10 @@ export default {
   margin-left: 1rem;
 }
 
-@include respond(header) {
-  .header__button:not(:first-child) {
+@media only screen and (max-width: 54.5em) {
+  .header__button.primary {
     margin-left: 0;
-  }
-  .header__button {
-    margin-top: 1rem;
+    margin-top: 3rem;
   }
 }
 </style>
