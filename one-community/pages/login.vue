@@ -1,47 +1,51 @@
 <template>
   <BasePageLayout>
-    <BaseContainer>
+    <BaseContainer containerType="narrow">
       <BaseForm @submit="loginUser">
-        <h4 class="form__heading">Login</h4>
-        <label class="form__label" for="identifier">Username or Email</label>
-        <input
-          class="form__input"
-          type="text"
-          name="identifier"
-          id="identifier"
-          @input="resetError"
-          required
-          :disabled="isLoggedIn"
-          v-model="identifier"
-        />
+        <template v-slot:socials>
+          <LoginSocials divider-text="Or login with email" />
+        </template>
+        <template v-slot:form>
+          <label class="form__label" for="identifier">Username or Email</label>
+          <input
+            class="form__input"
+            type="text"
+            name="identifier"
+            id="identifier"
+            @input="resetError"
+            required
+            :disabled="isLoggedIn"
+            v-model="identifier"
+          />
 
-        <label class="form__label" for="password">Password</label>
-        <input
-          class="form__input"
-          type="password"
-          name="password"
-          id="password"
-          v-model="password"
-          :disabled="isLoggedIn"
-          @input="resetError"
-          required
-        />
+          <label class="form__label" for="password">Password</label>
+          <input
+            class="form__input"
+            type="password"
+            name="password"
+            id="password"
+            v-model="password"
+            :disabled="isLoggedIn"
+            @input="resetError"
+            required
+          />
 
-        <p class="form__error-message" v-if="error">{{ error }}</p>
+          <p class="form__error-message" v-if="error">{{ error }}</p>
 
-        <div class="form__buttons">
-          <BaseButton
-            class="form__button"
-            buttonType="primary"
-            type="submit"
-            :disabled="isLoggedIn || error.length > 0"
-          >
-            Login
-          </BaseButton>
-          <NuxtLink class="form__button secondary-link" to="/signup">
-            Sign up instead
-          </NuxtLink>
-        </div>
+          <div class="form__buttons">
+            <BaseButton
+              class="form__button"
+              buttonType="primary"
+              type="submit"
+              :disabled="isLoggedIn || error.length > 0"
+            >
+              Login
+            </BaseButton>
+            <NuxtLink class="form__button secondary-link" to="/signup"
+              >Sign up instead</NuxtLink
+            >
+          </div>
+        </template>
       </BaseForm>
     </BaseContainer>
   </BasePageLayout>
@@ -71,7 +75,6 @@ export default defineComponent({
     })
 
     const error = ref('')
-    const isLoading = ref(false)
 
     const identifier = ref('')
     const password = ref('')
@@ -92,7 +95,6 @@ export default defineComponent({
         return
       }
       error.value = ''
-      isLoading.value = true
       try {
         await $auth.loginWith('local', {
           data: {
@@ -100,15 +102,11 @@ export default defineComponent({
             password: password.value,
           },
         })
-        setTimeout(() => {
-          isLoading.value = false
-        }, 5000)
 
         resetInput()
       } catch (e) {
         const errorMessage = errorMessageFromResponse(e)
         error.value = errorMessage.replace('Identifier', 'Username or Email')
-        isLoading.value = false
       }
     }
 
