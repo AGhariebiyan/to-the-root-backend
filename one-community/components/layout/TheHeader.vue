@@ -41,7 +41,7 @@
             >{{ link.name }}</NuxtLink
           >
         </nav>
-        <LoginBox />
+        <LoginBox @closeMobileMenu="closeMobileNavMenu" />
       </div>
     </div>
   </header>
@@ -184,7 +184,7 @@ export default defineComponent({
   background-color: $gray-light;
   top: 3.5rem;
   padding: 1rem;
-  height: calc(100vh - 3.5rem);
+  height: calc(100vh - 4.5rem);
   border-top: 1px solid $gray;
   z-index: 50;
 }
@@ -194,6 +194,7 @@ export default defineComponent({
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-bottom: 1.5rem;
   .nav-links__item {
     margin: 1.5rem 0;
   }
@@ -203,7 +204,7 @@ export default defineComponent({
   width: 60%;
   margin: 0 auto;
   flex-direction: column;
-  padding-top: 1.5rem;
+  padding-top: 3rem;
   border-top: 1px solid $gray;
 }
 
