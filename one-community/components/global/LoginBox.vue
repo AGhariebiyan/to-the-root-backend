@@ -5,19 +5,35 @@
         to="/profile"
         class="profile"
         :title="`Logged in as ${$auth.user.username}`"
+        @click.native="$emit('closeMobileMenu')"
       >
         <span class="material-icons">person_outline</span>
       </NuxtLink>
-      <button class="login-box__logout" @click="logout">Log out</button>
+      <BaseButton
+        buttonType="primary"
+        :title="$auth.user.username"
+        class="login-box__logout"
+        @click.native="logoutHandler"
+      >
+        Log out
+      </BaseButton>
     </template>
 
     <template v-else>
-      <button>
-        <NuxtLink class="login-box__link" to="/login">Login</NuxtLink>
-      </button>
-      <button>
-        <NuxtLink class="login-box__link" to="/signup">Sign up</NuxtLink>
-      </button>
+      <NuxtLink
+        class="login-box__link"
+        to="/login"
+        @click.native="$emit('closeMobileMenu')"
+        >Login</NuxtLink
+      >
+      <BaseButton class="header__button" buttonType="primary">
+        <NuxtLink
+          class="login-box__link"
+          to="/signup"
+          @click.native="$emit('closeMobileMenu')"
+          >Sign up</NuxtLink
+        >
+      </BaseButton>
     </template>
   </div>
 </template>
@@ -26,7 +42,8 @@
 import { computed, useContext } from '@nuxtjs/composition-api'
 
 export default {
-  setup() {
+  emits: ['closeMobileMenu'],
+  setup(props, { emit }) {
     const { $auth } = useContext()
 
     const isLoggedIn = computed(() => {
@@ -40,7 +57,12 @@ export default {
       } catch {}
     }
 
-    return { isLoggedIn, logout }
+    function logoutHandler() {
+      emit('closeMobileMenu')
+      logout()
+    }
+
+    return { isLoggedIn, logoutHandler }
   },
 }
 </script>
@@ -51,12 +73,13 @@ export default {
   justify-content: flex-end;
   align-items: center;
 
-  &__hello {
-    margin-right: 0.5rem;
-  }
-
   &__logout {
     cursor: pointer;
+  }
+
+  &__link {
+    text-decoration: none;
+    color: inherit;
   }
 }
 
@@ -72,5 +95,20 @@ export default {
 .material-icons {
   display: inline-block;
   margin-top: 0.375rem;
+}
+
+.header__button:not(:first-child) {
+  margin-left: 1rem;
+}
+
+@media only screen and (max-width: 54.5em) {
+  .header__button.primary {
+    margin-left: 0;
+    margin-top: 3rem;
+  }
+  .profile {
+    margin-right: 0;
+    margin-bottom: 1.5rem;
+  }
 }
 </style>
