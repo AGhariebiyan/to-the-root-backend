@@ -7,7 +7,7 @@
         </NuxtLink>
       </div>
       <span
-        v-if="!headerMobileMenuActive"
+        v-if="!isHeaderMobileMenuActive"
         class="material-icons header__mobile-menu-button"
         @click="openMobileNavMenu"
         @touch="openMobileNavMenu"
@@ -30,11 +30,12 @@
         >
       </nav>
       <LoginBox />
-      <div class="header__menu--mobile" v-if="headerMobileMenuActive">
+      <div class="header__menu--mobile" v-if="isHeaderMobileMenuActive">
         <nav class="nav-links--mobile">
           <NuxtLink
             class="nav-links__item"
             v-for="link in links"
+            @click.native="closeMobileNavMenu"
             :key="link.name"
             :to="link.to"
             >{{ link.name }}</NuxtLink
@@ -60,15 +61,15 @@ export default defineComponent({
   setup() {
     function resizeHandler() {
       let resizeInterval
-      if (headerMobileMenuActive.value === true) {
+      if (isHeaderMobileMenuActive.value) {
         resizeInterval = setInterval(closeMobileMenuOnResize, 300)
-      } else if (headerMobileMenuActive.value === false && resizeInterval) {
+      } else if (resizeInterval) {
         clearInterval(resizeInterval)
       }
     }
     function closeMobileMenuOnResize() {
       if (window.innerWidth >= 872) {
-        headerMobileMenuActive.value = false
+        isHeaderMobileMenuActive.value = false
       }
     }
 
@@ -98,18 +99,18 @@ export default defineComponent({
         to: '/contact',
       },
     ]
-    const headerMobileMenuActive = ref(false)
+    const isHeaderMobileMenuActive = ref(false)
 
     function openMobileNavMenu() {
-      headerMobileMenuActive.value = true
+      isHeaderMobileMenuActive.value = true
     }
     function closeMobileNavMenu() {
-      headerMobileMenuActive.value = false
+      isHeaderMobileMenuActive.value = false
     }
 
     return {
       links,
-      headerMobileMenuActive,
+      isHeaderMobileMenuActive,
       openMobileNavMenu,
       closeMobileNavMenu,
     }
@@ -123,6 +124,7 @@ export default defineComponent({
   padding: 1rem;
   position: sticky;
   top: 0;
+  z-index: 50;
 }
 
 .header__content {
@@ -153,7 +155,6 @@ export default defineComponent({
 .nav-links__item {
   text-decoration: none;
   position: relative;
-  font-family: RobotoBold, sans-serif;
   &:not(:last-child) {
     margin-right: 2.5rem;
   }
@@ -163,7 +164,7 @@ export default defineComponent({
   }
 
   &:hover {
-    color: $gray-darker;
+    color: $discovery-blue-primary;
   }
 
   &.nuxt-link-exact-active::after {
@@ -183,8 +184,9 @@ export default defineComponent({
   background-color: $gray-light;
   top: 3.5rem;
   padding: 1rem;
-  height: 100vh;
+  height: calc(100vh - 3.5rem);
   border-top: 1px solid $gray;
+  z-index: 50;
 }
 
 .nav-links--mobile {
@@ -193,16 +195,16 @@ export default defineComponent({
   justify-content: center;
   align-items: center;
   .nav-links__item {
-    margin: 1.5rem 0 1.5rem 0;
-    &:last-child {
-      margin-bottom: 3rem;
-    }
+    margin: 1.5rem 0;
   }
 }
 
 .nav-links--mobile + .login-box {
-  width: 100%;
+  width: 60%;
+  margin: 0 auto;
   flex-direction: column;
+  padding-top: 1.5rem;
+  border-top: 1px solid $gray;
 }
 
 .login-box {
@@ -229,6 +231,3 @@ export default defineComponent({
   }
 }
 </style>
-
-function e(e: any): (this: Window, ev: UIEvent) => any { throw new
-Error('Function not implemented.'); }
