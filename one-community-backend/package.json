@@ -7,22 +7,29 @@
     "develop": "strapi develop",
     "start": "strapi start",
     "build": "strapi build",
-    "strapi": "strapi"
+    "strapi": "strapi",
+    "lint": "eslint . --fix",
+    "format": "npx prettier --write ."
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "@babel/eslint-parser": "^7.14.7",
+    "eslint": "^7.31.0",
+    "eslint-config-prettier": "^8.3.0",
+    "knex": "0.21.18",
+    "prettier": "^2.3.2",
+    "sqlite3": "5.0.0"
+  },
   "dependencies": {
     "strapi": "3.6.5",
     "strapi-admin": "3.6.5",
-    "strapi-utils": "3.6.5",
-    "strapi-plugin-content-type-builder": "3.6.5",
-    "strapi-plugin-content-manager": "3.6.5",
-    "strapi-plugin-users-permissions": "3.6.5",
-    "strapi-plugin-email": "3.6.5",
-    "strapi-plugin-upload": "3.6.5",
-    "strapi-plugin-i18n": "3.6.5",
     "strapi-connector-bookshelf": "3.6.5",
-    "knex": "0.21.18",
-    "sqlite3": "5.0.0"
+    "strapi-plugin-content-manager": "3.6.5",
+    "strapi-plugin-content-type-builder": "3.6.5",
+    "strapi-plugin-email": "3.6.5",
+    "strapi-plugin-i18n": "3.6.5",
+    "strapi-plugin-upload": "3.6.5",
+    "strapi-plugin-users-permissions": "3.6.5",
+    "strapi-utils": "3.6.5"
   },
   "author": {
     "name": "A Strapi developer"
