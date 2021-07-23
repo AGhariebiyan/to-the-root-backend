@@ -31,6 +31,7 @@ export default defineComponent({
   width: 21.875rem;
 }
 .article {
+  z-index: 1;
   img {
     width: 100%;
     height: 13.6875rem;
@@ -45,6 +46,7 @@ export default defineComponent({
       line-height: $line-height;
       overflow: hidden;
       position: relative;
+      z-index: 1;
       &:after {
         content: '';
         text-align: right;

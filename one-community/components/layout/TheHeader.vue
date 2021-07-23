@@ -6,7 +6,21 @@
           <img class="logo__image" src="@/assets/Logo.svg" alt="Logo" />
         </NuxtLink>
       </div>
-      <nav class="nav-links">
+      <span
+        v-if="!isHeaderMobileMenuActive"
+        class="material-icons header__mobile-menu-button"
+        @click="openMobileNavMenu"
+        @touch="openMobileNavMenu"
+        >menu</span
+      >
+      <span
+        v-else
+        class="material-icons header__mobile-menu-button"
+        @click="closeMobileNavMenu"
+        @touch="closeMobileNavMenu"
+        >close</span
+      >
+      <nav class="nav-links--desktop">
         <NuxtLink
           class="nav-links__item"
           v-for="link in links"
@@ -16,17 +30,57 @@
         >
       </nav>
       <LoginBox />
+      <div class="header__menu--mobile" v-if="isHeaderMobileMenuActive">
+        <nav class="nav-links--mobile">
+          <NuxtLink
+            class="nav-links__item"
+            v-for="link in links"
+            @click.native="closeMobileNavMenu"
+            :key="link.name"
+            :to="link.to"
+            >{{ link.name }}</NuxtLink
+          >
+        </nav>
+        <LoginBox @closeMobileMenu="closeMobileNavMenu" />
+      </div>
     </div>
   </header>
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@nuxtjs/composition-api'
+import {
+  defineComponent,
+  onMounted,
+  onUnmounted,
+  ref,
+} from '@nuxtjs/composition-api'
 import LoginBox from '../global/LoginBox.vue'
 
 export default defineComponent({
   components: { LoginBox },
   setup() {
+    function resizeHandler() {
+      let resizeInterval
+      if (isHeaderMobileMenuActive.value) {
+        resizeInterval = setInterval(closeMobileMenuOnResize, 300)
+      } else if (resizeInterval) {
+        clearInterval(resizeInterval)
+      }
+    }
+    function closeMobileMenuOnResize() {
+      if (window.innerWidth >= 872) {
+        isHeaderMobileMenuActive.value = false
+      }
+    }
+
+    onMounted(() => {
+      window.addEventListener('resize', resizeHandler)
+    })
+
+    onUnmounted(() => {
+      window.removeEventListener('resize', resizeHandler)
+    })
+
     const links = [
       {
         name: 'Community',
@@ -45,7 +99,21 @@ export default defineComponent({
         to: '/contact',
       },
     ]
-    return { links }
+    const isHeaderMobileMenuActive = ref(false)
+
+    function openMobileNavMenu() {
+      isHeaderMobileMenuActive.value = true
+    }
+    function closeMobileNavMenu() {
+      isHeaderMobileMenuActive.value = false
+    }
+
+    return {
+      links,
+      isHeaderMobileMenuActive,
+      openMobileNavMenu,
+      closeMobileNavMenu,
+    }
   },
 })
 </script>
@@ -54,6 +122,9 @@ export default defineComponent({
 .header {
   background-color: $gray-light;
   padding: 1rem;
+  position: sticky;
+  top: 0;
+  z-index: 50;
 }
 
 .header__content {
@@ -62,10 +133,11 @@ export default defineComponent({
   align-items: center;
   max-width: $nav-max-width;
   margin: 0 auto;
+  position: relative;
 }
 
 .logo {
-  flex: 0 0 $header-item-width;
+  width: $header-item-width;
   margin-right: auto;
   padding-top: 0.5rem;
 
@@ -74,37 +146,89 @@ export default defineComponent({
   }
 }
 
-.nav-links {
+.nav-links--desktop {
   flex-grow: 1;
   display: flex;
   justify-content: center;
+}
 
-  &__item {
-    text-decoration: none;
-    position: relative;
-    &:not(:last-child) {
-      margin-right: 2.5rem;
-    }
-    &:link,
-    &:visited {
-      color: $gray-darkest;
-    }
+.nav-links__item {
+  text-decoration: none;
+  position: relative;
+  &:not(:last-child) {
+    margin-right: 2.5rem;
+  }
+  &:link,
+  &:visited {
+    color: $gray-darkest;
+  }
 
-    &.nuxt-link-exact-active::after {
-      content: '';
-      position: absolute;
-      width: 100%;
-      height: 0.1875rem;
-      background-color: $discovery-blue-primary;
-      top: $default-font-size * 1.375;
-      left: 0;
-    }
+  &:hover {
+    color: $discovery-blue-primary;
+  }
+
+  &.nuxt-link-exact-active::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 0.1875rem;
+    background-color: $discovery-blue-primary;
+    top: $default-font-size * 1.375;
+    left: 0;
   }
 }
 
+.header__menu--mobile {
+  width: 100vw;
+  position: absolute;
+  background-color: $gray-light;
+  top: 3.5rem;
+  padding: 1rem;
+  height: calc(100vh - 4.5rem);
+  border-top: 1px solid $gray;
+  z-index: 50;
+}
+
+.nav-links--mobile {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  .nav-links__item {
+    margin: 1.5rem 0;
+  }
+}
+
+.nav-links--mobile + .login-box {
+  width: 60%;
+  margin: 0 auto;
+  flex-direction: column;
+  padding-top: 3rem;
+  border-top: 1px solid $gray;
+}
+
 .login-box {
-  flex: 0 0 $header-item-width;
+  width: $header-item-width;
   display: flex;
   justify-content: flex-end;
+}
+
+.header__mobile-menu-button {
+  display: none;
+  cursor: pointer;
+}
+
+// breaking at 872px to avoid weird underline issues
+@media only screen and (max-width: 54.5em) {
+  .nav-links--desktop {
+    display: none;
+  }
+  .nav-links--desktop + .login-box {
+    display: none;
+  }
+  .header__mobile-menu-button {
+    display: flex;
+  }
 }
 </style>

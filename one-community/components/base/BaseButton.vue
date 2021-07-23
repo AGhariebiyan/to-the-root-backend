@@ -35,6 +35,11 @@ button {
   cursor: pointer;
 }
 
+button a {
+  text-decoration: none;
+  color: inherit;
+}
+
 button.primary {
   color: $white;
   background-color: $discovery-blue-primary;
