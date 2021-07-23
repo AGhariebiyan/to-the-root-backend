@@ -38,12 +38,16 @@ import {
 } from '@nuxtjs/composition-api'
 
 export default defineComponent({
+  name: 'PageContent',
   setup() {
-    const context = useContext()
-    const url: string = context.$config.strapiUrl
+    const { $config, $axios } = useContext()
+
+    const url: string = $config.strapiUrl
     const articles = ref({})
+
     onMounted(async () => {
-      articles.value = await context.$strapi.find('articles')
+      const response = await $axios.get('/articles')
+      articles.value = response.data ?? []
     })
 
     return { articles, url }

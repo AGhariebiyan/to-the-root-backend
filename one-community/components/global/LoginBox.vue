@@ -8,13 +8,7 @@
       >
         <span class="material-icons">person_outline</span>
       </NuxtLink>
-      <button
-        :title="$auth.user.username"
-        class="login-box__logout"
-        @click="logout"
-      >
-        Log out
-      </button>
+      <button class="login-box__logout" @click="logout">Log out</button>
     </template>
 
     <template v-else>
