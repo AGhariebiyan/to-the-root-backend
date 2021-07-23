@@ -7,12 +7,19 @@
           v-for="article in articles"
           :key="article._id"
         >
-          <img :src="`${url}${article.cover_image.url}`" alt="" />
-          <div class="card__content">
-            <p class="card__date">{{ article.original_date }}</p>
-            <h3>{{ article.title }}</h3>
-            <p class="card__description">{{ article.description }}</p>
+          <div class="article__image-container">
+            <img
+              class="article__image"
+              :src="`${url}${article.cover_image.url}`"
+              alt=""
+            />
+          </div>
+          <div class="article__content">
+            <p class="article__date">{{ article.original_date }}</p>
+            <h3 class="article__title">{{ article.title }}</h3>
+            <p class="article__description">{{ article.description }}</p>
             <BaseButton
+              class="button"
               buttonType="pill"
               v-for="(category, index) in article.categories"
               :key="index"
@@ -71,8 +78,7 @@ export default defineComponent({
   height: 0 !important;
   padding-top: 0 !important;
   padding-bottom: 0 !important;
-  margin-top: 0 !important;
-  margin-bottom: 0 !important;
+  margin: 0 0 3rem;
 
   @include respond(tab-landscape) {
     width: $article-card-width-landscape;
