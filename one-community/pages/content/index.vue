@@ -7,10 +7,7 @@
           v-for="article in articles"
           :key="article._id"
         >
-          <img
-            :src="`${url}${article.cover_image.url}`"
-            alt="Peter is the best"
-          />
+          <img :src="`${url}${article.cover_image.url}`" alt="" />
           <div class="card__content">
             <p class="card__date">{{ article.original_date }}</p>
             <h3>{{ article.title }}</h3>
@@ -24,6 +21,8 @@
             </BaseButton>
           </div>
         </BaseCard>
+        <div class="flex-dummy card article" />
+        <div class="flex-dummy card article" />
       </div>
     </BaseContainer>
   </BasePageLayout>
@@ -41,12 +40,16 @@ export default defineComponent({
   name: 'PageContent',
   setup() {
     const { $config, $axios } = useContext()
-
-    const url: string = $config.strapiUrl
+    const limit = 4
+    const offset = ref(0)
     const articles = ref({})
 
+    const url: string = $config.strapiUrl
+
     onMounted(async () => {
-      const response = await $axios.get('/articles')
+      const response = await $axios.get(
+        `/articles?_start=${offset.value}&_limit=${limit}`,
+      )
       articles.value = response.data ?? []
     })
 
@@ -61,5 +64,18 @@ export default defineComponent({
   justify-content: space-evenly;
   flex-direction: row;
   flex-wrap: wrap;
+}
+
+.flex-dummy {
+  width: $article-card-width;
+  height: 0 !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+
+  @include respond(tab-landscape) {
+    width: $article-card-width-landscape;
+  }
 }
 </style>

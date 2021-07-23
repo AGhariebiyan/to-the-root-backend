@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, useStore } from '@nuxtjs/composition-api'
+import { defineComponent } from '@nuxtjs/composition-api'
 
 export default defineComponent({
   props: {
@@ -17,36 +17,38 @@ export default defineComponent({
       },
     },
   },
-  setup() {
-    const store = useStore()
-  },
 })
 </script>
 
 <style lang="scss" scoped>
 .card {
+  width: $article-card-width;
   box-shadow: 0px 0.25rem 0.25rem rgba(0, 0, 0, 0.25);
   border-radius: 3px;
   margin-bottom: 3rem;
-  width: 21.875rem;
+
+  @include respond(tab-landscape) {
+    width: $article-card-width-landscape;
+  }
 }
 .article {
-  z-index: 1;
   img {
     width: 100%;
     height: 13.6875rem;
     object-fit: cover;
     border-radius: 3px 3px 0 0;
   }
+
   .card__content {
     padding: 1.3rem;
+
     .card__description {
       font-size: 1.125rem;
       height: $line-height * 4;
       line-height: $line-height;
       overflow: hidden;
       position: relative;
-      z-index: 1;
+
       &:after {
         content: '';
         text-align: right;
@@ -54,7 +56,7 @@ export default defineComponent({
         bottom: 0;
         right: 0;
         width: 100%;
-        height: $line-height;
+        height: 3 * $line-height;
         background: linear-gradient(
           to bottom,
           rgba(255, 255, 255, 0),
@@ -62,20 +64,19 @@ export default defineComponent({
         );
       }
     }
+
     button {
       margin-top: 2rem;
     }
+
     h3 {
       margin-top: 1.3rem;
       margin-bottom: 0.75rem;
     }
+
     .card__date {
       color: $gray-dark;
     }
-  }
-
-  @include respond(tab-landscape) {
-    width: 18rem;
   }
 }
 </style>
