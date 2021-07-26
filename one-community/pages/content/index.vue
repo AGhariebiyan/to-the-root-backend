@@ -41,6 +41,7 @@ import {
   ref,
   onMounted,
   useContext,
+  computed,
 } from '@nuxtjs/composition-api'
 
 export default defineComponent({
@@ -49,7 +50,9 @@ export default defineComponent({
     const { $config, store } = useContext()
     const limit = 4
     const offset = ref(0)
-    const articles = ref({})
+    const articles = computed(() => {
+      return store.getters['articles/articles']
+    })
 
     const url: string = $config.strapiUrl
 
