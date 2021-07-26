@@ -46,7 +46,7 @@ import {
 export default defineComponent({
   name: 'PageContent',
   setup() {
-    const { $config, $axios } = useContext()
+    const { $config, store } = useContext()
     const limit = 4
     const offset = ref(0)
     const articles = ref({})
@@ -54,9 +54,10 @@ export default defineComponent({
     const url: string = $config.strapiUrl
 
     onMounted(async () => {
-      const response = await $axios.get(
-        `/articles?_start=${offset.value}&_limit=${limit}`,
-      )
+      const response = await store.dispatch('articles/fetchArticles', {
+        limit,
+        offset: offset.value,
+      })
       articles.value = response.data ?? []
     })
 

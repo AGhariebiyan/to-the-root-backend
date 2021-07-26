@@ -3,24 +3,29 @@ import { GetterTree, ActionTree, MutationTree } from 'vuex'
 
 export const state = () => ({
   articles: ([] = []),
-  name: 'Me',
 })
 
 export type RootState = ReturnType<typeof state>
 
 export const getters: GetterTree<RootState, RootState> = {
-  name: (state) => state.name,
+  articles: (state) => state.articles,
 }
 
 export const mutations: MutationTree<RootState> = {
-  CHANGE_NAME: (state, newName: string) => (state.name = newName),
+  ADD_ARTICLES: (state, newArticles: []) =>
+    (state.articles = [...state.articles, ...newArticles]),
+
+  SET_ARTICLES: (state, newArticles: []) => (state.articles = newArticles),
 }
 
 export const actions: ActionTree<RootState, RootState> = {
-  async fetchThings({ commit }) {
-    const things = await $axios.$get('/things')
-    console.log(things)
-    commit('CHANGE_NAME', 'New name')
+  async fetchArticles({ commit }, { limit, offset }) {
+    const response = await $axios.get(
+      `/articles?_start=${offset}&_limit=${limit}`,
+    )
+    const articles = response.data
+    commit('SET_ARTICLES', articles)
+    return articles
   },
 }
 
