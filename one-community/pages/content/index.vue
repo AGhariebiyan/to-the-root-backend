@@ -58,7 +58,7 @@ export default defineComponent({
         limit,
         offset: offset.value,
       })
-      articles.value = response.data ?? []
+      articles.value = response ?? []
     })
 
     return { articles, url }
