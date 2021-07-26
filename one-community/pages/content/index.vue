@@ -1,6 +1,7 @@
 <template>
   <BasePageLayout>
-    <BaseContainer>
+    <BaseContainer :flex-col="true">
+      <ClipLoader class="loader" color="#3da4bf" v-if="isLoading" />
       <div class="content__container" v-if="articles">
         <BaseCard
           cardType="article"
@@ -43,13 +44,20 @@ import {
   useContext,
   computed,
 } from '@nuxtjs/composition-api'
+import ClipLoader from 'vue-spinner/src/ClipLoader.vue'
 
 export default defineComponent({
   name: 'PageContent',
+
+  components: {
+    ClipLoader,
+  },
+
   setup() {
     const { $config, store } = useContext()
     const limit = 4
     const offset = ref(0)
+    const isLoading = ref(true)
     const articles = computed(() => {
       return store.getters['articles/articles']
     })
@@ -57,14 +65,26 @@ export default defineComponent({
     const url: string = $config.strapiUrl
 
     onMounted(async () => {
-      const response = await store.dispatch('articles/fetchArticles', {
-        limit,
-        offset: offset.value,
-      })
-      articles.value = response ?? []
+      loadArticles()
     })
 
-    return { articles, url }
+    async function loadArticles() {
+      isLoading.value = true
+      try {
+        // Using offset.value in the
+        const response = await store.dispatch('articles/fetchArticles', {
+          limit,
+          offset,
+        })
+        console.log(response)
+      } catch (e) {
+        console.log(e)
+      } finally {
+        isLoading.value = false
+      }
+    }
+
+    return { articles, url, isLoading, loadArticles }
   },
 })
 </script>
@@ -87,5 +107,8 @@ export default defineComponent({
   @include respond(tab-landscape) {
     width: $article-card-width-landscape;
   }
+}
+.loader {
+  width: 100%;
 }
 </style>
