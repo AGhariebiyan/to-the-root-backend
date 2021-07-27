@@ -41,7 +41,7 @@ export const actions: ActionTree<RootState, RootState> = {
     )
     console.log(response)
     const articles = response.data
-    commit('SET_ARTICLES', articles)
+    commit('ADD_ARTICLES', articles)
     return articles
   },
 }

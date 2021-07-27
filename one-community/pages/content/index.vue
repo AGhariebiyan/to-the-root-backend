@@ -1,7 +1,6 @@
 <template>
   <BasePageLayout>
     <BaseContainer :flex-col="true">
-      <ClipLoader class="loader" color="#3da4bf" v-if="isLoading" />
       <div class="content__container" v-if="articles">
         <BaseCard
           cardType="article"
@@ -32,6 +31,8 @@
         <div class="flex-dummy card article" />
         <div class="flex-dummy card article" />
       </div>
+      <p>{{ scrollInfo }}</p>
+      <ClipLoader class="loader" color="#3da4bf" v-if="isLoading" />
     </BaseContainer>
   </BasePageLayout>
 </template>
@@ -43,6 +44,7 @@ import {
   onMounted,
   useContext,
   computed,
+  onUnmounted,
 } from '@nuxtjs/composition-api'
 import ClipLoader from 'vue-spinner/src/ClipLoader.vue'
 
@@ -55,7 +57,7 @@ export default defineComponent({
 
   setup() {
     const { $config, store } = useContext()
-    const limit = 4
+    const limit = 6
     const offset = ref(0)
     const isLoading = ref(true)
     const articles = computed(() => {
@@ -64,8 +66,25 @@ export default defineComponent({
 
     const url: string = $config.strapiUrl
 
+    function test() {
+      const articleContainer = document.querySelector('.content__container')
+      const bottom = articleContainer?.getBoundingClientRect().bottom
+      const innerHeight = Math.round(window.innerHeight)
+
+      if (innerHeight >= bottom) {
+        console.log('on screen!')
+        offset.value = limit
+        loadArticles()
+      }
+    }
+
     onMounted(async () => {
       loadArticles()
+      window.addEventListener('scroll', test)
+    })
+
+    onUnmounted(() => {
+      window.removeEventListener('scroll', test)
     })
 
     async function loadArticles() {
@@ -86,6 +105,16 @@ export default defineComponent({
 
     return { articles, url, isLoading, loadArticles }
   },
+
+  computed: {
+    scrollInfo() {
+      if (process.client) {
+        console.log('asdf')
+        return window.scrollY
+      }
+      return 'nope'
+    },
+  },
 })
 </script>
 
@@ -95,6 +124,7 @@ export default defineComponent({
   justify-content: space-evenly;
   flex-direction: row;
   flex-wrap: wrap;
+  border-bottom: 3px solid black;
 }
 
 .flex-dummy {
