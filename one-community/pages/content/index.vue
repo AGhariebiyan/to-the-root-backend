@@ -1,10 +1,19 @@
 <template>
   <BasePageLayout>
     <BaseContainer :flex-col="true">
-      <div class="content__container" v-if="articles">
+      <header class="header">
+        <h3 class="header__heading">Content</h3>
+        <div class="search-box">
+          <label class="search-box__label" for="search"
+            ><span class="material-icons">search</span></label
+          >
+          <input class="search-box__input" id="search" v-model="search" />
+        </div>
+      </header>
+      <div class="content__container" v-if="filteredArticles">
         <BaseCard
           cardType="article"
-          v-for="article in articles"
+          v-for="article in filteredArticles"
           :key="article._id"
         >
           <div class="article__image-container">
@@ -30,8 +39,8 @@
         </BaseCard>
         <div class="flex-dummy card article" />
         <div class="flex-dummy card article" />
+        <ClipLoader class="loader" color="#3da4bf" v-show="isLoading" />
       </div>
-      <ClipLoader class="loader" color="#3da4bf" v-show="isLoading" />
     </BaseContainer>
   </BasePageLayout>
 </template>
@@ -47,6 +56,7 @@ import {
 } from '@nuxtjs/composition-api'
 import ClipLoader from 'vue-spinner/src/ClipLoader.vue'
 import * as _ from 'lodash'
+import { Article } from '~/utils/types'
 
 export default defineComponent({
   name: 'PageContent',
@@ -60,11 +70,19 @@ export default defineComponent({
 
     const limit = 6
     const offset = ref(0)
+    const search = ref('')
     const isLoading = ref(false)
     const url: string = $config.strapiUrl
 
     const articles = computed(() => {
       return store.getters['articles/articles']
+    })
+
+    const filteredArticles = computed(() => {
+      return articles.value.filter((article: Article) => {
+        const lowerCaseTitle = article.title.toLowerCase()
+        return lowerCaseTitle.includes(search.value.toLowerCase())
+      })
     })
 
     const debouncedInfiniteScroll = _.debounce(infiniteScroll, 500, {
@@ -112,18 +130,47 @@ export default defineComponent({
       }
     }
 
-    return { articles, url, isLoading, loadArticles }
+    return { filteredArticles, url, isLoading, loadArticles, search }
   },
 })
 </script>
 
 <style lang="scss" scoped>
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+
+  &__heading {
+    font-family: 'Roboto';
+    font-weight: 400;
+  }
+}
+.search-box {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+
+  &__label {
+    margin-right: 1rem;
+  }
+
+  &__input {
+    width: 20rem;
+    padding: 0.25rem;
+  }
+}
 .content__container {
   display: flex;
   justify-content: space-evenly;
   flex-direction: row;
   flex-wrap: wrap;
-  border-bottom: 3px solid black;
+  background-color: $accelerate-blue-5;
+  padding: 4rem 2rem 0;
+  @include respond(tab-landscape) {
+    padding-top: 4rem;
+  }
 }
 
 .flex-dummy {

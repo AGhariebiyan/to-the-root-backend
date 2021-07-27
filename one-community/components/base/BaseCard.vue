@@ -26,6 +26,7 @@ export default defineComponent({
   box-shadow: 0px 0.25rem 0.25rem rgba(0, 0, 0, 0.25);
   border-radius: 3px;
   margin: 0 0.5rem 3rem;
+  background: $white;
 
   @include respond(tab-landscape) {
     width: $article-card-width-landscape;
