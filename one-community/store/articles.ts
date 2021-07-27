@@ -18,12 +18,14 @@ const initIds: number[] = []
 export const state = () => ({
   articles: initArticles,
   ids: initIds,
+  foundAllArticles: false,
 })
 
 export type RootState = ReturnType<typeof state>
 
 export const getters: GetterTree<RootState, RootState> = {
   articles: (state) => state.articles,
+  foundAllArticles: (state) => state.foundAllArticles,
 }
 
 export const mutations: MutationTree<RootState> = {
@@ -31,6 +33,9 @@ export const mutations: MutationTree<RootState> = {
     const filteredNewArticles = newArticles.filter(
       (article) => !state.ids.includes(article.id),
     )
+    if (filteredNewArticles.length === 0) {
+      state.foundAllArticles = true
+    }
     state.articles = [...state.articles, ...filteredNewArticles]
   },
 
@@ -39,7 +44,8 @@ export const mutations: MutationTree<RootState> = {
     state.ids = Array.from(new Set([...state.ids, ...newIds]))
   },
 
-  SET_ARTICLES: (state, newArticles: []) => (state.articles = newArticles),
+  SET_ARTICLES: (state, newArticles: Article[]) =>
+    (state.articles = newArticles),
 
   ADD_ARTICLE: (state, newArticle: Article) => {
     state.articles.push(newArticle)
@@ -51,7 +57,6 @@ export const actions: ActionTree<RootState, RootState> = {
     const response = await $axios.get(
       `/articles?_start=${offset.value}&_limit=${limit}`,
     )
-    console.log(response)
     const articles = response.data
     commit('ADD_ARTICLES', articles)
     commit('SET_ARTICLE_IDS', articles)

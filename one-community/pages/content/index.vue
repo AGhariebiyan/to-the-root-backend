@@ -31,8 +31,7 @@
         <div class="flex-dummy card article" />
         <div class="flex-dummy card article" />
       </div>
-      <p>{{ scrollInfo }}</p>
-      <ClipLoader class="loader" color="#3da4bf" v-if="isLoading" />
+      <ClipLoader class="loader" color="#3da4bf" v-show="isLoading" />
     </BaseContainer>
   </BasePageLayout>
 </template>
@@ -47,6 +46,7 @@ import {
   onUnmounted,
 } from '@nuxtjs/composition-api'
 import ClipLoader from 'vue-spinner/src/ClipLoader.vue'
+import * as _ from 'lodash'
 
 export default defineComponent({
   name: 'PageContent',
@@ -57,46 +57,54 @@ export default defineComponent({
 
   setup() {
     const { $config, store } = useContext()
+
     const limit = 6
     const offset = ref(0)
-    const isLoading = ref(true)
+    const isLoading = ref(false)
+    const url: string = $config.strapiUrl
+
     const articles = computed(() => {
       return store.getters['articles/articles']
     })
 
-    const url: string = $config.strapiUrl
+    const debouncedInfiniteScroll = _.debounce(infiniteScroll, 500, {
+      leading: true,
+    })
 
-    function test() {
+    function infiniteScroll() {
+      if (store.getters['articles/foundAllArticles']) {
+        return
+      }
+
       const articleContainer = document.querySelector('.content__container')
       const bottom = articleContainer?.getBoundingClientRect().bottom
       const innerHeight = Math.round(window.innerHeight)
 
       if (innerHeight >= bottom) {
-        console.log('on screen!')
-        offset.value = limit
-        // debounce or something
+        offset.value += limit
         loadArticles()
       }
     }
 
     onMounted(async () => {
       loadArticles()
-      window.addEventListener('scroll', test)
+      window.addEventListener('scroll', debouncedInfiniteScroll)
     })
 
     onUnmounted(() => {
-      window.removeEventListener('scroll', test)
+      window.removeEventListener('scroll', debouncedInfiniteScroll)
     })
 
     async function loadArticles() {
+      if (isLoading.value || store.getters['articles/foundAllArticles']) {
+        return
+      }
       isLoading.value = true
       try {
-        // Using offset.value in the
-        const response = await store.dispatch('articles/fetchArticles', {
+        await store.dispatch('articles/fetchArticles', {
           limit,
           offset,
         })
-        console.log(response)
       } catch (e) {
         console.log(e)
       } finally {
