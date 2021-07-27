@@ -9,12 +9,15 @@ interface Article {
   author: string
   categories: Category[]
   content: string
+  id: number
 }
 
 const initArticles: Article[] = []
+const initIds: number[] = []
 
 export const state = () => ({
   articles: initArticles,
+  ids: initIds,
 })
 
 export type RootState = ReturnType<typeof state>
@@ -24,8 +27,17 @@ export const getters: GetterTree<RootState, RootState> = {
 }
 
 export const mutations: MutationTree<RootState> = {
-  ADD_ARTICLES: (state, newArticles: []) =>
-    (state.articles = [...state.articles, ...newArticles]),
+  ADD_ARTICLES: (state, newArticles: Article[]) => {
+    const filteredNewArticles = newArticles.filter(
+      (article) => !state.ids.includes(article.id),
+    )
+    state.articles = [...state.articles, ...filteredNewArticles]
+  },
+
+  SET_ARTICLE_IDS: (state, newArticles: Article[]) => {
+    const newIds = new Set(newArticles.map((article) => article.id))
+    state.ids = Array.from(new Set([...state.ids, ...newIds]))
+  },
 
   SET_ARTICLES: (state, newArticles: []) => (state.articles = newArticles),
 
@@ -42,6 +54,7 @@ export const actions: ActionTree<RootState, RootState> = {
     console.log(response)
     const articles = response.data
     commit('ADD_ARTICLES', articles)
+    commit('SET_ARTICLE_IDS', articles)
     return articles
   },
 }

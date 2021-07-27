@@ -74,6 +74,7 @@ export default defineComponent({
       if (innerHeight >= bottom) {
         console.log('on screen!')
         offset.value = limit
+        // debounce or something
         loadArticles()
       }
     }
