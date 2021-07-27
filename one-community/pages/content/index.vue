@@ -114,16 +114,6 @@ export default defineComponent({
 
     return { articles, url, isLoading, loadArticles }
   },
-
-  computed: {
-    scrollInfo() {
-      if (process.client) {
-        console.log('asdf')
-        return window.scrollY
-      }
-      return 'nope'
-    },
-  },
 })
 </script>
 
