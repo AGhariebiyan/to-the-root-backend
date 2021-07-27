@@ -1,16 +1,6 @@
 import { $axios } from '~/utils/api'
 import { GetterTree, ActionTree, MutationTree } from 'vuex'
-
-interface Category {
-  name: string
-}
-
-interface Article {
-  author: string
-  categories: Category[]
-  content: string
-  id: number
-}
+import { Article } from '~/utils/types'
 
 const initArticles: Article[] = []
 const initIds: number[] = []
