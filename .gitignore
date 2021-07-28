@@ -96,7 +96,7 @@
 # Vim swap files
 *.swp
 /one-community/*.swp
-one-community/package-lock.json
+/one-community/package-lock.json
 
 
 ############################
