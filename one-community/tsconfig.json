@@ -18,6 +18,7 @@
     "types": [
       "@nuxt/types",
       "@types/node",
+      "@types/lodash",
       "@nuxtjs/strapi",
       "@nuxtjs/axios",
       "@nuxtjs/auth-next"
