@@ -1,7 +1,8 @@
 <template>
   <base-page-layout>
     <base-container>
-      <article class="container">
+      <ClipLoader class="loader" color="#3da4bf" v-if="isLoading" />
+      <article v-else class="container">
         {{ article }}
       </article>
     </base-container>
@@ -20,9 +21,10 @@ import {
 import BaseContainer from '../../components/base/BaseContainer.vue'
 import BasePageLayout from '../../components/base/BasePageLayout.vue'
 import { Article } from '~/utils/types'
+import ClipLoader from 'vue-spinner/src/ClipLoader.vue'
 
 export default defineComponent({
-  components: { BasePageLayout, BaseContainer },
+  components: { BasePageLayout, BaseContainer, ClipLoader },
   name: 'PageContentDetail',
 
   setup() {
@@ -56,7 +58,7 @@ export default defineComponent({
       }
     }
 
-    return { article }
+    return { article, isLoading }
   },
 })
 </script>

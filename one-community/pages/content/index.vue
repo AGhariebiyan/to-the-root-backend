@@ -173,6 +173,7 @@ export default defineComponent({
   flex-wrap: wrap;
   background-color: $accelerate-blue-5;
   padding: 4rem 2rem 0;
+
   @include respond(tab-landscape) {
     padding-top: 4rem;
   }
