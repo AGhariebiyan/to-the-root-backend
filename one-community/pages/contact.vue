@@ -61,7 +61,7 @@ export default defineComponent({
     const lastName = ref('')
     const email = ref('')
     const message = ref('')
-    const accept = ref('')
+    const accept = ref(false)
 
     const isMessageFilled = computed(() => {
       return !!message.value
