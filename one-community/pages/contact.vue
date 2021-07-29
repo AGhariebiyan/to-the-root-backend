@@ -43,7 +43,9 @@
               communications (no spam, we promise!)</label
             >
           </div>
-          <BaseButton buttonType="primary">Send Message</BaseButton>
+          <BaseButton buttonType="primary" class="contact__submit-button"
+            >Send Message</BaseButton
+          >
         </template>
       </BaseForm>
     </BaseContainer>
@@ -61,12 +63,12 @@ export default defineComponent({
     const message = ref('')
     const accept = ref('')
 
-    const messageNotEmpty = computed(() => {
+    const isMessageFilled = computed(() => {
       return !!message.value
     })
 
     function sendMessage() {
-      if (!messageNotEmpty) {
+      if (!isMessageFilled) {
         return
       }
       console.log(`
@@ -99,6 +101,9 @@ export default defineComponent({
 .container--narrow {
   flex-direction: column;
 }
+textarea {
+  resize: vertical;
+}
 .contact__accept {
   display: flex;
   input {
@@ -107,7 +112,7 @@ export default defineComponent({
     top: 0.2rem;
   }
 }
-button {
+.contact__submit-button {
   display: block;
   margin-top: 2rem;
 }
