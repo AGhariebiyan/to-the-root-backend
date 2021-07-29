@@ -20,7 +20,7 @@
       "@types/node",
       "@nuxtjs/strapi",
       "@nuxtjs/axios",
-      "@nuxtjs/auth-next"
+      "@nuxtjs/auth-next",
     ]
   },
   "exclude": ["node_modules", ".nuxt", "dist"]
