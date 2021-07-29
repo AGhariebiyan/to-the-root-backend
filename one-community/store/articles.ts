@@ -48,8 +48,18 @@ export const actions: ActionTree<RootState, RootState> = {
       `/articles?_start=${offset.value}&_limit=${limit}`,
     )
     const articles = response.data
+
     commit('ADD_ARTICLES', articles)
     commit('SET_ARTICLE_IDS', articles)
     return articles
+  },
+
+  async fetchArticleBySlug({ commit }, slug) {
+    const response = await $axios.get(`/articles?slug=${slug}`)
+    const article: Article = response.data
+
+    commit('ADD_ARTICLES', article)
+    commit('SET_ARTICLE_IDS', article)
+    return article
   },
 }

@@ -11,32 +11,35 @@
         </div>
       </header>
       <div class="content__container" v-if="filteredArticles">
-        <BaseCard
-          cardType="article"
+        <NuxtLink
+          class="nuxt-link"
+          :to="`/content/${article.slug}`"
           v-for="article in filteredArticles"
           :key="article._id"
         >
-          <div class="article__image-container">
-            <img
-              class="article__image"
-              :src="`${url}${article.cover_image.url}`"
-              alt=""
-            />
-          </div>
-          <div class="article__content">
-            <p class="article__date">{{ article.original_date }}</p>
-            <h3 class="article__title">{{ article.title }}</h3>
-            <p class="article__description">{{ article.description }}</p>
-            <BaseButton
-              class="button"
-              buttonType="pill"
-              v-for="(category, index) in article.categories"
-              :key="index"
-            >
-              {{ category.name }}
-            </BaseButton>
-          </div>
-        </BaseCard>
+          <BaseCard cardType="article">
+            <div class="article__image-container">
+              <img
+                class="article__image"
+                :src="`${url}${article.cover_image.url}`"
+                alt=""
+              />
+            </div>
+            <div class="article__content">
+              <p class="article__date">{{ article.original_date }}</p>
+              <h3 class="article__title">{{ article.title }}</h3>
+              <p class="article__description">{{ article.description }}</p>
+              <BaseButton
+                class="button"
+                buttonType="pill"
+                v-for="(category, index) in article.categories"
+                :key="index"
+              >
+                {{ category.name }}
+              </BaseButton>
+            </div>
+          </BaseCard>
+        </NuxtLink>
         <div class="flex-dummy card article" />
         <div class="flex-dummy card article" />
         <ClipLoader class="loader" color="#3da4bf" v-show="isLoading" />
@@ -98,14 +101,16 @@ export default defineComponent({
       const bottom = articleContainer?.getBoundingClientRect().bottom
       const innerHeight = Math.round(window.innerHeight)
 
-      if (innerHeight >= bottom) {
+      if (bottom && innerHeight >= bottom) {
         offset.value += limit
         loadArticles()
       }
     }
 
     onMounted(async () => {
-      loadArticles()
+      if (articles.value.length <= 1) {
+        loadArticles()
+      }
       window.addEventListener('scroll', debouncedInfiniteScroll)
     })
 
@@ -173,7 +178,12 @@ export default defineComponent({
   }
 }
 
-.flex-dummy {
+.nuxt-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+p .flex-dummy {
   width: $article-card-width;
   height: 0 !important;
   padding-top: 0 !important;
