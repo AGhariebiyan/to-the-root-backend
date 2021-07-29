@@ -9,17 +9,41 @@
           constructive feedback as well.
         </p>
       </div>
-      <BaseForm>
+      <BaseForm @submit="sendMessage">
         <template v-slot:form>
           <p class="form__heading">Let's Talk</p>
           <label class="form__label" for="firstname">First Name</label>
-          <input class="form__input" type="text" name="firstname" />
+          <input
+            class="form__input"
+            type="text"
+            name="firstname"
+            v-model="firstName"
+          />
           <label class="form__label" for="lastname">Last Name</label>
-          <input class="form__input" type="text" name="lastname" />
+          <input
+            class="form__input"
+            type="text"
+            name="lastname"
+            v-model="lastName"
+          />
           <label class="form__label" for="email">Email Address</label>
-          <input class="form__input" type="text" name="email" />
-          <label class="form__label" for="message">Message</label>
-          <textarea class="form__input" type="text" name="message"></textarea>
+          <input class="form__input" type="text" name="email" v-model="email" />
+          <label class="form__label" for="message">Message*</label>
+          <textarea
+            class="form__input"
+            type="text"
+            name="message"
+            required
+            v-model="message"
+          ></textarea>
+          <div class="contact__accept">
+            <input type="checkbox" name="accept" v-model="accept" />
+            <label for="accept"
+              >I allow Ordina to store my email address and send me
+              communications (no spam, we promise!)</label
+            >
+          </div>
+          <BaseButton buttonType="primary">Send Message</BaseButton>
         </template>
       </BaseForm>
     </BaseContainer>
@@ -27,11 +51,40 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, useStore } from '@nuxtjs/composition-api'
+import { defineComponent, ref, computed } from '@nuxtjs/composition-api'
 
 export default defineComponent({
   setup() {
-    const store = useStore()
+    const firstName = ref('')
+    const lastName = ref('')
+    const email = ref('')
+    const message = ref('')
+    const accept = ref('')
+
+    const messageNotEmpty = computed(() => {
+      return !!message.value
+    })
+
+    function sendMessage() {
+      if (!messageNotEmpty) {
+        return
+      }
+      console.log(`
+        name: ${firstName.value} ${lastName.value}
+        email: ${email.value}
+        message: ${message.value}
+        accept: ${accept.value}
+      `)
+    }
+
+    return {
+      firstName,
+      lastName,
+      email,
+      message,
+      accept,
+      sendMessage,
+    }
   },
 })
 </script>
@@ -45,5 +98,17 @@ export default defineComponent({
 }
 .container--narrow {
   flex-direction: column;
+}
+.contact__accept {
+  display: flex;
+  input {
+    margin-right: 1rem;
+    position: relative;
+    top: 0.2rem;
+  }
+}
+button {
+  display: block;
+  margin-top: 2rem;
 }
 </style>
