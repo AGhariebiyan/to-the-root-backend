@@ -41,10 +41,12 @@ export default defineComponent({
       transform: scale(1.1);
     }
   }
+
   &__image-container {
     height: $article-card-image-height;
     overflow: hidden;
   }
+
   &__image {
     width: 100%;
     height: $article-card-image-height;
@@ -55,14 +57,9 @@ export default defineComponent({
 
   &__content {
     padding: 1.3rem;
-  }
-  &__description {
-    font-size: 1.125rem;
-    height: $line-height * 4;
-    line-height: $line-height;
-    overflow: hidden;
+    height: $article-card-content-height;
+    overflow-y: hidden;
     position: relative;
-
     &:after {
       content: '';
       text-align: right;
@@ -70,17 +67,14 @@ export default defineComponent({
       bottom: 0;
       right: 0;
       width: 100%;
-      height: 3 * $line-height;
+      height: 4 * $line-height;
       background: linear-gradient(
         to bottom,
-        rgba(255, 255, 255, 0),
-        rgba(255, 255, 255, 1) 90%
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 1) 40%,
+        rgba(255, 255, 255, 1) 100%
       );
     }
-  }
-
-  &__button {
-    margin-top: 2rem;
   }
 
   &__title {
@@ -88,8 +82,18 @@ export default defineComponent({
     margin-bottom: 0.75rem;
   }
 
-  .card__date {
-    color: $gray-dark;
+  &__description {
+    font-size: 1.125rem;
+    line-height: $line-height;
+    overflow: hidden;
+    position: relative;
+  }
+
+  &__categories {
+    position: absolute;
+    bottom: 1rem;
+    left: 1.3rem;
+    z-index: 2;
   }
 }
 </style>

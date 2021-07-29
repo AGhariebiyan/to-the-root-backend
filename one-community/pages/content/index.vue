@@ -2,7 +2,6 @@
   <BasePageLayout>
     <BaseContainer :flex-col="true">
       <header class="header">
-        <h3 class="header__heading">Content</h3>
         <div class="search-box">
           <label class="search-box__label" for="search"
             ><span class="material-icons">search</span></label
@@ -26,17 +25,17 @@
               />
             </div>
             <div class="article__content">
-              <p class="article__date">{{ article.original_date }}</p>
               <h3 class="article__title">{{ article.title }}</h3>
               <p class="article__description">{{ article.description }}</p>
-              <BaseButton
-                class="button"
-                buttonType="pill"
-                v-for="(category, index) in article.categories"
-                :key="index"
-              >
-                {{ category.name }}
-              </BaseButton>
+              <div class="article__categories">
+                <BaseButton
+                  buttonType="pill"
+                  v-for="(category, index) in article.categories"
+                  :key="index"
+                >
+                  {{ category.name }}
+                </BaseButton>
+              </div>
             </div>
           </BaseCard>
         </NuxtLink>
@@ -143,27 +142,24 @@ export default defineComponent({
 <style lang="scss" scoped>
 .header {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
   margin-bottom: 2rem;
-
-  &__heading {
-    font-family: 'Roboto';
-    font-weight: 400;
-  }
+  width: 100%;
 }
 .search-box {
   display: flex;
   justify-content: flex-end;
   align-items: center;
+  width: 40%;
 
   &__label {
     margin-right: 1rem;
   }
 
   &__input {
-    width: 20rem;
     padding: 0.25rem;
+    flex-grow: 1;
   }
 }
 .content__container {
@@ -172,9 +168,10 @@ export default defineComponent({
   flex-direction: row;
   flex-wrap: wrap;
   background-color: $accelerate-blue-5;
-  padding: 4rem 2rem 0;
+  padding-top: 0.5rem;
 
   @include respond(tab-landscape) {
+    padding: 4rem 2rem 0;
     padding-top: 4rem;
   }
 }
@@ -185,7 +182,7 @@ export default defineComponent({
 }
 
 p .flex-dummy {
-  width: $article-card-width;
+  width: $article-card-width !important;
   height: 0 !important;
   padding-top: 0 !important;
   padding-bottom: 0 !important;
