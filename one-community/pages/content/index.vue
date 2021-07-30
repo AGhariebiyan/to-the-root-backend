@@ -9,7 +9,7 @@
           <input class="search-box__input" id="search" v-model="search" />
         </div>
       </header>
-      <div class="content__container" v-if="filteredArticles">
+      <div class="content__container" v-if="filteredArticles.length">
         <NuxtLink
           class="nuxt-link"
           :to="`/content/${article.slug}`"
@@ -39,8 +39,10 @@
             </div>
           </BaseCard>
         </NuxtLink>
+
         <ClipLoader class="loader" color="#3da4bf" v-show="isLoading" />
       </div>
+      <p v-else-if="!isLoading" class="no-articles-text">No articles found</p>
     </BaseContainer>
   </BasePageLayout>
 </template>
@@ -199,5 +201,9 @@ export default defineComponent({
 
 .loader {
   width: 100%;
+}
+
+.no-articles-text {
+  text-align: center;
 }
 </style>
