@@ -27,15 +27,19 @@
             <div class="article__content">
               <h3 class="article__title">{{ article.title }}</h3>
               <p class="article__description">{{ article.description }}</p>
-              <div class="article__categories">
-                <BaseButton
-                  buttonType="pill"
-                  v-for="(category, index) in article.categories"
-                  :key="index"
+            </div>
+            <div class="article__categories">
+              <BaseButton
+                buttonType="pill"
+                v-for="(category, index) in article.categories"
+                :key="index"
+              >
+                <NuxtLink
+                  class="article__category-link"
+                  :to="`category/${category.name}`"
+                  >{{ category.name }}</NuxtLink
                 >
-                  {{ category.name }}
-                </BaseButton>
-              </div>
+              </BaseButton>
             </div>
           </BaseCard>
         </NuxtLink>

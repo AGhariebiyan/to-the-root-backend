@@ -50,10 +50,11 @@ export default defineComponent({
   }
 
   &__content {
-    padding: 1.3rem;
+    padding: 0 1.3rem;
     height: $article-card-content-height;
     overflow-y: hidden;
     position: relative;
+
     &:after {
       content: '';
       text-align: right;
@@ -65,7 +66,6 @@ export default defineComponent({
       background: linear-gradient(
         to bottom,
         rgba(255, 255, 255, 0) 0%,
-        rgba(255, 255, 255, 1) 40%,
         rgba(255, 255, 255, 1) 100%
       );
     }
@@ -84,10 +84,8 @@ export default defineComponent({
   }
 
   &__categories {
-    position: absolute;
-    bottom: 1rem;
-    left: 1.3rem;
-    z-index: 2;
+    height: 3.5rem;
+    padding: 1rem 1.3rem;
   }
 }
 </style>
