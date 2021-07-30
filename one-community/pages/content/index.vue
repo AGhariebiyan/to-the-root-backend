@@ -39,8 +39,6 @@
             </div>
           </BaseCard>
         </NuxtLink>
-        <div class="flex-dummy card article" />
-        <div class="flex-dummy card article" />
         <ClipLoader class="loader" color="#3da4bf" v-show="isLoading" />
       </div>
     </BaseContainer>
@@ -153,6 +151,14 @@ export default defineComponent({
   align-items: center;
   width: 40%;
 
+  @include respond(tab-landscape) {
+    width: 60%;
+  }
+
+  @media screen and (max-width: 36em) {
+    width: 100%;
+  }
+
   &__label {
     margin-right: 1rem;
   }
@@ -163,35 +169,34 @@ export default defineComponent({
   }
 }
 .content__container {
-  display: flex;
-  justify-content: space-evenly;
-  flex-direction: row;
-  flex-wrap: wrap;
-  background-color: $accelerate-blue-5;
-  padding-top: 0.5rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1rem;
 
   @include respond(tab-landscape) {
-    padding: 4rem 2rem 0;
-    padding-top: 4rem;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  @media screen and (max-width: 36em) {
+    grid-template-columns: 1fr;
   }
 }
 
 .nuxt-link {
   text-decoration: none;
   color: inherit;
-}
-
-p .flex-dummy {
-  width: $article-card-width !important;
-  height: 0 !important;
-  padding-top: 0 !important;
-  padding-bottom: 0 !important;
-  margin: 0 0 3rem;
+  flex: 0 1 31%;
+  margin-bottom: 1rem;
 
   @include respond(tab-landscape) {
-    width: $article-card-width-landscape;
+    flex-basis: 46%;
+  }
+
+  @media screen and (max-width: 42em) {
+    flex-basis: 100%;
   }
 }
+
 .loader {
   width: 100%;
 }
