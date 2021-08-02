@@ -1,13 +1,16 @@
 <template>
   <section v-if="containerType === 'color'" class="container container--color">
-    <div class="container__inner">
+    <div class="container__inner" :class="{ 'flex-col': flexCol }">
       <slot> BASECONTAINER </slot>
     </div>
   </section>
 
   <section
     class="container"
-    :class="containerType ? `container--${containerType}` : ''"
+    :class="
+      (containerType ? `container--${containerType}` : '',
+      { 'flex-col': flexCol })
+    "
     v-else
   >
     <slot> BASECONTAINER </slot>
@@ -24,6 +27,10 @@ export default defineComponent({
       validator(value: string) {
         return ['color', 'narrow'].includes(value)
       },
+    },
+    flexCol: {
+      type: Boolean,
+      default: false,
     },
   },
   setup() {},
@@ -79,5 +86,8 @@ export default defineComponent({
       padding: 0.5rem;
     }
   }
+}
+.flex-col {
+  flex-direction: column;
 }
 </style>

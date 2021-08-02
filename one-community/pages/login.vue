@@ -38,9 +38,8 @@
               buttonType="primary"
               type="submit"
               :disabled="isLoggedIn || error.length > 0"
+              >Login</BaseButton
             >
-              Login
-            </BaseButton>
             <NuxtLink class="form__button secondary-link" to="/signup"
               >Sign up instead</NuxtLink
             >
