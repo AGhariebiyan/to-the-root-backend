@@ -3,11 +3,11 @@ import { GetterTree, ActionTree, MutationTree } from 'vuex'
 import { Article } from '~/utils/types'
 
 const initArticles: Article[] = []
-const initIds: number[] = []
+const initArticleIds: number[] = []
 
 export const state = () => ({
   articles: initArticles,
-  ids: initIds,
+  ids: initArticleIds,
   foundAllArticles: false,
 })
 
