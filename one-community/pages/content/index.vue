@@ -93,7 +93,6 @@ export default defineComponent({
     const url: string = $config.strapiUrl
 
     const articles = computed(() => {
-      return []
       return store.getters['articles/articles']
     })
 
