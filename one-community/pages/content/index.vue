@@ -44,7 +44,15 @@
           </BaseCard>
         </NuxtLink>
       </div>
-      <p v-else-if="!isLoading" class="no-articles-text">No articles found</p>
+      <div class="no-articles" v-else-if="!isLoading">
+        <h3 class="no-articles__heading">No articles found</h3>
+        <p class="no-articles__paragraph">
+          Please try adapting your search, or
+          <NuxtLink class="no-articles__link" to="content/add"
+            >add an article yourself</NuxtLink
+          >!
+        </p>
+      </div>
       <ClipLoader
         class="loader"
         color="#3da4bf"
@@ -85,6 +93,7 @@ export default defineComponent({
     const url: string = $config.strapiUrl
 
     const articles = computed(() => {
+      return []
       return store.getters['articles/articles']
     })
 
@@ -212,7 +221,29 @@ export default defineComponent({
   margin-top: 4rem;
 }
 
-.no-articles-text {
-  text-align: center;
+.no-articles {
+  @include respond(phone) {
+    padding: 0.5rem;
+    text-align: center;
+  }
+
+  &__heading {
+    margin-bottom: 1rem;
+  }
+
+  &__paragraph {
+  }
+
+  &__link {
+    &:link,
+    &:visited {
+      color: inherit;
+      text-decoration: none;
+      color: $ordina-orange-hover;
+    }
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 }
 </style>
