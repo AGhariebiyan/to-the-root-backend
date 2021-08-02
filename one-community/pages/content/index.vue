@@ -43,10 +43,14 @@
             </div>
           </BaseCard>
         </NuxtLink>
-
-        <ClipLoader class="loader" color="#3da4bf" v-show="isLoading" />
       </div>
       <p v-else-if="!isLoading" class="no-articles-text">No articles found</p>
+      <ClipLoader
+        class="loader"
+        color="#3da4bf"
+        size="5rem"
+        v-show="isLoading"
+      />
     </BaseContainer>
   </BasePageLayout>
 </template>
@@ -205,6 +209,7 @@ export default defineComponent({
 
 .loader {
   width: 100%;
+  margin-top: 4rem;
 }
 
 .no-articles-text {
