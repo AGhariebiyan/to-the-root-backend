@@ -36,7 +36,7 @@
               >
                 <NuxtLink
                   class="article__category-link"
-                  :to="`category/${category.name}`"
+                  :to="`category/${category.slug}`"
                   >{{ category.name }}</NuxtLink
                 >
               </BaseButton>
