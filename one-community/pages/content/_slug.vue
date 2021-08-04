@@ -7,10 +7,10 @@
         <p class="article__description">{{ article.description }}</p>
         <p class="article__meta">
           {{ article.original_date }} by
-          <NuxtLink :to="`/content?author=${article.author.id}`"
-            ><span class="article__author">{{
-              article.author.name
-            }}</span></NuxtLink
+          <NuxtLink
+            class="article__author"
+            :to="`/content?author=${article.author.id}`"
+            >{{ article.author.name }}</NuxtLink
           >
         </p>
         <share-buttons />
@@ -121,6 +121,14 @@ export default defineComponent({
 
   &__author {
     font-weight: bold;
+    color: inherit;
+    &:link,
+    &:visited {
+      text-decoration: none;
+    }
+    &:hover {
+      text-decoration: underline;
+    }
   }
 
   &__image-container {
