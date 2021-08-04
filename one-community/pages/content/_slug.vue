@@ -75,8 +75,9 @@ export default defineComponent({
     const slug = route?.value?.params?.slug
     const strapiUrl: string = $config.strapiUrl
     const isLoading = ref(true)
+    const baseUrl = process.env.baseUrl
 
-    const articleUrl = `localhost:3000${route.value.fullPath}`
+    const articleUrl = `${baseUrl}${route.value.fullPath}`
 
     const article = computed(() => {
       return (

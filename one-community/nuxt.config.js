@@ -33,6 +33,7 @@ export default {
   components: {
     dirs: ['~/components', '~/components/global'],
   },
+
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
     // https://go.nuxtjs.dev/typescript
@@ -49,6 +50,7 @@ export default {
     'nuxt-material-design-icons',
     'vue-social-sharing/nuxt',
   ],
+
   auth: {
     redirect: {
       login: '/login',
@@ -77,17 +79,25 @@ export default {
       },
     },
   },
+
   strapi: {
     entities: ['articles', 'authors', 'categories'],
     url: process.env.STRAPI_URL,
   },
 
+  // Make these variables available through process.env in the components
+  env: {
+    baseUrl: process.env.BASE_URL || 'http://localhost:3000',
+  },
+
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
+
   generate: {
     // choose to suit your project
     interval: 200,
   },
+
   styleResources: {
     scss: ['~/assets/scss/variables.scss', '~/assets/scss/mixins.scss'],
   },
