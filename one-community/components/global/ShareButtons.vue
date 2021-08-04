@@ -1,27 +1,25 @@
 <template>
   <div class="share-buttons">
     <p class="share-buttons__text">Share:</p>
-    <div
+    <ShareNetwork
       v-for="social in socials"
       :key="social.name"
       class="share-buttons__button"
-      @click="social.method"
+      :network="social.name"
+      :url="url"
+      :title="article.title"
+      :description="article.title"
+      :hashtags="categories"
     >
       <span class="icon-wrapper" v-html="social.icon"></span>
-    </div>
+    </ShareNetwork>
   </div>
 </template>
 
 <script>
 export default {
-  setup() {
-    function shareOnFacebook() {
-      console.log('facebook')
-    }
-    function shareOnLinkedIn() {
-      console.log('linkedin')
-    }
-
+  props: ['article', 'url'],
+  setup(props) {
     const socials = [
       {
         name: 'facebook',
@@ -31,7 +29,6 @@ export default {
             fill="#333"
           /></svg
       >`,
-        method: shareOnFacebook,
       },
       {
         name: 'linkedin',
@@ -42,10 +39,15 @@ export default {
             fill="#333"
           /></svg
       >`,
-        method: shareOnLinkedIn,
       },
     ]
-    return { socials }
+
+    console.log(props.url)
+
+    const categories = props.article.categories
+      .map((category) => category.name)
+      .join(',')
+    return { socials, categories }
   },
 }
 </script>

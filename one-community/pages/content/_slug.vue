@@ -13,11 +13,18 @@
             >{{ article.author.name }}</NuxtLink
           >
         </p>
-        <share-buttons />
+        <share-buttons
+          :article="{
+            title: article.title,
+            description: article.description,
+            categories: article.categories,
+          }"
+          :url="articleUrl"
+        />
         <div class="article__image-container">
           <img
             class="article__cover-image"
-            :src="`${url}${article.cover_image.url}`"
+            :src="`${strapiUrl}${article.cover_image.url}`"
           />
         </div>
         <p class="article__content">{{ article.content }}</p>
@@ -66,8 +73,10 @@ export default defineComponent({
     const { store, $config } = useContext()
     const route: any = useRoute()
     const slug = route?.value?.params?.slug
-    const url: string = $config.strapiUrl
+    const strapiUrl: string = $config.strapiUrl
     const isLoading = ref(true)
+
+    const articleUrl = `localhost:3000${route.value.fullPath}`
 
     const article = computed(() => {
       return (
@@ -100,7 +109,7 @@ export default defineComponent({
       }
     }
 
-    return { article, isLoading, url }
+    return { article, isLoading, strapiUrl, articleUrl }
   },
 })
 </script>

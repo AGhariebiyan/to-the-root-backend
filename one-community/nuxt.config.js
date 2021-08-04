@@ -47,6 +47,7 @@ export default {
     '@nuxtjs/strapi',
     '@nuxtjs/style-resources',
     'nuxt-material-design-icons',
+    'vue-social-sharing/nuxt',
   ],
   auth: {
     redirect: {
