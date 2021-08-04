@@ -7,10 +7,10 @@
 
   <section
     class="container"
-    :class="
-      (containerType ? `container--${containerType}` : '',
-      { 'flex-col': flexCol })
-    "
+    :class="[
+      containerType ? `container--${containerType}` : '',
+      flexCol ? 'flex-col' : '',
+    ]"
     v-else
   >
     <slot> BASECONTAINER </slot>
@@ -74,7 +74,7 @@ export default defineComponent({
   }
 
   &--narrow {
-    max-width: $desktop-half-width;
+    width: $desktop-half-width;
     padding: 3rem;
     @include respond(tab-portrait) {
       padding: 2rem;
