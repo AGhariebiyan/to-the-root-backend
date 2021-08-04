@@ -143,6 +143,7 @@ export default defineComponent({
   &__image-container {
     overflow: hidden;
     height: 20rem;
+    margin-bottom: 2rem;
   }
 
   &__cover-image {
