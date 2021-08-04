@@ -27,7 +27,10 @@
             :src="`${strapiUrl}${article.cover_image.url}`"
           />
         </div>
-        <p class="article__content">{{ article.content }}</p>
+        <div
+          class="article__content"
+          v-html="$md.render(article.content)"
+        ></div>
         <div class="article__interactions">
           <div class="article__likes">
             <span class="material-icons-outlined">thumb_up</span>
@@ -79,7 +82,7 @@ export default defineComponent({
 
     const articleUrl = `${baseUrl}${route.value.fullPath}`
 
-    const article = computed(() => {
+    const article: Article = computed(() => {
       return (
         store.getters['articles/articles'].find(
           (article: Article) => article.slug == slug,
@@ -110,7 +113,14 @@ export default defineComponent({
       }
     }
 
-    return { article, isLoading, strapiUrl, articleUrl }
+    const content = computed(() => {
+      console.log(article)
+      if (article.value !== null) {
+        return ''
+      }
+    })
+
+    return { article, isLoading, strapiUrl, articleUrl, content }
   },
 })
 </script>
@@ -142,6 +152,8 @@ export default defineComponent({
   }
 
   &__image-container {
+    display: flex;
+    align-items: center;
     overflow: hidden;
     height: 20rem;
     margin-bottom: 2rem;

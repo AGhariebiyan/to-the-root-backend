@@ -49,6 +49,7 @@ export default {
     '@nuxtjs/style-resources',
     'nuxt-material-design-icons',
     'vue-social-sharing/nuxt',
+    '@nuxtjs/markdownit',
   ],
 
   auth: {
@@ -100,5 +101,13 @@ export default {
 
   styleResources: {
     scss: ['~/assets/scss/variables.scss', '~/assets/scss/mixins.scss'],
+  },
+
+  markdownit: {
+    runtime: true, // Support `$md()`
+    preset: 'default',
+    linkify: true,
+    breaks: true,
+    // use: ['markdown-it-div', 'markdown-it-attrs'],
   },
 }
