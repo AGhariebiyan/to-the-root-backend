@@ -5,14 +5,14 @@
         <h3>Reset Password</h3>
         <label class="form__label" for="password">Password</label>
         <input
-          type="text"
+          type="password"
           name="password"
           placeholder="Enter your password"
           v-model="newPassword"
           class="form__input"
         />
         <input
-          type="text"
+          type="password"
           name="password"
           placeholder="Enter the password again"
           v-model="newPassword2"
@@ -34,20 +34,21 @@ export default defineComponent({
     const newPassword = ref('')
     const newPassword2 = ref('')
 
-    function resetPassword() {
+    async function resetPassword() {
       // Request API.
-      context.$axios
-        .post('http://localhost:1337/auth/reset-password', {
-          code: 'privateCode', // code contained in the reset link of step 3.
-          password: 'userNewPassword',
-          passwordConfirmation: 'userNewPassword',
-        })
-        .then((response) => {
-          console.log("Your user's password has been reset.")
-        })
-        .catch((error) => {
-          console.log('An error occurred:', error.response)
-        })
+      try {
+        const reset = await context.$axios.post(
+          `${context.$strapi.options.url}/auth/reset-password`,
+          {
+            code: 'privateCode', // code contained in the reset link of step 3.
+            password: newPassword.value,
+            passwordConfirmation: newPassword2.value,
+          },
+        )
+        console.log(reset.data)
+      } catch (error) {
+        console.log('An error occurred:', error.response)
+      }
     }
     return {
       newPassword,

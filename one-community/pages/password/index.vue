@@ -5,7 +5,7 @@
         <h3>Forgot Password</h3>
         <label class="form__label" for="email">Email</label>
         <input
-          type="text"
+          type="email"
           name="email"
           placeholder="Enter your email"
           v-model="forgotEmail"
@@ -25,36 +25,21 @@ export default defineComponent({
     const context = useContext()
     const forgotEmail = ref('')
 
-    function forgotPassword() {
+    async function forgotPassword() {
       // Request API.
-      context.$axios
-        .post('http://localhost:1337/auth/forgot-password', {
-          email: forgotEmail.value, // user's email
-        })
-        .then((response) => {
-          console.log('Your user received an email')
-        })
-        .catch((error) => {
-          console.log('An error occurred:', error.response)
-        })
-      resetPassword()
+      try {
+        const forgot = await context.$axios.post(
+          `${context.$strapi.options.url}/auth/forgot-password`,
+          {
+            email: forgotEmail.value, // user's email
+          },
+        )
+        console.log(forgot.data)
+      } catch (error) {
+        console.log('An error occurred:', error.response)
+      }
     }
 
-    function resetPassword() {
-      // Request API.
-      context.$axios
-        .post('http://localhost:1337/auth/reset-password', {
-          code: 'privateCode', // code contained in the reset link of step 3.
-          password: 'userNewPassword',
-          passwordConfirmation: 'userNewPassword',
-        })
-        .then((response) => {
-          console.log("Your user's password has been reset.")
-        })
-        .catch((error) => {
-          console.log('An error occurred:', error.response)
-        })
-    }
     return {
       forgotEmail,
       forgotPassword,
