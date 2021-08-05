@@ -3,12 +3,19 @@
     <BaseForm @submit="resetPassword">
       <template v-slot:form>
         <h3>Reset Password</h3>
-        <label class="form__label" for="email">Email</label>
+        <label class="form__label" for="password">Password</label>
         <input
           type="text"
-          name="email"
-          placeholder="Enter your email"
-          v-model="resetEmail"
+          name="password"
+          placeholder="Enter your password"
+          v-model="newPassword"
+          class="form__input"
+        />
+        <input
+          type="text"
+          name="password"
+          placeholder="Enter the password again"
+          v-model="newPassword2"
           class="form__input"
         />
         <BaseButton buttonType="primary">Reset Password</BaseButton>
@@ -24,7 +31,8 @@ export default defineComponent({
   middleware: 'auth',
   setup() {
     const context = useContext()
-    const resetEmail = ref('')
+    const newPassword = ref('')
+    const newPassword2 = ref('')
 
     function resetPassword() {
       // Request API.
@@ -42,7 +50,8 @@ export default defineComponent({
         })
     }
     return {
-      resetEmail,
+      newPassword,
+      newPassword2,
       resetPassword,
     }
   },
