@@ -1,25 +1,15 @@
 <template>
   <BaseContainer>
-    <BaseForm v-if="isLoggedIn" @submit="resetPassword">
-      <template v-slot:form>
-        <h3>Reset Password</h3>
-        <input
-          type="text"
-          name="email"
-          placeholder="Enter your email"
-          v-model="resetEmail"
-        />
-        <BaseButton buttonType="primary">Reset Password</BaseButton>
-      </template>
-    </BaseForm>
-    <BaseForm v-else @submit="forgotPassword">
+    <BaseForm @submit="forgotPassword">
       <template v-slot:form>
         <h3>Forgot Password</h3>
+        <label class="form__label" for="email">Email</label>
         <input
           type="text"
           name="email"
           placeholder="Enter your email"
           v-model="forgotEmail"
+          class="form__input"
         />
         <BaseButton buttonType="primary">Send New Password</BaseButton>
       </template>
@@ -28,23 +18,12 @@
 </template>
 
 <script lang="ts">
-import {
-  computed,
-  defineComponent,
-  useContext,
-  ref,
-} from '@nuxtjs/composition-api'
+import { defineComponent, useContext, ref } from '@nuxtjs/composition-api'
 
 export default defineComponent({
-  // middleware: 'auth',
   setup() {
     const context = useContext()
-    const resetEmail = ref('')
     const forgotEmail = ref('')
-
-    const isLoggedIn = computed(() => {
-      return context.$auth.$state.loggedIn
-    })
 
     function forgotPassword() {
       // Request API.
@@ -58,6 +37,7 @@ export default defineComponent({
         .catch((error) => {
           console.log('An error occurred:', error.response)
         })
+      resetPassword()
     }
 
     function resetPassword() {
@@ -76,14 +56,18 @@ export default defineComponent({
         })
     }
     return {
-      resetEmail,
       forgotEmail,
-      isLoggedIn,
       forgotPassword,
-      resetPassword,
     }
   },
 })
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+h3 {
+  margin-bottom: 1rem;
+}
+button {
+  margin-top: 1rem;
+}
+</style>

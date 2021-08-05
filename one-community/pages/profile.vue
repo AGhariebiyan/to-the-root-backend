@@ -29,9 +29,16 @@
       v-if="currentSection === 'profile'"
     >
       <h2>Welcome {{ $auth.user.username }}</h2>
-      <p>
+      <p class="profile__description">
         This is your profile page where you can logout and view your profile
         info
+      </p>
+      <p>Username: {{ $auth.user.username }}</p>
+      <p>Email: {{ $auth.user.email }}</p>
+
+      <p class="profile__reset-link">
+        Click <NuxtLink to="/password/reset">here</NuxtLink> to reset your
+        password
       </p>
 
       <BaseButton buttonType="primary" @click.native="logout"
@@ -92,8 +99,9 @@ export default defineComponent({
   flex-direction: column;
   button {
     width: fit-content;
+    margin-top: 1rem;
   }
-  p {
+  .profile__description {
     margin: 1rem 0;
   }
 }
@@ -108,5 +116,8 @@ export default defineComponent({
   &.active {
     background-color: $discovery-blue-5;
   }
+}
+.profile__reset-link {
+  margin: 1rem 0;
 }
 </style>
