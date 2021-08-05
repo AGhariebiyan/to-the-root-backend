@@ -11,6 +11,8 @@
   },
   "plugins": ["vue", "@typescript-eslint"],
   "rules": {
-    "no-console": 1
+    "no-console": 1,
+    "require-jsdoc": 0,
+    "camelcase": 0
   }
 }

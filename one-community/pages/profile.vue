@@ -1,15 +1,35 @@
 <template>
-  <BaseContainer>
-    <h1>PROFILE</h1>
-  </BaseContainer>
+  <BasePageLayout>
+    <BaseContainer>
+      <h1>Logged in as {{ $auth.user.username }}</h1>
+
+      <button
+        :title="$auth.user.username"
+        class="login-box__logout"
+        @click="logout"
+      >
+        Logout
+      </button>
+    </BaseContainer>
+  </BasePageLayout>
 </template>
 
 <script lang="ts">
-import { defineComponent, useStore } from '@nuxtjs/composition-api'
+import { defineComponent, useContext } from '@nuxtjs/composition-api'
 
 export default defineComponent({
+  middleware: 'auth',
   setup() {
-    const store = useStore()
+    const { $auth } = useContext()
+
+    // Logout
+    async function logout() {
+      try {
+        await $auth.logout()
+      } catch {}
+    }
+
+    return { logout }
   },
 })
 </script>

@@ -1,16 +1,16 @@
 <template>
-  <BaseContainer>
-    <h1>ABOUT</h1>
-  </BaseContainer>
+  <BasePageLayout>
+    <BaseContainer>
+      <h1>ABOUT</h1>
+    </BaseContainer>
+  </BasePageLayout>
 </template>
 
 <script lang="ts">
-import { defineComponent, useStore } from '@nuxtjs/composition-api'
+import { defineComponent } from '@nuxtjs/composition-api'
 
 export default defineComponent({
-  setup() {
-    const store = useStore()
-  },
+  setup() {},
 })
 </script>
 
