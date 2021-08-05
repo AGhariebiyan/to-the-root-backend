@@ -114,6 +114,7 @@ export default defineComponent({
 .mission {
   display: flex;
   flex-direction: column;
+
   &__heading {
     text-align: center;
     margin-bottom: 2rem;
