@@ -2,16 +2,19 @@
   <base-page-layout>
     <base-container containerType="narrow">
       <ClipLoader class="loader" color="#3da4bf" v-if="isLoading" />
-      <article v-else class="article">
+      <article v-else-if="isArticleLoaded" class="article">
         <h2 class="article__title">{{ article.title }}</h2>
         <p class="article__description">{{ article.description }}</p>
         <p class="article__meta">
-          {{ article.original_date }} by
-          <NuxtLink
-            class="article__author"
-            :to="`/content?author=${article.author.id}`"
-            >{{ article.author.name }}</NuxtLink
-          >
+          {{ article.original_date
+          }}<template v-if="article.author">
+            by
+            <NuxtLink
+              class="article__author"
+              :to="`/content?author=${article.author.id}`"
+              >{{ article.author.name }}</NuxtLink
+            >
+          </template>
         </p>
         <share-buttons
           :article="{
@@ -42,7 +45,11 @@
           </div>
         </div>
       </article>
-    </base-container>
+      <p v-else>
+        The article with slug <code>{{ slug }}</code> was not found
+      </p></base-container
+    >
+
     <base-container class="related-articles" containerType="color">
       <h3>Related articles</h3>
       <div class="related-articles__container">
@@ -82,7 +89,7 @@ export default defineComponent({
 
     const articleUrl = `${baseUrl}${route.value.fullPath}`
 
-    const article: Article = computed(() => {
+    const article = computed(() => {
       return (
         store.getters['articles/articles'].find(
           (article: Article) => article.slug == slug,
@@ -114,13 +121,19 @@ export default defineComponent({
     }
 
     const content = computed(() => {
-      console.log(article)
       if (article.value !== null) {
         return ''
       }
     })
 
-    return { article, isLoading, strapiUrl, articleUrl, content }
+    return {
+      article,
+      isArticleLoaded,
+      isLoading,
+      strapiUrl,
+      articleUrl,
+      content,
+    }
   },
 })
 </script>
@@ -208,5 +221,9 @@ export default defineComponent({
 .related-articles {
   &__container {
   }
+}
+
+blockquote {
+  background: yellow;
 }
 </style>

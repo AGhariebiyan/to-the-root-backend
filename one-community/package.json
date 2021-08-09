@@ -20,6 +20,7 @@
     "chalk": "^4.1.1",
     "core-js": "^3.9.1",
     "lodash": "^4.17.21",
+    "markdown-it-highlightjs": "^3.5.0",
     "nuxt": "^2.15.3",
     "nuxt-material-design-icons": "^1.0.4",
     "vue-social-sharing": "^3.0.8",

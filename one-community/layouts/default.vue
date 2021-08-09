@@ -52,6 +52,13 @@ h3 {
   }
 }
 
+blockquote {
+  padding: 1rem 2rem;
+  border-left: 0.125rem solid $gray-dark;
+  background: $gray-light;
+  font-style: italic;
+}
+
 *,
 *::before,
 *::after {
