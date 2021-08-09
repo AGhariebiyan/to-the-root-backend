@@ -185,6 +185,7 @@ one-community/package-lock.json
 /one-community-backend/!public/uploads/.gitkeep
 *.sublime-*
 *.url
+/assets
 
 ############################
 # Node.js
