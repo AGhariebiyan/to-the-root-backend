@@ -2,7 +2,7 @@
   <BaseContainer>
     <BaseForm @submit="forgotPassword">
       <template v-slot:form>
-        <h3>Forgot Password</h3>
+        <h3>Get New Password</h3>
         <label class="form__label" for="email">Email</label>
         <input
           type="email"
@@ -22,19 +22,15 @@ import { defineComponent, useContext, ref } from '@nuxtjs/composition-api'
 
 export default defineComponent({
   setup() {
-    const context = useContext()
+    const { $axios, $strapi } = useContext()
     const forgotEmail = ref('')
 
     async function forgotPassword() {
       // Request API.
       try {
-        const forgot = await context.$axios.post(
-          `${context.$strapi.options.url}/auth/forgot-password`,
-          {
-            email: forgotEmail.value, // user's email
-          },
-        )
-        console.log(forgot.data)
+        await $axios.post(`${$strapi.options.url}/auth/forgot-password`, {
+          email: forgotEmail.value, // user's email
+        })
       } catch (error) {
         console.log('An error occurred:', error.response)
       }

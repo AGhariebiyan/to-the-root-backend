@@ -30,15 +30,15 @@ import { defineComponent, useContext, ref } from '@nuxtjs/composition-api'
 export default defineComponent({
   middleware: 'auth',
   setup() {
-    const context = useContext()
+    const { $axios, $strapi } = useContext()
     const newPassword = ref('')
     const newPassword2 = ref('')
 
     async function resetPassword() {
       // Request API.
       try {
-        const reset = await context.$axios.post(
-          `${context.$strapi.options.url}/auth/reset-password`,
+        const reset = await $axios.post(
+          `${$strapi.options.url}/auth/reset-password`,
           {
             code: 'privateCode', // code contained in the reset link of step 3.
             password: newPassword.value,

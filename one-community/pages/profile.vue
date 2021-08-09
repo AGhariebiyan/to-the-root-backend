@@ -1,6 +1,6 @@
 <template>
   <BasePageLayout>
-    <BaseContainer class="profile__section--nav">
+    <BaseContainer class="profile__section-nav">
       <p
         class="profile__section-link"
         :class="{ active: currentSection === 'profile' }"
@@ -29,8 +29,7 @@
         <p class="profile__section--text">{{ $auth.user.email }}</p>
 
         <p class="profile__reset-link">
-          Click <NuxtLink to="/password/reset">here</NuxtLink> to reset your
-          password
+          Click <NuxtLink to="/password">here</NuxtLink> to reset your password
         </p>
 
         <BaseButton buttonType="secondary" @click.native="logout"
