@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="content">
     <LayoutTheHeader />
     <Nuxt />
     <LayoutTheFooter />
@@ -16,6 +16,22 @@
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   box-sizing: border-box;
+}
+
+body,
+#__nuxt,
+#__layout,
+.content {
+  min-height: 100vh;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+}
+
+.main {
+  flex-grow: 1;
 }
 
 h1,

@@ -125,6 +125,7 @@ export default defineComponent({
   position: sticky;
   top: 0;
   z-index: 50;
+  flex-grow: 0;
 }
 
 .header__content {
