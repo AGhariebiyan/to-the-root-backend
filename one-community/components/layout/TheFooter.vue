@@ -56,6 +56,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .footer {
+  background-color: $gray-light;
   display: flex;
   justify-content: center;
   align-items: center;
