@@ -75,7 +75,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.profile__section--nav.container {
+.profile__section-nav.container {
   padding-bottom: 0;
   border-bottom: 2px solid $discovery-blue-5;
 }

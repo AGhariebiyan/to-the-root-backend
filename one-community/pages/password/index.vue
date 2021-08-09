@@ -2,7 +2,7 @@
   <BaseContainer>
     <BaseForm @submit="forgotPassword">
       <template v-slot:form>
-        <h3>Get New Password</h3>
+        <h3>Get Password Reset Link</h3>
         <label class="form__label" for="email">Email</label>
         <input
           type="email"
@@ -11,7 +11,7 @@
           v-model="forgotEmail"
           class="form__input"
         />
-        <BaseButton buttonType="primary">Send New Password</BaseButton>
+        <BaseButton buttonType="primary">Send Reset Email</BaseButton>
       </template>
     </BaseForm>
   </BaseContainer>
