@@ -32,6 +32,7 @@ export default {
     // https://go.nuxtjs.dev/typescript
     '@nuxtjs/composition-api/module',
     '@nuxt/typescript-build',
+    '@nuxtjs/google-analytics',
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -83,5 +84,8 @@ export default {
   },
   styleResources: {
     scss: ['~/assets/scss/variables.scss', '~/assets/scss/mixins.scss'],
+  },
+  googleAnalytics: {
+    id: process.env.GOOGLE_ANALYTICS_ID,
   },
 }
