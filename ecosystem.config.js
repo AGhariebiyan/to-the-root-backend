@@ -2,15 +2,11 @@ module.exports = {
   apps: [
     {
       name: "one-community-fe",
-      cwd: "./one-community",
-      script: "npm",
-      args: "dev",
+      script: "./frontend.sh",
     },
     {
       name: "strapi",
-      cwd: "./one-community-backend",
-      script: "npm",
-      args: "develop",
+      script: "./backend.sh",
     },
   ],
 

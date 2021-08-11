@@ -1,6 +1,6 @@
 <template>
   <BasePageLayout>
-    <BaseContainer class="profile__section--nav">
+    <BaseContainer class="profile__section-nav">
       <p
         class="profile__section-link"
         :class="{ active: currentSection === 'profile' }"
@@ -23,44 +23,28 @@
         My Projects
       </p>
     </BaseContainer>
-    <BaseContainer
-      containerType="narrow"
-      class="profile__section"
-      v-if="currentSection === 'profile'"
-    >
-      <h2>Welcome {{ $auth.user.username }}</h2>
-      <p class="profile__description">
-        This is your profile page where you can logout and view your profile
-        info
-      </p>
-      <p>Username: {{ $auth.user.username }}</p>
-      <p>Email: {{ $auth.user.email }}</p>
+    <BaseContainer containerType="narrow" class="profile__section">
+      <template v-if="currentSection === 'profile'">
+        <h3 class="profile__section--title">{{ $auth.user.username }}</h3>
+        <p class="profile__section--text">{{ $auth.user.email }}</p>
 
-      <p class="profile__reset-link">
-        Click <NuxtLink to="/password/reset">here</NuxtLink> to reset your
-        password
-      </p>
+        <p class="profile__reset-link">
+          Click <NuxtLink to="/password">here</NuxtLink> to reset your password
+        </p>
 
-      <BaseButton buttonType="primary" @click.native="logout"
-        >Logout</BaseButton
-      >
-    </BaseContainer>
-    <BaseContainer
-      containerType="narrow"
-      class="profile__section"
-      v-else-if="currentSection === 'content'"
-    >
-      <p>
-        This is an overview of the content you have produced so far
-      </p></BaseContainer
-    >
+        <BaseButton buttonType="secondary" @click.native="logout"
+          >Logout</BaseButton
+        >
+      </template>
+      <template v-else-if="currentSection === 'content'">
+        <p>This is an overview of the content you have produced so far</p>
+      </template>
 
-    <BaseContainer
-      containerType="narrow"
-      class="profile__section"
-      v-else-if="currentSection === 'projects'"
-    >
-      <p>This is an overview of the projects you have participated in so far</p>
+      <template v-else-if="currentSection === 'projects'">
+        <p>
+          This is an overview of the projects you have participated in so far
+        </p>
+      </template>
     </BaseContainer>
   </BasePageLayout>
 </template>
@@ -91,18 +75,29 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.profile__section--nav.container {
+.profile__section-nav.container {
   padding-bottom: 0;
   border-bottom: 2px solid $discovery-blue-5;
 }
 .profile__section {
   flex-direction: column;
+  .profile__section--title {
+    margin: 0 0 1rem;
+  }
+  .profile__section--text {
+    font-family: RobotoLight, sans-serif;
+  }
   button {
     width: fit-content;
-    margin-top: 1rem;
+    margin-top: 2rem;
   }
-  .profile__description {
-    margin: 1rem 0;
+  &.container--narrow {
+    @include respond(phone) {
+      margin: 1rem;
+      button {
+        margin-top: 1rem;
+      }
+    }
   }
 }
 .profile__section-link {
@@ -118,6 +113,9 @@ export default defineComponent({
   }
 }
 .profile__reset-link {
+  padding: 1rem 0;
   margin: 1rem 0;
+  border-top: 1px solid $gray;
+  border-bottom: 1px solid $gray;
 }
 </style>
