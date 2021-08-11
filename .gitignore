@@ -185,7 +185,7 @@
 /backend/!public/uploads/.gitkeep
 *.sublime-*
 *.url
-/assets
+/data
 
 ############################
 # Node.js

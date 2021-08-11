@@ -60,7 +60,6 @@ export default defineComponent({
 .footer {
   background-color: $gray-light;
   padding: 1rem;
-  flex-grow: 0;
 }
 
 .footer__content {

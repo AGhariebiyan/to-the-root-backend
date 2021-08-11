@@ -1,5 +1,5 @@
 <template>
-  <div class="content">
+  <div class="flex-container">
     <LayoutTheHeader />
     <Nuxt />
     <LayoutTheFooter />
@@ -18,20 +18,10 @@
   box-sizing: border-box;
 }
 
-body,
-#__nuxt,
-#__layout,
-.content {
+.flex-container {
   min-height: 100vh;
-}
-
-.content {
   display: flex;
   flex-direction: column;
-}
-
-.main {
-  flex-grow: 1;
 }
 
 h1,
