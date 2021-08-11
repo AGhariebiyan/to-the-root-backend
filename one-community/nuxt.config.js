@@ -32,7 +32,7 @@ export default {
     // https://go.nuxtjs.dev/typescript
     '@nuxtjs/composition-api/module',
     '@nuxt/typescript-build',
-    '@nuxt/google-analytics',
+    '@nuxtjs/google-analytics',
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
