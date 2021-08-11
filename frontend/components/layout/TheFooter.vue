@@ -122,4 +122,13 @@ export default defineComponent({
     margin-bottom: 1rem;
   }
 }
+
+@media only screen and (max-width: 54.5em) {
+  .footer__logo {
+    display: none;
+  }
+  .footer__content {
+    flex-direction: column;
+  }
+}
 </style>
