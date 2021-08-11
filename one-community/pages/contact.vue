@@ -1,6 +1,6 @@
 <template>
   <BasePageLayout>
-    <BaseContainer containerType="narrow">
+    <BaseContainer containerType="narrow" :flexCol="true">
       <div class="contact__content">
         <h2>Get in Touch</h2>
         <p>

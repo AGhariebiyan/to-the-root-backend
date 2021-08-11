@@ -17,7 +17,7 @@
         </ul>
       </section>
     </BaseContainer>
-    <BaseContainer class="mission" containerType="narrow">
+    <BaseContainer class="mission" containerType="narrow" :flexCol="true">
       <h2 class="mission__heading">Our mission</h2>
       <p class="mission__paragraph">
         Lorem ipsum, dolor sit amet consectetur adipisicing elit. Commodi
@@ -38,6 +38,29 @@
           ><BaseButton buttonType="primary">Join</BaseButton></NuxtLink
         >
       </div>
+    </BaseContainer>
+    <BaseContainer class="discord__container">
+      <div class="discord__container-text">
+        <h2>Join Our Discord Community</h2>
+        <p>
+          Feel free to join our Discord Community. For everyone interested in
+          contributing to open-source Feel free to join our Discord Community.
+          For everyone interested in contributing to open-source Feel free to
+          join our Discord Community. For everyone interested in contributing to
+          open-source Feel free to join our Discord Community. For everyone
+          interested in contributing to open-source Feel free to join our
+          Discord Community. For everyone interested in contributing to
+          open-source
+        </p>
+      </div>
+      <iframe
+        src="https://discordapp.com/widget?id=845429016798035999&theme=dark"
+        width="350"
+        height="500"
+        allowtransparency="true"
+        frameborder="0"
+        sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"
+      ></iframe>
     </BaseContainer>
   </BasePageLayout>
 </template>
@@ -114,13 +137,14 @@ export default defineComponent({
 .mission {
   display: flex;
   flex-direction: column;
+  margin-top: 1rem;
   &__heading {
     text-align: center;
     margin-bottom: 2rem;
   }
 
   &__paragraph {
-    margin-bottom: 4rem;
+    margin-bottom: 2rem;
   }
 
   &__buttons {
@@ -129,6 +153,29 @@ export default defineComponent({
 
     & > a:not(:last-child) {
       margin-right: 2rem;
+    }
+  }
+}
+
+.discord__container.container {
+  .discord__container-text {
+    p {
+      margin-top: 1rem;
+      width: 60%;
+    }
+  }
+  @include respond(tab-portrait) {
+    justify-content: center;
+    align-items: center;
+    .discord__container-text {
+      padding-bottom: 2rem;
+    }
+  }
+  @include respond(phone) {
+    padding: 3rem 0.5rem;
+    margin: 0;
+    iframe {
+      width: 18.75rem;
     }
   }
 }
