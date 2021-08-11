@@ -7,10 +7,10 @@
 
   <section
     class="container"
-    :class="
-      (containerType ? `container--${containerType}` : '',
-      { 'flex-col': flexCol })
-    "
+    :class="[
+      containerType ? `container--${containerType}` : '',
+      flexCol ? 'flex-col' : '',
+    ]"
     v-else
   >
     <slot> BASECONTAINER </slot>
