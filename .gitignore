@@ -216,3 +216,8 @@
 /backend/build
 /backend/.strapi-updater.json
 
+############################
+# package.json
+############################
+/backend/package-lock.json
+
