@@ -40,9 +40,9 @@
       </div>
     </BaseContainer>
     <BaseContainer class="discord">
-      <div class="discord_text">
-        <h2 class="discord_title">Join Our Discord Community</h2>
-        <p>
+      <div class="discord__text">
+        <h2 class="discord__title">Join Our Discord Community</h2>
+        <p class="discord__paragraph">
           Feel free to join our Discord Community. For everyone interested in
           contributing to open-source Feel free to join our Discord Community.
           For everyone interested in contributing to open-source Feel free to
@@ -158,12 +158,12 @@ export default defineComponent({
 }
 
 .discord {
-  &_title {
+  &__title {
     margin-bottom: 2rem;
     margin-right: 1rem;
   }
-  &_text {
-    p {
+  &__text {
+    .discord__paragraph {
       width: 80%;
     }
   }
@@ -172,9 +172,9 @@ export default defineComponent({
     justify-content: center;
     align-items: center;
     text-align: center;
-    &_text {
+    &__text {
       padding-bottom: 2rem;
-      p {
+      .discord__paragraph {
         margin: 0 auto 1rem;
         text-align: left;
         width: 100%;
