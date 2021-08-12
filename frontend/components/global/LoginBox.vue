@@ -22,33 +22,38 @@
     </template>
 
     <template v-else>
-      <BaseButton buttonType="transparent" class="header__button">
-        <NuxtLink
-          class="login-box__link"
-          to="/login"
-          @click.native="$emit('closeMobileMenu')"
-          >Login</NuxtLink
-        >
-      </BaseButton>
-      <BaseButton buttonType="primary" class="header__button">
-        <NuxtLink
-          class="login-box__link"
-          to="/signup"
-          @click.native="$emit('closeMobileMenu')"
-          >Sign up</NuxtLink
-        >
-      </BaseButton>
+      <template v-if="routeName !== 'login'">
+        <BaseButton buttonType="primary" class="header__button">
+          <NuxtLink
+            class="login-box__link"
+            to="/login"
+            @click.native="$emit('closeMobileMenu')"
+            >Login</NuxtLink
+          >
+        </BaseButton>
+      </template>
+      <template v-else>
+        <BaseButton buttonType="primary" class="header__button">
+          <NuxtLink
+            class="login-box__link"
+            to="/signup"
+            @click.native="$emit('closeMobileMenu')"
+            >Sign up</NuxtLink
+          >
+        </BaseButton>
+      </template>
     </template>
   </div>
 </template>
 
 <script>
-import { computed, useContext } from '@nuxtjs/composition-api'
-
+import { computed, useContext, useRoute } from '@nuxtjs/composition-api'
 export default {
   emits: ['closeMobileMenu'],
   setup(props, { emit }) {
     const { $auth } = useContext()
+    const route = useRoute()
+    const routeName = computed(() => route.value.name)
 
     const isLoggedIn = computed(() => {
       return $auth.$state.loggedIn
@@ -66,7 +71,7 @@ export default {
       logout()
     }
 
-    return { isLoggedIn, logoutHandler }
+    return { isLoggedIn, routeName, logoutHandler }
   },
 }
 </script>
