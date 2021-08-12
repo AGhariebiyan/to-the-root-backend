@@ -177,6 +177,7 @@ export default defineComponent({
       p {
         margin: 0 auto 1rem;
         text-align: left;
+        width: 100%;
       }
     }
   }
