@@ -45,9 +45,11 @@
             <BaseButton buttonType="primary" class="form__button" type="submit"
               >Sign up</BaseButton
             >
-            <NuxtLink class="form__button secondary-link" to="/login"
-              >Log in instead</NuxtLink
-            >
+            <BaseButton buttonType="transparent" class="form__button">
+              <NuxtLink class="form__button" to="/login"
+                >Login instead</NuxtLink
+              >
+            </BaseButton>
           </div>
         </template>
       </BaseForm>

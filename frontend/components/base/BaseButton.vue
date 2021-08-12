@@ -13,7 +13,7 @@ export default defineComponent({
       type: String,
       required: true,
       validator(value: string) {
-        return ['primary', 'secondary', 'warning', 'danger', 'pill'].includes(
+        return ['primary', 'secondary', 'transparent', 'warning', 'danger', 'pill'].includes(
           value,
         )
       },
@@ -35,6 +35,11 @@ button {
 button a {
   text-decoration: none;
   color: inherit;
+
+  &:hover, 
+  &:active {
+    text-decoration: none;
+  }
 }
 
 button.primary {
@@ -49,6 +54,13 @@ button.secondary {
   background-color: $accelerate-blue-3;
   &:hover {
     background-color: $accelerate-blue-3-hover;
+  }
+}
+
+button.transparent {
+  background-color: $transparent;
+  &:hover {
+    background-color: $transparent-hover;
   }
 }
 

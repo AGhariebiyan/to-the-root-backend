@@ -1,18 +1,20 @@
 <template>
   <div class="login-box">
     <template v-if="isLoggedIn">
-      <NuxtLink
-        to="/profile"
-        class="profile"
-        :title="`Logged in as ${$auth.user.username}`"
-        @click.native="$emit('closeMobileMenu')"
-      >
-        <span class="material-icons">person_outline</span>
-      </NuxtLink>
+      <BaseButton buttonType="transparent" class="header__button">
+        <NuxtLink
+          class="login-box__link profile"
+          to="/profile"
+          :title="`Logged in as ${$auth.user.username}`"
+          @click.native="$emit('closeMobileMenu')"
+        >
+          <span class="material-icons">person_outline</span>
+        </NuxtLink>
+      </BaseButton>
       <BaseButton
         buttonType="primary"
         :title="$auth.user.username"
-        class="login-box__logout"
+        class="header__button login-box__logout"
         @click.native="logoutHandler"
       >
         Log out
@@ -20,13 +22,15 @@
     </template>
 
     <template v-else>
-      <NuxtLink
-        class="login-box__link"
-        to="/login"
-        @click.native="$emit('closeMobileMenu')"
-        >Login</NuxtLink
-      >
-      <BaseButton class="header__button" buttonType="primary">
+      <BaseButton buttonType="transparent" class="header__button">
+        <NuxtLink
+          class="login-box__link"
+          to="/login"
+          @click.native="$emit('closeMobileMenu')"
+          >Login</NuxtLink
+        >
+      </BaseButton>
+      <BaseButton buttonType="primary" class="header__button">
         <NuxtLink
           class="login-box__link"
           to="/signup"
@@ -84,7 +88,6 @@ export default {
 }
 
 .profile {
-  margin-right: 1rem;
   color: $discovery-blue-primary;
   &:active,
   &:hover {

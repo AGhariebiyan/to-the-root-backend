@@ -38,15 +38,17 @@
 
           <div class="form__buttons">
             <BaseButton
-              class="form__button"
               buttonType="primary"
+              class="form__button"
               type="submit"
               :disabled="isLoggedIn || error.length > 0"
               >Login</BaseButton
             >
-            <NuxtLink class="form__button secondary-link" to="/signup"
-              >Sign up instead</NuxtLink
-            >
+            <BaseButton buttonType="transparent" class="form__button">
+              <NuxtLink class="form__button secondary-link" to="/signup"
+                >Sign up instead</NuxtLink
+              >
+            </BaseButton>
           </div>
         </template>
       </BaseForm>
