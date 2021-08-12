@@ -27,6 +27,7 @@ button {
   height: 3.125rem;
   padding: 0.875rem;
   font-family: 'RobotoBold', sans-serif;
+  font-weight: 800;
   border: none;
   border-radius: 3px;
   cursor: pointer;
@@ -45,6 +46,7 @@ button a {
 button.primary {
   color: $white;
   background-color: $discovery-blue-primary;
+  &:active,
   &:hover {
     background-color: $discovery-blue-primary-hover;
   }
@@ -52,6 +54,7 @@ button.primary {
 
 button.secondary {
   background-color: $accelerate-blue-3;
+  &:active,
   &:hover {
     background-color: $accelerate-blue-3-hover;
   }
@@ -59,13 +62,17 @@ button.secondary {
 
 button.transparent {
   background-color: $transparent;
+  color: $discovery-blue-primary;
+  &:active,
   &:hover {
+    color: $gray-darkest;
     background-color: $transparent-hover;
   }
 }
 
 button.warning {
   background-color: $warning-yellow;
+  &:active,
   &:hover {
     background-color: $warning-yellow-hover;
   }
@@ -74,6 +81,7 @@ button.warning {
 button.danger {
   color: $white;
   background-color: $danger-red;
+  &:active,
   &:hover {
     background-color: $danger-red-hover;
   }
@@ -91,6 +99,7 @@ button.pill {
     font-size: 0.875rem;
   }
 
+  &:active,
   &:hover {
     background-color: $discovery-blue-4-hover;
   }
