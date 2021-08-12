@@ -8,11 +8,9 @@ const searchClient = algoliasearch(appId, adminKey)
 const index = searchClient.initIndex(process.env.ALGOLIA_INDEX)
 
 // How to make this work:
-// Create an account (or use the 1337 Google account found in Project Pages on Jira) and (a personal) index on Algolia.
-// Then: adapt .env accordingly with
-// ENVIRONMENT=production and the appropriate Algolia variables.
-// Make sure the backend is running somewhere else than localhost
-// Use ngrok for instance
+// 1. Create an account on Algolia (or use the 1337 Google account found in Project Pages on Jira) and (a personal) index on Algolia.
+// 2. Then: adapt .env accordingly with ENVIRONMENT=production and the appropriate Algolia variables.
+// 3. Make sure the backend is running somewhere else than localhost. Use ngrok for instance
 
 async function setArticlesInAlgolia() {
   try {
@@ -20,10 +18,10 @@ async function setArticlesInAlgolia() {
 
     const articles = response.data
 
-    const articlesWithId = articles.map((article) => {
+    const articlesWithObjectID = articles.map((article) => {
       return { ...article, objectID: article.id }
     })
-    index.saveObjects(articlesWithId, {
+    index.saveObjects(articlesWithObjectID, {
       autoGenerateObjectIDIfNotExist: true,
     })
   } catch (err) {
