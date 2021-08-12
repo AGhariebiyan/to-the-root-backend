@@ -17,7 +17,7 @@
         </ul>
       </section>
     </BaseContainer>
-    <BaseContainer class="mission" containerType="narrow" :flexCol="true">
+    <BaseContainer class="mission" containerType="narrow">
       <h2 class="mission__heading">Our mission</h2>
       <p class="mission__paragraph">
         Lorem ipsum, dolor sit amet consectetur adipisicing elit. Commodi
@@ -41,7 +41,7 @@
     </BaseContainer>
     <BaseContainer class="discord__container">
       <div class="discord__container-text">
-        <h2>Join Our Discord Community</h2>
+        <h2 class="discord__container-title">Join Our Discord Community</h2>
         <p>
           Feel free to join our Discord Community. For everyone interested in
           contributing to open-source Feel free to join our Discord Community.
@@ -157,18 +157,27 @@ export default defineComponent({
   }
 }
 
-.discord__container.container {
-  .discord__container-text {
+.discord__container {
+  &-title {
+    margin-bottom: 2rem;
+    margin-right: 1rem;
+  }
+  &-text {
     p {
-      margin-top: 1rem;
-      width: 60%;
+      width: 80%;
     }
   }
   @include respond(tab-portrait) {
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    .discord__container-text {
+    text-align: center;
+    &-text {
       padding-bottom: 2rem;
+      p {
+        margin: 0 auto 1rem;
+        text-align: left;
+      }
     }
   }
   @include respond(phone) {
