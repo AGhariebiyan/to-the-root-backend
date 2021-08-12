@@ -36,6 +36,7 @@ button {
 button a {
   text-decoration: none;
   color: inherit;
+  background-color: $transparent;
 
   &:hover, 
   &:active {
