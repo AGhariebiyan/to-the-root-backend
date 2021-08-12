@@ -1,6 +1,9 @@
 <template>
   <BasePageLayout>
     <BaseContainer containerType="narrow">
+      <div class="signup__content">
+        <h2>Signup to one-community</h2>
+      </div>
       <BaseForm @submit="registerUser">
         <template v-slot:socials>
           <LoginSocials divider-text="Or signup with email" />
@@ -131,4 +134,14 @@ export default defineComponent({
 })
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.signup__content {
+  margin-bottom: 2rem;
+  h2 {
+    margin-bottom: 1rem;
+  }
+}  
+.container--narrow {
+  flex-direction: column;
+}
+</style>

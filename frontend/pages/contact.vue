@@ -2,7 +2,7 @@
   <BasePageLayout>
     <BaseContainer containerType="narrow">
       <div class="contact__content">
-        <h2>Get in Touch</h2>
+        <h2>Get in touch</h2>
         <p>
           Have you got questions about this project? Ask them in the form below.
           We’d love to get your feature requests! We always appreciate
