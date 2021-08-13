@@ -27,7 +27,6 @@ button {
   height: 3.125rem;
   padding: 0.875rem;
   font-family: 'RobotoBold', sans-serif;
-  font-weight: 800;
   border: none;
   border-radius: 3px;
   cursor: pointer;
@@ -37,6 +36,7 @@ button a {
   text-decoration: none;
   color: inherit;
   background-color: $transparent;
+  font-family: 'RobotoBold', sans-serif;
 
   &:hover, 
   &:active {
