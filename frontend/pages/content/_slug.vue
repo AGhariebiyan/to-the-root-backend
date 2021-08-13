@@ -51,19 +51,21 @@
     >
 
     <base-container class="related-articles" containerType="color">
-      <h3>Related articles</h3>
-      <div class="related-articles__container">
-        <ais-instant-search-ssr>
-          <ais-search-box />
-          <ais-hits>
-            <template slot="item" slot-scope="{ item }">
-              <p>
-                {{ item.title }}
-              </p>
-            </template>
-          </ais-hits>
-        </ais-instant-search-ssr>
-      </div>
+      <template v-if="!isLoading">
+        <h3>Related articles</h3>
+        <div class="related-articles__container">
+          <ais-instant-search-ssr>
+            <ais-search-box />
+            <ais-hits>
+              <template slot="item" slot-scope="{ item }">
+                <p>
+                  {{ item.title }}
+                </p>
+              </template>
+            </ais-hits>
+          </ais-instant-search-ssr>
+        </div>
+      </template>
     </base-container>
   </base-page-layout>
 </template>
@@ -77,7 +79,7 @@ import {
   onMounted,
   ref,
 } from '@nuxtjs/composition-api'
-import { Article } from '~/utils/types'
+
 import {
   AisInstantSearchSsr,
   AisHits,
@@ -85,6 +87,9 @@ import {
   createServerRootMixin,
 } from 'vue-instantsearch'
 import algoliasearch from 'algoliasearch'
+
+import { Article } from '~/utils/types'
+import ClipLoader from 'vue-spinner/src/ClipLoader.vue'
 
 const appId: string = process.env.algoliaAppId || ''
 const adminKey: string = process.env.algoliaAdminKey || ''
@@ -101,6 +106,7 @@ export default defineComponent({
     AisInstantSearchSsr,
     AisHits,
     AisSearchBox,
+    ClipLoader,
   },
   setup() {
     const isLoading = ref(true)

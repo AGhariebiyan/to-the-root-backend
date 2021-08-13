@@ -1,7 +1,7 @@
 <template>
   <section v-if="containerType === 'color'" class="container container--color">
     <div class="container__inner" :class="{ 'flex-col': flexCol }">
-      <slot> BASECONTAINER </slot>
+      <slot></slot>
     </div>
   </section>
 
@@ -13,7 +13,7 @@
     ]"
     v-else
   >
-    <slot> BASECONTAINER </slot>
+    <slot></slot>
   </section>
 </template>
 
