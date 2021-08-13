@@ -102,7 +102,6 @@ export default {
 
 .material-icons {
   display: inline-block;
-  margin-top: 0.375rem;
 }
 
 .header__button:not(:first-child) {
