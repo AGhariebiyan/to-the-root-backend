@@ -32,7 +32,7 @@
           >
         </BaseButton>
       </template>
-      <template v-else>
+      <template v-if="routeName !== 'signup'">
         <BaseButton buttonType="primary" class="header__button">
           <NuxtLink
             class="login-box__link"
