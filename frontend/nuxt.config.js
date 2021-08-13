@@ -114,6 +114,14 @@ export default {
   markdownit: {
     injected: true,
     use: ['markdown-it-highlightjs'],
+    highlight: function (str, lang) {
+      if (lang && hljs.getLanguage(lang)) {
+        try {
+          return hljs.highlight(lang, str).value
+        } catch (__) {}
+        return '' // use external default escaping
+      }
+    },
   },
 
   googleAnalytics: {

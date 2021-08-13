@@ -239,8 +239,4 @@ export default defineComponent({
   &__container {
   }
 }
-
-blockquote {
-  background: yellow;
-}
 </style>
