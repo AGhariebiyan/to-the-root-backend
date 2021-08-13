@@ -144,19 +144,12 @@ export default defineComponent({
       }
     }
 
-    const content = computed(() => {
-      if (article.value !== null) {
-        return ''
-      }
-    })
-
     return {
       article,
       isArticleLoaded,
       isLoading,
       strapiUrl,
       articleUrl,
-      content,
     }
   },
 })
