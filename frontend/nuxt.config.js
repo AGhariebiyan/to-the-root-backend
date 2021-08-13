@@ -21,11 +21,19 @@ export default {
 
   publicRuntimeConfig: {
     strapiUrl: process.env.STRAPI_URL,
+    baseUrl: process.env.BASE_URL || 'http://localhost:3000',
     axios: {
-      baseURL: process.env.STRAPI_URL,
+      baseUrl: process.env.STRAPI_URL,
     },
   },
 
+  privateRuntimeConfig: {},
+
+  env: {
+    algoliaAppId: process.env.ALGOLIA_APP_ID,
+    algoliaAdminKey: process.env.ALGOLIA_ADMIN_KEY,
+    algoliaIndex: process.env.ALGOLIA_INDEX,
+  },
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: ['~/plugins/axios-accessor.ts'],
 
@@ -87,13 +95,10 @@ export default {
     url: process.env.STRAPI_URL,
   },
 
-  // Make these variables available through process.env in the components
-  env: {
-    baseUrl: process.env.BASE_URL || 'http://localhost:3000',
-  },
-
   // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {},
+  build: {
+    transpile: ['vue-instantsearch', 'instantsearch.js/es'],
+  },
 
   generate: {
     // choose to suit your project

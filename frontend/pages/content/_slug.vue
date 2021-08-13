@@ -53,9 +53,16 @@
     <base-container class="related-articles" containerType="color">
       <h3>Related articles</h3>
       <div class="related-articles__container">
-        <base-card />
-        <base-card />
-        <base-card />
+        <ais-instant-search-ssr>
+          <ais-search-box />
+          <ais-hits>
+            <template slot="item" slot-scope="{ item }">
+              <p>
+                {{ item.title }}
+              </p>
+            </template>
+          </ais-hits>
+        </ais-instant-search-ssr>
       </div>
     </base-container>
   </base-page-layout>
@@ -70,15 +77,31 @@ import {
   onMounted,
   ref,
 } from '@nuxtjs/composition-api'
-import BaseContainer from '../../components/base/BaseContainer.vue'
-import BasePageLayout from '../../components/base/BasePageLayout.vue'
 import { Article } from '~/utils/types'
-import ClipLoader from 'vue-spinner/src/ClipLoader.vue'
+import {
+  AisInstantSearchSsr,
+  AisHits,
+  AisSearchBox,
+  createServerRootMixin,
+} from 'vue-instantsearch'
+import algoliasearch from 'algoliasearch'
+
+const appId: string = process.env.algoliaAppId || ''
+const adminKey: string = process.env.algoliaAdminKey || ''
+const searchClient = algoliasearch(appId, adminKey)
 
 export default defineComponent({
-  components: { BasePageLayout, BaseContainer, ClipLoader },
-  name: 'PageContentDetail',
-
+  mixins: [
+    createServerRootMixin({
+      searchClient,
+      indexName: 'articles_joran_2',
+    }),
+  ],
+  components: {
+    AisInstantSearchSsr,
+    AisHits,
+    AisSearchBox,
+  },
   setup() {
     const { store, $config } = useContext()
     const route: any = useRoute()
