@@ -2,7 +2,7 @@
   <BasePageLayout>
     <BaseContainer containerType="narrow">
       <div class="login__content">
-        <h2>Login to one-community</h2>
+        <h2>Login</h2>
       </div>
       <BaseForm @submit="loginUser">
         <template v-slot:socials>
