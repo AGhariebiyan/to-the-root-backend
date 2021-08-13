@@ -103,13 +103,14 @@ export default defineComponent({
     AisSearchBox,
   },
   setup() {
-    const { store, $config } = useContext()
+    const isLoading = ref(true)
+
     const route: any = useRoute()
     const slug = route?.value?.params?.slug
-    const strapiUrl: string = $config.strapiUrl
-    const isLoading = ref(true)
-    const baseUrl = process.env.baseUrl
 
+    const { store, $config } = useContext()
+    const strapiUrl: string = $config.strapiUrl
+    const baseUrl = process.env.baseUrl
     const articleUrl = `${baseUrl}${route.value.fullPath}`
 
     const article = computed(() => {
