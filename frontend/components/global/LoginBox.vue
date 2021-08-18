@@ -3,7 +3,7 @@
     <template v-if="isLoggedIn">
       <BaseButton buttonType="transparent" class="header__button">
         <NuxtLink
-          class="login-box__link profile"
+          class="login-box__link"
           to="/profile"
           :title="`Logged in as ${$auth.user.username}`"
           @click.native="$emit('closeMobileMenu')"
@@ -89,14 +89,6 @@ export default {
   &__link {
     text-decoration: none;
     color: inherit;
-  }
-}
-
-.profile {
-  color: $discovery-blue-primary;
-  &:active,
-  &:hover {
-    color: $gray-darkest;
   }
 }
 
