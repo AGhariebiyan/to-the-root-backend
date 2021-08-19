@@ -26,6 +26,7 @@ export default defineComponent({
     const forgotEmail = ref('')
 
     async function forgotPassword() {
+      console.log($strapi)
       // Request API.
       try {
         await $axios.post(`${$strapi.options.url}/auth/forgot-password`, {
