@@ -1,45 +1,52 @@
 <template>
-  <BaseContainer>
-    <BaseForm @submit="forgotPassword">
-      <template v-slot:form>
-        <h3>Get Password Reset Link</h3>
-        <label class="form__label" for="email">Email</label>
-        <input
-          type="email"
-          name="email"
-          placeholder="Enter your email"
-          v-model="forgotEmail"
-          class="form__input"
-        />
-        <BaseButton buttonType="primary">Send Reset Email</BaseButton>
-      </template>
-    </BaseForm>
-  </BaseContainer>
+  <BasePageLayout>
+    <BaseContainer>
+      <BaseForm @submit="forgotPassword">
+        <template v-slot:form>
+          <h3>Get password reset link</h3>
+          <label class="form__label" for="email">Email</label>
+          <input
+            type="email"
+            name="email"
+            placeholder="Enter your email"
+            v-model="forgotEmail"
+            class="form__input"
+          />
+          <p class="form__error-message" v-if="error">{{ error }}</p>
+          <BaseButton buttonType="primary">Send reset email</BaseButton>
+        </template>
+      </BaseForm>
+    </BaseContainer>
+  </BasePageLayout>
 </template>
 
 <script lang="ts">
 import { defineComponent, useContext, ref } from '@nuxtjs/composition-api'
+import { errorMessageFromResponse } from '~/utils/helpers'
 
 export default defineComponent({
   setup() {
     const { $axios, $strapi } = useContext()
     const forgotEmail = ref('')
+    const error = ref('')
 
     async function forgotPassword() {
-      console.log($strapi)
+      // error.value = ''
       // Request API.
       try {
         await $axios.post(`${$strapi.options.url}/auth/forgot-password`, {
           email: forgotEmail.value, // user's email
         })
-      } catch (error) {
-        console.log('An error occurred:', error.response)
+      } catch (err) {
+        error.value = errorMessageFromResponse(err)
+        console.log('An error occurred: ', errorMessageFromResponse(err))
       }
     }
 
     return {
       forgotEmail,
       forgotPassword,
+      error,
     }
   },
 })
@@ -51,5 +58,11 @@ h3 {
 }
 button {
   margin-top: 1rem;
+}
+.form-wrapper {
+  width: 50vw;
+  @include respond(tab-landscape) {
+    width: 80vw;
+  }
 }
 </style>
