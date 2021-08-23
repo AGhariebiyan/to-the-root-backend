@@ -13,7 +13,7 @@ export default defineComponent({
       type: String,
       required: true,
       validator(value: string) {
-        return ['primary', 'secondary', 'warning', 'danger', 'pill'].includes(
+        return ['primary', 'secondary', 'transparent', 'warning', 'danger', 'pill'].includes(
           value,
         )
       },
@@ -35,11 +35,19 @@ button {
 button a {
   text-decoration: none;
   color: inherit;
+  background-color: $transparent;
+  font-family: 'RobotoBold', sans-serif;
+
+  &:hover, 
+  &:active {
+    text-decoration: none;
+  }
 }
 
 button.primary {
   color: $white;
   background-color: $discovery-blue-primary;
+  &:active,
   &:hover {
     background-color: $discovery-blue-primary-hover;
   }
@@ -47,13 +55,25 @@ button.primary {
 
 button.secondary {
   background-color: $accelerate-blue-3;
+  &:active,
   &:hover {
     background-color: $accelerate-blue-3-hover;
   }
 }
 
+button.transparent {
+  background-color: $transparent;
+  color: $discovery-blue-primary;
+  &:active,
+  &:hover {
+    color: $gray-darkest;
+    background-color: $transparent-hover;
+  }
+}
+
 button.warning {
   background-color: $warning-yellow;
+  &:active,
   &:hover {
     background-color: $warning-yellow-hover;
   }
@@ -62,6 +82,7 @@ button.warning {
 button.danger {
   color: $white;
   background-color: $danger-red;
+  &:active,
   &:hover {
     background-color: $danger-red-hover;
   }
@@ -79,6 +100,7 @@ button.pill {
     font-size: 0.875rem;
   }
 
+  &:active,
   &:hover {
     background-color: $discovery-blue-4-hover;
   }

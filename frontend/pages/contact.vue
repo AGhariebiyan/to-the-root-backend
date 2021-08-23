@@ -2,7 +2,7 @@
   <BasePageLayout>
     <BaseContainer containerType="narrow" :flexCol="true">
       <div class="contact__content">
-        <h2>Get in Touch</h2>
+        <h2>Get in touch</h2>
         <p>
           Have you got questions about this project? Ask them in the form below.
           We’d love to get your feature requests! We always appreciate
@@ -11,22 +11,22 @@
       </div>
       <BaseForm @submit="sendMessage">
         <template v-slot:form>
-          <p class="form__heading">Let's Talk</p>
-          <label class="form__label" for="firstname">First Name</label>
+          <p class="form__heading">Let's talk</p>
+          <label class="form__label" for="firstname">First name</label>
           <input
             class="form__input"
             type="text"
             name="firstname"
             v-model="firstName"
           />
-          <label class="form__label" for="lastname">Last Name</label>
+          <label class="form__label" for="lastname">Last name</label>
           <input
             class="form__input"
             type="text"
             name="lastname"
             v-model="lastName"
           />
-          <label class="form__label" for="email">Email Address</label>
+          <label class="form__label" for="email">Email address</label>
           <input class="form__input" type="text" name="email" v-model="email" />
           <label class="form__label" for="message">Message*</label>
           <textarea
@@ -44,7 +44,7 @@
             >
           </div>
           <BaseButton buttonType="primary" class="contact__submit-button"
-            >Send Message</BaseButton
+            >Send message</BaseButton
           >
         </template>
       </BaseForm>

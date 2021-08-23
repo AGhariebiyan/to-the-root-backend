@@ -1,6 +1,9 @@
 <template>
   <BasePageLayout>
     <BaseContainer containerType="narrow">
+      <div class="login__content">
+        <h2>Login</h2>
+      </div>
       <BaseForm @submit="loginUser">
         <template v-slot:socials>
           <LoginSocials divider-text="Or login with email" />
@@ -38,15 +41,17 @@
 
           <div class="form__buttons">
             <BaseButton
-              class="form__button"
               buttonType="primary"
+              class="form__button"
               type="submit"
               :disabled="isLoggedIn || error.length > 0"
               >Login</BaseButton
             >
-            <NuxtLink class="form__button secondary-link" to="/signup"
-              >Sign up instead</NuxtLink
-            >
+            <BaseButton buttonType="transparent" class="form__button">
+              <NuxtLink class="form__button" to="/signup"
+                >Sign up instead</NuxtLink
+              >
+            </BaseButton>
           </div>
         </template>
       </BaseForm>
@@ -125,4 +130,14 @@ export default defineComponent({
 })
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.login__content {
+  margin-bottom: 2rem;
+  h2 {
+    margin-bottom: 1rem;
+  }
+}    
+.container--narrow {
+  flex-direction: column;
+}
+</style>
