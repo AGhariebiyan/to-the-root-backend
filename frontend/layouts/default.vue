@@ -65,4 +65,14 @@ h3 {
   margin: 0;
   padding: 0;
 }
+
+a {
+  color: $discovery-blue-primary-darker;
+  &:active,
+  &:hover {
+    color: $gray-darkest;
+    background-color: $transparent-hover;
+  }
+}
+
 </style>
