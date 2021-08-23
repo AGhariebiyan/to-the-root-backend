@@ -10,7 +10,9 @@ export default {}
 
 <style lang="scss" scoped>
 .main {
+  flex-grow: 1;
   display: flex;
   flex-direction: column;
 }
 </style>
+

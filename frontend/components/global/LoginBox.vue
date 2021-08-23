@@ -1,18 +1,20 @@
 <template>
   <div class="login-box">
     <template v-if="isLoggedIn">
-      <NuxtLink
-        to="/profile"
-        class="profile"
-        :title="`Logged in as ${$auth.user.username}`"
-        @click.native="$emit('closeMobileMenu')"
-      >
-        <span class="material-icons">person_outline</span>
-      </NuxtLink>
+      <BaseButton buttonType="transparent" class="header__button">
+        <NuxtLink
+          class="login-box__link"
+          to="/profile"
+          :title="`Logged in as ${$auth.user.username}`"
+          @click.native="$emit('closeMobileMenu')"
+        >
+          <span class="material-icons">person_outline</span>
+        </NuxtLink>
+      </BaseButton>
       <BaseButton
         buttonType="primary"
         :title="$auth.user.username"
-        class="login-box__logout"
+        class="header__button login-box__logout"
         @click.native="logoutHandler"
       >
         Log out
@@ -20,31 +22,38 @@
     </template>
 
     <template v-else>
-      <NuxtLink
-        class="login-box__link"
-        to="/login"
-        @click.native="$emit('closeMobileMenu')"
-        >Login</NuxtLink
-      >
-      <BaseButton class="header__button" buttonType="primary">
-        <NuxtLink
-          class="login-box__link"
-          to="/signup"
-          @click.native="$emit('closeMobileMenu')"
-          >Sign up</NuxtLink
-        >
-      </BaseButton>
+      <template v-if="routeName !== 'login'">
+        <BaseButton buttonType="primary" class="header__button">
+          <NuxtLink
+            class="login-box__link"
+            to="/login"
+            @click.native="$emit('closeMobileMenu')"
+            >Login</NuxtLink
+          >
+        </BaseButton>
+      </template>
+      <template v-if="routeName !== 'signup'">
+        <BaseButton buttonType="primary" class="header__button">
+          <NuxtLink
+            class="login-box__link"
+            to="/signup"
+            @click.native="$emit('closeMobileMenu')"
+            >Sign up</NuxtLink
+          >
+        </BaseButton>
+      </template>
     </template>
   </div>
 </template>
 
 <script>
-import { computed, useContext } from '@nuxtjs/composition-api'
-
+import { computed, useContext, useRoute } from '@nuxtjs/composition-api'
 export default {
   emits: ['closeMobileMenu'],
   setup(props, { emit }) {
     const { $auth } = useContext()
+    const route = useRoute()
+    const routeName = computed(() => route.value.name)
 
     const isLoggedIn = computed(() => {
       return $auth.$state.loggedIn
@@ -62,7 +71,7 @@ export default {
       logout()
     }
 
-    return { isLoggedIn, logoutHandler }
+    return { isLoggedIn, routeName, logoutHandler }
   },
 }
 </script>
@@ -83,18 +92,8 @@ export default {
   }
 }
 
-.profile {
-  margin-right: 1rem;
-  color: $discovery-blue-primary;
-  &:active,
-  &:hover {
-    color: $gray-darkest;
-  }
-}
-
 .material-icons {
   display: inline-block;
-  margin-top: 0.375rem;
 }
 
 .header__button:not(:first-child) {
