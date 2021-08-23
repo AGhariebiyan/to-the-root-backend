@@ -8,7 +8,7 @@ module.exports = ({ env }) => ({
     settings: {
       defaultFrom: 'aheadofchange.org@gmail.com',
       defaultReplyTo: 'aheadofchange.org@gmail.com',
-      testAddress: 'jolissa.latour@ordina.nl',
+      testAddress: 'yourname@ordina.nl',
     },
   },
   // ...
