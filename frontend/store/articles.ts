@@ -43,9 +43,14 @@ export const mutations: MutationTree<RootState> = {
 }
 
 export const actions: ActionTree<RootState, RootState> = {
-  async fetchArticles({ commit }, { limit, offset }) {
+  async fetchArticles({ commit }, { limit = 6, offset = 0, params = {} }) {
+    const paramString = Object.keys(params)
+      .map((key) => key + '=' + params[key])
+      .join('&')
     const response = await $axios.get(
-      `/articles?_start=${offset.value}&_limit=${limit}`,
+      `/articles?_start=${offset.value}&_limit=${limit}${
+        paramString ? '&' + paramString : ''
+      }`,
     )
     const articles: Article[] = response.data
 
