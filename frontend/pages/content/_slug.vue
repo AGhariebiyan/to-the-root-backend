@@ -6,8 +6,8 @@
         <h2 class="article__title">{{ article.title }}</h2>
         <p class="article__description">{{ article.description }}</p>
         <p class="article__meta">
-          {{ article.original_date
-          }}<template v-if="article.author">
+          {{ article.original_date }}
+          <template v-if="article.author">
             by
             <NuxtLink
               class="article__author"
@@ -52,18 +52,9 @@
 
     <base-container class="related-articles" containerType="color">
       <template v-if="!isLoading">
-        <h3>Related articles</h3>
+        <h3>Similar articles</h3>
         <div class="related-articles__container">
-          <ais-instant-search-ssr>
-            <ais-search-box />
-            <ais-hits>
-              <template slot="item" slot-scope="{ item }">
-                <p>
-                  {{ item.title }}
-                </p>
-              </template>
-            </ais-hits>
-          </ais-instant-search-ssr>
+          <h4>More by this author</h4>
         </div>
       </template>
     </base-container>
@@ -80,34 +71,14 @@ import {
   ref,
 } from '@nuxtjs/composition-api'
 
-import {
-  AisInstantSearchSsr,
-  AisHits,
-  AisSearchBox,
-  createServerRootMixin,
-} from 'vue-instantsearch'
-import algoliasearch from 'algoliasearch'
-
 import { Article } from '~/utils/types'
 import ClipLoader from 'vue-spinner/src/ClipLoader.vue'
 
-const appId: string = process.env.algoliaAppId || ''
-const adminKey: string = process.env.algoliaAdminKey || ''
-const searchClient = algoliasearch(appId, adminKey)
-
 export default defineComponent({
-  mixins: [
-    createServerRootMixin({
-      searchClient,
-      indexName: 'articles_joran_2',
-    }),
-  ],
-  components: {
-    AisInstantSearchSsr,
-    AisHits,
-    AisSearchBox,
-    ClipLoader,
-  },
+  components: { ClipLoader },
+
+  name: 'PageContentDetail',
+
   setup() {
     const isLoading = ref(true)
 
@@ -131,9 +102,10 @@ export default defineComponent({
       return Object.keys(article.value).length > 0
     })
 
-    onMounted(() => {
+    onMounted(async () => {
       if (!isArticleLoaded.value) {
-        loadArticleBySlug(slug)
+        await loadArticleBySlug(slug)
+        // await loadRelatedArticles()
       } else {
         isLoading.value = false
       }
@@ -149,6 +121,10 @@ export default defineComponent({
         isLoading.value = false
       }
     }
+
+    // async function loadRelatedArticles() {
+    //   try
+    // }
 
     return {
       article,
@@ -178,6 +154,7 @@ export default defineComponent({
   &__author {
     font-weight: bold;
     color: inherit;
+
     &:link,
     &:visited {
       text-decoration: none;
