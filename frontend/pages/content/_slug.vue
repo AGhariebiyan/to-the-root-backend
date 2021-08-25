@@ -55,6 +55,7 @@
         <h3>Similar articles</h3>
         <div class="related-articles__container">
           <h4>More by this author</h4>
+          {{ relatedArticles.length }}
         </div>
       </template>
     </base-container>
@@ -98,6 +99,8 @@ export default defineComponent({
       )
     })
 
+    const relatedArticles = ref([])
+
     const isArticleLoaded = computed(() => {
       return Object.keys(article.value).length > 0
     })
@@ -105,7 +108,16 @@ export default defineComponent({
     onMounted(async () => {
       if (!isArticleLoaded.value) {
         await loadArticleBySlug(slug)
-        // await loadRelatedArticles()
+        const params = {}
+        if (article.value.author) {
+          console.log('author exists')
+          params['author.id'] = article.value.author.id
+        }
+        relatedArticles.value = await store.dispatch('articles/fetchArticles', {
+          limit: 3,
+          offset: ref(0),
+          params,
+        })
       } else {
         isLoading.value = false
       }
@@ -132,6 +144,7 @@ export default defineComponent({
       isLoading,
       strapiUrl,
       articleUrl,
+      relatedArticles,
     }
   },
 })
