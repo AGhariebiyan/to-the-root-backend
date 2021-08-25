@@ -31,7 +31,8 @@ export default {
 
   env: {
     algoliaAppId: process.env.ALGOLIA_APP_ID,
-    algoliaAdminKey: process.env.ALGOLIA_ADMIN_KEY,
+    algoliaUsageKey: process.env.ALGOLIA_USAGE_KEY,
+    algoliaSearchKey: process.env.ALGOLIA_SEARCH_KEY,
     algoliaIndex: process.env.ALGOLIA_INDEX,
   },
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
