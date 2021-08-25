@@ -55,7 +55,7 @@
         <h3>Similar articles</h3>
         <h4>More by this author</h4>
         <div class="related-articles__container">
-          <base-card
+          <ArticleCard
             v-for="relArticle in relatedArticles"
             :article="relArticle"
             :key="relArticle.id"
