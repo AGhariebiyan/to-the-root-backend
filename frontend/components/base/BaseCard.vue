@@ -1,30 +1,32 @@
 <template>
-  <div class="card article" :class="cardType">
-    <div class="article__image-container">
-      <img
-        class="article__image"
-        :src="`${url}${article.cover_image.url}`"
-        alt=""
-      />
-    </div>
-    <div class="article__content">
-      <h3 class="article__title">{{ article.title }}</h3>
-      <p class="article__description">{{ article.description }}</p>
-    </div>
-    <div class="article__categories">
-      <BaseButton
-        buttonType="pill"
-        v-for="(category, index) in article.categories"
-        :key="index"
-      >
-        <NuxtLink
-          class="article__category-link"
-          :to="`category/${category.slug}`"
-          >{{ category.name }}</NuxtLink
+  <NuxtLink class="article-link" :to="`/content/${article.slug}`">
+    <div class="card article">
+      <div class="article__image-container">
+        <img
+          class="article__image"
+          :src="`${url}${article.cover_image.url}`"
+          alt=""
+        />
+      </div>
+      <div class="article__content">
+        <h3 class="article__title">{{ article.title }}</h3>
+        <p class="article__description">{{ article.description }}</p>
+      </div>
+      <div class="article__categories">
+        <BaseButton
+          buttonType="pill"
+          v-for="(category, index) in article.categories"
+          :key="index"
         >
-      </BaseButton>
+          <NuxtLink
+            class="article__category-link"
+            :to="`category/${category.slug}`"
+            >{{ category.name }}</NuxtLink
+          >
+        </BaseButton>
+      </div>
     </div>
-  </div>
+  </NuxtLink>
 </template>
 
 <script lang="ts">
@@ -46,6 +48,20 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+.article-link {
+  text-decoration: none;
+  color: inherit;
+  flex: 0 1 31%;
+  margin-bottom: 1rem;
+
+  @include respond(tab-landscape) {
+    flex-basis: 46%;
+  }
+
+  @media screen and (max-width: 42em) {
+    flex-basis: 100%;
+  }
+}
 .card {
   box-shadow: $box-shadow-small;
   border-radius: 3px;

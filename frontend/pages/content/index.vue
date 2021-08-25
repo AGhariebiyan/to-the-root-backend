@@ -9,16 +9,15 @@
           <input class="search-box__input" id="search" v-model="search" />
         </div>
       </header>
+
       <div class="content__container" v-if="filteredArticles.length">
-        <NuxtLink
-          class="nuxt-link"
-          :to="`/content/${article.slug}`"
+        <BaseCard
           v-for="article in filteredArticles"
           :key="article._id"
-        >
-          <BaseCard :article="article" />
-        </NuxtLink>
+          :article="article"
+        />
       </div>
+
       <div class="no-articles" v-else-if="!isLoading">
         <h3 class="no-articles__heading">No articles found</h3>
         <p class="no-articles__paragraph">
@@ -28,6 +27,7 @@
           >!
         </p>
       </div>
+
       <ClipLoader
         class="loader"
         color="#3da4bf"
@@ -137,6 +137,7 @@ export default defineComponent({
   margin-bottom: 2rem;
   width: 100%;
 }
+
 .search-box {
   display: flex;
   justify-content: flex-end;
@@ -160,6 +161,7 @@ export default defineComponent({
     flex-grow: 1;
   }
 }
+
 .content__container {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
@@ -171,21 +173,6 @@ export default defineComponent({
 
   @media screen and (max-width: 36em) {
     grid-template-columns: 1fr;
-  }
-}
-
-.nuxt-link {
-  text-decoration: none;
-  color: inherit;
-  flex: 0 1 31%;
-  margin-bottom: 1rem;
-
-  @include respond(tab-landscape) {
-    flex-basis: 46%;
-  }
-
-  @media screen and (max-width: 42em) {
-    flex-basis: 100%;
   }
 }
 

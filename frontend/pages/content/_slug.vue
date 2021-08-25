@@ -53,9 +53,13 @@
     <base-container class="related-articles" containerType="color">
       <template v-if="!isLoading">
         <h3>Similar articles</h3>
+        <h4>More by this author</h4>
         <div class="related-articles__container">
-          <h4>More by this author</h4>
-          {{ relatedArticles.length }}
+          <base-card
+            v-for="relArticle in relatedArticles"
+            :article="relArticle"
+            :key="relArticle.id"
+          />
         </div>
       </template>
     </base-container>
@@ -106,19 +110,13 @@ export default defineComponent({
     })
 
     onMounted(async () => {
-      if (!isArticleLoaded.value) {
-        await loadArticleBySlug(slug)
-        const params = {}
-        if (article.value.author) {
-          console.log('author exists')
-          params['author.id'] = article.value.author.id
+      try {
+        if (!isArticleLoaded.value) {
+          await loadArticleBySlug(slug)
         }
-        relatedArticles.value = await store.dispatch('articles/fetchArticles', {
-          limit: 3,
-          offset: ref(0),
-          params,
-        })
-      } else {
+        await loadRelatedArticles()
+      } catch (err) {
+      } finally {
         isLoading.value = false
       }
     })
@@ -132,6 +130,24 @@ export default defineComponent({
       } finally {
         isLoading.value = false
       }
+    }
+
+    async function loadRelatedArticles() {
+      const params = {}
+      if (article.value.author) {
+        console.log('author exists')
+        params['author.id'] = article.value.author.id
+      }
+      relatedArticles.value = await store.dispatch('articles/fetchArticles', {
+        limit: 4,
+        offset: ref(0),
+        params,
+      })
+      // Make sure the current article is not shown in the related articles
+      relatedArticles.value = relatedArticles.value
+        .filter((relArt) => relArt.id !== article.value.id)
+        // Only show at most 3 items
+        .slice(0, 3)
     }
 
     // async function loadRelatedArticles() {
@@ -233,6 +249,17 @@ export default defineComponent({
 
 .related-articles {
   &__container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1rem;
+
+    @include respond(tab-landscape) {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    @media screen and (max-width: 36em) {
+      grid-template-columns: 1fr;
+    }
   }
 }
 </style>
