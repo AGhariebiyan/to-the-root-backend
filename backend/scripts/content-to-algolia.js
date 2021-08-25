@@ -8,9 +8,9 @@ const searchClient = algoliasearch(appId, adminKey)
 const index = searchClient.initIndex(process.env.ALGOLIA_INDEX)
 
 // How to make this work:
-// 1. Create an account on Algolia (or use the 1337 Google account found in Project Pages on Jira) and (a personal) index on Algolia.
+// 1. Create an account on Algolia (or use the main Google account found in Project Pages on Jira) and (a personal) index on Algolia.
 // 2. Then: adapt .env accordingly with ENVIRONMENT=production and the appropriate Algolia variables.
-// 3. Make sure the backend is running somewhere else than localhost. Use ngrok for instance
+// 3. Run the script with "npm run content-to-algolia"
 
 async function setArticlesInAlgolia() {
   try {
