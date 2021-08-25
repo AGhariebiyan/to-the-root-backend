@@ -11,7 +11,7 @@
       </header>
 
       <div class="content__container" v-if="filteredArticles.length">
-        <BaseCard
+        <ArticleCard
           v-for="article in filteredArticles"
           :key="article._id"
           :article="article"
@@ -47,6 +47,7 @@ import {
   computed,
   onUnmounted,
 } from '@nuxtjs/composition-api'
+import ArticleCard from '../../components/global/ArticleCard.vue'
 import ClipLoader from 'vue-spinner/src/ClipLoader.vue'
 import * as _ from 'lodash'
 import { Article } from '~/utils/types'
@@ -55,6 +56,7 @@ export default defineComponent({
   name: 'PageContent',
 
   components: {
+    ArticleCard,
     ClipLoader,
   },
 
