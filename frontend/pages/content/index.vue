@@ -16,32 +16,7 @@
           v-for="article in filteredArticles"
           :key="article._id"
         >
-          <BaseCard cardType="article">
-            <div class="article__image-container">
-              <img
-                class="article__image"
-                :src="`${url}${article.cover_image.url}`"
-                alt=""
-              />
-            </div>
-            <div class="article__content">
-              <h3 class="article__title">{{ article.title }}</h3>
-              <p class="article__description">{{ article.description }}</p>
-            </div>
-            <div class="article__categories">
-              <BaseButton
-                buttonType="pill"
-                v-for="(category, index) in article.categories"
-                :key="index"
-              >
-                <NuxtLink
-                  class="article__category-link"
-                  :to="`category/${category.slug}`"
-                  >{{ category.name }}</NuxtLink
-                >
-              </BaseButton>
-            </div>
-          </BaseCard>
+          <BaseCard :article="article" />
         </NuxtLink>
       </div>
       <div class="no-articles" v-else-if="!isLoading">
@@ -84,13 +59,12 @@ export default defineComponent({
   },
 
   setup() {
-    const { $config, store } = useContext()
+    const { store } = useContext()
 
     const limit = 6
     const offset = ref(0)
     const search = ref('')
     const isLoading = ref(false)
-    const url: string = $config.strapiUrl
 
     const articles = computed(() => {
       return store.getters['articles/articles']
@@ -150,7 +124,7 @@ export default defineComponent({
       }
     }
 
-    return { filteredArticles, url, isLoading, loadArticles, search }
+    return { filteredArticles, isLoading, loadArticles, search }
   },
 })
 </script>

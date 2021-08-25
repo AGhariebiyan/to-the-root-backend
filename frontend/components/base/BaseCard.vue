@@ -1,21 +1,46 @@
 <template>
-  <div class="card" :class="cardType">
-    <slot> BASECARD </slot>
+  <div class="card article" :class="cardType">
+    <div class="article__image-container">
+      <img
+        class="article__image"
+        :src="`${url}${article.cover_image.url}`"
+        alt=""
+      />
+    </div>
+    <div class="article__content">
+      <h3 class="article__title">{{ article.title }}</h3>
+      <p class="article__description">{{ article.description }}</p>
+    </div>
+    <div class="article__categories">
+      <BaseButton
+        buttonType="pill"
+        v-for="(category, index) in article.categories"
+        :key="index"
+      >
+        <NuxtLink
+          class="article__category-link"
+          :to="`category/${category.slug}`"
+          >{{ category.name }}</NuxtLink
+        >
+      </BaseButton>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@nuxtjs/composition-api'
+import { defineComponent, useContext } from '@nuxtjs/composition-api'
 
 export default defineComponent({
   props: {
-    cardType: {
-      type: String,
-      default: 'article',
-      validator(value: string) {
-        return ['article'].includes(value)
-      },
+    article: {
+      type: Object,
+      required: true,
     },
+  },
+  setup() {
+    const { $config } = useContext()
+    const url: string = $config.strapiUrl
+    return { url }
   },
 })
 </script>
