@@ -47,7 +47,6 @@ import {
   computed,
   onUnmounted,
 } from '@nuxtjs/composition-api'
-import ArticleCard from '../../components/global/ArticleCard.vue'
 import ClipLoader from 'vue-spinner/src/ClipLoader.vue'
 import * as _ from 'lodash'
 import { Article } from '~/utils/types'
@@ -56,7 +55,6 @@ export default defineComponent({
   name: 'PageContent',
 
   components: {
-    ArticleCard,
     ClipLoader,
   },
 
@@ -93,7 +91,7 @@ export default defineComponent({
       const innerHeight = Math.round(window.innerHeight)
 
       if (bottom && innerHeight >= bottom) {
-        offset.value += limit
+        offset.value += filteredArticles.value.length
         loadArticles()
       }
     }

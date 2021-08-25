@@ -23,7 +23,7 @@ export const mutations: MutationTree<RootState> = {
     const filteredNewArticles = newArticles.filter(
       (article) => !state.ids.includes(article.id),
     )
-    if (filteredNewArticles.length === 0) {
+    if (newArticles.length === 0) {
       state.foundAllArticles = true
     }
     state.articles = [...state.articles, ...filteredNewArticles]
@@ -47,6 +47,7 @@ export const actions: ActionTree<RootState, RootState> = {
     const paramString = Object.keys(params)
       .map((key) => key + '=' + params[key])
       .join('&')
+
     const response = await $axios.get(
       `/articles?_start=${offset.value}&_limit=${limit}${
         paramString ? '&' + paramString : ''
