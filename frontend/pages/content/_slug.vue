@@ -51,9 +51,8 @@
     >
 
     <base-container class="related-articles" containerType="color">
-      <template v-if="!isLoading">
-        <h3>Similar articles</h3>
-        <h4>More by this author</h4>
+      <template v-if="!isLoading && relatedArticles.length > 0">
+        <h3>More articles by {{ article.author.name }}</h3>
         <div class="related-articles__container">
           <ArticleCard
             v-for="relArticle in relatedArticles"
@@ -62,6 +61,9 @@
           />
         </div>
       </template>
+      <div v-for="category in article.categories" :key="category.id">
+        Find more articles on {{ category.name }}
+      </div>
     </base-container>
   </base-page-layout>
 </template>
