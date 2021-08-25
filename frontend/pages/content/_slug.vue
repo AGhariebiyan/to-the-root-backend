@@ -135,9 +135,8 @@ export default defineComponent({
     }
 
     async function loadRelatedArticles() {
-      const params = {}
-      if (article.value.author) {
-        console.log('author exists')
+      const params: any = {}
+      if (Object.keys(article.value.author).length > 0) {
         params['author.id'] = article.value.author.id
       }
       relatedArticles.value = await store.dispatch('articles/fetchArticles', {
@@ -147,7 +146,7 @@ export default defineComponent({
       })
       // Make sure the current article is not shown in the related articles
       relatedArticles.value = relatedArticles.value
-        .filter((relArt) => relArt.id !== article.value.id)
+        .filter((relArt: Article) => relArt.id !== article.value.id)
         // Only show at most 3 items
         .slice(0, 3)
     }

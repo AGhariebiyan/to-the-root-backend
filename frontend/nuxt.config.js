@@ -31,7 +31,6 @@ export default {
 
   env: {
     algoliaAppId: process.env.ALGOLIA_APP_ID,
-    algoliaUsageKey: process.env.ALGOLIA_USAGE_KEY,
     algoliaSearchKey: process.env.ALGOLIA_SEARCH_KEY,
     algoliaIndex: process.env.ALGOLIA_INDEX,
   },

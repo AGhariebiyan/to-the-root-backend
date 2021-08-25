@@ -6,27 +6,28 @@
           <label class="search-box__label" for="search"
             ><span class="material-icons">search</span></label
           >
-          <input class="search-box__input" id="search" v-model="search" />
+          <input class="search-box__input" id="search" v-model="query" />
         </div>
       </header>
 
-      <div class="content__container" v-if="filteredArticles.length">
-        <ArticleCard
+      <ais-instant-search
+        :search-client="searchClient"
+        index-name="joran_articles"
+      >
+        <ais-search-box />
+        <div class="content__container">
+          <ais-hits>
+            <template slot="item" slot-scope="{ item }">
+              <ArticleCard :article="item" />
+            </template>
+          </ais-hits>
+          <!-- <ArticleCard
           v-for="article in filteredArticles"
           :key="article._id"
           :article="article"
-        />
-      </div>
-
-      <div class="no-articles" v-else-if="!isLoading">
-        <h3 class="no-articles__heading">No articles found</h3>
-        <p class="no-articles__paragraph">
-          Please try adapting your search, or
-          <NuxtLink class="no-articles__link" to="content/add"
-            >add an article yourself</NuxtLink
-          >!
-        </p>
-      </div>
+        /> -->
+        </div>
+      </ais-instant-search>
 
       <ClipLoader
         class="loader"
@@ -47,14 +48,20 @@ import {
   computed,
   onUnmounted,
 } from '@nuxtjs/composition-api'
+
+import { AisHits, AisInstantSearch, AisSearchBox } from 'vue-instantsearch'
 import ClipLoader from 'vue-spinner/src/ClipLoader.vue'
 import * as _ from 'lodash'
 import { Article } from '~/utils/types'
+import algoliasearch from 'algoliasearch/lite'
 
 export default defineComponent({
   name: 'PageContent',
 
   components: {
+    AisHits,
+    AisInstantSearch,
+    AisSearchBox,
     ClipLoader,
   },
 
@@ -63,7 +70,7 @@ export default defineComponent({
 
     const limit = 6
     const offset = ref(0)
-    const search = ref('')
+    const query = ref('')
     const isLoading = ref(false)
 
     const articles = computed(() => {
@@ -73,7 +80,7 @@ export default defineComponent({
     const filteredArticles = computed(() => {
       return articles.value.filter((article: Article) => {
         const lowerCaseTitle = article.title.toLowerCase()
-        return lowerCaseTitle.includes(search.value.toLowerCase())
+        return lowerCaseTitle.includes(query.value.toLowerCase())
       })
     })
 
@@ -123,8 +130,12 @@ export default defineComponent({
         isLoading.value = false
       }
     }
+    const appId: string = process.env.algoliaAppId || ''
+    const searchKey: string = process.env.algoliaSearchKey || ''
 
-    return { filteredArticles, isLoading, loadArticles, search }
+    const searchClient = algoliasearch(appId, searchKey)
+
+    return { filteredArticles, isLoading, loadArticles, query, searchClient }
   },
 })
 </script>
