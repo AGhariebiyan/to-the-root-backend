@@ -3,44 +3,41 @@
     <BaseContainer>
       <BaseForm @submit="resetPassword">
         <template v-slot:form>
-          <h3>Reset password</h3>
+          <h3 class="reset-password__title">Reset password</h3>
           <label class="form__label" for="password">Password</label>
           <input
             type="password"
-            name="password"
+            id="password"
             placeholder="Enter your password"
             v-model.trim="newPassword"
             class="form__input"
-            @blur="validateInput"
+            @input="passwordValidation"
             minlength="8"
-            maxlength="30"
+            pattern="^(?=(.*[a-z]){3,})(?=(.*[A-Z]){2,})(?=(.*[0-9]){2,})(?=(.*[!@#$%^&*()\-__+.]){1,}).{8,}$"
           />
-          <p
-            class="form__error-message"
-            v-if="newPasswordValidity === 'invalid'"
-          >
-            Please enter a valid password. Your password needs to be between 8
-            and 30 characters long and contain one uppercase letter, one symbol,
-            and a number.
-          </p>
+          <label class="form__label" for="password2">Confirm password</label>
           <input
             type="password"
-            name="password"
+            id="password2"
             placeholder="Enter the password again"
             v-model.trim="newPassword2"
             class="form__input"
-            @blur="validateInput"
+            @input="passwordValidation"
             minlength="8"
-            maxlength="30"
           />
           <p
             class="form__error-message"
-            v-if="!arePasswordsMatching() && newPassword2.length > 0"
+            v-if="!isPasswordValid && passwordValidationError"
           >
-            The passwords don't match!
+            {{ passwordValidationError }}
           </p>
           <p class="form__error-message" v-if="error">{{ error }}</p>
-          <BaseButton buttonType="primary">Reset password</BaseButton>
+          <BaseButton
+            buttonType="primary"
+            class="reset-password__submit"
+            :disabled="isPasswordReset"
+            >Reset password</BaseButton
+          >
         </template>
       </BaseForm>
     </BaseContainer>
@@ -61,39 +58,54 @@ export default defineComponent({
     const { $axios, $strapi, query } = useContext()
     const newPassword = ref('')
     const newPassword2 = ref('')
-    let newPasswordValidity = 'pending'
+    const isPasswordValid = ref(false)
+    const isPasswordReset = ref(false)
     const error = ref('')
     const router = useRouter()
+    const passwordValidationError = ref('')
+    const regex =
+      /^(?=(.*[a-z]){3,})(?=(.*[A-Z]){2,})(?=(.*[0-9]){2,})(?=(.*[!@#$%^&*()\-__+.]){1,}).{8,}$/g
 
     async function resetPassword() {
-      if (!arePasswordsMatching()) {
+      if (!isPasswordValid.value || !passwordValidation) {
         return
       }
       // Request API.
       try {
+        isPasswordReset.value = true
         await $axios.post(`${$strapi.options.url}/auth/reset-password`, {
           code: query.value.code, // code contained in the reset link of step 3.
           password: newPassword.value,
           passwordConfirmation: newPassword2.value,
         })
-        console.log('redirect please')
         router.push('/login')
       } catch (err) {
         error.value = errorMessageFromResponse(err)
         console.log('An error occurred: ', errorMessageFromResponse(err))
+        isPasswordReset.value = false
         return
       }
     }
 
-    function arePasswordsMatching() {
-      return newPassword.value === newPassword2.value
-    }
-
-    function validateInput() {
-      if (newPassword.value === '') {
-        newPasswordValidity = 'invalid'
+    function passwordValidation() {
+      if (
+        !newPassword.value.match(regex) ||
+        !newPassword2.value.match(regex) ||
+        newPassword.value === '' ||
+        newPassword2.value === ''
+      ) {
+        isPasswordValid.value = false
+        passwordValidationError.value =
+          'Please enter a valid password. Your password needs to be a minimum of 8 characters long and contain at least one uppercase letter, at least one symbol, and at least one number.'
+        return false
+      } else if (newPassword.value !== newPassword2.value) {
+        isPasswordValid.value = false
+        passwordValidationError.value = "The passwords don't match!"
+        return false
       } else {
-        newPasswordValidity = 'valid'
+        isPasswordValid.value = true
+        passwordValidationError.value = ''
+        return true
       }
     }
 
@@ -101,20 +113,21 @@ export default defineComponent({
       newPassword,
       newPassword2,
       resetPassword,
-      validateInput,
-      newPasswordValidity,
-      arePasswordsMatching,
+      isPasswordValid,
+      passwordValidation,
       error,
+      passwordValidationError,
+      isPasswordReset,
     }
   },
 })
 </script>
 
 <style lang="scss" scoped>
-h3 {
+.reset-password__title {
   margin-bottom: 1rem;
 }
-button {
+.reset-password__submit {
   margin-top: 1rem;
 }
 .form-wrapper {

@@ -58,7 +58,7 @@ This will redirect the user to `\_provider.vue`, where the logging in is handled
 
 ### Setup email settings in Strapi for Sendgrid
 
-In Strapi, go to Settings > Email Settings
+In Strapi, go to Settings > Email Plugin > Email Settings
 Here you can setup your own email as the test email.
 
 In Strapi, go to Settings > User & Permissions Plugin > Email Templates > Reset Password
@@ -66,5 +66,8 @@ Change "shipper name" to Ahead of Change, change "shipper email" to aheadofchang
 
 In Strapi, go to Settings > User & Permissions Plugin > Advanced Settings
 And make sure the reset password page is set to http://localhost:3000/password/reset for testing
+
+Please note the Sendgrid account will need to change ownership at some point, as it requires a phone authentication app to login.
+We will also need a domain rather than a single sender for this once a proper domain has been setup for us.
 
 

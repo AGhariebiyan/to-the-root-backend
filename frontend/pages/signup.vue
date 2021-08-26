@@ -38,9 +38,18 @@
             name="password"
             id="password"
             v-model="password"
-            @input="resetError"
+            @input="validatePassword"
             required
+            minlength="8"
+            pattern="^(?=(.*[a-z]){3,})(?=(.*[A-Z]){2,})(?=(.*[0-9]){2,})(?=(.*[!@#$%^&*()\-__+.]){1,}).{8,}$"
           />
+
+          <p
+            class="form__error-message"
+            v-if="!isPasswordValid && passwordValidationError"
+          >
+            {{ passwordValidationError }}
+          </p>
 
           <p class="form__error-message" v-if="error">{{ error }}</p>
 
@@ -77,11 +86,25 @@ export default defineComponent({
     const error = ref('')
     const username = ref('')
     const password = ref('')
+    const passwordValidationError = ref('')
+    const isPasswordValid = ref(false)
+    const regex =
+      /^(?=(.*[a-z]){3,})(?=(.*[A-Z]){2,})(?=(.*[0-9]){2,})(?=(.*[!@#$%^&*()\-__+.]){1,}).{8,}$/g
 
     const { $auth, $axios } = useContext()
 
     const validatePassword = function () {
-      return true
+      if (!password.value.match(regex) || password.value === '') {
+        isPasswordValid.value = false
+        passwordValidationError.value =
+          'Please enter a valid password. Your password needs to be a minimum of 8 characters long and contain at least one uppercase letter, at least one symbol, and at least one number.'
+        console.log("password doesn't match")
+        return false
+      } else {
+        isPasswordValid.value = true
+        passwordValidationError.value = ''
+        return true
+      }
     }
 
     const validateRegister = computed(() => {
@@ -129,6 +152,9 @@ export default defineComponent({
       registerUser,
       resetError,
       username,
+      isPasswordValid,
+      passwordValidationError,
+      validatePassword,
     }
   },
 })
@@ -140,7 +166,7 @@ export default defineComponent({
   h2 {
     margin-bottom: 1rem;
   }
-}  
+}
 .container--narrow {
   flex-direction: column;
 }

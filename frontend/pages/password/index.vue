@@ -3,17 +3,30 @@
     <BaseContainer>
       <BaseForm @submit="forgotPassword">
         <template v-slot:form>
-          <h3>Get password reset link</h3>
+          <h3 class="reset-email__title">Get password reset link</h3>
           <label class="form__label" for="email">Email</label>
           <input
             type="email"
-            name="email"
+            id="email"
             placeholder="Enter your email"
             v-model="forgotEmail"
             class="form__input"
+            @input="resetError"
+            :disabled="isEmailSent"
           />
           <p class="form__error-message" v-if="error">{{ error }}</p>
-          <BaseButton buttonType="primary">Send reset email</BaseButton>
+          <BaseButton
+            buttonType="primary"
+            :disabled="isEmailSent"
+            class="reset-email__submit"
+            >Send reset email</BaseButton
+          >
+          <p v-if="isEmailSent">
+            Success! Your email has been submitted, check your mailbox in the
+            next few minutes. Please make sure to check your junk folder as
+            well. You will be receiving the link from
+            aheadofchange.org@gmail.com
+          </p>
         </template>
       </BaseForm>
     </BaseContainer>
@@ -29,35 +42,43 @@ export default defineComponent({
     const { $axios, $strapi } = useContext()
     const forgotEmail = ref('')
     const error = ref('')
+    const isEmailSent = ref(false)
 
     async function forgotPassword() {
-      // error.value = ''
       // Request API.
       try {
         await $axios.post(`${$strapi.options.url}/auth/forgot-password`, {
           email: forgotEmail.value, // user's email
         })
+        isEmailSent.value = true
       } catch (err) {
         error.value = errorMessageFromResponse(err)
         console.log('An error occurred: ', errorMessageFromResponse(err))
+        isEmailSent.value = false
       }
+    }
+
+    function resetError() {
+      error.value = ''
     }
 
     return {
       forgotEmail,
       forgotPassword,
       error,
+      resetError,
+      isEmailSent,
     }
   },
 })
 </script>
 
 <style lang="scss" scoped>
-h3 {
+.reset-email__title {
   margin-bottom: 1rem;
 }
-button {
-  margin-top: 1rem;
+.reset-email__submit {
+  margin: 1rem 0;
 }
 .form-wrapper {
   width: 50vw;
