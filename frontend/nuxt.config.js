@@ -109,7 +109,7 @@ export default {
     scss: ['~/assets/scss/variables.scss', '~/assets/scss/mixins.scss'],
   },
 
-  css: ['highlight.js/styles/github.css'],
+  css: ['highlight.js/styles/github.css', '~/assets/css/algolia.scss'],
 
   markdownit: {
     injected: true,

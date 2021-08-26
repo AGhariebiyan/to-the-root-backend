@@ -1,32 +1,16 @@
 <template>
   <BasePageLayout>
     <BaseContainer :flex-col="true">
-      <header class="header">
-        <div class="search-box">
-          <label class="search-box__label" for="search"
-            ><span class="material-icons">search</span></label
-          >
-          <input class="search-box__input" id="search" v-model="query" />
-        </div>
-      </header>
-
       <ais-instant-search
         :search-client="searchClient"
         index-name="joran_articles"
       >
         <ais-search-box />
-        <div class="content__container">
-          <ais-hits>
-            <template slot="item" slot-scope="{ item }">
-              <ArticleCard :article="item" />
-            </template>
-          </ais-hits>
-          <!-- <ArticleCard
-          v-for="article in filteredArticles"
-          :key="article._id"
-          :article="article"
-        /> -->
-        </div>
+        <ais-hits>
+          <template slot="item" slot-scope="{ item }">
+            <ArticleCard :article="item" />
+          </template>
+        </ais-hits>
       </ais-instant-search>
 
       <ClipLoader
@@ -170,20 +154,6 @@ export default defineComponent({
   &__input {
     padding: 0.25rem;
     flex-grow: 1;
-  }
-}
-
-.content__container {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 1rem;
-
-  @include respond(tab-landscape) {
-    grid-template-columns: 1fr 1fr;
-  }
-
-  @media screen and (max-width: 36em) {
-    grid-template-columns: 1fr;
   }
 }
 
