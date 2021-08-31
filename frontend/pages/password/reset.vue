@@ -13,7 +13,7 @@
             class="form__input"
             @input="passwordValidation"
             minlength="8"
-            pattern="^(?=(.*[a-z]){3,})(?=(.*[A-Z]){2,})(?=(.*[0-9]){2,})(?=(.*[!@#$%^&*()\-__+.]){1,}).{8,}$"
+            :pattern="regex"
           />
           <label class="form__label" for="password2">Confirm password</label>
           <input
@@ -50,24 +50,27 @@ import {
   useContext,
   ref,
   useRouter,
+  computed,
 } from '@nuxtjs/composition-api'
 import { errorMessageFromResponse } from '~/utils/helpers'
+import { passwordRegex } from '~/utils/constants'
 
 export default defineComponent({
   setup() {
     const { $axios, $strapi, query } = useContext()
     const newPassword = ref('')
     const newPassword2 = ref('')
-    const isPasswordValid = ref(false)
+    const isPasswordValid = computed(() => {
+      return passwordValidation()
+    })
     const isPasswordReset = ref(false)
     const error = ref('')
     const router = useRouter()
     const passwordValidationError = ref('')
-    const regex =
-      /^(?=(.*[a-z]){3,})(?=(.*[A-Z]){2,})(?=(.*[0-9]){2,})(?=(.*[!@#$%^&*()\-__+.]){1,}).{8,}$/g
+    const regex = passwordRegex
 
     async function resetPassword() {
-      if (!isPasswordValid.value || !passwordValidation) {
+      if (!isPasswordValid.value || !passwordValidation()) {
         return
       }
       // Request API.
@@ -81,7 +84,6 @@ export default defineComponent({
         router.push('/login')
       } catch (err) {
         error.value = errorMessageFromResponse(err)
-        console.log('An error occurred: ', errorMessageFromResponse(err))
         isPasswordReset.value = false
         return
       }
@@ -94,16 +96,13 @@ export default defineComponent({
         newPassword.value === '' ||
         newPassword2.value === ''
       ) {
-        isPasswordValid.value = false
         passwordValidationError.value =
-          'Please enter a valid password. Your password needs to be a minimum of 8 characters long and contain at least one uppercase letter, at least one symbol, and at least one number.'
+          'Please enter a valid password. Your password needs to be a minimum of 8 characters long and contain at least one uppercase letter, one lowercase letter, at least one symbol, and at least one number.'
         return false
       } else if (newPassword.value !== newPassword2.value) {
-        isPasswordValid.value = false
         passwordValidationError.value = "The passwords don't match!"
         return false
       } else {
-        isPasswordValid.value = true
         passwordValidationError.value = ''
         return true
       }
@@ -118,6 +117,7 @@ export default defineComponent({
       error,
       passwordValidationError,
       isPasswordReset,
+      regex,
     }
   },
 })

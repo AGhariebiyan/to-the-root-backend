@@ -41,7 +41,7 @@
             @input="validatePassword"
             required
             minlength="8"
-            pattern="^(?=(.*[a-z]){3,})(?=(.*[A-Z]){2,})(?=(.*[0-9]){2,})(?=(.*[!@#$%^&*()\-__+.]){1,}).{8,}$"
+            :pattern="regex"
           />
 
           <p
@@ -78,6 +78,7 @@ import {
 } from '@nuxtjs/composition-api'
 import { errorMessageFromResponse } from '@/utils/helpers'
 import BaseButton from '../components/base/BaseButton.vue'
+import { passwordRegex } from '~/utils/constants'
 
 export default defineComponent({
   components: { BaseButton },
@@ -88,8 +89,7 @@ export default defineComponent({
     const password = ref('')
     const passwordValidationError = ref('')
     const isPasswordValid = ref(false)
-    const regex =
-      /^(?=(.*[a-z]){3,})(?=(.*[A-Z]){2,})(?=(.*[0-9]){2,})(?=(.*[!@#$%^&*()\-__+.]){1,}).{8,}$/g
+    const regex = passwordRegex
 
     const { $auth, $axios } = useContext()
 
@@ -97,7 +97,7 @@ export default defineComponent({
       if (!password.value.match(regex) || password.value === '') {
         isPasswordValid.value = false
         passwordValidationError.value =
-          'Please enter a valid password. Your password needs to be a minimum of 8 characters long and contain at least one uppercase letter, at least one symbol, and at least one number.'
+          'Please enter a valid password. Your password needs to be a minimum of 8 characters long and contain at least one uppercase letter, at least one lowercase letter, at least one symbol, and at least one number.'
         console.log("password doesn't match")
         return false
       } else {
@@ -155,6 +155,7 @@ export default defineComponent({
       isPasswordValid,
       passwordValidationError,
       validatePassword,
+      regex,
     }
   },
 })

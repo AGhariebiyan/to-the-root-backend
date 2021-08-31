@@ -14,18 +14,16 @@
             @input="resetError"
             :disabled="isEmailSent"
           />
-          <p class="form__error-message" v-if="error">{{ error }}</p>
           <BaseButton
             buttonType="primary"
             :disabled="isEmailSent"
             class="reset-email__submit"
             >Send reset email</BaseButton
           >
-          <p v-if="isEmailSent">
-            Success! Your email has been submitted, check your mailbox in the
-            next few minutes. Please make sure to check your junk folder as
-            well. You will be receiving the link from
-            aheadofchange.org@gmail.com
+          <p v-if="isEmailSent || error">
+            Your email has been submitted. If it exists in our database an email
+            will be sent to you. Check your mailbox in the next few minutes.
+            Please make sure to check your junk folder as well.
           </p>
         </template>
       </BaseForm>
@@ -53,7 +51,6 @@ export default defineComponent({
         isEmailSent.value = true
       } catch (err) {
         error.value = errorMessageFromResponse(err)
-        console.log('An error occurred: ', errorMessageFromResponse(err))
         isEmailSent.value = false
       }
     }

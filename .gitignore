@@ -96,7 +96,6 @@
 # Vim swap files
 *.swp
 /frontend/*.swp
-/frontend/package-lock.json
 
 
 ############################
@@ -216,8 +215,3 @@
 /backend/*.cache
 /backend/build
 /backend/.strapi-updater.json
-
-############################
-# package.json
-############################
-
