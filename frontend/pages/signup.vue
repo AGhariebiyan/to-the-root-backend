@@ -98,7 +98,6 @@ export default defineComponent({
         isPasswordValid.value = false
         passwordValidationError.value =
           'Please enter a valid password. Your password needs to be a minimum of 8 characters long and contain at least one uppercase letter, at least one lowercase letter, at least one symbol, and at least one number.'
-        console.log("password doesn't match")
         return false
       } else {
         isPasswordValid.value = true
