@@ -41,7 +41,7 @@
             @input="validatePassword"
             required
             minlength="8"
-            :pattern="regex"
+            :pattern="regex.source"
           />
 
           <p

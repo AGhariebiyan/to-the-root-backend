@@ -13,7 +13,7 @@
             class="form__input"
             @input="passwordValidation"
             minlength="8"
-            :pattern="regex"
+            :pattern="regex.source"
           />
           <label class="form__label" for="password2">Confirm password</label>
           <input
