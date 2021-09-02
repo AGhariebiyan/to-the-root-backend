@@ -2,7 +2,7 @@
   <BasePageLayout>
     <BaseContainer containerType="narrow">
       <div class="signup__content">
-        <h2>Signup</h2>
+        <h2 class="signup__title">Signup</h2>
       </div>
       <BaseForm @submit="registerUser">
         <template v-slot:socials>
@@ -38,9 +38,17 @@
             name="password"
             id="password"
             v-model="password"
-            @input="resetError"
             required
+            minlength="10"
           />
+
+          <p
+            :class="{
+              'form__error-message': password && passwordValidationError,
+            }"
+          >
+            {{ passwordValidationError }}
+          </p>
 
           <p class="form__error-message" v-if="error">{{ error }}</p>
 
@@ -77,15 +85,19 @@ export default defineComponent({
     const error = ref('')
     const username = ref('')
     const password = ref('')
+    const passwordValidationError = computed(() => {
+      if (!isPasswordValid.value) {
+        return 'Please enter a valid password. Your password needs to be a minimum of 10 characters long.'
+      }
+    })
+    const isPasswordValid = computed(() => {
+      return password.value.length >= 10
+    })
 
     const { $auth, $axios } = useContext()
 
-    const validatePassword = function () {
-      return true
-    }
-
     const validateRegister = computed(() => {
-      return !!email.value && !!username.value && validatePassword()
+      return !!email.value && !!username.value && isPasswordValid
     })
 
     const resetInput = () => {
@@ -129,6 +141,8 @@ export default defineComponent({
       registerUser,
       resetError,
       username,
+      isPasswordValid,
+      passwordValidationError,
     }
   },
 })
@@ -137,10 +151,10 @@ export default defineComponent({
 <style lang="scss" scoped>
 .signup__content {
   margin-bottom: 2rem;
-  h2 {
+  .signup__title {
     margin-bottom: 1rem;
   }
-}  
+}
 .container--narrow {
   flex-direction: column;
 }
