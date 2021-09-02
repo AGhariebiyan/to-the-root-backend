@@ -2,7 +2,7 @@
   <BasePageLayout>
     <BaseContainer containerType="narrow">
       <div class="signup__content">
-        <h2>Signup</h2>
+        <h2 class="signup__title">Signup</h2>
       </div>
       <BaseForm @submit="registerUser">
         <template v-slot:socials>
@@ -38,15 +38,14 @@
             name="password"
             id="password"
             v-model="password"
-            @input="validatePassword"
             required
-            minlength="8"
-            :pattern="regex.source"
+            minlength="10"
           />
 
           <p
-            class="form__error-message"
-            v-if="!isPasswordValid && passwordValidationError"
+            :class="{
+              'form__error-message': password && passwordValidationError,
+            }"
           >
             {{ passwordValidationError }}
           </p>
@@ -78,7 +77,6 @@ import {
 } from '@nuxtjs/composition-api'
 import { errorMessageFromResponse } from '@/utils/helpers'
 import BaseButton from '../components/base/BaseButton.vue'
-import { passwordRegex } from '~/utils/constants'
 
 export default defineComponent({
   components: { BaseButton },
@@ -87,27 +85,19 @@ export default defineComponent({
     const error = ref('')
     const username = ref('')
     const password = ref('')
-    const passwordValidationError = ref('')
-    const isPasswordValid = ref(false)
-    const regex = passwordRegex
+    const passwordValidationError = computed(() => {
+      if (!isPasswordValid.value) {
+        return 'Please enter a valid password. Your password needs to be a minimum of 10 characters long.'
+      }
+    })
+    const isPasswordValid = computed(() => {
+      return password.value.length >= 10
+    })
 
     const { $auth, $axios } = useContext()
 
-    const validatePassword = function () {
-      if (!password.value.match(regex) || password.value === '') {
-        isPasswordValid.value = false
-        passwordValidationError.value =
-          'Please enter a valid password. Your password needs to be a minimum of 8 characters long and contain at least one uppercase letter, at least one lowercase letter, at least one symbol, and at least one number.'
-        return false
-      } else {
-        isPasswordValid.value = true
-        passwordValidationError.value = ''
-        return true
-      }
-    }
-
     const validateRegister = computed(() => {
-      return !!email.value && !!username.value && validatePassword()
+      return !!email.value && !!username.value && isPasswordValid
     })
 
     const resetInput = () => {
@@ -153,8 +143,6 @@ export default defineComponent({
       username,
       isPasswordValid,
       passwordValidationError,
-      validatePassword,
-      regex,
     }
   },
 })
@@ -163,7 +151,7 @@ export default defineComponent({
 <style lang="scss" scoped>
 .signup__content {
   margin-bottom: 2rem;
-  h2 {
+  .signup__title {
     margin-bottom: 1rem;
   }
 }

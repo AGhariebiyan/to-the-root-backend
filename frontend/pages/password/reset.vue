@@ -9,11 +9,9 @@
             type="password"
             id="password"
             placeholder="Enter your password"
-            v-model.trim="newPassword"
+            v-model.trim="newPassword1"
             class="form__input"
-            @input="passwordValidation"
-            minlength="8"
-            :pattern="regex.source"
+            minlength="10"
           />
           <label class="form__label" for="password2">Confirm password</label>
           <input
@@ -22,12 +20,12 @@
             placeholder="Enter the password again"
             v-model.trim="newPassword2"
             class="form__input"
-            @input="passwordValidation"
-            minlength="8"
+            minlength="10"
           />
           <p
-            class="form__error-message"
-            v-if="!isPasswordValid && passwordValidationError"
+            :class="{
+              'form__error-message': newPassword1 && passwordValidationError,
+            }"
           >
             {{ passwordValidationError }}
           </p>
@@ -35,7 +33,7 @@
           <BaseButton
             buttonType="primary"
             class="reset-password__submit"
-            :disabled="isPasswordReset"
+            :disabled="isResetClicked"
             >Reset password</BaseButton
           >
         </template>
@@ -53,71 +51,60 @@ import {
   computed,
 } from '@nuxtjs/composition-api'
 import { errorMessageFromResponse } from '~/utils/helpers'
-import { passwordRegex } from '~/utils/constants'
 
 export default defineComponent({
   setup() {
     const { $axios, $strapi, query } = useContext()
-    const newPassword = ref('')
+    const newPassword1 = ref('')
     const newPassword2 = ref('')
-    const isPasswordValid = computed(() => {
-      return passwordValidation()
+    const isPassword1Valid = computed(() => {
+      return newPassword1.value.length >= 10
     })
-    const isPasswordReset = ref(false)
+    const isPassword2Valid = computed(() => {
+      return newPassword2.value === newPassword1.value
+    })
+    const isResetClicked = ref(false)
     const error = ref('')
     const router = useRouter()
-    const passwordValidationError = ref('')
-    const regex = passwordRegex
+    const passwordValidationError = computed(() => {
+      if (!isPassword1Valid.value) {
+        return 'Please enter a valid password. Your password needs to be a minimum of 10 characters long.'
+      }
+
+      if (!isPassword2Valid.value) {
+        return "The passwords don't match!"
+      }
+    })
 
     async function resetPassword() {
-      if (!isPasswordValid.value || !passwordValidation()) {
+      if (!isPassword1Valid || !isPassword2Valid) {
         return
       }
       // Request API.
       try {
-        isPasswordReset.value = true
+        isResetClicked.value = true
         await $axios.post(`${$strapi.options.url}/auth/reset-password`, {
           code: query.value.code, // code contained in the reset link of step 3.
-          password: newPassword.value,
+          password: newPassword1.value,
           passwordConfirmation: newPassword2.value,
         })
         router.push('/login')
       } catch (err) {
         error.value = errorMessageFromResponse(err)
-        isPasswordReset.value = false
+        isResetClicked.value = false
         return
       }
     }
 
-    function passwordValidation() {
-      if (
-        !newPassword.value.match(regex) ||
-        !newPassword2.value.match(regex) ||
-        newPassword.value === '' ||
-        newPassword2.value === ''
-      ) {
-        passwordValidationError.value =
-          'Please enter a valid password. Your password needs to be a minimum of 8 characters long and contain at least one uppercase letter, one lowercase letter, at least one symbol, and at least one number.'
-        return false
-      } else if (newPassword.value !== newPassword2.value) {
-        passwordValidationError.value = "The passwords don't match!"
-        return false
-      } else {
-        passwordValidationError.value = ''
-        return true
-      }
-    }
-
     return {
-      newPassword,
+      newPassword1,
       newPassword2,
       resetPassword,
-      isPasswordValid,
-      passwordValidation,
+      isPassword1Valid,
+      isPassword2Valid,
       error,
       passwordValidationError,
-      isPasswordReset,
-      regex,
+      isResetClicked,
     }
   },
 })

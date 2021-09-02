@@ -11,16 +11,15 @@
             placeholder="Enter your email"
             v-model="forgotEmail"
             class="form__input"
-            @input="resetError"
-            :disabled="isEmailSent"
+            :disabled="isFormSubmitted"
           />
           <BaseButton
             buttonType="primary"
-            :disabled="isEmailSent"
+            :disabled="isFormSubmitted"
             class="reset-email__submit"
             >Send reset email</BaseButton
           >
-          <p v-if="isEmailSent || error">
+          <p v-if="isFormSubmitted">
             Your email has been submitted. If it exists in our database an email
             will be sent to you. Check your mailbox in the next few minutes.
             Please make sure to check your junk folder as well.
@@ -33,38 +32,27 @@
 
 <script lang="ts">
 import { defineComponent, useContext, ref } from '@nuxtjs/composition-api'
-import { errorMessageFromResponse } from '~/utils/helpers'
 
 export default defineComponent({
   setup() {
     const { $axios, $strapi } = useContext()
     const forgotEmail = ref('')
-    const error = ref('')
-    const isEmailSent = ref(false)
+    const isFormSubmitted = ref(false)
 
     async function forgotPassword() {
       // Request API.
       try {
+        isFormSubmitted.value = true
         await $axios.post(`${$strapi.options.url}/auth/forgot-password`, {
           email: forgotEmail.value, // user's email
         })
-        isEmailSent.value = true
-      } catch (err) {
-        error.value = errorMessageFromResponse(err)
-        isEmailSent.value = false
-      }
-    }
-
-    function resetError() {
-      error.value = ''
+      } catch (err) {}
     }
 
     return {
       forgotEmail,
       forgotPassword,
-      error,
-      resetError,
-      isEmailSent,
+      isFormSubmitted,
     }
   },
 })
