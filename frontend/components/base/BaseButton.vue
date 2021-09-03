@@ -13,9 +13,14 @@ export default defineComponent({
       type: String,
       required: true,
       validator(value: string) {
-        return ['primary', 'secondary', 'transparent', 'warning', 'danger', 'pill'].includes(
-          value,
-        )
+        return [
+          'primary',
+          'secondary',
+          'transparent',
+          'warning',
+          'danger',
+          'pill',
+        ].includes(value)
       },
     },
   },
@@ -38,7 +43,7 @@ button a {
   background-color: $transparent;
   font-family: 'RobotoBold', sans-serif;
 
-  &:hover, 
+  &:hover,
   &:active {
     text-decoration: none;
   }
@@ -103,6 +108,17 @@ button.pill {
   &:active,
   &:hover {
     background-color: $discovery-blue-4-hover;
+  }
+}
+
+button:disabled {
+  background-color: $gray-dark;
+  color: $gray-darker;
+  cursor: not-allowed;
+  &:hover {
+    background-color: $gray-dark;
+    color: $gray-darker;
+    cursor: not-allowed;
   }
 }
 </style>

@@ -1,20 +1,33 @@
 <template>
-  <BaseContainer>
-    <BaseForm @submit="forgotPassword">
-      <template v-slot:form>
-        <h3>Get Password Reset Link</h3>
-        <label class="form__label" for="email">Email</label>
-        <input
-          type="email"
-          name="email"
-          placeholder="Enter your email"
-          v-model="forgotEmail"
-          class="form__input"
-        />
-        <BaseButton buttonType="primary">Send Reset Email</BaseButton>
-      </template>
-    </BaseForm>
-  </BaseContainer>
+  <BasePageLayout>
+    <BaseContainer>
+      <BaseForm @submit="forgotPassword">
+        <template v-slot:form>
+          <h3 class="reset-email__title">Get password reset link</h3>
+          <label class="form__label" for="email">Email</label>
+          <input
+            type="email"
+            id="email"
+            placeholder="Enter your email"
+            v-model="forgotEmail"
+            class="form__input"
+            :disabled="isFormSubmitted"
+          />
+          <BaseButton
+            buttonType="primary"
+            :disabled="isFormSubmitted"
+            class="reset-email__submit"
+            >Send reset email</BaseButton
+          >
+          <p v-if="isFormSubmitted">
+            Your email has been submitted. If it exists in our database an email
+            will be sent to you. Check your mailbox in the next few minutes.
+            Please make sure to check your junk folder as well.
+          </p>
+        </template>
+      </BaseForm>
+    </BaseContainer>
+  </BasePageLayout>
 </template>
 
 <script lang="ts">
@@ -24,31 +37,38 @@ export default defineComponent({
   setup() {
     const { $axios, $strapi } = useContext()
     const forgotEmail = ref('')
+    const isFormSubmitted = ref(false)
 
     async function forgotPassword() {
       // Request API.
       try {
+        isFormSubmitted.value = true
         await $axios.post(`${$strapi.options.url}/auth/forgot-password`, {
           email: forgotEmail.value, // user's email
         })
-      } catch (error) {
-        console.log('An error occurred:', error.response)
-      }
+      } catch (err) {}
     }
 
     return {
       forgotEmail,
       forgotPassword,
+      isFormSubmitted,
     }
   },
 })
 </script>
 
 <style lang="scss" scoped>
-h3 {
+.reset-email__title {
   margin-bottom: 1rem;
 }
-button {
-  margin-top: 1rem;
+.reset-email__submit {
+  margin: 1rem 0;
+}
+.form-wrapper {
+  width: 50vw;
+  @include respond(tab-landscape) {
+    width: 80vw;
+  }
 }
 </style>

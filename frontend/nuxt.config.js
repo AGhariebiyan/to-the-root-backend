@@ -59,6 +59,7 @@ export default {
     'nuxt-material-design-icons',
     'vue-social-sharing/nuxt',
     '@nuxtjs/markdownit',
+    'nuxt-lazy-load',
   ],
 
   auth: {
