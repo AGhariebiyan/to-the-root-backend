@@ -52,7 +52,7 @@
 
     <base-container class="related-articles" containerType="color">
       <template v-if="!isLoading && relatedArticles.length > 0">
-        <h3>More articles by {{ article.author.name }}</h3>
+        <h3 class="related-articles__heading">Related articles</h3>
         <div class="related-articles__container">
           <ArticleCard
             v-for="relArticle in relatedArticles"
@@ -61,9 +61,6 @@
           />
         </div>
       </template>
-      <div v-for="category in article.categories" :key="category.id">
-        Find more articles on {{ category.name }}
-      </div>
     </base-container>
   </base-page-layout>
 </template>
@@ -105,14 +102,13 @@ export default defineComponent({
       )
     })
 
-    const relatedArticles = ref([])
-
     const isArticleLoaded = computed(() => {
       return Object.keys(article.value).length > 0
     })
 
     onMounted(async () => {
       try {
+        console.log('asdfg')
         if (!isArticleLoaded.value) {
           await loadArticleBySlug(slug)
         }
@@ -124,6 +120,7 @@ export default defineComponent({
     })
 
     async function loadArticleBySlug(slug: string) {
+      console.log('assdadfg')
       isLoading.value = true
       try {
         await store.dispatch('articles/fetchArticleBySlug', slug)
@@ -134,26 +131,60 @@ export default defineComponent({
       }
     }
 
+    const relatedArticles: any = ref([])
+
     async function loadRelatedArticles() {
-      const params: any = {}
-      if (Object.keys(article.value.author).length > 0) {
-        params['author.id'] = article.value.author.id
+      const relatedCategoryParams = {
+        _where: [
+          {
+            'categories.name': article.value.categories.map(
+              (category: any) => category.name,
+            ),
+          },
+        ],
       }
-      relatedArticles.value = await store.dispatch('articles/fetchArticles', {
-        limit: 4,
-        offset: ref(0),
-        params,
-      })
-      // Make sure the current article is not shown in the related articles
-      relatedArticles.value = relatedArticles.value
+
+      const relatedCategoryArticles: Article[] = await store.dispatch(
+        'articles/fetchArticles',
+        {
+          limit: 4,
+          offset: ref(0),
+          params: relatedCategoryParams,
+        },
+      )
+
+      let relatedAuthorArticles: Article[] = []
+
+      if (article.value.author) {
+        const relatedAuthorParams = {
+          'author.id': article.value.author.id,
+        }
+
+        relatedAuthorArticles = await store.dispatch('articles/fetchArticles', {
+          limit: 4,
+          offset: ref(0),
+          params: relatedAuthorParams,
+        })
+      }
+
+      const combinedArticles = relatedCategoryArticles.concat(
+        relatedAuthorArticles,
+      )
+
+      const uniqueArticles: Article[] = Object.values(
+        combinedArticles.reduce((uniqueArticles: any, article: Article) => {
+          return uniqueArticles[article.id]
+            ? uniqueArticles
+            : { ...uniqueArticles, [article.id]: article }
+        }, {}),
+      )
+
+      relatedArticles.value = uniqueArticles
+        // Make sure the current article is not shown in the related articles
         .filter((relArt: Article) => relArt.id !== article.value.id)
         // Only show at most 3 items
         .slice(0, 3)
     }
-
-    // async function loadRelatedArticles() {
-    //   try
-    // }
 
     return {
       article,
@@ -249,6 +280,9 @@ export default defineComponent({
 }
 
 .related-articles {
+  &__heading {
+    margin-bottom: 1rem;
+  }
   &__container {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;

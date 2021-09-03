@@ -25,6 +25,7 @@
     "nuxt": "^2.15.3",
     "nuxt-lazy-load": "^1.2.7",
     "nuxt-material-design-icons": "^1.0.4",
+    "qs": "^6.10.1",
     "vue-instantsearch": "^3.8.1",
     "vue-social-sharing": "^3.0.8",
     "vue-spinner": "^1.0.4"

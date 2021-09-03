@@ -1,6 +1,7 @@
 import { $axios } from '~/utils/api'
 import { GetterTree, ActionTree, MutationTree } from 'vuex'
 import { Article } from '~/utils/types'
+import qs from 'qs'
 
 const initArticles: Article[] = []
 const initArticleIds: number[] = []
@@ -44,9 +45,7 @@ export const mutations: MutationTree<RootState> = {
 
 export const actions: ActionTree<RootState, RootState> = {
   async fetchArticles({ commit }, { limit = 6, offset = 0, params = {} }) {
-    const paramString = Object.keys(params)
-      .map((key) => key + '=' + params[key])
-      .join('&')
+    const paramString = qs.stringify(params)
 
     const response = await $axios.get(
       `/articles?_start=${offset.value}&_limit=${limit}${
