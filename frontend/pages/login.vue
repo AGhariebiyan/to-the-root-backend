@@ -48,7 +48,9 @@
               >Login</BaseButton
             >
 
-            <NuxtLink class="form__button button-link--transparent" to="/signup"
+            <NuxtLink
+              class="form__button button-link button-link--transparent"
+              to="/signup"
               >Sign up instead</NuxtLink
             >
           </div>
