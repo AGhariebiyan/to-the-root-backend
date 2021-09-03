@@ -179,13 +179,14 @@ export default defineComponent({
 }
 
 .header__menu--mobile {
-  width: 100vw;
-  position: absolute;
   background-color: $gray-light;
-  top: 3.5rem;
-  padding: 1rem;
-  height: calc(100vh - 4.5rem);
   border-top: 1px solid $gray;
+  height: calc(100% - 3.5rem);
+  padding: 1rem;
+  position: fixed;
+  overflow-y: scroll;
+  top: 3.5rem;
+  width: 100%;
   z-index: 50;
 }
 
