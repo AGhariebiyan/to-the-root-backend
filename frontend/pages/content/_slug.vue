@@ -108,7 +108,6 @@ export default defineComponent({
 
     onMounted(async () => {
       try {
-        console.log('asdfg')
         if (!isArticleLoaded.value) {
           await loadArticleBySlug(slug)
         }
@@ -120,7 +119,6 @@ export default defineComponent({
     })
 
     async function loadArticleBySlug(slug: string) {
-      console.log('assdadfg')
       isLoading.value = true
       try {
         await store.dispatch('articles/fetchArticleBySlug', slug)
