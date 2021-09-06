@@ -18,11 +18,7 @@
           v-for="(category, index) in article.categories"
           :key="index"
         >
-          <NuxtLink
-            class="article__category-link"
-            :to="`category/${category.slug}`"
-            >{{ category.name }}</NuxtLink
-          >
+          {{ category.name }}
         </BaseButton>
       </div>
     </div>
