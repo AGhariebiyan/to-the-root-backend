@@ -6,11 +6,13 @@
         index-name="joran_articles"
       >
         <ais-search-box />
+        <ais-configure :hits-per-page.camel="6" />
         <ais-hits>
           <template slot="item" slot-scope="{ item }">
             <ArticleCard :article="item" />
           </template>
         </ais-hits>
+        <ais-pagination :totalPages="10" />
       </ais-instant-search>
 
       <ClipLoader
@@ -33,7 +35,14 @@ import {
   onUnmounted,
 } from '@nuxtjs/composition-api'
 
-import { AisHits, AisInstantSearch, AisSearchBox } from 'vue-instantsearch'
+import {
+  AisHits,
+  AisConfigure,
+  AisInstantSearch,
+  // AisInfiniteHits,
+  AisSearchBox,
+  AisPagination,
+} from 'vue-instantsearch'
 import ClipLoader from 'vue-spinner/src/ClipLoader.vue'
 import * as _ from 'lodash'
 import { Article } from '~/utils/types'
@@ -44,8 +53,11 @@ export default defineComponent({
 
   components: {
     AisHits,
+    AisConfigure,
     AisInstantSearch,
+    // AisInfiniteHits,
     AisSearchBox,
+    AisPagination,
     ClipLoader,
   },
 
