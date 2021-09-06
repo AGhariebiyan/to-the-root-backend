@@ -1,5 +1,9 @@
 <template>
-  <section v-if="containerType === 'color'" class="container container--color">
+  <section
+    v-if="containerType === 'color'"
+    class="container container--color"
+    :class="{ 'margin-zero-auto': marginZeroAuto }"
+  >
     <div class="container__inner" :class="{ 'flex-col': flexCol }">
       <slot></slot>
     </div>
@@ -10,6 +14,7 @@
     :class="[
       containerType ? `container--${containerType}` : '',
       flexCol ? 'flex-col' : '',
+      marginZeroAuto ? 'margin-zero-auto' : '',
     ]"
     v-else
   >
@@ -32,17 +37,23 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
+    marginZeroAuto: {
+      type: Boolean,
+      default: true,
+    },
   },
   setup() {},
 })
 </script>
 
 <style lang="scss" scoped>
+.margin-zero-auto {
+  margin: 0 auto;
+}
 .container {
   display: flex;
   justify-content: center;
   max-width: $desktop-max-width;
-  margin: 0 auto;
   padding: 5rem;
 
   @include respond(tab-landscape) {

@@ -1,6 +1,6 @@
 <template>
   <BasePageLayout>
-    <BaseContainer :flex-col="true">
+    <BaseContainer :flex-col="true" :margin-zero-auto="false">
       <ais-instant-search
         :search-client="searchClient"
         index-name="joran_articles"
@@ -151,67 +151,9 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.header {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  margin-bottom: 2rem;
-  width: 100%;
-}
-
-.search-box {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  width: 40%;
-
-  @include respond(tab-landscape) {
-    width: 60%;
-  }
-
-  @media screen and (max-width: 36em) {
-    width: 100%;
-  }
-
-  &__label {
-    margin-right: 1rem;
-  }
-
-  &__input {
-    padding: 0.25rem;
-    flex-grow: 1;
-  }
-}
-
 .loader {
   width: 100%;
   margin-top: 4rem;
-}
-
-.no-articles {
-  @include respond(phone) {
-    padding: 0.5rem;
-    text-align: center;
-  }
-
-  &__heading {
-    margin-bottom: 1rem;
-  }
-
-  &__paragraph {
-  }
-
-  &__link {
-    &:link,
-    &:visited {
-      color: inherit;
-      text-decoration: none;
-      color: $ordina-orange-hover;
-    }
-    &:hover {
-      text-decoration: underline;
-    }
-  }
 }
 
 .show-more {

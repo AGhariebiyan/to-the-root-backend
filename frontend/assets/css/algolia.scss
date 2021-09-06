@@ -10,7 +10,7 @@
       grid-template-columns: 1fr 1fr;
     }
 
-    @media screen and (max-width: 36em) {
+    @media only screen and (max-width: 36em) {
       grid-template-columns: 1fr;
     }
   }
@@ -64,7 +64,4 @@
 .ais-SearchBox-submit,
 .ais-SearchBox-reset {
   display: none;
-}
-
-.ais-Hits-item {
 }
