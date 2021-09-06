@@ -6,13 +6,22 @@
         index-name="joran_articles"
       >
         <ais-search-box />
-        <ais-configure :hits-per-page.camel="6" />
-        <ais-hits>
+        <ais-configure :hits-per-page.camel="limit" />
+        <ais-infinite-hits>
           <template slot="item" slot-scope="{ item }">
             <ArticleCard :article="item" />
           </template>
-        </ais-hits>
-        <ais-pagination :totalPages="10" />
+
+          <template v-slot:loadMore="{ isLastPage, refineNext }">
+            <div class="show-more__container">
+              <base-button :disabled="isLastPage" buttonType="primary">
+                <div @click="refineNext" class="show-more__button">
+                  Show more results
+                </div>
+              </base-button>
+            </div>
+          </template>
+        </ais-infinite-hits>
       </ais-instant-search>
 
       <ClipLoader
@@ -36,29 +45,27 @@ import {
 } from '@nuxtjs/composition-api'
 
 import {
-  AisHits,
   AisConfigure,
   AisInstantSearch,
-  // AisInfiniteHits,
+  AisInfiniteHits,
   AisSearchBox,
-  AisPagination,
 } from 'vue-instantsearch'
 import ClipLoader from 'vue-spinner/src/ClipLoader.vue'
 import * as _ from 'lodash'
 import { Article } from '~/utils/types'
 import algoliasearch from 'algoliasearch/lite'
+import BaseButton from '../../components/base/BaseButton.vue'
 
 export default defineComponent({
   name: 'PageContent',
 
   components: {
-    AisHits,
     AisConfigure,
     AisInstantSearch,
-    // AisInfiniteHits,
+    AisInfiniteHits,
     AisSearchBox,
-    AisPagination,
     ClipLoader,
+    BaseButton,
   },
 
   setup() {
@@ -131,7 +138,14 @@ export default defineComponent({
 
     const searchClient = algoliasearch(appId, searchKey)
 
-    return { filteredArticles, isLoading, loadArticles, query, searchClient }
+    return {
+      filteredArticles,
+      isLoading,
+      limit,
+      loadArticles,
+      query,
+      searchClient,
+    }
   },
 })
 </script>
@@ -197,6 +211,16 @@ export default defineComponent({
     &:hover {
       text-decoration: underline;
     }
+  }
+}
+
+.show-more {
+  &__container {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+  }
+  &__button {
   }
 }
 </style>

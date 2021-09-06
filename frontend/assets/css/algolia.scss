@@ -1,16 +1,18 @@
-.ais-Hits-list {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 1rem;
+.ais-InfiniteHits {
+  &-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1rem;
 
-  list-style: none;
+    list-style: none;
 
-  @include respond(tab-landscape) {
-    grid-template-columns: 1fr 1fr;
-  }
+    @include respond(tab-landscape) {
+      grid-template-columns: 1fr 1fr;
+    }
 
-  @media screen and (max-width: 36em) {
-    grid-template-columns: 1fr;
+    @media screen and (max-width: 36em) {
+      grid-template-columns: 1fr;
+    }
   }
 }
 
