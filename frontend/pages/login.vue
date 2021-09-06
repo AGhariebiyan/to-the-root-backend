@@ -47,11 +47,12 @@
               :disabled="isLoggedIn || error.length > 0"
               >Login</BaseButton
             >
-            <BaseButton buttonType="transparent" class="form__button">
-              <NuxtLink class="form__button" to="/signup"
-                >Sign up instead</NuxtLink
-              >
-            </BaseButton>
+
+            <NuxtLink
+              class="form__button button-link button-link--transparent"
+              to="/signup"
+              >Sign up instead</NuxtLink
+            >
           </div>
         </template>
       </BaseForm>
@@ -136,7 +137,7 @@ export default defineComponent({
   h2 {
     margin-bottom: 1rem;
   }
-}    
+}
 .container--narrow {
   flex-direction: column;
 }

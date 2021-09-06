@@ -88,8 +88,32 @@ a {
   &:active,
   &:hover {
     color: $gray-darkest;
-    background-color: $transparent-hover;
+  }
+
+  &.button-link {
+    color: $white;
+    background-color: $discovery-blue-primary;
+    border-radius: 3px;
+    display: inline-block;
+    font-family: 'RobotoBold', sans-serif;
+    height: 3.125rem;
+    padding: 0.875rem;
+    text-decoration: none;
+
+    &:active,
+    &:hover {
+      background-color: $discovery-blue-primary-hover;
+    }
+
+    &--transparent {
+      background-color: $transparent;
+      color: $discovery-blue-primary;
+      &:active,
+      &:hover {
+        color: $gray-darkest;
+        background-color: $transparent-hover;
+      }
+    }
   }
 }
-
 </style>

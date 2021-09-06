@@ -1,16 +1,15 @@
 <template>
   <div class="login-box">
     <template v-if="isLoggedIn">
-      <BaseButton buttonType="transparent" class="header__button">
-        <NuxtLink
-          class="login-box__link"
-          to="/profile"
-          :title="`Logged in as ${$auth.user.username}`"
-          @click.native="$emit('closeMobileMenu')"
-        >
-          <span class="material-icons">person_outline</span>
-        </NuxtLink>
-      </BaseButton>
+      <NuxtLink
+        class="login-box__link button-link button-link--transparent"
+        to="/profile"
+        :title="`Logged in as ${$auth.user.username}`"
+        @click.native="$emit('closeMobileMenu')"
+      >
+        <span class="material-icons">person_outline</span>
+      </NuxtLink>
+
       <BaseButton
         buttonType="primary"
         :title="$auth.user.username"
@@ -23,24 +22,20 @@
 
     <template v-else>
       <template v-if="routeName !== 'login'">
-        <BaseButton buttonType="primary" class="header__button">
-          <NuxtLink
-            class="login-box__link"
-            to="/login"
-            @click.native="$emit('closeMobileMenu')"
-            >Login</NuxtLink
-          >
-        </BaseButton>
+        <NuxtLink
+          class="login-box__link button-link"
+          to="/login"
+          @click.native="$emit('closeMobileMenu')"
+          >Login</NuxtLink
+        >
       </template>
       <template v-if="routeName !== 'signup'">
-        <BaseButton buttonType="primary" class="header__button">
-          <NuxtLink
-            class="login-box__link"
-            to="/signup"
-            @click.native="$emit('closeMobileMenu')"
-            >Sign up</NuxtLink
-          >
-        </BaseButton>
+        <NuxtLink
+          class="login-box__link button-link"
+          to="/signup"
+          @click.native="$emit('closeMobileMenu')"
+          >Sign up</NuxtLink
+        >
       </template>
     </template>
   </div>
@@ -85,18 +80,14 @@ export default {
   &__logout {
     cursor: pointer;
   }
-
-  &__link {
-    text-decoration: none;
-    color: inherit;
-  }
 }
 
 .material-icons {
   display: inline-block;
 }
 
-.header__button:not(:first-child) {
+.header__button:not(:first-child),
+.button-link:not(:first-child) {
   margin-left: 1rem;
 }
 
