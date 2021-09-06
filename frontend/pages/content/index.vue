@@ -5,7 +5,7 @@
         :search-client="searchClient"
         index-name="joran_articles"
       >
-        <ais-search-box />
+        <ais-search-box placeholder="" />
         <ais-configure :hits-per-page.camel="limit" />
         <ais-infinite-hits>
           <template slot="item" slot-scope="{ item }">
