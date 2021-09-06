@@ -1,3 +1,43 @@
+.ais-InstantSearch {
+  width: 68.75rem;
+
+  @media screen and (max-width: 79.75rem) {
+    width: 58.75rem;
+  }
+
+  @media screen and (max-width: 69.75rem) {
+    width: 48.75rem;
+  }
+
+  @include respond(tab-landscape) {
+    width: 45rem;
+  }
+
+  @media screen and (max-width: 69.75rem) {
+    width: 48.75rem;
+  }
+
+  @media screen and (max-width: 55.75rem) {
+    width: 42rem;
+  }
+
+  @media screen and (max-width: 49rem) {
+    width: 38rem;
+  }
+
+  @media screen and (max-width: 43rem) {
+    width: 35rem;
+  }
+
+  @media screen and (max-width: 40rem) {
+    width: 32rem;
+  }
+
+  @media screen and (max-width: 36rem) {
+    width: 24rem;
+  }
+}
+
 .ais-InfiniteHits {
   &-list {
     display: grid;
@@ -6,7 +46,7 @@
 
     list-style: none;
 
-    @include respond(tab-landscape) {
+    @media screen and (max-width: 69.75rem) {
       grid-template-columns: 1fr 1fr;
     }
 

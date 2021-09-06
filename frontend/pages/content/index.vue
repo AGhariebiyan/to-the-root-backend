@@ -1,6 +1,6 @@
 <template>
   <BasePageLayout>
-    <BaseContainer :flex-col="true" :margin-zero-auto="false">
+    <BaseContainer :flex-col="true">
       <ais-instant-search
         :search-client="searchClient"
         index-name="joran_articles"
