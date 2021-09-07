@@ -12,7 +12,6 @@
 
       <BaseButton
         buttonType="primary"
-        :title="$auth.user.username"
         class="header__button login-box__logout"
         @click.native="logoutHandler"
       >
