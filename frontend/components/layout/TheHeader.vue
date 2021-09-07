@@ -41,7 +41,7 @@
             >{{ link.name }}</NuxtLink
           >
         </nav>
-        <LoginBox @closeMobileMenu="closeMobileNavMenu" />
+        <LoginBox @closeMobileMenu="closeMobileNavMenu" :isMobile="true" />
       </div>
     </div>
   </header>
@@ -155,9 +155,11 @@ export default defineComponent({
 .nav-links__item {
   text-decoration: none;
   position: relative;
+
   &:not(:last-child) {
     margin-right: 2.5rem;
   }
+
   &:link,
   &:visited {
     color: $gray-darkest;
@@ -196,6 +198,7 @@ export default defineComponent({
   justify-content: center;
   align-items: center;
   margin-bottom: 1.5rem;
+
   .nav-links__item {
     margin: 1.5rem 0;
   }
