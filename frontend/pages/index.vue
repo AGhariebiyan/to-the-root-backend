@@ -69,12 +69,8 @@
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
-import BaseButton from '~/components/base/BaseButton.vue'
-import BaseContainer from '~/components/base/BaseContainer.vue'
-import BasePageLayout from '~/components/base/BasePageLayout.vue'
 
 export default defineComponent({
-  components: { BaseButton, BaseContainer, BasePageLayout },
   setup() {
     const coreValues = [
       {
@@ -136,6 +132,7 @@ export default defineComponent({
     }
   }
 }
+
 .mission {
   margin-top: 1rem;
 
@@ -166,6 +163,7 @@ export default defineComponent({
 .discord {
   &__container {
     display: flex;
+    flex-direction: row;
   }
 
   &__title {
@@ -180,10 +178,12 @@ export default defineComponent({
   }
 
   @include respond(tab-portrait) {
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
+    &__container {
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
 
     &__text {
       padding-bottom: 2rem;
