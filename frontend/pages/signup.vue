@@ -1,11 +1,13 @@
 <template>
   <BasePageLayout>
     <BaseContainer containerType="narrow">
-      <h2 class="signup__title">Signup</h2>
+      <h2 class="signup__title">Sign up</h2>
+
       <BaseForm @submit="registerUser">
         <template v-slot:socials>
           <LoginSocials divider-text="Or signup with email" />
         </template>
+
         <template v-slot:form>
           <label class="form__label" for="username">Username</label>
           <input

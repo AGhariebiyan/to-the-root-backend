@@ -5,9 +5,13 @@
         <img src="@/assets/Logo_pay-off_cmyk1.svg" />
       </a>
       <nav class="footer__nav">
-        <NuxtLink v-for="link in links" :key="link.name" :to="link.to">{{
-          link.name
-        }}</NuxtLink>
+        <NuxtLink
+          v-for="link in links"
+          :key="link.name"
+          :to="link.to"
+          class="footer__nav-link"
+          >{{ link.name }}</NuxtLink
+        >
       </nav>
       <div class="footer__social-icons">
         <a class="footer__social-link" href="https://www.facebook.com/ordina/"
@@ -73,14 +77,15 @@ export default defineComponent({
   display: flex;
   flex-grow: 1;
   justify-content: center;
+}
 
-  a {
-    text-decoration: none;
-    color: $gray-darkest;
-    margin: 1.2rem;
-    &:hover {
-      text-decoration: underline;
-    }
+.footer__nav-link {
+  text-decoration: none;
+  color: $gray-darkest;
+  margin: 1.2rem;
+
+  &:hover {
+    text-decoration: underline;
   }
 }
 
@@ -98,11 +103,11 @@ export default defineComponent({
 }
 
 .footer__social-link:not(:last-child) {
-  margin-right: 0.5rem;
+  margin-right: 1rem;
 }
 
-.footer__social-link a:hover svg path {
-  fill: $gray-darker;
+.footer__social-link:hover svg path {
+  fill: $discovery-blue-primary;
 }
 
 @include respond(tab-portrait) {

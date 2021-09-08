@@ -41,7 +41,7 @@
             >{{ link.name }}</NuxtLink
           >
         </nav>
-        <LoginBox @closeMobileMenu="closeMobileNavMenu" />
+        <LoginBox @closeMobileMenu="closeMobileNavMenu" :isMobile="true" />
       </div>
     </div>
   </header>
@@ -202,6 +202,7 @@ export default defineComponent({
   justify-content: center;
   align-items: center;
   margin-bottom: 1.5rem;
+
   .nav-links__item {
     margin: 1.5rem 0;
   }

@@ -31,11 +31,11 @@
         quidem aliquid, minus totam dignissimos laudantium.
       </p>
       <div class="mission__buttons">
-        <NuxtLink to="/contact"
-          ><BaseButton buttonType="primary">Contact</BaseButton></NuxtLink
+        <NuxtLink to="/contact" class="mission__button button-link"
+          >Contact</NuxtLink
         >
-        <NuxtLink to="/signup"
-          ><BaseButton buttonType="primary">Join</BaseButton></NuxtLink
+        <NuxtLink to="/signup" class="mission__button button-link"
+          >Join</NuxtLink
         >
       </div>
     </BaseContainer>
@@ -155,6 +155,11 @@ export default defineComponent({
     & > a:not(:last-child) {
       margin-right: 2rem;
     }
+  }
+
+  &__button {
+    min-width: 6rem;
+    text-align: center;
   }
 }
 
