@@ -40,27 +40,29 @@
       </div>
     </BaseContainer>
     <BaseContainer class="discord">
-      <div class="discord__text">
-        <h2 class="discord__title">Join Our Discord Community</h2>
-        <p class="discord__paragraph">
-          Feel free to join our Discord Community. For everyone interested in
-          contributing to open-source Feel free to join our Discord Community.
-          For everyone interested in contributing to open-source Feel free to
-          join our Discord Community. For everyone interested in contributing to
-          open-source Feel free to join our Discord Community. For everyone
-          interested in contributing to open-source Feel free to join our
-          Discord Community. For everyone interested in contributing to
-          open-source
-        </p>
+      <div class="discord__container">
+        <div class="discord__text">
+          <h2 class="discord__title">Join Our Discord Community</h2>
+          <p class="discord__paragraph">
+            Feel free to join our Discord Community. For everyone interested in
+            contributing to open-source Feel free to join our Discord Community.
+            For everyone interested in contributing to open-source Feel free to
+            join our Discord Community. For everyone interested in contributing
+            to open-source Feel free to join our Discord Community. For everyone
+            interested in contributing to open-source Feel free to join our
+            Discord Community. For everyone interested in contributing to
+            open-source
+          </p>
+        </div>
+        <iframe
+          src="https://discordapp.com/widget?id=845429016798035999&theme=dark"
+          width="350"
+          height="500"
+          allowtransparency="true"
+          frameborder="0"
+          sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"
+        ></iframe>
       </div>
-      <iframe
-        src="https://discordapp.com/widget?id=845429016798035999&theme=dark"
-        width="350"
-        height="500"
-        allowtransparency="true"
-        frameborder="0"
-        sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"
-      ></iframe>
     </BaseContainer>
   </BasePageLayout>
 </template>
@@ -135,9 +137,8 @@ export default defineComponent({
   }
 }
 .mission {
-  display: flex;
-  flex-direction: column;
   margin-top: 1rem;
+
   &__heading {
     text-align: center;
     margin-bottom: 2rem;
@@ -158,22 +159,30 @@ export default defineComponent({
 }
 
 .discord {
+  &__container {
+    display: flex;
+  }
+
   &__title {
     margin-bottom: 2rem;
     margin-right: 1rem;
   }
+
   &__text {
     .discord__paragraph {
       width: 80%;
     }
   }
+
   @include respond(tab-portrait) {
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
+
     &__text {
       padding-bottom: 2rem;
+
       .discord__paragraph {
         margin: 0 auto 1rem;
         text-align: left;
@@ -181,9 +190,11 @@ export default defineComponent({
       }
     }
   }
+
   @include respond(phone) {
     padding: 3rem 0.5rem;
     margin: 0;
+
     iframe {
       width: 18.75rem;
     }
