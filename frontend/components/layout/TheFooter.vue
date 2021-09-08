@@ -73,6 +73,7 @@ export default defineComponent({
   display: flex;
   flex-grow: 1;
   justify-content: center;
+
   a {
     text-decoration: none;
     color: $gray-darkest;
@@ -126,6 +127,7 @@ export default defineComponent({
   .footer__logo {
     display: none;
   }
+
   .footer__content {
     flex-direction: column;
   }
