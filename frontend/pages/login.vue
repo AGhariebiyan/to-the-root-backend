@@ -1,9 +1,8 @@
 <template>
   <BasePageLayout>
     <BaseContainer containerType="narrow">
-      <div class="login__content">
-        <h2>Login</h2>
-      </div>
+      <h2 class="login__title">Login</h2>
+
       <BaseForm @submit="loginUser">
         <template v-slot:socials>
           <LoginSocials divider-text="Or login with email" />
@@ -132,13 +131,9 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.login__content {
-  margin-bottom: 2rem;
-  h2 {
-    margin-bottom: 1rem;
+.login {
+  &__title {
+    margin-bottom: 2rem;
   }
-}
-.container--narrow {
-  flex-direction: column;
 }
 </style>
