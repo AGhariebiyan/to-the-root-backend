@@ -28,26 +28,18 @@ export default defineComponent({
 .container {
   display: flex;
   justify-content: center;
-  padding: 5rem;
-
-  @include respond(tab-landscape) {
-    padding: 3rem;
-  }
-  @include respond(tab-portrait) {
-    padding: 2rem;
-  }
-  @include respond(phone) {
-    padding: 1rem;
-  }
-  @include respond(tiny) {
-    padding: 0.5rem;
-  }
+  padding: 5rem 0;
 
   &__inner {
     max-width: $desktop-max-width;
-    margin: 0 auto;
-  }
+    width: 80%;
+    display: flex;
+    flex-direction: column;
 
+    @include respond(tab-portrait) {
+      width: 90%;
+    }
+  }
   &--narrow > .container__inner {
     max-width: $desktop-half-width;
   }
