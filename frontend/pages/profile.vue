@@ -29,7 +29,7 @@
         <p class="profile__section--text">{{ $auth.user.email }}</p>
 
         <p class="profile__reset-link">
-          Click <NuxtLink to="/password">here</NuxtLink> to reset your password
+          Click here to <NuxtLink to="/password">reset your password</NuxtLink>
         </p>
 
         <BaseButton buttonType="secondary" @click.native="logout"

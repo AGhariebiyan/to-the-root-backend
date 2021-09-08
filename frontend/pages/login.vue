@@ -32,12 +32,11 @@
             @input="resetError"
             required
           />
-          <p class="form__reset-link">
-            Forgot your password? Click
-            <NuxtLink to="/password/">here</NuxtLink> to reset your password
-          </p>
-
           <p class="form__error-message" v-if="error">{{ error }}</p>
+          <p class="form__reset-link">
+            Forgot your password? Click here to
+            <NuxtLink to="/password/">reset your password</NuxtLink>.
+          </p>
 
           <div class="form__buttons">
             <BaseButton

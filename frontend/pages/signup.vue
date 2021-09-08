@@ -2,7 +2,7 @@
   <BasePageLayout>
     <BaseContainer containerType="narrow">
       <div class="signup__content">
-        <h2 class="signup__title">Signup</h2>
+        <h2 class="signup__title">Sign up</h2>
       </div>
       <BaseForm @submit="registerUser">
         <template v-slot:socials>
