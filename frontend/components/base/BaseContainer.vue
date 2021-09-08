@@ -29,7 +29,6 @@ export default defineComponent({
   display: flex;
   justify-content: center;
   padding: 5rem;
-  width: 100%;
 
   @include respond(tab-landscape) {
     padding: 3rem;
