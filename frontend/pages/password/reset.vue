@@ -54,7 +54,7 @@ import { errorMessageFromResponse } from '~/utils/helpers'
 
 export default defineComponent({
   setup() {
-    const { $axios, $strapi, query } = useContext()
+    const { $auth, $axios, $strapi, query } = useContext()
     const newPassword1 = ref('')
     const newPassword2 = ref('')
     const isPassword1Valid = computed(() => {
@@ -88,6 +88,7 @@ export default defineComponent({
           password: newPassword1.value,
           passwordConfirmation: newPassword2.value,
         })
+        await $auth.logout()
         router.push('/login')
       } catch (err) {
         error.value = errorMessageFromResponse(err)
