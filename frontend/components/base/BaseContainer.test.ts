@@ -22,10 +22,10 @@ describe('Base container', () => {
     expect(wrapper.attributes().class).toContain('container--color')
   })
 
-  test('can have a class to make columns felxibel', () => {
+  test('always contains a container__inner div', () => {
     wrapper = shallowMount(BaseContainer, {
-      propsData: { containerType: 'narrow', flexCol: true },
+      propsData: {},
     })
-    expect(wrapper.attributes().class).toContain('flex-col')
+    expect(wrapper.find('.container__inner').exists()).toBe(true)
   })
 })
