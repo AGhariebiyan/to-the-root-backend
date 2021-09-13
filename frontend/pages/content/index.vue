@@ -16,7 +16,7 @@
             <div class="show-more__container">
               <base-button :disabled="isLastPage" buttonType="primary">
                 <div @click="refineNext" class="show-more__button">
-                  Show more results
+                  Show more
                 </div>
               </base-button>
             </div>
