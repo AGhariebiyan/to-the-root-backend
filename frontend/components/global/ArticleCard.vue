@@ -27,11 +27,12 @@
 
 <script lang="ts">
 import { defineComponent, useContext } from '@nuxtjs/composition-api'
+import { Article } from '~/utils/types'
 
 export default defineComponent({
   props: {
     article: {
-      type: Object,
+      type: Object as () => Article,
       required: true,
     },
   },
