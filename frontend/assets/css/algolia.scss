@@ -57,7 +57,7 @@
 }
 
 .ais-SearchBox-form {
-  background-color: #fff;
+  background-color: $white;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -86,13 +86,13 @@
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
-  background-color: #fff;
-  border: 1px solid #d6d6e7;
+  background-color: $white;
+  border: 1px solid $gray;
   border-radius: 3px;
   -webkit-box-shadow: rgba(119, 122, 175, 0.3) 0 1px 4px 0 inset;
   box-shadow: rgba(119, 122, 175, 0.3) 0 1px 4px 0 inset;
-  caret-color: #5a5e9a;
-  color: #23263b;
+  caret-color: $discovery-blue-primary;
+  color: $gray-darkest;
   -webkit-box-flex: 1;
   -ms-flex: 1 1 0%;
   flex: 1 1 0%;
