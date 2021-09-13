@@ -3,7 +3,7 @@
     <BaseContainer :flex-col="true">
       <ais-instant-search
         :search-client="searchClient"
-        index-name="joran_articles"
+        :index-name="algoliaIndex"
       >
         <ais-search-box placeholder="" />
         <ais-configure :hits-per-page.camel="limit" />
@@ -133,12 +133,14 @@ export default defineComponent({
         isLoading.value = false
       }
     }
+    const algoliaIndex: string = process.env.algoliaIndex || ''
     const appId: string = process.env.algoliaAppId || ''
     const searchKey: string = process.env.algoliaSearchKey || ''
 
     const searchClient = algoliasearch(appId, searchKey)
 
     return {
+      algoliaIndex,
       filteredArticles,
       isLoading,
       limit,
