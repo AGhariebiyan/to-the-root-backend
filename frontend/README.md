@@ -75,3 +75,9 @@ We will also need a domain rather than a single sender for this once a proper do
 See the file backend/scripts/content-to-algolia.js to setup an Algolia index. After that, set the values in the .env in the frontend as well.
 
 Then, everything should work immediately after a frontend server reset.
+
+If it does not work, check the following:
+
+- Do you see your articles in the index in Algolia? If not, retry the script content-to-algolia.js.
+- Did you setup searchable attributes in Algolia for your index yet? This is necessary for it to work.
+- Are the environment variables in frontend/.env the same as in Algolia?

@@ -9,8 +9,10 @@ const index = searchClient.initIndex(process.env.ALGOLIA_INDEX)
 
 // How to make this work:
 // 1. Create an account on Algolia (or use the main Google account found in Project Pages on Jira) and (a personal) index on Algolia.
-// 2. Then: adapt .env accordingly with ENVIRONMENT=production and the appropriate Algolia variables.
-// 3. Run the script with "npm run content-to-algolia"
+// 2. Make sure to follow the steps in Algolia to setup the index, INCLUDING setting up searchable attributes.
+// 3. I went with "content", "description", "author.name", "categories.name" for searchable attributes. But you can pick whatever you like for now.
+// 4. Then: adapt .env accordingly with ENVIRONMENT=production and the appropriate Algolia variables from env.example.
+// 5. Run the script with "npm run content-to-algolia"
 
 async function setArticlesInAlgolia() {
   try {
