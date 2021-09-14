@@ -9,9 +9,9 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: '15'
-      - working-directory: ./one-community
+      - working-directory: ./frontend
         run: npm install
-      - working-directory: ./one-community
+      - working-directory: ./frontend
         run: npm run test
       - name: Tests ✅
         if: ${{ success() }}
