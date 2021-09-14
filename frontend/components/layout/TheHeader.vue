@@ -58,6 +58,7 @@ import LoginBox from '../global/LoginBox.vue'
 
 export default defineComponent({
   components: { LoginBox },
+
   setup() {
     function resizeHandler() {
       let resizeInterval
@@ -67,6 +68,7 @@ export default defineComponent({
         clearInterval(resizeInterval)
       }
     }
+
     function closeMobileMenuOnResize() {
       if (window.innerWidth >= 872) {
         isHeaderMobileMenuActive.value = false
@@ -99,11 +101,13 @@ export default defineComponent({
         to: '/contact',
       },
     ]
+
     const isHeaderMobileMenuActive = ref(false)
 
     function openMobileNavMenu() {
       isHeaderMobileMenuActive.value = true
     }
+
     function closeMobileNavMenu() {
       isHeaderMobileMenuActive.value = false
     }
@@ -228,9 +232,11 @@ export default defineComponent({
   .nav-links--desktop {
     display: none;
   }
+
   .nav-links--desktop + .login-box {
     display: none;
   }
+
   .header__mobile-menu-button {
     display: flex;
   }

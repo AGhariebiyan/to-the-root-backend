@@ -36,11 +36,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, useStore } from '@nuxtjs/composition-api'
+import { defineComponent } from '@nuxtjs/composition-api'
 
 export default defineComponent({
   setup() {
-    const store = useStore()
     const links = [
       {
         name: 'Proclaimer',
@@ -84,6 +83,7 @@ export default defineComponent({
   text-decoration: none;
   color: $gray-darkest;
   margin: 1.2rem;
+
   &:hover {
     text-decoration: underline;
   }
@@ -132,6 +132,7 @@ export default defineComponent({
   .footer__logo {
     display: none;
   }
+
   .footer__content {
     flex-direction: column;
   }

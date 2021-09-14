@@ -1,19 +1,11 @@
 <template>
-  <section v-if="containerType === 'color'" class="container container--color">
-    <div class="container__inner" :class="{ 'flex-col': flexCol }">
-      <slot> BASECONTAINER </slot>
-    </div>
-  </section>
-
   <section
     class="container"
-    :class="[
-      containerType ? `container--${containerType}` : '',
-      flexCol ? 'flex-col' : '',
-    ]"
-    v-else
+    :class="[containerType ? `container--${containerType}` : '']"
   >
-    <slot> BASECONTAINER </slot>
+    <div class="container__inner">
+      <slot />
+    </div>
   </section>
 </template>
 
@@ -28,12 +20,7 @@ export default defineComponent({
         return ['color', 'narrow'].includes(value)
       },
     },
-    flexCol: {
-      type: Boolean,
-      default: false,
-    },
   },
-  setup() {},
 })
 </script>
 
@@ -41,53 +28,24 @@ export default defineComponent({
 .container {
   display: flex;
   justify-content: center;
-  max-width: $desktop-max-width;
-  margin: 0 auto;
-  padding: 5rem;
-
-  @include respond(tab-landscape) {
-    padding: 3rem;
-  }
-  @include respond(tab-portrait) {
-    padding: 2rem;
-  }
-  @include respond(phone) {
-    padding: 1rem;
-  }
-  @include respond(tiny) {
-    padding: 0.5rem;
-  }
-
-  &--color {
-    max-width: none;
-    width: 100%;
-    background-color: $discovery-blue-4;
-    padding: 0;
-  }
+  padding: 5rem 0;
 
   &__inner {
     max-width: $desktop-max-width;
-    padding: 5rem;
-    @include respond(tiny) {
-      padding: 3rem;
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+
+    @include respond(tab-portrait) {
+      width: 90%;
     }
+  }
+  &--narrow > .container__inner {
+    max-width: $desktop-half-width;
   }
 
-  &--narrow {
-    max-width: $desktop-half-width;
-    padding: 3rem;
-    @include respond(tab-portrait) {
-      padding: 2rem;
-    }
-    @include respond(phone) {
-      padding: 1rem;
-    }
-    @include respond(tiny) {
-      padding: 0.5rem;
-    }
+  &--color {
+    background-color: $discovery-blue-4;
   }
-}
-.flex-col {
-  flex-direction: column;
 }
 </style>
