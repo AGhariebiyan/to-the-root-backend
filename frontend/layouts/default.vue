@@ -99,6 +99,7 @@ a {
     height: 3.125rem;
     padding: 0.875rem;
     text-decoration: none;
+    line-height: 1.5rem;
 
     &:active,
     &:hover {

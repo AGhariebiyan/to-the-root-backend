@@ -1,5 +1,5 @@
 <template>
-  <div class="login-box">
+  <div class="login-box" :class="{ isMobile: isMobile }">
     <template v-if="isLoggedIn">
       <NuxtLink
         class="login-box__link button-link button-link--transparent"
@@ -12,7 +12,6 @@
 
       <BaseButton
         buttonType="primary"
-        :title="$auth.user.username"
         class="header__button login-box__logout"
         @click.native="logoutHandler"
       >
@@ -45,6 +44,12 @@
 import { computed, useContext, useRoute } from '@nuxtjs/composition-api'
 export default {
   emits: ['closeMobileMenu'],
+  props: {
+    isMobile: {
+      type: Boolean,
+      default: false,
+    },
+  },
   setup(props, { emit }) {
     const { $auth } = useContext()
     const route = useRoute()
@@ -80,6 +85,12 @@ export default {
   &__logout {
     cursor: pointer;
   }
+}
+
+.isMobile > .button-link:not(:first-child),
+.isMobile > .button-link:not(:first-child) {
+  margin-left: 0;
+  margin-top: 2rem;
 }
 
 .material-icons {

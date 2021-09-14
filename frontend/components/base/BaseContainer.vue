@@ -1,24 +1,11 @@
 <template>
   <section
-    v-if="containerType === 'color'"
-    class="container container--color"
-    :class="{ 'margin-zero-auto': marginZeroAuto }"
-  >
-    <div class="container__inner" :class="{ 'flex-col': flexCol }">
-      <slot></slot>
-    </div>
-  </section>
-
-  <section
     class="container"
-    :class="[
-      containerType ? `container--${containerType}` : '',
-      flexCol ? 'flex-col' : '',
-      marginZeroAuto ? 'margin-zero-auto' : '',
-    ]"
-    v-else
+    :class="[containerType ? `container--${containerType}` : '']"
   >
-    <slot></slot>
+    <div class="container__inner">
+      <slot />
+    </div>
   </section>
 </template>
 
@@ -33,16 +20,7 @@ export default defineComponent({
         return ['color', 'narrow'].includes(value)
       },
     },
-    flexCol: {
-      type: Boolean,
-      default: false,
-    },
-    marginZeroAuto: {
-      type: Boolean,
-      default: true,
-    },
   },
-  setup() {},
 })
 </script>
 
@@ -50,55 +28,29 @@ export default defineComponent({
 .margin-zero-auto {
   margin: 0 auto;
 }
+
 .container {
   display: flex;
   justify-content: center;
-  max-width: $desktop-max-width;
-  padding: 5rem;
-
-  @include respond(tab-landscape) {
-    padding: 3rem;
-  }
-  @include respond(tab-portrait) {
-    padding: 2rem;
-  }
-  @include respond(phone) {
-    padding: 1rem;
-  }
-  @include respond(tiny) {
-    padding: 0.5rem;
-  }
-
-  &--color {
-    max-width: none;
-    width: 100%;
-    background-color: $discovery-blue-4;
-    padding: 0;
-  }
+  padding: 5rem 0;
 
   &__inner {
     max-width: $desktop-max-width;
-    padding: 5rem;
-    @include respond(tiny) {
-      padding: 3rem;
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+
+    @include respond(tab-portrait) {
+      width: 90%;
     }
   }
 
-  &--narrow {
-    width: $desktop-half-width;
-    padding: 3rem;
-    @include respond(tab-portrait) {
-      padding: 2rem;
-    }
-    @include respond(phone) {
-      padding: 1rem;
-    }
-    @include respond(tiny) {
-      padding: 0.5rem;
-    }
+  &--narrow > .container__inner {
+    max-width: $desktop-half-width;
   }
-}
-.flex-col {
-  flex-direction: column;
+
+  &--color {
+    background-color: $discovery-blue-4;
+  }
 }
 </style>

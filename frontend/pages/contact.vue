@@ -1,14 +1,13 @@
 <template>
   <BasePageLayout>
-    <BaseContainer containerType="narrow" :flexCol="true">
-      <div class="contact__content">
-        <h2>Get in touch</h2>
-        <p>
-          Have you got questions about this project? Ask them in the form below.
-          We’d love to get your feature requests! We always appreciate
-          constructive feedback as well.
-        </p>
-      </div>
+    <BaseContainer containerType="narrow">
+      <h2 class="contact__title">Get in touch</h2>
+      <p class="contact__paragraph">
+        Have you got questions about this project? Ask them in the form below.
+        We’d love to get your feature requests! We always appreciate
+        constructive feedback as well.
+      </p>
+
       <BaseForm @submit="sendMessage">
         <template v-slot:form>
           <p class="form__heading">Let's talk</p>
@@ -30,7 +29,7 @@
           <input class="form__input" type="text" name="email" v-model="email" />
           <label class="form__label" for="message">Message*</label>
           <textarea
-            class="form__input"
+            class="form__input contact__textarea"
             type="text"
             name="message"
             required
@@ -92,28 +91,31 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.contact__content {
-  margin-bottom: 2rem;
-  h2 {
+.contact {
+  &__title {
     margin-bottom: 1rem;
   }
+
+  &__paragraph {
+    margin-bottom: 2rem;
+  }
 }
-.container--narrow {
-  flex-direction: column;
-}
-textarea {
+
+.contact__textarea {
   resize: vertical;
 }
+
 .contact__accept {
   display: flex;
+
   input {
     margin-right: 1rem;
     position: relative;
     top: 0.2rem;
   }
 }
+
 .contact__submit-button {
-  display: block;
   margin-top: 2rem;
 }
 </style>
