@@ -1,13 +1,14 @@
 module.exports = {
-  apps : [{
-    name: "one-community-fe",
-    script: 'cd one-community && npm run dev',
-    watch: 'true'
-  }, {
-    name: "sanity-studio",
-    script: 'cd sanity-studio && sanity start',
-    watch: 'true'
-  }],
+  apps: [
+    {
+      name: "one-community-fe",
+      script: "./frontend.sh",
+    },
+    {
+      name: "strapi",
+      script: "./backend.sh",
+    },
+  ],
 
   // deploy : {
   //   production : {
@@ -21,4 +22,4 @@ module.exports = {
   //     'pre-setup': ''
   //   }
   // }
-};
+}

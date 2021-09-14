@@ -1,0 +1,161 @@
+// Colors
+
+$ordina-orange: #f58220;
+$ordina-orange-hover: #d06e19;
+
+$black: #000;
+$white: #fff;
+
+$gray-light: #f9f9f9;
+$gray: #e1e1e1;
+$gray-dark: #b2b2b2;
+$gray-darker: #58595b;
+$gray-darkest: #262626;
+
+$discovery-blue-primary: #007f92;
+$discovery-blue-2: #3399a8;
+$discovery-blue-3: #66b2be;
+$discovery-blue-4: #99ccd3;
+$discovery-blue-5: #cce5e9;
+$discovery-blue-primary-hover: #004853;
+$discovery-blue-primary-darker: #006273;
+$discovery-blue-4-hover: #7eaaae;
+
+$accelerate-blue-primary: #3da4bf;
+$accelerate-blue-2: #64b6cc;
+$accelerate-blue-3: #8bc8d9;
+$accelerate-blue-4: #b1dbe5;
+$accelerate-blue-5: #d8edf2;
+$accelerate-blue-3-hover: #6ea3b1;
+
+$transparent: rgba(0, 0, 0, 0);
+$transparent-hover: rgba(0, 0, 0, 0.2);
+
+$danger-red: #d50000;
+$danger-red-hover: #a90000;
+
+$warning-yellow: #ffe100;
+$warning-yellow-hover: #d3bb00;
+
+// Variables
+$header-item-width: 13rem;
+
+$line-height: 1.3125rem;
+
+$desktop-max-width: 1260px;
+$desktop-half-width: 630px;
+
+$nav-max-width: 1440px;
+
+$article-card-width: 21.875rem;
+$article-card-width-landscape: 18rem;
+$article-card-image-height: 13.6875rem;
+$article-card-content-height: 10rem;
+
+// Fonts
+
+$default-font-size: 1rem;
+
+// Roboto
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  font-display: fallback;
+  src: url('~assets/fonts/Roboto/Roboto-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'RobotoItalic';
+  font-style: normal;
+  font-weight: 400;
+  font-display: fallback;
+  src: url('~assets/fonts/Roboto/Roboto-Italic.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'RobotoBold';
+  font-style: normal;
+  font-weight: 400;
+  font-display: fallback;
+  src: url('~assets/fonts/Roboto/Roboto-Bold.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'RobotoBoldItalic';
+  font-style: normal;
+  font-weight: 400;
+  font-display: fallback;
+  src: url('~assets/fonts/Roboto/Roboto-BoldItalic.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'RobotoLight';
+  font-style: normal;
+  font-weight: 400;
+  font-display: fallback;
+  src: url('~assets/fonts/Roboto/Roboto-Light.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'RobotoLightItalic';
+  font-style: normal;
+  font-weight: 400;
+  font-display: fallback;
+  src: url('~assets/fonts/Roboto/Roboto-LightItalic.ttf') format('truetype');
+}
+
+// Roboto Condensed
+@font-face {
+  font-family: 'RobotoCondensed';
+  font-style: normal;
+  font-weight: 400;
+  font-display: fallback;
+  src: url('~assets/fonts/Roboto_Condensed/RobotoCondensed-Regular.ttf')
+    format('truetype');
+}
+
+@font-face {
+  font-family: 'RobotoCondensedItalic';
+  font-style: normal;
+  font-weight: 400;
+  font-display: fallback;
+  src: url('~assets/fonts/Roboto_Condensed/RobotoCondensed-Italic.ttf')
+    format('truetype');
+}
+
+@font-face {
+  font-family: 'RobotoCondensedBold';
+  font-style: normal;
+  font-weight: 400;
+  font-display: fallback;
+  src: url('~assets/fonts/Roboto_Condensed/RobotoCondensed-Bold.ttf')
+    format('truetype');
+}
+
+@font-face {
+  font-family: 'RobotoCondensedBoldItalic';
+  font-style: normal;
+  font-weight: 400;
+  font-display: fallback;
+  src: url('~assets/fonts/Roboto_Condensed/RobotoCondensed-BoldItalic.ttf')
+    format('truetype');
+}
+
+@font-face {
+  font-family: 'RobotoCondensedLight';
+  font-style: normal;
+  font-weight: 400;
+  font-display: fallback;
+  src: url('~assets/fonts/Roboto_Condensed/RobotoCondensed-Light.ttf')
+    format('truetype');
+}
+
+@font-face {
+  font-family: 'RobotoCondensedLightItalic';
+  font-style: normal;
+  font-weight: 400;
+  font-display: fallback;
+  src: url('~assets/fonts/Roboto_Condensed/RobotoCondensed-LightItalic.ttf')
+    format('truetype');
+}
