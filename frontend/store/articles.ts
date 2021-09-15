@@ -9,14 +9,12 @@ const initArticleIds: number[] = []
 export const state = () => ({
   articles: initArticles,
   ids: initArticleIds,
-  foundAllArticles: false,
 })
 
 export type RootState = ReturnType<typeof state>
 
 export const getters: GetterTree<RootState, RootState> = {
   articles: (state) => state.articles,
-  foundAllArticles: (state) => state.foundAllArticles,
 }
 
 export const mutations: MutationTree<RootState> = {
@@ -24,9 +22,6 @@ export const mutations: MutationTree<RootState> = {
     const filteredNewArticles = newArticles.filter(
       (article) => !state.ids.includes(article.id),
     )
-    if (newArticles.length === 0) {
-      state.foundAllArticles = true
-    }
     state.articles = [...state.articles, ...filteredNewArticles]
   },
 
