@@ -70,4 +70,14 @@ And make sure the reset password page is set to http://localhost:3000/password/r
 Please note the Sendgrid account will need to change ownership at some point, as it requires a phone authentication app to login.
 We will also need a domain rather than a single sender for this once a proper domain has been setup for us.
 
+### Setup Algolia for searching content
 
+See the file backend/scripts/content-to-algolia.js to setup an Algolia index. After that, set the values in the .env in the frontend as well.
+
+Then, everything should work immediately after a frontend server reset.
+
+If it does not work, check the following:
+
+- Do you see your articles in the index in Algolia? If not, retry the script content-to-algolia.js.
+- Did you setup searchable attributes in Algolia for your index yet? This is necessary for it to work.
+- Are the environment variables in frontend/.env the same as in Algolia?

@@ -9,7 +9,8 @@
     "build": "strapi build",
     "strapi": "strapi",
     "lint": "eslint . --fix",
-    "format": "npx prettier --write ."
+    "format": "npx prettier --write .",
+    "content-to-algolia": "node scripts/content-to-algolia"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.14.7",
@@ -21,6 +22,8 @@
     "sqlite3": "5.0.0"
   },
   "dependencies": {
+    "algoliasearch": "^4.10.3",
+    "node-fetch": "^2.6.1",
     "strapi": "3.6.5",
     "strapi-admin": "3.6.5",
     "strapi-connector-bookshelf": "3.6.5",

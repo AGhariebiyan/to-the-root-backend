@@ -1,58 +1,29 @@
 <template>
   <BasePageLayout>
     <BaseContainer :flex-col="true">
-      <header class="header">
-        <div class="search-box">
-          <label class="search-box__label" for="search"
-            ><span class="material-icons">search</span></label
-          >
-          <input class="search-box__input" id="search" v-model="search" />
-        </div>
-      </header>
-      <div class="content__container" v-if="filteredArticles.length">
-        <NuxtLink
-          class="nuxt-link"
-          :to="`/content/${article.slug}`"
-          v-for="article in filteredArticles"
-          :key="article._id"
-        >
-          <BaseCard cardType="article">
-            <div class="article__image-container">
-              <img
-                class="article__image"
-                :src="`${url}${article.cover_image.url}`"
-                alt=""
-              />
+      <ais-instant-search
+        :search-client="searchClient"
+        :index-name="algoliaIndex"
+      >
+        <ais-search-box />
+        <ais-configure :hits-per-page.camel="limit" />
+        <ais-infinite-hits>
+          <template slot="item" slot-scope="{ item }">
+            <ArticleCard :article="item" />
+          </template>
+
+          <template v-slot:loadMore="{ isLastPage, refineNext }">
+            <div class="show-more__container">
+              <base-button :disabled="isLastPage" buttonType="primary">
+                <div @click="refineNext" class="show-more__button">
+                  Show more
+                </div>
+              </base-button>
             </div>
-            <div class="article__content">
-              <h3 class="article__title">{{ article.title }}</h3>
-              <p class="article__description">{{ article.description }}</p>
-            </div>
-            <div class="article__categories">
-              <BaseButton
-                buttonType="pill"
-                v-for="(category, index) in article.categories"
-                :key="index"
-              >
-                <NuxtLink
-                  class="article__category-link"
-                  :to="`category/${category.slug}`"
-                  >{{ category.name }}</NuxtLink
-                >
-              </BaseButton>
-            </div>
-          </BaseCard>
-        </NuxtLink>
-      </div>
-      <div class="no-articles" v-else-if="!isLoading">
-        <h3 class="no-articles__heading">No articles found</h3>
-        <p class="no-articles__paragraph">
-          Please try adapting your search, or
-          <NuxtLink class="no-articles__link" to="content/add"
-            >add an article yourself</NuxtLink
-          >!
-        </p>
-      </div>
+          </template>
+        </ais-infinite-hits>
+      </ais-instant-search>
+
       <ClipLoader
         class="loader"
         color="#3da4bf"
@@ -72,25 +43,38 @@ import {
   computed,
   onUnmounted,
 } from '@nuxtjs/composition-api'
+
+import {
+  AisConfigure,
+  AisInstantSearch,
+  AisInfiniteHits,
+  AisSearchBox,
+} from 'vue-instantsearch'
 import ClipLoader from 'vue-spinner/src/ClipLoader.vue'
 import * as _ from 'lodash'
 import { Article } from '~/utils/types'
+import algoliasearch from 'algoliasearch/lite'
+import BaseButton from '../../components/base/BaseButton.vue'
 
 export default defineComponent({
   name: 'PageContent',
 
   components: {
+    AisConfigure,
+    AisInstantSearch,
+    AisInfiniteHits,
+    AisSearchBox,
     ClipLoader,
+    BaseButton,
   },
 
   setup() {
-    const { $config, store } = useContext()
+    const { store } = useContext()
 
     const limit = 6
     const offset = ref(0)
-    const search = ref('')
+    const query = ref('')
     const isLoading = ref(false)
-    const url: string = $config.strapiUrl
 
     const articles = computed(() => {
       return store.getters['articles/articles']
@@ -99,7 +83,7 @@ export default defineComponent({
     const filteredArticles = computed(() => {
       return articles.value.filter((article: Article) => {
         const lowerCaseTitle = article.title.toLowerCase()
-        return lowerCaseTitle.includes(search.value.toLowerCase())
+        return lowerCaseTitle.includes(query.value.toLowerCase())
       })
     })
 
@@ -117,7 +101,7 @@ export default defineComponent({
       const innerHeight = Math.round(window.innerHeight)
 
       if (bottom && innerHeight >= bottom) {
-        offset.value += limit
+        offset.value += filteredArticles.value.length
         loadArticles()
       }
     }
@@ -149,100 +133,38 @@ export default defineComponent({
         isLoading.value = false
       }
     }
+    const algoliaIndex: string = process.env.algoliaIndex || ''
+    const appId: string = process.env.algoliaAppId || ''
+    const searchKey: string = process.env.algoliaSearchKey || ''
 
-    return { filteredArticles, url, isLoading, loadArticles, search }
+    const searchClient = algoliasearch(appId, searchKey)
+
+    return {
+      algoliaIndex,
+      filteredArticles,
+      isLoading,
+      limit,
+      loadArticles,
+      query,
+      searchClient,
+    }
   },
 })
 </script>
 
 <style lang="scss" scoped>
-.header {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  margin-bottom: 2rem;
-  width: 100%;
-}
-.search-box {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  width: 40%;
-
-  @include respond(tab-landscape) {
-    width: 60%;
-  }
-
-  @media screen and (max-width: 36em) {
-    width: 100%;
-  }
-
-  &__label {
-    margin-right: 1rem;
-  }
-
-  &__input {
-    padding: 0.25rem;
-    flex-grow: 1;
-  }
-}
-.content__container {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 1rem;
-
-  @include respond(tab-landscape) {
-    grid-template-columns: 1fr 1fr;
-  }
-
-  @media screen and (max-width: 36em) {
-    grid-template-columns: 1fr;
-  }
-}
-
-.nuxt-link {
-  text-decoration: none;
-  color: inherit;
-  flex: 0 1 31%;
-  margin-bottom: 1rem;
-
-  @include respond(tab-landscape) {
-    flex-basis: 46%;
-  }
-
-  @media screen and (max-width: 42em) {
-    flex-basis: 100%;
-  }
-}
-
 .loader {
   width: 100%;
   margin-top: 4rem;
 }
 
-.no-articles {
-  @include respond(phone) {
-    padding: 0.5rem;
-    text-align: center;
+.show-more {
+  &__container {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
   }
-
-  &__heading {
-    margin-bottom: 1rem;
-  }
-
-  &__paragraph {
-  }
-
-  &__link {
-    &:link,
-    &:visited {
-      color: inherit;
-      text-decoration: none;
-      color: $ordina-orange-hover;
-    }
-    &:hover {
-      text-decoration: underline;
-    }
+  &__button {
   }
 }
 </style>

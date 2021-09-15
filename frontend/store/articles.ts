@@ -1,6 +1,7 @@
 import { $axios } from '~/utils/api'
 import { GetterTree, ActionTree, MutationTree } from 'vuex'
 import { Article } from '~/utils/types'
+import qs from 'qs'
 
 const initArticles: Article[] = []
 const initArticleIds: number[] = []
@@ -23,7 +24,7 @@ export const mutations: MutationTree<RootState> = {
     const filteredNewArticles = newArticles.filter(
       (article) => !state.ids.includes(article.id),
     )
-    if (filteredNewArticles.length === 0) {
+    if (newArticles.length === 0) {
       state.foundAllArticles = true
     }
     state.articles = [...state.articles, ...filteredNewArticles]
@@ -43,11 +44,15 @@ export const mutations: MutationTree<RootState> = {
 }
 
 export const actions: ActionTree<RootState, RootState> = {
-  async fetchArticles({ commit }, { limit, offset }) {
+  async fetchArticles({ commit }, { limit = 6, offset = 0, params = {} }) {
+    const paramString = qs.stringify(params)
+
     const response = await $axios.get(
-      `/articles?_start=${offset.value}&_limit=${limit}`,
+      `/articles?_start=${offset.value}&_limit=${limit}${
+        paramString ? '&' + paramString : ''
+      }`,
     )
-    const articles = response.data
+    const articles: Article[] = response.data
 
     commit('ADD_ARTICLES', articles)
     commit('SET_ARTICLE_IDS', articles)
@@ -56,10 +61,11 @@ export const actions: ActionTree<RootState, RootState> = {
 
   async fetchArticleBySlug({ commit }, slug) {
     const response = await $axios.get(`/articles?slug=${slug}`)
-    const article: Article = response.data
 
-    commit('ADD_ARTICLES', article)
-    commit('SET_ARTICLE_IDS', article)
-    return article
+    const articles: Article[] = response.data
+
+    commit('ADD_ARTICLES', articles)
+    commit('SET_ARTICLE_IDS', articles)
+    return articles
   },
 }

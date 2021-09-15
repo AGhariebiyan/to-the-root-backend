@@ -58,6 +58,23 @@ h3 {
   }
 }
 
+blockquote {
+  padding: 1rem 2rem;
+  border-left: 0.125rem solid $gray-dark;
+  background: $gray-light;
+  font-style: italic;
+}
+
+// Inline code
+code {
+  display: inline-block;
+  background-color: $gray-light;
+  font-family: 'Monaco', 'Consolas', 'Monospace';
+  font-size: 0.875rem;
+  padding: 0.1875rem;
+  border-radius: 0.1875rem;
+}
+
 *,
 *::before,
 *::after {

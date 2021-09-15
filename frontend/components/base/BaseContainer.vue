@@ -25,6 +25,10 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+.margin-zero-auto {
+  margin: 0 auto;
+}
+
 .container {
   display: flex;
   justify-content: center;
@@ -40,6 +44,7 @@ export default defineComponent({
       width: 90%;
     }
   }
+
   &--narrow > .container__inner {
     max-width: $desktop-half-width;
   }
