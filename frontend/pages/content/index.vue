@@ -5,7 +5,7 @@
         :search-client="searchClient"
         :index-name="algoliaIndex"
       >
-        <ais-search-box autofocus />
+        <ais-search-box />
         <ais-configure :hits-per-page.camel="limit" />
         <ais-infinite-hits>
           <template slot="item" slot-scope="{ item }">
