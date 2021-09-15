@@ -1,10 +1,66 @@
 <template>
   <base-page-layout>
-    <base-container>
+    <base-container containerType="narrow">
       <ClipLoader class="loader" color="#3da4bf" v-if="isLoading" />
-      <article v-else class="container">
-        {{ article }}
+      <article v-else-if="isArticleLoaded" class="article">
+        <h2 class="article__title">{{ article.title }}</h2>
+        <p class="article__description">{{ article.description }}</p>
+        <p class="article__meta">
+          {{ article.original_date }}
+          <template v-if="article.author">
+            by
+            <NuxtLink
+              class="article__author"
+              :to="`/content?author=${article.author.id}`"
+              >{{ article.author.name }}</NuxtLink
+            >
+          </template>
+        </p>
+        <share-buttons
+          :article="{
+            title: article.title,
+            description: article.description,
+            categories: article.categories,
+          }"
+          :url="articleUrl"
+        />
+        <div class="article__image-container">
+          <img
+            class="article__cover-image"
+            :src="`${strapiUrl}${article.cover_image.url}`"
+          />
+        </div>
+        <div
+          class="article__content"
+          v-html="$md.render(article.content)"
+        ></div>
+        <div class="article__interactions">
+          <div class="article__likes">
+            <span class="material-icons-outlined">thumb_up</span>
+            <div class="article__number-of-likes">13</div>
+          </div>
+          <div class="article__reactions">
+            <span class="material-icons-outlined">chat</span>
+            <div class="article__number-of-reactions">3</div>
+          </div>
+        </div>
       </article>
+      <p v-else>
+        The article with slug <code>{{ slug }}</code> was not found
+      </p></base-container
+    >
+
+    <base-container class="related-articles" containerType="color">
+      <template v-if="!isLoading && relatedArticles.length > 0">
+        <h3 class="related-articles__heading">Related articles</h3>
+        <div class="related-articles__container">
+          <ArticleCard
+            v-for="relArticle in relatedArticles"
+            :article="relArticle"
+            :key="relArticle.id"
+          />
+        </div>
+      </template>
     </base-container>
   </base-page-layout>
 </template>
@@ -18,49 +74,225 @@ import {
   onMounted,
   ref,
 } from '@nuxtjs/composition-api'
-import BaseContainer from '../../components/base/BaseContainer.vue'
-import BasePageLayout from '../../components/base/BasePageLayout.vue'
+
 import { Article } from '~/utils/types'
 import ClipLoader from 'vue-spinner/src/ClipLoader.vue'
 
 export default defineComponent({
-  components: { BasePageLayout, BaseContainer, ClipLoader },
+  components: { ClipLoader },
+
   name: 'PageContentDetail',
 
   setup() {
-    const { store } = useContext()
+    const isLoading = ref(true)
+
     const route: any = useRoute()
     const slug = route?.value?.params?.slug
-    const isLoading = ref(false)
+
+    const { store, $config } = useContext()
+    const strapiUrl: string = $config.strapiUrl
+    const baseUrl = process.env.baseUrl
+    const articleUrl = `${baseUrl}${route.value.fullPath}`
 
     const article = computed(() => {
-      return store.getters['articles/articles'].find(
-        (article: Article) => article.slug == slug,
+      return (
+        store.getters['articles/articles'].find(
+          (article: Article) => article.slug == slug,
+        ) ?? {}
       )
     })
 
-    onMounted(() => {
-      if (!article.value) {
-        loadArticleBySlug(slug)
+    const isArticleLoaded = computed(() => {
+      return Object.keys(article.value).length > 0
+    })
+
+    onMounted(async () => {
+      try {
+        if (!isArticleLoaded.value) {
+          await loadArticleBySlug(slug)
+        }
+        await loadRelatedArticles()
+      } catch (err) {
+      } finally {
+        isLoading.value = false
       }
     })
 
     async function loadArticleBySlug(slug: string) {
-      if (!article.value) {
-        isLoading.value = true
-        try {
-          await store.dispatch('articles/fetchArticleBySlug', slug)
-        } catch (e) {
-          console.log(e)
-        } finally {
-          isLoading.value = false
-        }
+      isLoading.value = true
+      try {
+        await store.dispatch('articles/fetchArticleBySlug', slug)
+      } catch (e) {
+        console.log(e)
+      } finally {
+        isLoading.value = false
       }
     }
 
-    return { article, isLoading }
+    const relatedArticles: any = ref([])
+
+    async function loadRelatedArticles() {
+      const relatedCategoryParams = {
+        _where: [
+          {
+            'categories.name': article.value.categories.map(
+              (category: any) => category.name,
+            ),
+          },
+        ],
+      }
+
+      const relatedCategoryArticles: Article[] = await store.dispatch(
+        'articles/fetchArticles',
+        {
+          limit: 4,
+          offset: ref(0),
+          params: relatedCategoryParams,
+        },
+      )
+
+      let relatedAuthorArticles: Article[] = []
+
+      if (article.value.author) {
+        const relatedAuthorParams = {
+          'author.id': article.value.author.id,
+        }
+
+        relatedAuthorArticles = await store.dispatch('articles/fetchArticles', {
+          limit: 4,
+          offset: ref(0),
+          params: relatedAuthorParams,
+        })
+      }
+
+      const combinedArticles = relatedCategoryArticles.concat(
+        relatedAuthorArticles,
+      )
+
+      const uniqueArticles: Article[] = Object.values(
+        combinedArticles.reduce((uniqueArticles: any, article: Article) => {
+          return uniqueArticles[article.id]
+            ? uniqueArticles
+            : { ...uniqueArticles, [article.id]: article }
+        }, {}),
+      )
+
+      relatedArticles.value = uniqueArticles
+        // Make sure the current article is not shown in the related articles
+        .filter((relArt: Article) => relArt.id !== article.value.id)
+        // Only show at most 3 items
+        .slice(0, 3)
+    }
+
+    return {
+      article,
+      isArticleLoaded,
+      isLoading,
+      strapiUrl,
+      articleUrl,
+      relatedArticles,
+    }
   },
 })
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.article {
+  &__title {
+    margin-bottom: 1rem;
+  }
+
+  &__description {
+    margin-bottom: 2rem;
+  }
+
+  &__meta {
+    margin-bottom: 2rem;
+  }
+
+  &__author {
+    font-weight: bold;
+    color: inherit;
+
+    &:link,
+    &:visited {
+      text-decoration: none;
+    }
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  &__image-container {
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    height: 20rem;
+    margin-bottom: 2rem;
+  }
+
+  &__cover-image {
+    width: 100%;
+    background-size: cover;
+    background-position: center;
+  }
+
+  &__content {
+    margin-bottom: 2rem;
+  }
+
+  &__interactions {
+    display: flex;
+  }
+
+  &__likes {
+    display: flex;
+    align-items: center;
+    margin-right: 2rem;
+
+    &:hover {
+      color: $accelerate-blue-primary;
+      cursor: pointer;
+    }
+  }
+  &__reactions {
+    display: flex;
+    align-items: center;
+
+    &:hover {
+      color: $accelerate-blue-primary;
+      cursor: pointer;
+    }
+  }
+
+  &__number-of-likes {
+    margin-left: 1rem;
+  }
+  &__number-of-reactions {
+    margin-left: 1rem;
+  }
+}
+
+.share-buttons {
+  margin-bottom: 1rem;
+}
+
+.related-articles {
+  &__heading {
+    margin-bottom: 1rem;
+  }
+  &__container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1rem;
+
+    @include respond(tab-landscape) {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    @media screen and (max-width: 36em) {
+      grid-template-columns: 1fr;
+    }
+  }
+}
+</style>

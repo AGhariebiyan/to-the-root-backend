@@ -1,9 +1,8 @@
 <template>
   <BasePageLayout>
     <BaseContainer containerType="narrow">
-      <div class="login__content">
-        <h2>Login</h2>
-      </div>
+      <h2 class="login__title">Login</h2>
+
       <BaseForm @submit="loginUser">
         <template v-slot:socials>
           <LoginSocials divider-text="Or login with email" />
@@ -32,12 +31,11 @@
             @input="resetError"
             required
           />
-          <p class="form__reset-link">
-            Forgot your password? Click
-            <NuxtLink to="/password/">here</NuxtLink> to reset your password
-          </p>
-
           <p class="form__error-message" v-if="error">{{ error }}</p>
+          <p class="form__reset-link">
+            Forgot your password? Click here to
+            <NuxtLink to="/password/">reset your password</NuxtLink>.
+          </p>
 
           <div class="form__buttons">
             <BaseButton
@@ -132,13 +130,9 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.login__content {
-  margin-bottom: 2rem;
-  h2 {
-    margin-bottom: 1rem;
+.login {
+  &__title {
+    margin-bottom: 2rem;
   }
-}
-.container--narrow {
-  flex-direction: column;
 }
 </style>

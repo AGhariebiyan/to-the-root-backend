@@ -48,6 +48,8 @@ export default defineComponent({
 
   &__buttons {
     margin-top: 2rem;
+    display: flex;
+    align-items: center;
   }
 
   &__button {
@@ -57,6 +59,7 @@ export default defineComponent({
   }
 
   &__error-message {
+    margin-bottom: 1rem;
     padding: 0.5rem;
     border: $danger-red solid 1px;
     background-color: rgba($danger-red, 0.2);

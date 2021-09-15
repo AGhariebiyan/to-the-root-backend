@@ -6,7 +6,7 @@ $ordina-orange-hover: #d06e19;
 $black: #000;
 $white: #fff;
 
-$gray-light: #f9f9f9;
+$gray-light: #f8f8f8; // same as code highlight
 $gray: #e1e1e1;
 $gray-dark: #b2b2b2;
 $gray-darker: #58595b;
@@ -29,7 +29,7 @@ $accelerate-blue-5: #d8edf2;
 $accelerate-blue-3-hover: #6ea3b1;
 
 $transparent: rgba(0, 0, 0, 0);
-$transparent-hover:rgba(0, 0, 0, 0.2);
+$transparent-hover: rgba(0, 0, 0, 0.2);
 
 $danger-red: #d50000;
 $danger-red-hover: #a90000;
@@ -51,6 +51,9 @@ $article-card-width: 21.875rem;
 $article-card-width-landscape: 18rem;
 $article-card-image-height: 13.6875rem;
 $article-card-content-height: 10rem;
+
+// Box shadows
+$box-shadow-small: 0px 0.25rem 0.25rem rgba(0, 0, 0, 0.25);
 
 // Fonts
 
