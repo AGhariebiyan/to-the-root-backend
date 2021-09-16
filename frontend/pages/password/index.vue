@@ -34,7 +34,6 @@
 import { defineComponent, useContext, ref } from '@nuxtjs/composition-api'
 
 export default defineComponent({
-  middleware: 'auth',
   setup() {
     const { $axios, $strapi } = useContext()
     const forgotEmail = ref('')
