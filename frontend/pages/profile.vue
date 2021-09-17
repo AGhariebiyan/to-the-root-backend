@@ -1,6 +1,10 @@
 <template>
   <BasePageLayout>
-    <BaseContainer class="profile__section-nav">
+    <BaseContainer
+      containerType="narrow"
+      containerDirection="row"
+      class="profile__section-nav"
+    >
       <p
         class="profile__section-link"
         :class="{ active: currentSection === 'profile' }"
@@ -80,11 +84,10 @@ export default defineComponent({
   border-bottom: 2px solid $discovery-blue-5;
 }
 .profile__section {
-  flex-direction: column;
-  .profile__section--title {
+  &--title {
     margin: 0 0 1rem;
   }
-  .profile__section--text {
+  &--text {
     font-family: RobotoLight, sans-serif;
   }
   button {
