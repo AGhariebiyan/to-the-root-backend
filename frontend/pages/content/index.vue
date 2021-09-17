@@ -11,6 +11,9 @@
           <template slot="item" slot-scope="{ item }">
             <ArticleCard :article="item" />
           </template>
+          <template v-slot="{ items }">
+            <p v-if="items.length === 0">We couldn't find any content.</p>
+          </template>
 
           <template v-slot:loadMore="{ isLastPage, refineNext }">
             <div class="show-more__container">
@@ -133,6 +136,7 @@ export default defineComponent({
         isLoading.value = false
       }
     }
+
     const algoliaIndex: string = process.env.algoliaIndex || ''
     const appId: string = process.env.algoliaAppId || ''
     const searchKey: string = process.env.algoliaSearchKey || ''
