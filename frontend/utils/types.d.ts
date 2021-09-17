@@ -21,3 +21,5 @@ export interface Article {
   title: string
   updated_at: string
 }
+
+type ErrorResponse = { message: any[] }

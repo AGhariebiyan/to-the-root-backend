@@ -1,7 +1,10 @@
 <template>
   <section
     class="container"
-    :class="[containerType ? `container--${containerType}` : '']"
+    :class="[
+      containerType ? `container--${containerType}` : '',
+      containerDirection ? `container--${containerDirection}` : '',
+    ]"
   >
     <div class="container__inner">
       <slot />
@@ -14,6 +17,13 @@ import { defineComponent } from '@nuxtjs/composition-api'
 
 export default defineComponent({
   props: {
+    containerDirection: {
+      type: String,
+      default: 'column',
+      validator(value: string) {
+        return ['column', 'row'].includes(value)
+      },
+    },
     containerType: {
       type: String,
       validator(value: string) {
@@ -43,6 +53,10 @@ export default defineComponent({
     @include respond(tab-portrait) {
       width: 90%;
     }
+  }
+
+  &--row > .container__inner {
+    flex-direction: row;
   }
 
   &--narrow > .container__inner {
