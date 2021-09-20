@@ -91,8 +91,5 @@ export default defineComponent({
     display: flex;
     justify-content: center;
   }
-
-  &__button {
-  }
 }
 </style>
