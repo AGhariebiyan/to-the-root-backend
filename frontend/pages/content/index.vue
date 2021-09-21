@@ -6,7 +6,7 @@
         :index-name="algoliaIndex"
       >
         <ais-search-box />
-        <ais-configure :hits-per-page.camel="limit" />
+        <ais-configure :hits-per-page.camel="6" />
         <ais-infinite-hits>
           <template slot="item" slot-scope="{ item }">
             <ArticleCard :article="item" />
@@ -14,11 +14,13 @@
 
           <template v-slot:loadMore="{ isLastPage, refineNext }">
             <div class="show-more__container">
-              <base-button :disabled="isLastPage" buttonType="primary">
-                <div @click="refineNext" class="show-more__button">
-                  Show more
-                </div>
-              </base-button>
+              <BaseButton
+                :disabled="isLastPage"
+                buttonType="primary"
+                @clicked="refineNext"
+              >
+                Show more
+              </BaseButton>
             </div>
           </template>
         </ais-infinite-hits>
