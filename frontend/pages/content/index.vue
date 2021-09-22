@@ -1,15 +1,20 @@
 <template>
   <BasePageLayout>
     <BaseContainer>
-      <ais-instant-search
+      <AisInstantSearch
         :search-client="searchClient"
         :index-name="algoliaIndex"
       >
-        <ais-search-box />
-        <ais-configure :hits-per-page.camel="6" />
-        <ais-infinite-hits>
+        <AisSearchBox />
+        <AisConfigure :hits-per-page.camel="6" />
+        <AisInfiniteHits>
           <template slot="item" slot-scope="{ item }">
             <ArticleCard :article="item" />
+          </template>
+          <template v-slot="{ items }">
+            <p class="no-articles-text" v-if="items.length === 0">
+              We couldn't find any content.
+            </p>
           </template>
 
           <template v-slot:loadMore="{ isLastPage, refineNext }">
@@ -23,15 +28,8 @@
               </BaseButton>
             </div>
           </template>
-        </ais-infinite-hits>
-      </ais-instant-search>
-
-      <ClipLoader
-        class="loader"
-        color="#3da4bf"
-        size="5rem"
-        v-show="isLoading"
-      />
+        </AisInfiniteHits>
+      </AisInstantSearch>
     </BaseContainer>
   </BasePageLayout>
 </template>
@@ -45,7 +43,6 @@ import {
   AisInfiniteHits,
   AisSearchBox,
 } from 'vue-instantsearch'
-import ClipLoader from 'vue-spinner/src/ClipLoader.vue'
 import algoliasearch from 'algoliasearch/lite'
 
 export default defineComponent({
@@ -56,14 +53,10 @@ export default defineComponent({
     AisInstantSearch,
     AisInfiniteHits,
     AisSearchBox,
-    ClipLoader,
   },
 
   setup() {
-    const limit = 6
     const query = ref('')
-    const isLoading = ref(false)
-
     const algoliaIndex: string = process.env.algoliaIndex || ''
     const appId: string = process.env.algoliaAppId || ''
     const searchKey: string = process.env.algoliaSearchKey || ''
@@ -72,8 +65,6 @@ export default defineComponent({
 
     return {
       algoliaIndex,
-      isLoading,
-      limit,
       query,
       searchClient,
     }
