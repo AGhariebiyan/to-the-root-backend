@@ -100,6 +100,10 @@ export default defineComponent({
         name: 'Get in touch',
         to: '/contact',
       },
+      {
+        name: 'Editor',
+        to: '/editor',
+      },
     ]
 
     const isHeaderMobileMenuActive = ref(false)
