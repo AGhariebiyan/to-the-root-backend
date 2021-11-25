@@ -49,8 +49,12 @@ const Wysiwyg = ({
     >
       <Label htmlFor={name} message={label} style={{ marginBottom: 10 }} />
       <div>
-        <Button color="primary" onClick={handleToggle}>
-          MediaLib
+        <Button
+          color="primary"
+          onClick={handleToggle}
+          style={{ marginBottom: 10 }}
+        >
+          MediaLibrary
         </Button>
       </div>
       <Editor name={name} onChange={onChange} value={value} />
