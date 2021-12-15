@@ -13,7 +13,7 @@ The situation: You just cloned the repo to your computer and want to get going. 
 
 In the minimal setup, you can view the site and search for articles.
 
-A small and basic database setup can be done by running `npm run seed-db`. This db is connected to Algolia index dev_content. Running it allows you to view the articles on the detail page (clicking on it).
+A small and basic database setup can be done by running `npm run seed-db`. This db is connected to Algolia index `dev_content`. Running it allows you to view the articles on the detail page (clicking on it).
 
 The images of the articles won't work though. So for now, it is advised to [add your own articles](creating-your-own-articles).
 
