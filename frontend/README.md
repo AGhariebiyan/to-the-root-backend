@@ -2,24 +2,9 @@
 
 ## Build Setup
 
-```bash
-# install dependencies
-$ yarn install
+`npm run dev`
 
-# serve with hot reload at localhost:3000
-$ yarn dev
-
-# build for production and launch server
-$ yarn build
-$ yarn start
-
-# generate static project
-$ yarn generate
-```
-
-For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
-
-## Locally test login with GitHub
+## How to locally test logging in with GitHub
 
 ### Setup ngrok
 
@@ -44,7 +29,7 @@ Copy the Client ID and Client secret of the application and save for later.
 Change STRAPI_URL in the frontend .env to `<ngrok-url>`
 Change URL in the backend .env to `<ngrok-url>`
 
-Reset both applications.
+Rebuild both applications.
 
 ### Setup Strapi provider
 
@@ -62,7 +47,7 @@ In Strapi, go to Settings > Email Plugin > Email Settings
 Here you can setup your own email as the test email.
 
 In Strapi, go to Settings > User & Permissions Plugin > Email Templates > Reset Password
-Change "shipper name" to Ahead of Change, change "shipper email" to aheadofchange.org@gmail.com
+Change "shipper name" to Ahead of Change, change "shipper email" to totherootdev@gmail.com
 
 In Strapi, go to Settings > User & Permissions Plugin > Advanced Settings
 And make sure the reset password page is set to http://localhost:3000/password/reset for testing
@@ -72,12 +57,4 @@ We will also need a domain rather than a single sender for this once a proper do
 
 ### Setup Algolia for searching content
 
-See the file backend/scripts/content-to-algolia.js to setup an Algolia index. After that, set the values in the .env in the frontend as well.
-
-Then, everything should work immediately after a frontend server reset.
-
-If it does not work, check the following:
-
-- Do you see your articles in the index in Algolia? If not, retry the script content-to-algolia.js.
-- Did you setup searchable attributes in Algolia for your index yet? This is necessary for it to work.
-- Are the environment variables in frontend/.env the same as in Algolia?
+See the root folder's readme.
