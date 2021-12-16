@@ -5,6 +5,23 @@
         :search-client="searchClient"
         :index-name="algoliaIndex"
       >
+        <AisRefinementList
+          attribute="categories.name"
+          operator="or"
+          :sort-by="['name:asc']"
+        >
+          <template v-slot="{ items, createURL, refine }">
+            <li v-for="item in items" :key="item.value">
+              <a
+                :href="createURL(item.value)"
+                @click.prevent="refine(item.value)"
+              >
+                {{ item.label }}
+              </a>
+            </li>
+          </template>
+        </AisRefinementList>
+
         <AisSearchBox />
         <AisConfigure :hits-per-page.camel="6" />
         <AisInfiniteHits>
@@ -42,6 +59,7 @@ import {
   AisInstantSearch,
   AisInfiniteHits,
   AisSearchBox,
+  AisRefinementList,
 } from 'vue-instantsearch'
 import algoliasearch from 'algoliasearch/lite'
 
@@ -53,6 +71,7 @@ export default defineComponent({
     AisInstantSearch,
     AisInfiniteHits,
     AisSearchBox,
+    AisRefinementList,
   },
 
   setup() {
