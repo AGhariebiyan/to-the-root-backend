@@ -15,6 +15,9 @@
               <a
                 :href="createURL(item.value)"
                 @click.prevent="refine(item.value)"
+                :style="{
+                  backgroundColor: item.isRefined ? 'red' : 'transparent',
+                }"
               >
                 {{ item.label }}
               </a>
