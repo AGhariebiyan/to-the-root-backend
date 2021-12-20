@@ -66,21 +66,13 @@ const articles = [
 async function seedDb() {
   let articles = await getArticles()
 
-  if (articles.length > 20) {
+  if (articles.length > 0) {
     return
   }
   // We can expect an empty database here
 
-  // if no articles,
-  // check for authors -> if none, generate
-  // check for categories -> if none, generate
-  // generate articles with ids
-
   const authorIds = await seedAuthors()
   const categoryIds = await seedCategories()
-  // console.log('authors and categories set!')
-  // const authorIds = null
-  // const categoryIds = null
   await seedArticles(authorIds, categoryIds)
 }
 
@@ -91,7 +83,7 @@ async function getArticles() {
     articles = await response.data
   } catch (err) {
     console.log(
-      err,
+      err.data,
       'Getting articles went wrong! See error above or the logging of the strapi server',
     )
   }
@@ -106,7 +98,7 @@ async function seedAuthors() {
       authorIds.push(response.data.id)
     } catch (err) {
       console.log(
-        err,
+        err.data,
         'Setting authors went wrong! See error above or the logging of the strapi server',
       )
     }
@@ -125,8 +117,8 @@ async function seedCategories() {
       categoryIds.push(response.data.id)
     } catch (err) {
       console.log(
-        err,
-        'Setting categories went wrong! See error above or the logging of the strapi server',
+        `${err.toJSON().message}
+        Setting categories went wrong! See error above or the logging of the strapi server`,
       )
     }
   console.log(`${categoryIds.length} categories set`)
@@ -150,7 +142,7 @@ async function seedArticles(authorIds, categoryIds) {
       await axios.post(`${process.env.URL}/articles`, article)
     } catch (err) {
       console.log(
-        err,
+        err.data,
         'Setting articles went wrong! See error above or the logging of the strapi server',
       )
     }
