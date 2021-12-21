@@ -20,7 +20,9 @@
     "photo": {
       "model": "file",
       "via": "related",
-      "allowedTypes": ["images"],
+      "allowedTypes": [
+        "images"
+      ],
       "plugin": "upload",
       "required": true,
       "pluginOptions": {}
@@ -32,6 +34,23 @@
     "articles": {
       "collection": "article",
       "via": "author"
+    },
+    "Github": {
+      "type": "string",
+      "maxLength": 250
+    },
+    "Twitter": {
+      "type": "string",
+      "maxLength": 250
+    },
+    "LinkedIn": {
+      "type": "string",
+      "maxLength": 250
+    },
+    "Biography": {
+      "type": "text",
+      "required": false,
+      "maxLength": 1200
     }
   }
 }

@@ -26,7 +26,10 @@
     "cover_image": {
       "model": "file",
       "via": "related",
-      "allowedTypes": ["images", "videos"],
+      "allowedTypes": [
+        "images",
+        "videos"
+      ],
       "plugin": "upload",
       "required": true,
       "pluginOptions": {}
