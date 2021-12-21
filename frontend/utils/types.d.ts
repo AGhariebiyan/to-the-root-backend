@@ -22,4 +22,18 @@ export interface Article {
   updated_at: string
 }
 
+export interface Author {
+  biography: string
+  github: string
+  linkedIn: string
+  twitter: string
+  created_at: string
+  email: string
+  id: number
+  name: string
+  photo: {}
+  published_at: string
+  updated_at: string
+}
+
 type ErrorResponse = { message: any[] }

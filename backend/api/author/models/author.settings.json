@@ -35,19 +35,18 @@
       "collection": "article",
       "via": "author"
     },
-    "Github": {
+    "github": {
+      "type": "string"
+    },
+    "twitter": {
       "type": "string",
       "maxLength": 250
     },
-    "Twitter": {
+    "linkedIn": {
       "type": "string",
       "maxLength": 250
     },
-    "LinkedIn": {
-      "type": "string",
-      "maxLength": 250
-    },
-    "Biography": {
+    "biography": {
       "type": "text",
       "required": false,
       "maxLength": 1200
