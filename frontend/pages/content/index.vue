@@ -15,9 +15,7 @@
               <a
                 :href="createURL(item.value)"
                 @click.prevent="refine(item.value)"
-                :style="{
-                  backgroundColor: item.isRefined ? 'red' : 'transparent',
-                }"
+                :class="item.isRefined ? 'selected' : ''"
               >
                 {{ item.label }}
               </a>
@@ -106,5 +104,9 @@ export default defineComponent({
     display: flex;
     justify-content: center;
   }
+}
+
+.selected {
+  background-color: red;
 }
 </style>
