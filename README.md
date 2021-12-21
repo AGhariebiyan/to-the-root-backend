@@ -44,14 +44,15 @@ You can create your own content in Strapi.
 
 1. Log in to Algolia using the credentials in the Project Pages in Jira using Google OAuth.
 2. Create a new index and name it something you like. I named mine "joran_content"
-3. Copy the admin api key from Algolia
-4. In backend/.env, change the ALGOLIA_INDEX to your new index from step 2 and add the ALGOLIA_ADMIN_KEY you copied in step 3
-5. In backend/.env, change the ENVIRONMENT to 'production'
-6. Make sure that in Strapi, you are allowed to create articles. Go to Settings > User & permissions plugin > Roles > Public and make sure the box for finding articles is ticked.
-7. Run the script `npm run content-to-algolia`
-8. If everything went well, change the ALGOLIA_INDEX in frontend/.env to your new index
-9. Rebuild your frontend server with `npm run build`
-10. You should see your articles in the content page now!
+3. Make sure that you set the correct searchable attributes and attributes for faceting for the search and filtering to work.
+4. Copy the admin api key from Algolia
+5. In backend/.env, change the ALGOLIA_INDEX to your new index from step 2 and add the ALGOLIA_ADMIN_KEY you copied in step 3
+6. In backend/.env, change the ENVIRONMENT to 'production'
+7. Make sure that in Strapi, you are allowed to create articles. Go to Settings > User & permissions plugin > Roles > Public and make sure the box for finding articles is ticked.
+8. Run the script `npm run content-to-algolia`
+9. If everything went well, change the ALGOLIA_INDEX in frontend/.env to your new index
+10. Rebuild your frontend server with `npm run build`
+11. You should see your articles in the content page now!
 
 ### Resetting login details
 
