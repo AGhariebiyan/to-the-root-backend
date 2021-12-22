@@ -27,7 +27,11 @@
         <div class="article__image-container">
           <img
             class="article__cover-image"
-            :src="`${strapiUrl}${article.cover_image.url}`"
+            :src="
+              article.cover_image
+                ? `${strapiUrl}${article.cover_image.url}`
+                : require('~/assets/img/rainbow_ordina.png')
+            "
           />
         </div>
         <div
