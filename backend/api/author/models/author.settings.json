@@ -36,7 +36,8 @@
       "via": "author"
     },
     "github": {
-      "type": "string"
+      "type": "string",
+      "maxLength": 250
     },
     "twitter": {
       "type": "string",
