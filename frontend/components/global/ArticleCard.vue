@@ -4,7 +4,11 @@
       <div class="article__image-container">
         <img
           class="article__image"
-          :src="`${url}${article.cover_image.url}`"
+          :src="
+            article.cover_image
+              ? `${url}${article.cover_image.url}`
+              : require('~/assets/img/rainbow_ordina.png')
+          "
           alt=""
         />
       </div>
