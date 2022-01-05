@@ -33,8 +33,6 @@ import {
   ref,
 } from '@nuxtjs/composition-api'
 
-import { $axios, $auth } from '~/utils/api'
-
 export default defineComponent({
   name: 'CommentSection',
 
