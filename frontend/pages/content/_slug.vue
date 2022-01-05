@@ -48,6 +48,21 @@
             <div class="article__number-of-reactions">3</div>
           </div>
         </div>
+
+        <CommentsList :articleId="article.id" :comments="comments" />
+
+        <form @submit.prevent="leaveComment">
+          <div class="form-group">
+            <textarea class="form-input" v-model="newCommentText" />
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="btn-blue">Save</button>
+          </div>
+        </form>
+
+        <BaseButton buttonType="primary" class="" @click.native="leaveComment">
+          Leave a Comment
+        </BaseButton>
       </article>
       <p v-else>
         The article with slug <code>{{ slug }}</code> was not found
@@ -81,6 +96,7 @@ import {
 
 import { Article } from '~/utils/types'
 import ClipLoader from 'vue-spinner/src/ClipLoader.vue'
+import { $axios } from '~/utils/api'
 
 export default defineComponent({
   components: { ClipLoader },
@@ -116,6 +132,7 @@ export default defineComponent({
           await loadArticleBySlug(slug)
         }
         await loadRelatedArticles()
+        await loadComments()
       } catch (err) {
       } finally {
         isLoading.value = false
@@ -188,6 +205,34 @@ export default defineComponent({
         .slice(0, 3)
     }
 
+    // comments
+    const comments = computed(() => {
+      return store.getters['comments/comments']
+    })
+
+    async function loadComments() {
+      isLoading.value = true
+      try {
+        store.dispatch('comments/fetchCommentsByArticle', article.value.id)
+      } catch (e) {
+        console.log(e)
+      } finally {
+        isLoading.value = false
+      }
+    }
+
+    const newCommentText = ref('test comment')
+
+    async function leaveComment() {
+      $axios
+        .post(`/articles/${article.value.id}/comment`, {
+          content: newCommentText.value,
+        })
+        .then(() => {
+          loadComments()
+        })
+    }
+
     return {
       article,
       isArticleLoaded,
@@ -195,6 +240,9 @@ export default defineComponent({
       strapiUrl,
       articleUrl,
       relatedArticles,
+      newCommentText,
+      leaveComment,
+      comments,
     }
   },
 })

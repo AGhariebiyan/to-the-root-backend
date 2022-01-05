@@ -20,7 +20,9 @@
     "photo": {
       "model": "file",
       "via": "related",
-      "allowedTypes": ["images"],
+      "allowedTypes": [
+        "images"
+      ],
       "plugin": "upload",
       "required": true,
       "pluginOptions": {}
@@ -30,8 +32,12 @@
       "unique": true
     },
     "articles": {
-      "collection": "article",
-      "via": "author"
+      "via": "author",
+      "collection": "article"
+    },
+    "comments": {
+      "via": "author",
+      "collection": "comment"
     }
   }
 }

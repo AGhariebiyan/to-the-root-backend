@@ -1,8 +1,16 @@
-'use strict'
+const { parseMultipartData, sanitizeEntity } = require('strapi-utils');
 
-/**
- * Read the documentation (https://strapi.io/documentation/developer-docs/latest/development/backend-customization.html#core-controllers)
- * to customize this controller
- */
-
-module.exports = {}
+module.exports = {
+    async comment(ctx) {
+        let entity;
+        if (ctx.is('multipart')) {
+            const { data, files } = parseMultipartData(ctx);
+            entity = await strapi.services.comment.create(data, { files });
+        } else {
+            ctx.request.body.author = 2;
+            ctx.request.body.article = ctx.params.id;
+            entity = await strapi.services.comment.create(ctx.request.body);
+        }
+        return sanitizeEntity(entity, { model: strapi.models.comment });
+    }
+}
