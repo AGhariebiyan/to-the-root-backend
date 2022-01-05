@@ -1,25 +1,19 @@
 module.exports = {
   apps: [
     {
-      name: "one-community-fe",
-      script: "./frontend.sh",
+      name: "strapi",
+      exec_mode: "cluster",
+      instances: "all",
+      script: "./backend/server.js",
+      cwd: "./backend",
     },
     {
-      name: "strapi",
-      script: "./backend.sh",
+      name: "NuxtAppName",
+      exec_mode: "cluster",
+      instances: "all",
+      script: "npm run build && ./frontend/node_modules/nuxt/bin/nuxt.js",
+      args: "start",
+      cwd: "./frontend",
     },
   ],
-
-  // deploy : {
-  //   production : {
-  //     user : 'SSH_USERNAME',
-  //     host : 'SSH_HOSTMACHINE',
-  //     ref  : 'origin/master',
-  //     repo : 'GIT_REPOSITORY',
-  //     path : 'DESTINATION_PATH',
-  //     'pre-deploy-local': '',
-  //     'post-deploy' : 'npm install && pm2 reload ecosystem.config.js --env production',
-  //     'pre-setup': ''
-  //   }
-  // }
 }
