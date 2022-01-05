@@ -90,7 +90,7 @@ export default defineComponent({
         })
         await $auth.logout()
         router.push('/login')
-      } catch (err) {
+      } catch (err: any) {
         error.value = errorMessageFromResponse(err)
         isResetClicked.value = false
         return

@@ -38,9 +38,7 @@ export default {
   plugins: ['~/plugins/axios-accessor.ts'],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
-  components: {
-    dirs: ['~/components', '~/components/global'],
-  },
+  components: true,
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
@@ -119,7 +117,7 @@ export default {
       if (lang && hljs.getLanguage(lang)) {
         try {
           return hljs.highlight(lang, str).value
-        } catch (__) {}
+        } catch (__) { }
         return '' // use external default escaping
       }
     },
