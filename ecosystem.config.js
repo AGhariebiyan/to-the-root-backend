@@ -11,7 +11,7 @@ module.exports = {
       name: "NuxtAppName",
       exec_mode: "cluster",
       instances: "all",
-      script: "npm run build && ./frontend/node_modules/nuxt/bin/nuxt.js",
+      script: "./frontend/node_modules/nuxt/bin/nuxt.js",
       args: "start",
       cwd: "./frontend",
     },
