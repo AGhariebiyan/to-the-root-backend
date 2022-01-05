@@ -74,14 +74,16 @@ export default defineComponent({
       }
     }
 
-    const newCommentText = ref('test comment')
+    const newCommentText = ref('')
 
     async function leaveComment() {
-      $axios
-        .post(`/articles/${props.articleId}/comment`, {
-          content: newCommentText.value,
+      store
+        .dispatch('comments/addComment', {
+          articleId: props.articleId,
+          commentText: newCommentText.value,
         })
         .then(() => {
+          newCommentText.value = ''
           loadComments()
         })
     }
