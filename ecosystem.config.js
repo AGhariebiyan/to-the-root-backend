@@ -1,5 +1,6 @@
 module.exports = {
-  // Notice that we need to run "npm run build" in the frontend folder before running "pm2 start"
+  // This is a setup for a production environment
+  // We need to run "npm run build" in the frontend folder before running "pm2 start"
   apps: [
     {
       name: "strapi",
