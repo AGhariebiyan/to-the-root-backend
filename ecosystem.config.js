@@ -10,7 +10,7 @@ module.exports = {
       cwd: "./backend",
     },
     {
-      name: "NuxtAppName",
+      name: "nuxt",
       exec_mode: "cluster",
       instances: "all",
       script: "./frontend/node_modules/nuxt/bin/nuxt.js",
