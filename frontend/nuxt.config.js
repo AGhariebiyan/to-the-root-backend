@@ -35,10 +35,7 @@ export default {
     algoliaIndex: process.env.ALGOLIA_INDEX,
   },
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [
-    '~/plugins/axios-accessor.ts',
-    { src: '~/plugins/vue-quill-editor', mode: 'client' },
-  ],
+  plugins: ['~/plugins/axios-accessor.ts'],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: {
@@ -113,16 +110,7 @@ export default {
     scss: ['~/assets/scss/variables.scss', '~/assets/scss/mixins.scss'],
   },
 
-  css: [
-    'highlight.js/styles/github.css',
-    '~/assets/css/algolia.scss',
-    // ...
-    'quill/dist/quill.core.css',
-    // for snow theme
-    'quill/dist/quill.snow.css',
-    // for bubble theme
-    'quill/dist/quill.bubble.css',
-  ],
+  css: ['highlight.js/styles/github.css', '~/assets/css/algolia.scss'],
 
   markdownit: {
     injected: true,
