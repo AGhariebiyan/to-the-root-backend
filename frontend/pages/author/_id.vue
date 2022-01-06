@@ -52,29 +52,23 @@
           ></a>
         </div>
 
-        <section class="articles" v-if="authorSortedArticles">
+        <section class="articles" v-if="sortedArticles">
           <h3>Recent articles</h3>
-          <div
-            class="articles__preview"
-            v-if="authorSortedArticles.articles[0]"
-          >
+          <div class="articles__preview" v-if="sortedArticles[0]">
             <h4 class="articles__heading">
-              {{ authorSortedArticles.articles[0].title }}
+              {{ sortedArticles[0].title }}
             </h4>
             <p class="articles__description">
-              {{ authorSortedArticles.articles[0].description }}
+              {{ sortedArticles[0].description }}
             </p>
           </div>
 
-          <div
-            v-if="authorSortedArticles.articles[1]"
-            class="articles__preview"
-          >
+          <div v-if="sortedArticles[1]" class="articles__preview">
             <h4 class="articles__heading">
-              {{ authorSortedArticles.articles[1].title }}
+              {{ sortedArticles[1].title }}
             </h4>
             <p class="articles__description">
-              {{ authorSortedArticles.articles[1].description }}
+              {{ sortedArticles[1].description }}
             </p>
           </div>
         </section>
@@ -111,20 +105,17 @@ export default defineComponent({
       )
     })
 
-    const authorSortedArticles = computed(() => {
-      const authorCopy = JSON.parse(JSON.stringify(author.value))
-      if (Object.keys(authorCopy).length > 0) {
-        const sortedArticles = authorCopy.articles.sort((a, b) => {
+    const sortedArticles = computed(() => {
+      const articlesCopy = JSON.parse(JSON.stringify(author.value)).articles
+      if (Object.keys(author.value).length > 0) {
+        const sortedArticles = articlesCopy.sort((a, b) => {
           return (
             new Date(b.original_date).getTime() -
             new Date(a.original_date).getTime()
           )
         })
 
-        return {
-          ...authorCopy,
-          articles: sortedArticles,
-        }
+        return sortedArticles
       }
     })
 
@@ -154,7 +145,7 @@ export default defineComponent({
       }
     }
 
-    return { author, strapiUrl, authorSortedArticles }
+    return { author, strapiUrl, sortedArticles }
   },
 })
 </script>
