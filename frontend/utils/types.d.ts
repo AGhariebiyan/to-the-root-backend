@@ -23,15 +23,15 @@ export interface Article {
 }
 
 export interface Author {
-  biography: string
-  github: string
-  linkedIn: string
-  twitter: string
-  created_at: string
-  email: string
   id: number
   name: string
   photo: {}
+  email: string
+  github: string
+  twitter: string
+  linkedIn: string
+  biography: string
+  created_at: string
   published_at: string
   updated_at: string
 }
