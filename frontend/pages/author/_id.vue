@@ -97,7 +97,7 @@ import {
   computed,
   ref,
 } from '@nuxtjs/composition-api'
-import { Author } from '../../utils/types'
+import { Author, Article } from '../../utils/types'
 
 export default defineComponent({
   name: 'PageAuthor',
@@ -119,7 +119,7 @@ export default defineComponent({
     const sortedArticles = computed(() => {
       const articlesCopy = JSON.parse(JSON.stringify(author.value)).articles
       if (Object.keys(author.value).length > 0) {
-        const sortedArticles = articlesCopy.sort((a, b) => {
+        const sortedArticles = articlesCopy.sort((a: Article, b: Article) => {
           return (
             new Date(b.original_date).getTime() -
             new Date(a.original_date).getTime()
