@@ -52,37 +52,29 @@
           ></a>
         </div>
 
-        <section class="articles">
+        <section class="articles" v-if="authorSortedArticles">
           <h3>Recent articles</h3>
           <div
             class="articles__preview"
-            v-if="authorWithLatestArticles.latestArticle"
-            @click="goToArticle(authorWithLatestArticles.latestArticle.id)"
+            v-if="authorSortedArticles.articles[0]"
           >
             <h4 class="articles__heading">
-              {{ authorWithLatestArticles.latestArticle.title }}
+              {{ authorSortedArticles.articles[0].title }}
             </h4>
             <p class="articles__description">
-              {{ authorWithLatestArticles.latestArticle.description }}
+              {{ authorSortedArticles.articles[0].description }}
             </p>
           </div>
 
-          <h3 v-else class="articles__no-articles">
-            This author has no articles yet
-          </h3>
-
           <div
-            v-if="authorWithLatestArticles.secondLatestArticle"
+            v-if="authorSortedArticles.articles[1]"
             class="articles__preview"
-            @click="
-              goToArticle(authorWithLatestArticles.secondLatestArticle.id)
-            "
           >
             <h4 class="articles__heading">
-              {{ authorWithLatestArticles.secondLatestArticle.title }}
+              {{ authorSortedArticles.articles[1].title }}
             </h4>
             <p class="articles__description">
-              {{ authorWithLatestArticles.secondLatestArticle.description }}
+              {{ authorSortedArticles.articles[1].description }}
             </p>
           </div>
         </section>
@@ -119,7 +111,7 @@ export default defineComponent({
       )
     })
 
-    const authorWithLatestArticles = computed(() => {
+    const authorSortedArticles = computed(() => {
       const authorCopy = JSON.parse(JSON.stringify(author.value))
       if (Object.keys(authorCopy).length > 0) {
         const sortedArticles = authorCopy.articles.sort((a, b) => {
@@ -128,10 +120,10 @@ export default defineComponent({
             new Date(a.original_date).getTime()
           )
         })
+
         return {
           ...authorCopy,
-          latestArticle: sortedArticles[0],
-          secondLatestArticle: sortedArticles[1],
+          articles: sortedArticles,
         }
       }
     })
@@ -162,7 +154,7 @@ export default defineComponent({
       }
     }
 
-    return { author, strapiUrl, authorWithLatestArticles, goToArticle }
+    return { author, strapiUrl, authorSortedArticles }
   },
 })
 </script>
