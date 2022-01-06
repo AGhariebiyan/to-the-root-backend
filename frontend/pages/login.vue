@@ -111,7 +111,7 @@ export default defineComponent({
         })
 
         resetInput()
-      } catch (e) {
+      } catch (e: any) {
         const errorMessage = errorMessageFromResponse(e)
         error.value = errorMessage.replace('Identifier', 'Username or Email')
       }

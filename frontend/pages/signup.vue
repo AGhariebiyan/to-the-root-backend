@@ -79,7 +79,7 @@ import {
   useContext,
 } from '@nuxtjs/composition-api'
 import { errorMessageFromResponse } from '@/utils/helpers'
-import BaseButton from '../components/base/BaseButton.vue'
+import BaseButton from '@/components/base/BaseButton.vue'
 
 export default defineComponent({
   components: { BaseButton },
@@ -132,7 +132,7 @@ export default defineComponent({
         })
 
         resetInput()
-      } catch (e) {
+      } catch (e: any) {
         error.value = errorMessageFromResponse(e)
       }
     }

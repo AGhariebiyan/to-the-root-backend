@@ -11,22 +11,29 @@ The situation: You just cloned the repo to your computer and want to get going. 
 
 ### Minimal setup
 
-In the minimal setup, you can view the site and search for articles. The images of the articles won't work though. So for now, it is advised to [add your own articles](creating-your-own-articles). A basic database setup is WIP.
+In the minimal setup, you can view the site and search for articles.
 
 #### Backend
 
-1. Start a terminal of your choice and cd into the backend folder
-2. Copy the .env.example and rename the file to .env
-3. Set the ALGOLIA_INDEX to 'joran_articles'
-4. Run `npm i`
-5. Run `npm run develop` to start the Strapi server
-6. A Strapi instance should start, serving the app on localhost:1337
+1. Start a terminal of your choice
+2. cd into the backend folder
+3. Copy the .env.example and rename the file to .env
+4. Set the ALGOLIA_INDEX to 'dev_content'
+5. Run `npm i`
+6. Run `npm run develop` to start the Strapi server
+7. A Strapi instance should start, serving the app on localhost:1337
+
+#### Database
+
+A small and basic database setup can be done by running `npm run seed-db` (still in the backend folder). This db is connected to Algolia index `dev_content`. Running it allows you to view the articles on the detail page (clicking on it).
+
+The images of the articles won't work though. So for now, it is advised to [add your own articles](creating-your-own-articles).
 
 #### Frontend
 
 1. Cd into the frontend folder using your favourite terminal
 2. Copy the .env.example and rename the file to .env
-3. Set the ALGOLIA_INDEX to 'joran_articles'
+3. Set the ALGOLIA_INDEX to 'dev_content'
 4. run `npm i`
 5. run `npm run dev`
 6. A nuxt server should start, serving the app on localhost:3000
