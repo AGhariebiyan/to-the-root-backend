@@ -52,7 +52,10 @@
           ></a>
         </div>
 
-        <section class="articles" v-if="sortedArticles">
+        <section
+          class="articles"
+          v-if="sortedArticles && sortedArticles.length > 0"
+        >
           <h3>Recent articles</h3>
           <div class="articles__preview" v-if="sortedArticles[0]">
             <h4 class="articles__heading">
