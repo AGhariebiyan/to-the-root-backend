@@ -57,23 +57,31 @@
           v-if="sortedArticles && sortedArticles.length > 0"
         >
           <h3>Recent articles</h3>
-          <div class="articles__preview" v-if="sortedArticles[0]">
+          <NuxtLink
+            class="articles__preview"
+            v-if="sortedArticles[0]"
+            :to="`/content/${sortedArticles[0].slug}`"
+          >
             <h4 class="articles__heading">
               {{ sortedArticles[0].title }}
             </h4>
             <p class="articles__description">
               {{ sortedArticles[0].description }}
             </p>
-          </div>
+          </NuxtLink>
 
-          <div v-if="sortedArticles[1]" class="articles__preview">
+          <NuxtLink
+            v-if="sortedArticles[1]"
+            class="articles__preview"
+            :to="`/content/${sortedArticles[1].slug}`"
+          >
             <h4 class="articles__heading">
               {{ sortedArticles[1].title }}
             </h4>
             <p class="articles__description">
               {{ sortedArticles[1].description }}
             </p>
-          </div>
+          </NuxtLink>
         </section>
       </div>
     </BaseContainer>
@@ -234,6 +242,14 @@ export default defineComponent({
     padding: 1rem;
     margin-bottom: 1rem;
     border: 1px solid black;
+    border-radius: 0.5rem;
+    text-decoration: none;
+
+    &:hover {
+      background: yellow;
+      color: black;
+      cursor: pointer;
+    }
   }
 
   @media screen and (max-width: 992px) {
