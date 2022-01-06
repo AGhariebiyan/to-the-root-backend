@@ -53,14 +53,38 @@
         </div>
 
         <section class="articles">
-          <p class="most-liked-article">
-            CONTENT 1CONTENT 1CONTENT 1CONTENT 1CONTENT 1CONTENT 1CONTENT
-            1CONTENT 1CONTENT 1CONTENT 1CONTENT 1CONTENT 1
-          </p>
-          <p class="most-recent-article">
-            CONTENT 2CONTENT 2CONTENT 2CONTENT 2CONTENT 2CONTENT 2CONTENT
-            2CONTENT 2CONTENT 2CONTENT 2CONTENT 2CONTENT 2
-          </p>
+          <h3>Recent articles</h3>
+          <div
+            class="articles__preview"
+            v-if="authorWithLatestArticles.latestArticle"
+            @click="goToArticle(authorWithLatestArticles.latestArticle.id)"
+          >
+            <h4 class="articles__heading">
+              {{ authorWithLatestArticles.latestArticle.title }}
+            </h4>
+            <p class="articles__description">
+              {{ authorWithLatestArticles.latestArticle.description }}
+            </p>
+          </div>
+
+          <h3 v-else class="articles__no-articles">
+            This author has no articles yet
+          </h3>
+
+          <div
+            v-if="authorWithLatestArticles.secondLatestArticle"
+            class="articles__preview"
+            @click="
+              goToArticle(authorWithLatestArticles.secondLatestArticle.id)
+            "
+          >
+            <h4 class="articles__heading">
+              {{ authorWithLatestArticles.secondLatestArticle.title }}
+            </h4>
+            <p class="articles__description">
+              {{ authorWithLatestArticles.secondLatestArticle.description }}
+            </p>
+          </div>
         </section>
       </div>
     </BaseContainer>
@@ -76,6 +100,7 @@ import {
   computed,
   ref,
 } from '@nuxtjs/composition-api'
+import { Author } from '../../utils/types'
 
 export default defineComponent({
   name: 'PageAuthor',
@@ -92,6 +117,23 @@ export default defineComponent({
           (author: Author) => author.id == id,
         ) ?? {}
       )
+    })
+
+    const authorWithLatestArticles = computed(() => {
+      const authorCopy = JSON.parse(JSON.stringify(author.value))
+      if (Object.keys(authorCopy).length > 0) {
+        const sortedArticles = authorCopy.articles.sort((a, b) => {
+          return (
+            new Date(b.original_date).getTime() -
+            new Date(a.original_date).getTime()
+          )
+        })
+        return {
+          ...authorCopy,
+          latestArticle: sortedArticles[0],
+          secondLatestArticle: sortedArticles[1],
+        }
+      }
     })
 
     const isAuthorLoaded = computed(() => {
@@ -120,7 +162,7 @@ export default defineComponent({
       }
     }
 
-    return { author, strapiUrl }
+    return { author, strapiUrl, authorWithLatestArticles, goToArticle }
   },
 })
 </script>
@@ -201,7 +243,12 @@ export default defineComponent({
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 80px;
+
+  &__preview {
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border: 1px solid black;
+  }
 
   @media screen and (max-width: 992px) {
     text-align: left;

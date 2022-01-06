@@ -34,6 +34,7 @@ export interface Author {
   created_at: string
   published_at: string
   updated_at: string
+  articles: Article[]
 }
 
 type ErrorResponse = { message: any[] }
