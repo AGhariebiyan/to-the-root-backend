@@ -1,25 +1,21 @@
 module.exports = {
+  // This is a setup for a production environment
+  // We need to run "npm run build" in the frontend folder before running "pm2 start"
   apps: [
     {
-      name: "one-community-fe",
-      script: "./frontend.sh",
+      name: "strapi",
+      exec_mode: "cluster",
+      instances: "all",
+      script: "./backend/server.js",
+      cwd: "./backend",
     },
     {
-      name: "strapi",
-      script: "./backend.sh",
+      name: "nuxt",
+      exec_mode: "cluster",
+      instances: "all",
+      script: "./frontend/node_modules/nuxt/bin/nuxt.js",
+      args: "start",
+      cwd: "./frontend",
     },
   ],
-
-  // deploy : {
-  //   production : {
-  //     user : 'SSH_USERNAME',
-  //     host : 'SSH_HOSTMACHINE',
-  //     ref  : 'origin/master',
-  //     repo : 'GIT_REPOSITORY',
-  //     path : 'DESTINATION_PATH',
-  //     'pre-deploy-local': '',
-  //     'post-deploy' : 'npm install && pm2 reload ecosystem.config.js --env production',
-  //     'pre-setup': ''
-  //   }
-  // }
 }
