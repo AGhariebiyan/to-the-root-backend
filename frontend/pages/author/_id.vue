@@ -14,7 +14,14 @@
             </p>
           </div>
           <div class="about__picture">
-            <img class="picture" :src="author.photo" />
+            <img
+              class="picture"
+              :src="
+                author.photo
+                  ? `${strapiUrl}${author.photo.url}`
+                  : require('~/assets/img/rainbow_ordina.png')
+              "
+            />
           </div>
         </section>
 
@@ -66,28 +73,51 @@ import {
   useContext,
   useRoute,
   onMounted,
+  computed,
   ref,
 } from '@nuxtjs/composition-api'
 
 export default defineComponent({
   name: 'PageAuthor',
   setup() {
+    const isLoading = ref(true)
     const { store, $config } = useContext()
     const route: any = useRoute()
     const strapiUrl: string = $config.strapiUrl
-    const baseUrl = process.env.baseUrl
     const id = route?.value?.params?.id
 
-    const author = {
-      biography:
-        'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Beatae debitis itaque aliquid libero quod porro, aut id, consequuntur illo veritatis nesciunt quos laudantium explicabo. Ullam voluptas quasi deleniti suscipit et!Lorem ipsum dolor sit, amet consectetur adipisicing elit. Beatae debitis itaque aliquid libero quod porro, aut id, consequuntur illo veritatis nesciunt quos laudantium explicabo. Ullam voluptas quasi deleniti suscipit et!',
-      github: 'github.com/awesome',
-      linkedIn: 'linkedin.com/awesome',
-      twitter: 'twitter.com/awesome',
-      email: 'awesome@unicorns.com',
-      id: 6,
-      name: 'Kylian The Awesome Intern',
-      photo: 'https://media.nu.nl/m/x34xcs7asctr_std1024.jpg',
+    const author = computed(() => {
+      return (
+        store.getters['authors/authors'].find(
+          (author: Author) => author.id == id,
+        ) ?? {}
+      )
+    })
+
+    const isAuthorLoaded = computed(() => {
+      return Object.keys(author.value).length > 0
+    })
+
+    onMounted(async () => {
+      try {
+        if (!isAuthorLoaded.value) {
+          await loadAuthorById(id)
+        }
+      } catch (err) {
+      } finally {
+        isLoading.value = false
+      }
+    })
+
+    async function loadAuthorById(id: string) {
+      isLoading.value = true
+      try {
+        await store.dispatch('authors/fetchAuthorById', id)
+      } catch (e) {
+        console.log(e)
+      } finally {
+        isLoading.value = false
+      }
     }
 
     return { author, strapiUrl }
