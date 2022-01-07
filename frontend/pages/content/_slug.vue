@@ -49,7 +49,7 @@
           </div>
         </div>
 
-        <CommentSection :articleId="article.id" />
+        <CommentSection :articleId="article.id" :slug="slug" />
       </article>
       <p v-else>
         The article with slug <code>{{ slug }}</code> was not found
@@ -191,6 +191,7 @@ export default defineComponent({
     }
 
     return {
+      slug,
       article,
       isArticleLoaded,
       isLoading,

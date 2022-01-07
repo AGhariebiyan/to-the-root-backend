@@ -1,7 +1,6 @@
 import { $axios } from '~/utils/api'
 import { GetterTree, ActionTree, MutationTree } from 'vuex'
 import { Comment } from '~/utils/types'
-import qs from 'qs'
 
 const initComments: Comment[] = []
 
@@ -25,19 +24,6 @@ export const mutations: MutationTree<RootState> = {
 }
 
 export const actions: ActionTree<RootState, RootState> = {
-    async fetchComments({ commit }, { limit = 6, offset = 0, params = {} }) {
-        const paramString = qs.stringify(params)
-
-        const response = await $axios.get(
-            `/comments?_start=${offset.value}&_limit=${limit}${paramString ? '&' + paramString : ''
-            }`,
-        )
-        const comments: Comment[] = response.data
-
-        commit('SET_COMMENTS', comments)
-        return comments
-    },
-
     async fetchCommentsByArticle({ commit }, articleId) {
         const response = await $axios.get(`/comments?article=${articleId}`)
 
@@ -47,10 +33,15 @@ export const actions: ActionTree<RootState, RootState> = {
         return comments
     },
 
-    async addComment({ }, { articleId, commentText }) {
+    async addComment({ commit }, { articleId, commentText }) {
         const response = await $axios
             .post(`/articles/${articleId}/comment`, {
                 content: commentText,
             })
+
+        const comment: Comment = response.data
+
+        commit('ADD_COMMENT', comment)
+        return comment
     }
 }

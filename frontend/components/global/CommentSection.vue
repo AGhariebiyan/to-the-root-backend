@@ -1,22 +1,25 @@
 <template>
   <div>
-    <h3 class="comment-section-title">Comments</h3>
+    <h3 class="title">Comments</h3>
 
     <h4 class="leave-a-comment">Leave a comment</h4>
-    <form @submit.prevent="leaveComment">
-      <div class="form-group">
-        <textarea class="form-input" v-model="newCommentText" />
+    <form @submit.prevent="addComment">
+      <div>
+        <textarea
+          class="leave-a-comment__comment-text"
+          v-model="newCommentText"
+        />
       </div>
-      <div class="form-actions">
-        <button type="submit" class="btn-blue">Reply</button>
+      <div>
+        <button type="submit">Reply</button>
       </div>
     </form>
 
     <div class="comment-list">
-      <CommentCard
+      <Comment
         v-for="comment in comments"
         :key="comment.id"
-        :author="comment.user.username"
+        :user="comment.user.username"
         :date="comment.created_at"
         :content="comment.content"
       />
@@ -39,6 +42,10 @@ export default defineComponent({
   props: {
     articleId: {
       type: Number,
+      required: true,
+    },
+    slug: {
+      type: String,
       required: true,
     },
   },
@@ -74,7 +81,7 @@ export default defineComponent({
 
     const newCommentText = ref('')
 
-    async function leaveComment() {
+    async function addComment() {
       store
         .dispatch('comments/addComment', {
           articleId: props.articleId,
@@ -82,13 +89,12 @@ export default defineComponent({
         })
         .then(() => {
           newCommentText.value = ''
-          loadComments()
         })
     }
 
     return {
       newCommentText,
-      leaveComment,
+      addComment,
       comments,
     }
   },
@@ -96,15 +102,19 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.comment-section-title {
-  margin-top: 20px;
+.title {
+  margin-top: 2rem;
 }
 
 .leave-a-comment {
-  margin-top: 15px;
+  margin-top: 1.5rem;
+}
+
+.leave-a-comment__comment-text {
+  padding: 0.3rem;
 }
 
 .comment-list {
-  margin-top: 5px;
+  margin-top: 0.5rem;
 }
 </style>

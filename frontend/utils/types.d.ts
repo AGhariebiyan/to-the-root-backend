@@ -25,7 +25,7 @@ export interface Article {
 
 export interface Comment {
   content: string
-  user: Number
+  user: number
   article: Article
   created_at: string
   updated_at: string
