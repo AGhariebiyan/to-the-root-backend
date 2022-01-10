@@ -1,13 +1,13 @@
 <template>
   <div class="comment">
     <div class="comment__user">{{ user }}</div>
-    <span class="comment__date">{{ formattedDate }}</span>
+    <AppDate class="comment__date" :timeStamp="date" />
     <div class="comment__content">{{ content }}</div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from '@nuxtjs/composition-api'
+import { defineComponent } from '@nuxtjs/composition-api'
 
 export default defineComponent({
   name: 'Comment',
@@ -25,17 +25,6 @@ export default defineComponent({
       type: String,
       required: true,
     },
-  },
-
-  setup(props) {
-    const formattedDate = computed(() => {
-      var newDate = props.date.replace('T', ' at ')
-      return newDate.replace('Z', '')
-    })
-
-    return {
-      formattedDate,
-    }
   },
 })
 </script>

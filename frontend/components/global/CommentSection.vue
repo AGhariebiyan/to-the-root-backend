@@ -55,7 +55,6 @@ export default defineComponent({
 
     const { store } = useContext()
 
-    // comments
     const comments = computed(() => {
       return store.getters['comments/comments']
     })
