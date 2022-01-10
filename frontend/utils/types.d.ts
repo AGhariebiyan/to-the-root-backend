@@ -11,6 +11,7 @@ export interface Article {
   author: string
   categories: Category[]
   comments: Comment[]
+  likes: Like[]
   content: string
   cover_image: {}
   created_at: string
@@ -29,6 +30,12 @@ export interface Comment {
   article: Article
   created_at: string
   updated_at: string
+}
+
+export interface Like {
+  liked: boolean
+  article: Article
+  user: string
 }
 
 type ErrorResponse = { message: any[] }

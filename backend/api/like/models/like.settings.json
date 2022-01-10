@@ -1,9 +1,8 @@
 {
   "kind": "collectionType",
-  "collectionName": "comments",
+  "collectionName": "likes",
   "info": {
-    "name": "Comment",
-    "description": ""
+    "name": "Like"
   },
   "options": {
     "increments": true,
@@ -12,18 +11,17 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "content": {
-      "type": "text",
-      "required": true
+    "liked": {
+      "type": "boolean"
     },
     "article": {
-      "via": "comments",
-      "model": "article"
+      "model": "article",
+      "via": "likes"
     },
     "user": {
       "plugin": "users-permissions",
       "model": "user",
-      "via": "comments"
+      "via": "likes"
     }
   }
 }
