@@ -16,7 +16,7 @@
     </form>
 
     <div class="comment-list">
-      <Comment
+      <CommentItem
         v-for="comment in comments"
         :key="comment.id"
         :user="comment.user.username"
@@ -53,7 +53,7 @@ export default defineComponent({
   setup(props) {
     const isLoading = ref(true)
 
-    const { store } = useContext()
+    const { store, $auth } = useContext()
 
     const comments = computed(() => {
       return store.getters['comments/comments']
@@ -81,9 +81,18 @@ export default defineComponent({
     const newCommentText = ref('')
 
     async function addComment() {
+      const user = $auth.user
+
+      if (user === null) {
+        window.alert('You have to be logged in to leave a comment!')
+        newCommentText.value = ''
+        return
+      }
+
       store
         .dispatch('comments/addComment', {
           articleId: props.articleId,
+          userId: $auth.user.id,
           commentText: newCommentText.value,
         })
         .then(() => {

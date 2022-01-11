@@ -33,9 +33,10 @@ export const actions: ActionTree<RootState, RootState> = {
         return comments
     },
 
-    async addComment({ commit }, { articleId, commentText }) {
+    async addComment({ commit }, { articleId, userId, commentText }) {
         const response = await $axios
             .post(`/articles/${articleId}/comment`, {
+                user: userId,
                 content: commentText,
             })
 
