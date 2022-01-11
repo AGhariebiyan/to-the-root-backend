@@ -1,16 +1,17 @@
 <template>
   <div class="comment">
     <div class="comment__user">{{ user }}</div>
-    <AppDate class="comment__date" :timeStamp="date" />
+    <div class="comment__date">{{ readableDate }}</div>
     <div class="comment__content">{{ content }}</div>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
+import { readableTimeDifference } from '~/utils/helpers'
 
 export default defineComponent({
-  name: 'Comment',
+  name: 'CommentItem',
 
   props: {
     user: {
@@ -25,6 +26,14 @@ export default defineComponent({
       type: String,
       required: true,
     },
+  },
+
+  setup(props) {
+    const readableDate = readableTimeDifference(props.date)
+
+    return {
+      readableDate,
+    }
   },
 })
 </script>

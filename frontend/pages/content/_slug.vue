@@ -52,7 +52,7 @@
           </div>
         </div>
 
-        <CommentSection :articleId="article.id" :slug="slug" />
+        <CommentSection :articleId="article.id" />
       </article>
 
       <p v-else>
