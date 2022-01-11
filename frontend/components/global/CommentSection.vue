@@ -44,10 +44,6 @@ export default defineComponent({
       type: Number,
       required: true,
     },
-    slug: {
-      type: String,
-      required: true,
-    },
   },
 
   setup(props) {

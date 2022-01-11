@@ -1,4 +1,4 @@
-const { parseMultipartData, sanitizeEntity } = require('strapi-utils');
+const { sanitizeEntity } = require('strapi-utils');
 
 module.exports = {
     async comment(ctx) {
