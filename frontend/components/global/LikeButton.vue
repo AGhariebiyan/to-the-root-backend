@@ -13,6 +13,7 @@ import {
   onMounted,
   ref,
 } from '@nuxtjs/composition-api'
+import { Like } from '~/utils/types'
 
 export default defineComponent({
   name: 'LikeButton',
@@ -34,8 +35,10 @@ export default defineComponent({
     const { store } = useContext()
 
     const likes = computed(() => {
-      return store.getters['likes/likes']
+      return store.getters['likes/likes'] as Like[]
     })
+
+    const articleIsLikedByUser = ref(false)
 
     onMounted(async () => {
       try {
@@ -48,7 +51,11 @@ export default defineComponent({
     async function loadLikes() {
       isLoading.value = true
       try {
-        store.dispatch('likes/fetchLikesByArticle', props.articleId)
+        await store.dispatch('likes/fetchLikesByArticle', props.articleId)
+
+        // check if the current user has liked this article
+        const users = likes.value.map((like: Like) => like.user.username)
+        console.log(users)
       } catch (e) {
         console.log(e)
       } finally {
