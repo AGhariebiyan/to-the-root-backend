@@ -1,21 +1,23 @@
 <template>
   <BasePageLayout>
     <BaseContainer>
-      <div class="inner__baseContainer">
-        <header class="header__name">
-          <h3>{{ author.name }}</h3>
+      <div class="inner__base-container">
+        <header class="header">
+          <h2 class="header__name">{{ author.name }}</h2>
         </header>
 
         <section class="about">
-          <div class="about__biography">
-            <h4 class="about__name">About {{ author.name }}</h4>
-            <p>
+          <div class="about__text">
+            <h3 class="about__name">About {{ author.name }}</h3>
+            <p class="about__biography">
               {{ author.biography }}
             </p>
           </div>
           <div class="about__picture">
             <img
               class="picture"
+              id="fade-in-img"
+              alt=""
               :src="
                 author.photo
                   ? `${strapiUrl}${author.photo.url}`
@@ -25,65 +27,65 @@
           </div>
         </section>
 
-        <div class="socials">
-          <a :href="author.linkedIn" target="_blank"
-            ><span class="material-icons-outlined"
-              ><img
-                src="https://cdn-icons-png.flaticon.com/512/174/174857.png"
-                alt=""
-                width="30vw"
-                height="30vh" /></span
-          ></a>
-          <a :href="author.github" target="_blank"
-            ><span class="material-icons-outlined"
-              ><img
-                src="data:image/png;base64,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"
-                alt=""
-                width="30vw"
-                height="30vh" /></span
-          ></a>
-          <a :href="author.twitter" target="_blank"
-            ><span class="material-icons-outlined"
-              ><img
-                src="https://cdn-icons-png.flaticon.com/512/124/124021.png"
-                alt=""
-                width="30vw"
-                height="30vh" /></span
-          ></a>
-        </div>
-
-        <section
-          class="articles"
-          v-if="sortedArticles && sortedArticles.length > 0"
+        <div
+          v-if="author.linkedIn || author.github || author.twitter"
+          class="socials"
         >
-          <h3>Recent articles</h3>
-          <NuxtLink
-            class="articles__preview"
-            v-if="sortedArticles[0]"
-            :to="`/content/${sortedArticles[0].slug}`"
-          >
-            <h4 class="articles__heading">
-              {{ sortedArticles[0].title }}
-            </h4>
-            <p class="articles__description">
-              {{ sortedArticles[0].description }}
-            </p>
-          </NuxtLink>
-
-          <NuxtLink
-            v-if="sortedArticles[1]"
-            class="articles__preview"
-            :to="`/content/${sortedArticles[1].slug}`"
-          >
-            <h4 class="articles__heading">
-              {{ sortedArticles[1].title }}
-            </h4>
-            <p class="articles__description">
-              {{ sortedArticles[1].description }}
-            </p>
-          </NuxtLink>
-        </section>
+          <a
+            v-if="author.linkedIn"
+            :href="author.linkedIn"
+            target="_blank"
+            class="material-icons-outlined"
+            id="fade-in-left"
+            ><img
+              style="box-shadow: 5px 5px 5px #999"
+              src="https://cdn-icons-png.flaticon.com/512/174/174857.png"
+              alt="A link to LinkedIn"
+              width="35px"
+              height="35px"
+            />
+          </a>
+          <a
+            v-if="author.github"
+            :href="author.github"
+            target="_blank"
+            class="material-icons-outlined"
+            ><img
+              style="box-shadow: 5px 5px 5px #999"
+              src="data:image/png;base64,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"
+              alt="A link to Github"
+              width="35px"
+              height="35px"
+            />
+          </a>
+          <a
+            v-if="author.twitter"
+            :href="author.twitter"
+            target="_blank"
+            class="material-icons-outlined"
+            id="fade-in-right"
+            ><img
+              style="box-shadow: 5px 5px 5px #999"
+              src="https://cdn-icons-png.flaticon.com/512/124/124021.png"
+              alt="A link to Twitter"
+              width="35px"
+              height="35px"
+            />
+          </a>
+        </div>
       </div>
+    </BaseContainer>
+    <BaseContainer class="related-articles" containerType="color">
+      <template v-if="sortedArticles && sortedArticles.length > 0">
+        <h3 class="related-articles__heading">Recent articles</h3>
+        <div class="related-articles__container">
+          <ArticleCard
+            v-for="relArticle in sortedArticles"
+            :article="relArticle"
+            :key="relArticle.id"
+          />
+        </div>
+      </template>
     </BaseContainer>
   </BasePageLayout>
 </template>
@@ -161,19 +163,12 @@ export default defineComponent({
 })
 </script>
 <style lang="scss" scoped>
-.inner__baseContainer {
-  justify-content: center;
+.inner__base-container {
   margin: 0 auto;
   display: flex;
-  align-self: center;
   align-items: center;
   flex-direction: column;
   max-width: 50rem;
-  margin-top: 3rem;
-
-  @media screen and (max-width: 992px) {
-    margin: 0 1rem;
-  }
 }
 
 .about {
@@ -191,11 +186,13 @@ export default defineComponent({
 
 .about__name {
   margin-bottom: 1rem;
+  align-self: center;
 }
 
-.about__biography {
+.about__text {
   padding-right: 1rem;
   flex-basis: 50%;
+  margin-bottom: 6rem;
 
   @media screen and (max-width: 992px) {
     padding-right: 0;
@@ -215,6 +212,7 @@ export default defineComponent({
 
 .picture {
   max-width: 100%;
+  box-shadow: 5px 5px 5px #999;
 }
 
 .socials {
@@ -228,15 +226,52 @@ export default defineComponent({
   @media screen and (max-width: 992px) {
     flex-direction: row;
     align-content: space-between;
-    width: 50%;
+    width: 40%;
+  }
+  @media screen and (max-width: 400px) {
+    flex-direction: row;
+    align-content: space-between;
+    width: 55%;
   }
 }
 
+.socials a {
+  position: relative;
+
+  &::after {
+    display: none;
+  }
+
+  &:hover::after {
+    position: absolute;
+    background-color: gray;
+    display: block;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    opacity: 50%;
+    border-radius: 50%;
+    content: '';
+  }
+}
+
+.socials a img {
+  border-radius: 50%;
+}
+
+.articles-container {
+  background-color: #99ccd3;
+  height: 300px;
+}
+
+.articles-container {
+}
+
 .articles {
-  justify-content: center;
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  align-content: center;
+  flex-direction: row;
 
   &__preview {
     padding: 1rem;
@@ -246,7 +281,7 @@ export default defineComponent({
     text-decoration: none;
 
     &:hover {
-      background: yellow;
+      background: #f47216;
       color: black;
       cursor: pointer;
     }
@@ -254,6 +289,79 @@ export default defineComponent({
 
   @media screen and (max-width: 992px) {
     text-align: left;
+  }
+}
+.lines__sideline-left {
+  border-left: 5px solid black;
+  height: 100%;
+}
+
+.lines__sideline-right {
+  border-left: 5px solid black;
+  height: 100%;
+}
+
+#fade-in-img {
+  animation: fade-in-img 4s;
+}
+
+@keyframes fade-in-img {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+#fade-in-right {
+  color: #fff;
+  animation: fadeInRight 1s ease-in-out;
+}
+
+@keyframes fadeInRight {
+  0% {
+    opacity: 1;
+    transform: translateX(60px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+#fade-in-left {
+  color: #fff;
+  animation: fadeInLeft 1s ease-in-out;
+}
+
+@keyframes fadeInLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-60px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.related-articles {
+  &__heading {
+    margin-bottom: 1rem;
+  }
+  &__container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1rem;
+
+    @include respond(tab-landscape) {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    @media screen and (max-width: 36em) {
+      grid-template-columns: 1fr;
+    }
   }
 }
 </style>
