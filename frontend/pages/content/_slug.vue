@@ -47,7 +47,7 @@
           <div class="article__reactions">
             <span class="material-icons-outlined">chat</span>
             <div class="article__number-of-reactions">
-              {{ article.comments.length }}
+              {{ comments.length }}
             </div>
           </div>
         </div>
@@ -110,6 +110,10 @@ export default defineComponent({
           (article: Article) => article.slug == slug,
         ) ?? {}
       )
+    })
+
+    const comments = computed(() => {
+      return store.getters['comments/comments']
     })
 
     const isArticleLoaded = computed(() => {
@@ -208,6 +212,7 @@ export default defineComponent({
       articleUrl,
       relatedArticles,
       like,
+      comments,
     }
   },
 })
