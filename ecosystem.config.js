@@ -6,7 +6,7 @@ module.exports = {
       name: "strapi",
       exec_mode: "cluster",
       instances: "all",
-      script: "./backend/server.js",
+      script: "./server.js",
       cwd: "./backend",
     },
     {
