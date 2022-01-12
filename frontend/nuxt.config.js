@@ -27,8 +27,6 @@ export default {
     },
   },
 
-  privateRuntimeConfig: {},
-
   env: {
     algoliaAppId: process.env.ALGOLIA_APP_ID,
     algoliaSearchKey: process.env.ALGOLIA_SEARCH_KEY,
@@ -117,7 +115,7 @@ export default {
       if (lang && hljs.getLanguage(lang)) {
         try {
           return hljs.highlight(lang, str).value
-        } catch (__) { }
+        } catch (__) {}
         return '' // use external default escaping
       }
     },
