@@ -72,6 +72,11 @@ export default defineComponent({
 
     async function loadLikeFromUser() {
       isLoading.value = true
+
+      if ($auth.user === null || $auth.user === false) {
+        return
+      }
+
       try {
         await store.dispatch('likes/fetchLikeFromUser', $auth.user.id)
       } catch (e) {
@@ -82,13 +87,17 @@ export default defineComponent({
     }
 
     async function toggleLike() {
-      const userId = $auth.user.id
-      const articleId = props.articleId
+      const user = $auth.user
+
+      if (user === null || user === false) {
+        window.alert('You have to be logged in to leave a like!')
+        return
+      }
 
       if (!likeFromUser.value) {
         await store.dispatch('likes/addLike', {
-          userId: userId,
-          articleId: articleId,
+          userId: user.id,
+          articleId: props.articleId,
         })
       } else {
         await store.dispatch('likes/removeLike', {

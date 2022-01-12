@@ -79,7 +79,7 @@ export default defineComponent({
     async function addComment() {
       const user = $auth.user
 
-      if (user === null) {
+      if (user === null || user === false) {
         window.alert('You have to be logged in to leave a comment!')
         newCommentText.value = ''
         return
