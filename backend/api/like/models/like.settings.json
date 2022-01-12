@@ -2,7 +2,8 @@
   "kind": "collectionType",
   "collectionName": "likes",
   "info": {
-    "name": "Like"
+    "name": "Like",
+    "description": ""
   },
   "options": {
     "increments": true,
@@ -11,9 +12,6 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "liked": {
-      "type": "boolean"
-    },
     "article": {
       "model": "article",
       "via": "likes"

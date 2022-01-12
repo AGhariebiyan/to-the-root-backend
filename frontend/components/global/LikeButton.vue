@@ -1,6 +1,14 @@
 <template>
-  <div class="article__likes" @click="addLike">
-    <span class="material-icons-outlined">thumb_up</span>
+  <div class="article__likes" @click="toggleLike">
+    <span
+      :class="[
+        {
+          'material-icons-outlined': likeFromUser === undefined,
+          'material-icons': likeFromUser,
+        },
+      ]"
+      >thumb_up</span
+    >
     <div class="article__number-of-likes">{{ likes.length }}</div>
   </div>
 </template>
@@ -32,17 +40,20 @@ export default defineComponent({
   setup(props) {
     const isLoading = ref(true)
 
-    const { store } = useContext()
+    const { store, $auth } = useContext()
 
     const likes = computed(() => {
       return store.getters['likes/likes'] as Like[]
     })
 
-    const articleIsLikedByUser = ref(false)
+    var likeFromUser = computed(() => {
+      return store.getters['likes/likeFromUser'] as Like
+    })
 
     onMounted(async () => {
       try {
         await loadLikes()
+        await loadLikeFromUser()
       } catch (err) {
         console.log(err)
       }
@@ -52,10 +63,6 @@ export default defineComponent({
       isLoading.value = true
       try {
         await store.dispatch('likes/fetchLikesByArticle', props.articleId)
-
-        // check if the current user has liked this article
-        const users = likes.value.map((like: Like) => like.user.username)
-        console.log(users)
       } catch (e) {
         console.log(e)
       } finally {
@@ -63,16 +70,37 @@ export default defineComponent({
       }
     }
 
-    async function addLike() {
-      store.dispatch('likes/addLike', {
-        articleId: props.articleId,
-      })
+    async function loadLikeFromUser() {
+      isLoading.value = true
+      try {
+        await store.dispatch('likes/fetchLikeFromUser', $auth.user.id)
+      } catch (e) {
+        console.log(e)
+      } finally {
+        isLoading.value = false
+      }
+    }
+
+    async function toggleLike() {
+      const userId = $auth.user.id
+      const articleId = props.articleId
+
+      if (!likeFromUser.value) {
+        await store.dispatch('likes/addLike', {
+          userId: userId,
+          articleId: articleId,
+        })
+      } else {
+        await store.dispatch('likes/removeLike', {
+          like: likeFromUser.value,
+        })
+      }
     }
 
     return {
       likes,
-      loadLikes,
-      addLike,
+      likeFromUser,
+      toggleLike,
     }
   },
 })

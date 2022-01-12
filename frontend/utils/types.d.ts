@@ -33,6 +33,7 @@ export interface Comment {
 }
 
 export interface Like {
+  id: number,
   liked: boolean
   article: Article
   user: string
