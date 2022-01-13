@@ -3,7 +3,13 @@
     <h3 class="title">Comments</h3>
 
     <h4 class="leave-a-comment">Leave a comment</h4>
-    <form @submit.prevent="addComment">
+    <NuxtLink
+      v-if="$auth.user === null || $auth.user === false"
+      class="login-box__link button-link"
+      to="/login"
+      >Login to leave a comment</NuxtLink
+    >
+    <form v-else @submit.prevent="addComment">
       <div>
         <textarea
           class="leave-a-comment__comment-text"
@@ -75,6 +81,7 @@ export default defineComponent({
     }
 
     const newCommentText = ref('')
+    const errors = ref([])
 
     async function addComment() {
       const user = $auth.user
@@ -88,7 +95,7 @@ export default defineComponent({
       store
         .dispatch('comments/addComment', {
           articleId: props.articleId,
-          userId: $auth.user.id,
+          userId: user.id,
           commentText: newCommentText.value,
         })
         .then(() => {
@@ -112,10 +119,11 @@ export default defineComponent({
 
 .leave-a-comment {
   margin-top: 1.5rem;
-}
+  margin-bottom: 0.5rem;
 
-.leave-a-comment__comment-text {
-  padding: 0.3rem;
+  &__comment-text {
+    padding: 0.3rem;
+  }
 }
 
 .comment-list {
