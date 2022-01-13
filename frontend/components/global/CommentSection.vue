@@ -10,6 +10,11 @@
       >Login to leave a comment</NuxtLink
     >
     <form v-else @submit.prevent="addComment">
+      <p v-if="errors.length">
+        <ul>
+          <li class="leave-a-comment__error" v-for="error in errors" :key="error">{{ error }}</li>
+        </ul>
+      </p>
       <div>
         <textarea
           class="leave-a-comment__comment-text"
@@ -86,9 +91,10 @@ export default defineComponent({
     async function addComment() {
       const user = $auth.user
 
-      if (user === null) {
-        window.alert('You have to be logged in to leave a comment!')
-        newCommentText.value = ''
+      errors.value = []
+
+      if (newCommentText.value === '') {
+        errors.value.push('Enter a comment first!')
         return
       }
 
@@ -107,6 +113,7 @@ export default defineComponent({
       newCommentText,
       addComment,
       comments,
+      errors,
     }
   },
 })
@@ -123,6 +130,11 @@ export default defineComponent({
 
   &__comment-text {
     padding: 0.3rem;
+  }
+
+  &__error {
+    margin: 1rem 0;
+    color: red;
   }
 }
 
