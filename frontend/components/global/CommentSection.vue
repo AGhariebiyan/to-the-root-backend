@@ -3,7 +3,18 @@
     <h3 class="title">Comments</h3>
 
     <h4 class="leave-a-comment">Leave a comment</h4>
-    <form @submit.prevent="addComment">
+    <NuxtLink
+      v-if="$auth.user === null || $auth.user === false"
+      class="login-box__link button-link"
+      :to="{ path: '/login', query: { content: `${articleSlug}` }}"
+      >Login to leave a comment</NuxtLink
+    >
+    <form v-else @submit.prevent="addComment">
+      <p v-if="errors.length">
+        <ul>
+          <li class="leave-a-comment__error" v-for="error in errors" :key="error">{{ error }}</li>
+        </ul>
+      </p>
       <div>
         <textarea
           class="leave-a-comment__comment-text"
@@ -34,6 +45,7 @@ import {
   useContext,
   onMounted,
   ref,
+  Ref,
 } from '@nuxtjs/composition-api'
 
 export default defineComponent({
@@ -42,6 +54,10 @@ export default defineComponent({
   props: {
     articleId: {
       type: Number,
+      required: true,
+    },
+    articleSlug: {
+      type: String,
       required: true,
     },
   },
@@ -75,20 +91,27 @@ export default defineComponent({
     }
 
     const newCommentText = ref('')
+    const errors: Ref<string[]> = ref([])
 
     async function addComment() {
       const user = $auth.user
 
-      if (user === null || user === false) {
-        window.alert('You have to be logged in to leave a comment!')
-        newCommentText.value = ''
+      errors.value = []
+
+      if (newCommentText.value === '') {
+        errors.value.push('Enter a comment first!')
+        return
+      }
+
+      if (user === null) {
+        errors.value.push('Login to leave a comment!')
         return
       }
 
       store
         .dispatch('comments/addComment', {
           articleId: props.articleId,
-          userId: $auth.user.id,
+          userId: user.id,
           commentText: newCommentText.value,
         })
         .then(() => {
@@ -100,6 +123,7 @@ export default defineComponent({
       newCommentText,
       addComment,
       comments,
+      errors,
     }
   },
 })
@@ -112,10 +136,16 @@ export default defineComponent({
 
 .leave-a-comment {
   margin-top: 1.5rem;
-}
+  margin-bottom: 0.5rem;
 
-.leave-a-comment__comment-text {
-  padding: 0.3rem;
+  &__comment-text {
+    padding: 0.3rem;
+  }
+
+  &__error {
+    margin: 1rem 0;
+    color: red;
+  }
 }
 
 .comment-list {
