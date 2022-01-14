@@ -6,7 +6,7 @@
     <NuxtLink
       v-if="$auth.user === null || $auth.user === false"
       class="login-box__link button-link"
-      to="/login"
+      :to="{ path: '/login', query: { content: `${articleSlug}` }}"
       >Login to leave a comment</NuxtLink
     >
     <form v-else @submit.prevent="addComment">
@@ -45,6 +45,7 @@ import {
   useContext,
   onMounted,
   ref,
+  Ref,
 } from '@nuxtjs/composition-api'
 
 export default defineComponent({
@@ -53,6 +54,10 @@ export default defineComponent({
   props: {
     articleId: {
       type: Number,
+      required: true,
+    },
+    articleSlug: {
+      type: String,
       required: true,
     },
   },
@@ -86,7 +91,7 @@ export default defineComponent({
     }
 
     const newCommentText = ref('')
-    const errors = ref([])
+    const errors: Ref<string[]> = ref([])
 
     async function addComment() {
       const user = $auth.user
@@ -95,6 +100,11 @@ export default defineComponent({
 
       if (newCommentText.value === '') {
         errors.value.push('Enter a comment first!')
+        return
+      }
+
+      if (user === null) {
+        errors.value.push('Login to leave a comment!')
         return
       }
 

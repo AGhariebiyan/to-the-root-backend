@@ -64,6 +64,8 @@ import {
   ref,
   defineComponent,
   computed,
+  useRoute,
+  useRouter,
 } from '@nuxtjs/composition-api'
 import { errorMessageFromResponse } from '@/utils/helpers'
 import BaseForm from '../components/base/BaseForm.vue'
@@ -76,6 +78,8 @@ export default defineComponent({
 
   setup() {
     const { $auth } = useContext()
+    const route = useRoute()
+    const router = useRouter()
 
     const isLoggedIn = computed(() => {
       return $auth.$state.loggedIn
@@ -111,6 +115,14 @@ export default defineComponent({
         })
 
         resetInput()
+
+        // Possible redirect to an article
+        const content = route.value.query.content
+        if (content) {
+          router.push({
+            path: `/content/${content}`,
+          })
+        }
       } catch (e: any) {
         const errorMessage = errorMessageFromResponse(e)
         error.value = errorMessage.replace('Identifier', 'Username or Email')

@@ -49,7 +49,7 @@
           </div>
         </div>
 
-        <CommentSection :articleId="article.id" />
+        <CommentSection :articleId="article.id" :articleSlug="article.slug" />
       </article>
       <p v-else>
         The article with slug <code>{{ slug }}</code> was not found
