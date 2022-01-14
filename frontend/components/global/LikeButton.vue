@@ -32,7 +32,7 @@ export default defineComponent({
       type: Number,
       required: true,
     },
-    slug: {
+    articleSlug: {
       type: String,
       required: true,
     },
@@ -95,7 +95,7 @@ export default defineComponent({
       if (user === null || user === false) {
         router.push({
           path: '/login',
-          query: { content: `${props.slug}` },
+          query: { content: `${props.articleSlug}` },
         })
         return
       }

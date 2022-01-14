@@ -43,7 +43,7 @@
         ></div>
 
         <div class="article__interactions">
-          <LikeButton :articleId="article.id" :slug="slug" />
+          <LikeButton :articleId="article.id" :articleSlug="slug" />
           <div class="article__reactions">
             <span class="material-icons-outlined">chat</span>
             <div class="article__number-of-reactions">
