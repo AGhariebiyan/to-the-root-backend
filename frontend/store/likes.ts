@@ -40,6 +40,10 @@ export const mutations: MutationTree<RootState> = {
 
         state.likeFromUser = initLikeFromUser
     },
+
+    REMOVE_LIKE_FROM_USER: (state) => {
+        state.likeFromUser = initLikeFromUser
+    }
 }
 
 export const actions: ActionTree<RootState, RootState> = {
@@ -81,4 +85,8 @@ export const actions: ActionTree<RootState, RootState> = {
         commit('REMOVE_LIKE', like)
         return response.data
     },
+
+    async removeLikeFromUser({ commit }) {
+        commit('REMOVE_LIKE_FROM_USER')
+    }
 }

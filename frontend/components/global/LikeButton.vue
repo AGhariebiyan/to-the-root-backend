@@ -20,6 +20,7 @@ import {
   useContext,
   onMounted,
   ref,
+  useRouter,
 } from '@nuxtjs/composition-api'
 import { Like } from '~/utils/types'
 
@@ -41,6 +42,7 @@ export default defineComponent({
     const isLoading = ref(true)
 
     const { store, $auth } = useContext()
+    const router = useRouter()
 
     const likes = computed(() => {
       return store.getters['likes/likes'] as Like[]
@@ -74,6 +76,7 @@ export default defineComponent({
       isLoading.value = true
 
       if ($auth.user === null || $auth.user === false) {
+        await store.dispatch('likes/removeLikeFromUser')
         return
       }
 
@@ -90,7 +93,10 @@ export default defineComponent({
       const user = $auth.user
 
       if (user === null || user === false) {
-        window.alert('You have to be logged in to leave a like!')
+        router.push({
+          path: '/login',
+          query: { content: `${props.slug}` },
+        })
         return
       }
 
