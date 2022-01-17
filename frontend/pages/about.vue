@@ -13,9 +13,7 @@
         if you feel at home, don't hesitate to join our mission!
       </p>
       <p>To The Root was founded in 2022 by Ordina Software development.</p>
-      <BaseButton buttonType="primary"
-        ><a href="#about__contribute">How to Contribute</a></BaseButton
-      >
+      <a class="button-link" href="#about__contribute">How to Contribute</a>
     </BaseContainer>
     <BaseContainer>
       <h2>Our Mission</h2>
@@ -29,10 +27,8 @@
         work on them. So if you are looking to join a community that is on a
         mission to make a difference - you can to the right place.
       </p>
-      <BaseButton buttonType="primary">How to Contribute</BaseButton>
-      <BaseButton buttonType="secondary"
-        ><a href="/signup">Join us Now</a></BaseButton
-      >
+      <a class="button-link" href="#about__contribute">How to Contribute</a>
+      <a class="button-link" href="/signup">Join us Now</a>
     </BaseContainer>
     <BaseContainer id="about__contribute">
       <h2>How to Contribute</h2>
