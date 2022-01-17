@@ -18,6 +18,10 @@
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 .flex-container {
   min-height: 100vh;
   display: flex;
