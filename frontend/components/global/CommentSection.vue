@@ -4,17 +4,17 @@
 
     <h4 class="leave-a-comment">Leave a comment</h4>
     <NuxtLink
-      v-if="$auth.user === null || $auth.user === false"
+      v-if="!$auth.user"
       class="login-box__link button-link"
-      :to="{ path: '/login', query: { content: `${articleSlug}` }}"
+      :to="{ path: '/login', query: { redirectSlug: `${articleSlug}` } }"
       >Login to leave a comment</NuxtLink
     >
     <form v-else @submit.prevent="addComment">
-      <p v-if="errors.length">
-        <ul>
-          <li class="leave-a-comment__error" v-for="error in errors" :key="error">{{ error }}</li>
-        </ul>
-      </p>
+      <ul class="leave-a-comment__error-list">
+        <li class="leave-a-comment__error" v-for="error in errors" :key="error">
+          {{ error }}
+        </li>
+      </ul>
       <div>
         <textarea
           class="leave-a-comment__comment-text"
@@ -98,13 +98,8 @@ export default defineComponent({
 
       errors.value = []
 
-      if (newCommentText.value === '') {
+      if (newCommentText.value.trim() === '') {
         errors.value.push('Enter a comment first!')
-        return
-      }
-
-      if (user === null) {
-        errors.value.push('Login to leave a comment!')
         return
       }
 
@@ -140,6 +135,10 @@ export default defineComponent({
 
   &__comment-text {
     padding: 0.3rem;
+  }
+
+  &__error-list {
+    list-style: none;
   }
 
   &__error {
