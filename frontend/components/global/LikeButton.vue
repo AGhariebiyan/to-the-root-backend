@@ -75,7 +75,7 @@ export default defineComponent({
     async function loadLikeFromUser() {
       isLoading.value = true
 
-      if ($auth.user === null || $auth.user === false) {
+      if (!$auth.user) {
         await store.dispatch('likes/removeLikeFromUser')
         return
       }
@@ -95,7 +95,7 @@ export default defineComponent({
       if (user === null || user === false) {
         router.push({
           path: '/login',
-          query: { content: `${props.articleSlug}` },
+          query: { redirectSlug: `${props.articleSlug}` },
         })
         return
       }

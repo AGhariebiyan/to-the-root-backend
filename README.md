@@ -3,7 +3,7 @@
 There are two folders:
 
 1. frontend, with a Nuxt front end client
-2. backend, with a strapi server instance
+2. backend, with a Strapi server instance
 
 ## Start from scratch
 
@@ -25,9 +25,9 @@ In the minimal setup, you can view the site and search for articles.
 
 #### Database
 
-A small and basic database setup can be done by running `npm run seed-db` (still in the backend folder). This db is connected to Algolia index `dev_content`. Running it allows you to view the articles on the detail page (clicking on it).
+A small and basic Strapi setup can be obtained by running `npm run seed-db` (still in the backend folder). This db is connected to Algolia index `dev_content`. Running it allows you to view the articles on the detail page (clicking on it).
 
-The images of the articles won't work though. So for now, it is advised to [add your own articles](creating-your-own-articles).
+The images of the articles won't work though. So for now, it is advised to add your own articles(see below).
 
 #### Frontend
 
