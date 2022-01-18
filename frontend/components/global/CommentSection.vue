@@ -94,8 +94,6 @@ export default defineComponent({
     const errors: Ref<string[]> = ref([])
 
     async function addComment() {
-      const user = $auth.user
-
       errors.value = []
 
       if (newCommentText.value.trim() === '') {
@@ -106,7 +104,7 @@ export default defineComponent({
       store
         .dispatch('comments/addComment', {
           articleId: props.articleId,
-          userId: user.id,
+          userId: $auth.user!.id,
           commentText: newCommentText.value,
         })
         .then(() => {
