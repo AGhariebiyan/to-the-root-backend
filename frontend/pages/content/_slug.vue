@@ -34,10 +34,7 @@
             "
           />
         </div>
-        <div
-          class="article__content"
-          v-html="$md.render(article.content)"
-        ></div>
+        <div class="article__content" v-html="article.content"></div>
         <div class="article__interactions">
           <div class="article__likes">
             <span class="material-icons-outlined">thumb_up</span>
@@ -97,7 +94,7 @@ export default defineComponent({
 
     const { store, $config } = useContext()
     const strapiUrl: string = $config.strapiUrl
-    const baseUrl = process.env.baseUrl
+    const baseUrl = $config.baseUrl
     const articleUrl = `${baseUrl}${route.value.fullPath}`
 
     const article = computed(() => {
@@ -246,6 +243,10 @@ export default defineComponent({
 
   &__content {
     margin-bottom: 2rem;
+
+    p {
+      margin-bottom: 1rem;
+    }
   }
 
   &__interactions {

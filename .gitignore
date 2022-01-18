@@ -215,3 +215,5 @@
 /backend/*.cache
 /backend/build
 /backend/.strapi-updater.json
+/backend/plugins/wysiwyg/node_modules
+

@@ -1,5 +1,5 @@
 {
-  "name": "one-community-backend",
+  "name": "strapi",
   "private": true,
   "version": "0.1.0",
   "description": "A Strapi application",
@@ -11,6 +11,7 @@
     "lint": "eslint . --fix",
     "format": "npx prettier --write .",
     "content-to-algolia": "node scripts/content-to-algolia",
+    "postinstall": "(cd plugins/wysiwyg && npm install)",
     "seed-db": "node scripts/database/seed-db.js"
   },
   "devDependencies": {

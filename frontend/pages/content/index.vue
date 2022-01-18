@@ -40,7 +40,7 @@
               <BaseButton
                 :disabled="isLastPage"
                 buttonType="primary"
-                @clicked="refineNext"
+                @click="refineNext"
               >
                 Show more
               </BaseButton>

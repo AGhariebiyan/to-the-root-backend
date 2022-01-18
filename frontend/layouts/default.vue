@@ -83,6 +83,14 @@ code {
   padding: 0;
 }
 
+.article__content > p {
+  margin-bottom: 1rem;
+}
+
+.article__content > .image > img {
+  max-width: 100%;
+}
+
 a {
   color: $discovery-blue-primary-darker;
   &:active,
