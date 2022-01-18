@@ -92,7 +92,7 @@ export default defineComponent({
     async function toggleLike() {
       const user = $auth.user
 
-      if (user === null || user === false) {
+      if (!user) {
         router.push({
           path: '/login',
           query: { redirectSlug: `${props.articleSlug}` },
