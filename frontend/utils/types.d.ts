@@ -10,6 +10,7 @@ export interface Category {
 export interface Article {
   author: string
   categories: Category[]
+  comments: Comment[]
   content: string
   cover_image: {}
   created_at: string
@@ -19,6 +20,14 @@ export interface Article {
   published_at: string
   slug: string
   title: string
+  updated_at: string
+}
+
+export interface Comment {
+  content: string
+  user: number
+  article: Article
+  created_at: string
   updated_at: string
 }
 
