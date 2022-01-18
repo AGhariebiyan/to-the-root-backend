@@ -26,7 +26,7 @@
           </div>
         </section>
 
-        <h3 class="socials__text">Connect me!</h3>
+        <h3 class="socials__text">Connect with me</h3>
         <div
           v-if="author.linkedIn || author.github || author.twitter"
           class="socials"
@@ -38,8 +38,8 @@
             class="fade-in-top socials__link"
             ><img
               src="https://cdn-icons-png.flaticon.com/512/174/174857.png"
-              class="socials__linkedin"
-              alt="A link to LinkedIn"
+              class="linkedin"
+              :alt="`The link to the LinkedIn profile of ${ author.name }`"
             />
           </a>
           <a
@@ -49,8 +49,8 @@
             class="fade-in-top socials__link"
             ><img
               src="https://cdn4.iconfinder.com/data/icons/iconsimple-logotypes/512/github-512.png"
-              class="socials__github"
-              alt="A link to Github"
+              class="github"
+              :alt="`The link to the Github profile of ${ author.name }`"
             />
           </a>
           <a
@@ -60,8 +60,8 @@
             class="fade-in-top socials__link"
             ><img
               src="https://cdn-icons-png.flaticon.com/512/124/124021.png"
-              class="socials__twitter"
-              alt="A link to Twitter"
+              class="twitter"
+              :alt="`The link to the Twitter profile of ${ author.name }`"
             />
           </a>
         </div>
@@ -231,7 +231,7 @@ export default defineComponent({
   }
 }
 
-.socials .socials__link {
+.socials__link {
   position: relative;
 
   &::after {
@@ -340,24 +340,10 @@ export default defineComponent({
   }
 }
 
-.socials__linkedin {
-  box-shadow: 5px 5px 5px #999;
+.linkedin, .github, .twitter{
+  box-shadow: 0.3125rem 0.3125rem 0.3125rem #999;
   border-radius: 50%;
-  width: 35px;
-  height: 35px;
-}
-
-.socials__github {
-  box-shadow: 5px 5px 5px #999;
-  border-radius: 50%;
-  width: 35px;
-  height: 35px;
-}
-
-.socials__twitter {
-  box-shadow: 5px 5px 5px #999;
-  border-radius: 50%;
-  width: 35px;
-  height: 35px;
+  width: 2.1875rem;
+  height: 2.1875rem;
 }
 </style>
