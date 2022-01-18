@@ -117,10 +117,10 @@ export default defineComponent({
         resetInput()
 
         // Possible redirect to an article
-        const content = route.value.query.content
-        if (content) {
+        const redirectSlug = route.value.query.redirectSlug
+        if (redirectSlug) {
           router.push({
-            path: `/content/${content}`,
+            path: `/content/${redirectSlug}`,
           })
         }
       } catch (e: any) {
