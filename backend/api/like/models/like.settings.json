@@ -13,8 +13,8 @@
   "pluginOptions": {},
   "attributes": {
     "article": {
-      "model": "article",
-      "via": "likes"
+      "via": "likes",
+      "model": "article"
     },
     "user": {
       "plugin": "users-permissions",
