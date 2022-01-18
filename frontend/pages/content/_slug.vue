@@ -45,6 +45,8 @@
             <div class="article__number-of-reactions">3</div>
           </div>
         </div>
+
+        <CommentSection :articleId="article.id" :articleSlug="article.slug" />
       </article>
       <p v-else>
         The article with slug <code>{{ slug }}</code> was not found
@@ -186,6 +188,7 @@ export default defineComponent({
     }
 
     return {
+      slug,
       article,
       isArticleLoaded,
       isLoading,

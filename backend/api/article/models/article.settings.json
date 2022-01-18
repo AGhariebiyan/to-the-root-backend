@@ -50,6 +50,10 @@
     "categories": {
       "via": "articles",
       "collection": "category"
+    },
+    "comments": {
+      "via": "article",
+      "collection": "comment"
     }
   }
 }
