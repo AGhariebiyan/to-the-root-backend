@@ -1,7 +1,7 @@
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'one-community',
+    title: 'ToTheRoot',
     htmlAttrs: {
       lang: 'en',
     },
@@ -26,8 +26,6 @@ export default {
       baseUrl: process.env.STRAPI_URL,
     },
   },
-
-  privateRuntimeConfig: {},
 
   env: {
     algoliaAppId: process.env.ALGOLIA_APP_ID,
