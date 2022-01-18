@@ -17,14 +17,13 @@ const index = searchClient.initIndex(process.env.ALGOLIA_INDEX)
 module.exports = {
     lifecycles: {
         afterCreate: async (entry) => {
-            console.log('afterCreate');
+            setArticleInAlgolia(entry)
         },
         afterUpdate: async (entry) => {
-            console.log('afterUpdate');
             setArticleInAlgolia(entry);
         },
-        afterDestroy: async (entry) => {
-            console.log('afterDestroy');
+        afterDelete: async (entry) => {
+            deleteArticleInAlgolia(entry)
         },
     }
 }
@@ -35,4 +34,8 @@ async function setArticleInAlgolia(entry) {
     delete article['likes'];
 
     index.saveObjects([article]).catch((error) => console.log(error));
+}
+
+async function deleteArticleInAlgolia(entry) {
+    index.deleteObjects([entry.id]).catch((error) => console.log(error));
 }
