@@ -193,11 +193,6 @@ export default defineComponent({
         .slice(0, 3)
     }
 
-    // Like
-    function like() {
-      console.log('LIKE')
-    }
-
     return {
       slug,
       article,
@@ -206,7 +201,6 @@ export default defineComponent({
       strapiUrl,
       articleUrl,
       relatedArticles,
-      like,
       comments,
     }
   },
