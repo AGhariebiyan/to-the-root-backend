@@ -43,7 +43,7 @@
             class="fade-in-top socials__link"
             ><img
               src="https://cdn-icons-png.flaticon.com/512/174/174857.png"
-              class="linkedin"
+              class="socials__icon"
               :alt="`The link to the LinkedIn profile of ${author.name}`"
             />
           </a>
@@ -54,7 +54,7 @@
             class="fade-in-top socials__link"
             ><img
               src="https://cdn4.iconfinder.com/data/icons/iconsimple-logotypes/512/github-512.png"
-              class="github"
+              class="socials__icon"
               :alt="`The link to the Github profile of ${author.name}`"
             />
           </a>
@@ -65,7 +65,7 @@
             class="fade-in-top socials__link"
             ><img
               src="https://cdn-icons-png.flaticon.com/512/124/124021.png"
-              class="twitter"
+              class="socials__icon"
               :alt="`The link to the Twitter profile of ${author.name}`"
             />
           </a>
@@ -345,9 +345,7 @@ export default defineComponent({
   }
 }
 
-.linkedin,
-.github,
-.twitter {
+.socials__icon {
   box-shadow: 0.3125rem 0.3125rem 0.3125rem #999;
   border-radius: 50%;
   width: 2.1875rem;
