@@ -11,7 +11,7 @@
             by
             <NuxtLink
               class="article__author"
-              :to="`/content?author=${article.author.id}`"
+              :to="`/author/${article.author.id}`"
               >{{ article.author.name }}</NuxtLink
             >
           </template>

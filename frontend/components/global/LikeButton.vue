@@ -81,7 +81,10 @@ export default defineComponent({
       }
 
       try {
-        await store.dispatch('likes/fetchLikeFromUser', $auth.user.id)
+        await store.dispatch('likes/fetchLikeFromUser', {
+          userId: $auth.user.id,
+          articleId: props.articleId,
+        })
       } catch (e) {
         console.log(e)
       } finally {

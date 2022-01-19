@@ -54,7 +54,6 @@ export default {
     '@nuxtjs/style-resources',
     'nuxt-material-design-icons',
     'vue-social-sharing/nuxt',
-    '@nuxtjs/markdownit',
     'nuxt-lazy-load',
   ],
 
@@ -106,20 +105,7 @@ export default {
     scss: ['~/assets/scss/variables.scss', '~/assets/scss/mixins.scss'],
   },
 
-  css: ['highlight.js/styles/github.css', '~/assets/css/algolia.scss'],
-
-  markdownit: {
-    injected: true,
-    use: ['markdown-it-highlightjs'],
-    highlight: function (str, lang) {
-      if (lang && hljs.getLanguage(lang)) {
-        try {
-          return hljs.highlight(lang, str).value
-        } catch (__) {}
-        return '' // use external default escaping
-      }
-    },
-  },
+  css: ['~/assets/css/algolia.scss'],
 
   googleAnalytics: {
     id: process.env.GOOGLE_ANALYTICS_ID,

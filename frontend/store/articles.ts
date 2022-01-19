@@ -43,8 +43,7 @@ export const actions: ActionTree<RootState, RootState> = {
     const paramString = qs.stringify(params)
 
     const response = await $axios.get(
-      `/articles?_start=${offset.value}&_limit=${limit}${
-        paramString ? '&' + paramString : ''
+      `/articles?_start=${offset.value}&_limit=${limit}${paramString ? '&' + paramString : ''
       }`,
     )
     const articles: Article[] = response.data
