@@ -3,7 +3,7 @@ import { GetterTree, ActionTree, MutationTree } from 'vuex'
 import { Like } from '~/utils/types'
 
 const initLikes: Like[] = []
-var initLikeFromUser: Like
+let initLikeFromUser: Like
 
 export const state = () => ({
     likes: initLikes,
@@ -22,10 +22,6 @@ export const mutations: MutationTree<RootState> = {
         state.likes = newLikes
     },
 
-    SET_LIKE_FROM_USER: (state, likeFromUser: Like) => {
-        state.likeFromUser = likeFromUser
-    },
-
     ADD_LIKE: (state, newLike: Like) => {
         state.likes.push(newLike)
     },
@@ -41,6 +37,10 @@ export const mutations: MutationTree<RootState> = {
         state.likeFromUser = initLikeFromUser
     },
 
+    SET_LIKE_FROM_USER: (state, likeFromUser: Like) => {
+        state.likeFromUser = likeFromUser
+    },
+
     REMOVE_LIKE_FROM_USER: (state) => {
         state.likeFromUser = initLikeFromUser
     }
@@ -54,15 +54,6 @@ export const actions: ActionTree<RootState, RootState> = {
 
         commit('SET_LIKES', likes)
         return likes
-    },
-
-    async fetchLikeFromUser({ commit }, userId) {
-        const response = await $axios.get(`/likes?user=${userId}`)
-
-        const likeFromUser: Like = response.data[0]
-
-        commit('SET_LIKE_FROM_USER', likeFromUser)
-        return likeFromUser
     },
 
     async addLike({ commit }, { userId, articleId }) {
@@ -84,6 +75,15 @@ export const actions: ActionTree<RootState, RootState> = {
 
         commit('REMOVE_LIKE', like)
         return response.data
+    },
+
+    async fetchLikeFromUser({ commit }, { userId, articleId }) {
+        const response = await $axios.get(`/likes?user=${userId}&article=${articleId}`)
+
+        const likeFromUser: Like = response.data[0]
+        console.log(likeFromUser, userId, articleId)
+        commit('SET_LIKE_FROM_USER', likeFromUser)
+        return likeFromUser
     },
 
     async removeLikeFromUser({ commit }) {
