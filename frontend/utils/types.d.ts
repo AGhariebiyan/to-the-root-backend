@@ -23,6 +23,20 @@ export interface Article {
   updated_at: string
 }
 
+export interface Author {
+  id: number
+  name: string
+  photo: {}
+  email: string
+  github: string
+  twitter: string
+  linkedIn: string
+  biography: string
+  published_at: string
+  updated_at: string
+  articles: Article[]
+}
+
 export interface Comment {
   content: string
   user: number
