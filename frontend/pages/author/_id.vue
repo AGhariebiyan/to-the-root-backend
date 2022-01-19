@@ -26,7 +26,7 @@
           </div>
         </section>
 
-        <h3 class="socials__text">Connect with me</h3>
+        <h3 v-if="author.linkedIn || author.github || author.twitter" class="socials__text">Connect with me</h3>
         <div
           v-if="author.linkedIn || author.github || author.twitter"
           class="socials"
