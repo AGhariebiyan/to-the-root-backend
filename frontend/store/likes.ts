@@ -81,7 +81,7 @@ export const actions: ActionTree<RootState, RootState> = {
         const response = await $axios.get(`/likes?user=${userId}&article=${articleId}`)
 
         const likeFromUser: Like = response.data[0]
-        console.log(likeFromUser, userId, articleId)
+
         commit('SET_LIKE_FROM_USER', likeFromUser)
         return likeFromUser
     },
