@@ -16,6 +16,7 @@
             >
           </template>
         </p>
+
         <share-buttons
           :article="{
             title: article.title,
@@ -24,6 +25,7 @@
           }"
           :url="articleUrl"
         />
+
         <div class="article__image-container">
           <img
             class="article__cover-image"
@@ -36,22 +38,22 @@
         </div>
         <div class="article__content" v-html="article.content"></div>
         <div class="article__interactions">
-          <div class="article__likes">
-            <span class="material-icons-outlined">thumb_up</span>
-            <div class="article__number-of-likes">13</div>
-          </div>
+          <LikeButton :articleId="article.id" :articleSlug="slug" />
           <div class="article__reactions">
             <span class="material-icons-outlined">chat</span>
-            <div class="article__number-of-reactions">3</div>
+            <div class="article__number-of-reactions">
+              {{ comments.length }}
+            </div>
           </div>
         </div>
 
         <CommentSection :articleId="article.id" :articleSlug="article.slug" />
       </article>
+
       <p v-else>
         The article with slug <code>{{ slug }}</code> was not found
-      </p></base-container
-    >
+      </p>
+    </base-container>
 
     <base-container class="related-articles" containerType="color">
       <template v-if="!isLoading && relatedArticles.length > 0">
@@ -103,6 +105,10 @@ export default defineComponent({
           (article: Article) => article.slug == slug,
         ) ?? {}
       )
+    })
+
+    const comments = computed(() => {
+      return store.getters['comments/comments']
     })
 
     const isArticleLoaded = computed(() => {
@@ -195,6 +201,7 @@ export default defineComponent({
       strapiUrl,
       articleUrl,
       relatedArticles,
+      comments,
     }
   },
 })

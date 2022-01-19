@@ -58,6 +58,14 @@
       "via": "users",
       "plugin": "users-permissions",
       "configurable": false
+    },
+    "comments": {
+      "via": "user",
+      "collection": "comment"
+    },
+    "likes": {
+      "via": "user",
+      "collection": "like"
     }
   }
 }

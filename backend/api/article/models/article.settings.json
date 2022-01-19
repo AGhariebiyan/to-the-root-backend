@@ -54,6 +54,10 @@
     "comments": {
       "via": "article",
       "collection": "comment"
+    },
+    "likes": {
+      "via": "article",
+      "collection": "like"
     }
   }
 }

@@ -55,6 +55,14 @@
       "config": {
         "policies": []
       }
+    },
+    {
+      "method": "POST",
+      "path": "/articles/:id/like",
+      "handler": "article.like",
+      "config": {
+        "policies": []
+      }
     }
   ]
 }

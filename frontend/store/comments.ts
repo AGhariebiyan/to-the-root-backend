@@ -15,11 +15,12 @@ export const getters: GetterTree<RootState, RootState> = {
 }
 
 export const mutations: MutationTree<RootState> = {
-    SET_COMMENTS: (state, newComments: Comment[]) =>
-        (state.comments = newComments),
+    SET_COMMENTS: (state, newComments: Comment[]) => {
+        state.comments = newComments.reverse()
+    },
 
     ADD_COMMENT: (state, newComment: Comment) => {
-        state.comments.push(newComment)
+        state.comments.unshift(newComment)
     },
 }
 
