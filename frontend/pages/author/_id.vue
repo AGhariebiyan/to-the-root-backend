@@ -26,7 +26,12 @@
           </div>
         </section>
 
-        <h3 v-if="author.linkedIn || author.github || author.twitter" class="socials__text">Connect with me</h3>
+        <h3
+          v-if="author.linkedIn || author.github || author.twitter"
+          class="socials__text"
+        >
+          Connect with me
+        </h3>
         <div
           v-if="author.linkedIn || author.github || author.twitter"
           class="socials"
@@ -39,7 +44,7 @@
             ><img
               src="https://cdn-icons-png.flaticon.com/512/174/174857.png"
               class="linkedin"
-              :alt="`The link to the LinkedIn profile of ${ author.name }`"
+              :alt="`The link to the LinkedIn profile of ${author.name}`"
             />
           </a>
           <a
@@ -50,7 +55,7 @@
             ><img
               src="https://cdn4.iconfinder.com/data/icons/iconsimple-logotypes/512/github-512.png"
               class="github"
-              :alt="`The link to the Github profile of ${ author.name }`"
+              :alt="`The link to the Github profile of ${author.name}`"
             />
           </a>
           <a
@@ -61,7 +66,7 @@
             ><img
               src="https://cdn-icons-png.flaticon.com/512/124/124021.png"
               class="twitter"
-              :alt="`The link to the Twitter profile of ${ author.name }`"
+              :alt="`The link to the Twitter profile of ${author.name}`"
             />
           </a>
         </div>
@@ -340,7 +345,9 @@ export default defineComponent({
   }
 }
 
-.linkedin, .github, .twitter{
+.linkedin,
+.github,
+.twitter {
   box-shadow: 0.3125rem 0.3125rem 0.3125rem #999;
   border-radius: 50%;
   width: 2.1875rem;
