@@ -34,10 +34,7 @@
             "
           />
         </div>
-        <div
-          class="article__content"
-          v-html="$md.render(article.content)"
-        ></div>
+        <div class="article__content" v-html="article.content"></div>
         <div class="article__interactions">
           <div class="article__likes">
             <span class="material-icons-outlined">thumb_up</span>
@@ -48,6 +45,8 @@
             <div class="article__number-of-reactions">3</div>
           </div>
         </div>
+
+        <CommentSection :articleId="article.id" :articleSlug="article.slug" />
       </article>
       <p v-else>
         The article with slug <code>{{ slug }}</code> was not found
@@ -95,7 +94,7 @@ export default defineComponent({
 
     const { store, $config } = useContext()
     const strapiUrl: string = $config.strapiUrl
-    const baseUrl = process.env.baseUrl
+    const baseUrl = $config.baseUrl
     const articleUrl = `${baseUrl}${route.value.fullPath}`
 
     const article = computed(() => {
@@ -189,6 +188,7 @@ export default defineComponent({
     }
 
     return {
+      slug,
       article,
       isArticleLoaded,
       isLoading,
@@ -243,6 +243,10 @@ export default defineComponent({
 
   &__content {
     margin-bottom: 2rem;
+
+    p {
+      margin-bottom: 1rem;
+    }
   }
 
   &__interactions {

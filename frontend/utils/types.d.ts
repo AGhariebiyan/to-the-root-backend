@@ -10,6 +10,7 @@ export interface Category {
 export interface Article {
   author: string
   categories: Category[]
+  comments: Comment[]
   content: string
   cover_image: {}
   created_at: string
@@ -31,10 +32,17 @@ export interface Author {
   twitter: string
   linkedIn: string
   biography: string
-  created_at: string
   published_at: string
   updated_at: string
   articles: Article[]
+}
+
+export interface Comment {
+  content: string
+  user: number
+  article: Article
+  created_at: string
+  updated_at: string
 }
 
 type ErrorResponse = { message: any[] }
