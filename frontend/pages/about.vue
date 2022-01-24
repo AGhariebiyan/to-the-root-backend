@@ -1,8 +1,14 @@
 <template>
   <BasePageLayout>
     <BaseContainer>
-      <div class="about__section about__section-us">
-        <div class="about__us">
+      <div class="section section-us">
+        <div class="us-image">
+          <img
+            src="https://d2xsikgwxkxyoe.cloudfront.net/media/39104/3-plants.jpg"
+            alt=""
+          />
+        </div>
+        <div class="us">
           <h1>About Us</h1>
           <p>
             To The Root is an open community for software developers that
@@ -15,49 +21,78 @@
             So please have a look around. And, if you feel at home, don't
             hesitate to join our mission!
           </p>
+          <a class="button-link" href="#contribute">How to Contribute</a>
+          <h3>Say Hello!</h3>
           <p>To The Root was founded in 2022 by Ordina Software development.</p>
         </div>
-        <div class="about__us-images">
-          <div class="about__us-person">
+        <div class="us-people">
+          <div class="us-people__person">
             <img
               src="https://www.vdeplant.nl/wp-content/uploads/2020/07/Philodendron-White-Wave-1-1-480x480.jpg"
               alt=""
             />
             <p>Menno Wielhouwer</p>
+            <a href="#" target="_blank" rel="noopener noreferrer">Git</a>
           </div>
-          <div class="about__us-person">
+          <div class="us-people__person">
             <img
               src="https://www.vdeplant.nl/wp-content/uploads/2020/07/Philodendron-White-Wave-1-1-480x480.jpg"
               alt=""
             />
             <p>Joran Minjon</p>
+            <a
+              href="https://github.com/DrKlonk"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Git</a
+            >
           </div>
-          <div class="about__us-person">
+          <div class="us-people__person">
             <img
               src="https://www.vdeplant.nl/wp-content/uploads/2020/07/Philodendron-White-Wave-1-1-480x480.jpg"
               alt=""
             />
             <p>Dennis van Oosten</p>
+            <a
+              href="https://github.com/dennis-ordina"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Git</a
+            >
           </div>
-          <div class="about__us-person">
+          <div class="us-people__person">
             <img
               src="https://www.vdeplant.nl/wp-content/uploads/2020/07/Philodendron-White-Wave-1-1-480x480.jpg"
               alt=""
             />
             <p>Cindy Davids</p>
+            <a href="#" target="_blank" rel="noopener noreferrer">Git</a>
+          </div>
+          <div class="us-people__person">
+            <img
+              src="https://www.vdeplant.nl/wp-content/uploads/2020/07/Philodendron-White-Wave-1-1-480x480.jpg"
+              alt=""
+            />
+            <p>Jolissa Latour</p>
+            <a
+              href="https://github.com/Jolissa1"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Git</a
+            >
           </div>
         </div>
       </div>
     </BaseContainer>
     <BaseContainer>
-      <div class="about__section">
-        <div class="about__mission-image">
+      <div class="section">
+        <div class="mission-image">
           <img
             src="https://www.mvmsrl.it/pict/upl/vision/2/mission.jpg"
             alt=""
           />
         </div>
-        <div class="about__mission">
+        <div class="mission">
           <h2>Our Mission</h2>
           <p>
             Technology, more than any other science, is a field of cooperation.
@@ -70,13 +105,14 @@
             a community that is on a mission to make a difference - you can to
             the right place.
           </p>
+          <a class="button-link" href="#contribute">How to Contribute</a>
           <a class="button-link" href="/signup">Join us Now</a>
         </div>
       </div>
     </BaseContainer>
-    <BaseContainer id="about__contribute">
-      <div class="about__section">
-        <div class="about__contribute">
+    <BaseContainer id="contribute">
+      <div class="section">
+        <div class="contribute">
           <h2>How to Contribute</h2>
 
           <h3>Share your thoughts</h3>
@@ -139,7 +175,7 @@ p {
   margin: 1rem 0;
 }
 
-.about__section {
+.section {
   display: flex;
   div {
     flex: 1;
@@ -149,14 +185,15 @@ p {
   }
 }
 
-.about__section-us {
+.section-us {
   flex-direction: column;
   p,
-  h1 {
+  h1,
+  h3 {
     width: 70%;
     margin: 1rem auto;
   }
-  .about__us-images {
+  .us-people {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -167,11 +204,11 @@ p {
   }
 }
 
-.about__mission {
+.mission {
   padding-left: 2rem;
 }
 
-.about__contribute {
+.contribute {
   padding-right: 2rem;
 }
 </style>
