@@ -1,15 +1,14 @@
 <template>
   <BasePageLayout>
     <BaseContainer>
-      <div class="section section-us">
-        <div class="us-image">
-          <img
-            src="https://d2xsikgwxkxyoe.cloudfront.net/media/39104/3-plants.jpg"
-            alt=""
-          />
-        </div>
+      <div class="wrapper">
+        <h1>About Us</h1>
+        <img
+          class="about-us-image"
+          src="https://d2xsikgwxkxyoe.cloudfront.net/media/39104/3-plants.jpg"
+          alt=""
+        />
         <div class="us">
-          <h1>About Us</h1>
           <p>
             To The Root is an open community for software developers that
             welcomes everyone who is looking to grow and contribute. We're all
@@ -171,44 +170,59 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-p {
-  margin: 1rem 0;
+.wrapper {
+  padding: 1.5em;
+  max-width: 900px;
+  margin: 0 auto;
 }
 
-.section {
-  display: flex;
-  div {
-    flex: 1;
-  }
-  img {
-    max-width: 100%;
-  }
+h1 {
+  text-align: center;
 }
 
-.section-us {
-  flex-direction: column;
-  p,
-  h1,
-  h3 {
-    width: 70%;
-    margin: 1rem auto;
-  }
-  .us-people {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-  }
-  img {
-    max-width: 33%;
-  }
+.about-us-image {
+  width: 100%;
+  height: auto;
 }
 
-.mission {
-  padding-left: 2rem;
-}
+// p {
+//   margin: 1rem 0;
+// }
 
-.contribute {
-  padding-right: 2rem;
-}
+// .section {
+//   display: flex;
+//   div {
+//     flex: 1;
+//   }
+//   img {
+//     max-width: 100%;
+//   }
+// }
+
+// .section-us {
+//   flex-direction: column;
+//   p,
+//   h1,
+//   h3 {
+//     width: 70%;
+//     margin: 1rem auto;
+//   }
+//   .us-people {
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+//     text-align: center;
+//   }
+//   img {
+//     max-width: 33%;
+//   }
+// }
+
+// .mission {
+//   padding-left: 2rem;
+// }
+
+// .contribute {
+//   padding-right: 2rem;
+// }
 </style>
