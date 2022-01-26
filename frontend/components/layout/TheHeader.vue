@@ -93,6 +93,10 @@ export default defineComponent({
         to: '/content',
       },
       {
+        name: 'Contribute',
+        to: '/contribute',
+      },
+      {
         name: 'Events',
         to: '/events',
       },
