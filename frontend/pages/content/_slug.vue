@@ -82,6 +82,7 @@ import {
 
 import { Article } from '~/utils/types'
 import ClipLoader from 'vue-spinner/src/ClipLoader.vue'
+import Prism from '~/plugins/prism'
 
 export default defineComponent({
   components: { ClipLoader },
@@ -124,6 +125,7 @@ export default defineComponent({
       } catch (err) {
       } finally {
         isLoading.value = false
+        Prism.highlightAll()
       }
     })
 
