@@ -17,6 +17,8 @@ const article: Article = {
   title: 'Test',
   author: 'John Doe',
   categories: [category],
+  comments: [],
+  likes: [],
   content: '',
   cover_image: {},
   created_at: '',

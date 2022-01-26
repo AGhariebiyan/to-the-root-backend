@@ -1,8 +1,16 @@
-'use strict'
+const { sanitizeEntity } = require('strapi-utils');
 
-/**
- * Read the documentation (https://strapi.io/documentation/developer-docs/latest/development/backend-customization.html#core-controllers)
- * to customize this controller
- */
+module.exports = {
+    async comment(ctx) {
+        ctx.request.body.article = ctx.params.id;
+        const entity = await strapi.services.comment.create(ctx.request.body);
 
-module.exports = {}
+        return sanitizeEntity(entity, { model: strapi.models.comment });
+    },
+    async like(ctx) {
+        ctx.request.body.article = ctx.params.id;
+        const entity = await strapi.services.like.create(ctx.request.body);
+
+        return sanitizeEntity(entity, { model: strapi.models.like });
+    },
+}
