@@ -6,6 +6,30 @@
   </div>
 </template>
 
+<script>
+import { onAnalyticsReady } from 'vue-analytics'
+import { defineComponent, useContext, onMounted } from '@nuxtjs/composition-api'
+
+export default defineComponent({
+  setup() {
+    const { $auth, $ga } = useContext()
+
+    onMounted(async () => {
+      try {
+        await onAnalyticsReady().then(() => {
+          const hasConsent = $auth.user.allowsCookies // Your logic for consent
+          if (hasConsent) {
+            $ga.enable() // Activate module
+          }
+        })
+      } catch (err) {
+        console.log(err)
+      }
+    })
+  },
+})
+</script>
+
 <style lang="scss">
 * {
   font-size: $default-font-size;
