@@ -66,6 +66,9 @@
     "likes": {
       "via": "user",
       "collection": "like"
+    },
+    "allowsCookies": {
+      "type": "boolean"
     }
   }
 }
