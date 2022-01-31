@@ -1,26 +1,28 @@
 <template>
   <BasePageLayout>
     <div class="about-us-wrapper">
-      <div class="wrapper about-us">
-        <h1>About Us</h1>
-        <div class="about-us__text">
-          <p>
-            To The Root is an open community for software developers that
-            welcomes everyone who is looking to grow and contribute. We're all
-            about the latest insights from people working in the field, about
-            cool events where we can bang our tech-heads together and about
-            contributing, to each other, to open-source technology and to the
-            world. Here you'll find inspiration to become a better software
-            developer guided by articles, videos, events for peers from peers.
-            So please have a look around. And, if you feel at home, don't
-            hesitate to join our mission!
-          </p>
-          <br />
-          <p class="about-us__sub-text">
-            To The Root was founded in 2022 by Ordina Software development.
-          </p>
-          <br />
-          <a class="new-button" href="#contribute">How to Contribute</a>
+      <div class="about-us-block">
+        <div class="wrapper about-us">
+          <h1>About Us</h1>
+          <div class="about-us__text">
+            <p>
+              To The Root is an open community for software developers that
+              welcomes everyone who is looking to grow and contribute. We're all
+              about the latest insights from people working in the field, about
+              cool events where we can bang our tech-heads together and about
+              contributing, to each other, to open-source technology and to the
+              world. Here you'll find inspiration to become a better software
+              developer guided by articles, videos, events for peers from peers.
+              So please have a look around. And, if you feel at home, don't
+              hesitate to join our mission!
+            </p>
+            <br />
+            <p class="about-us__sub-text">
+              To The Root was founded in 2022 by Ordina Software development.
+            </p>
+            <br />
+            <a class="new-button" href="#contribute">How to Contribute</a>
+          </div>
         </div>
       </div>
     </div>
@@ -95,26 +97,28 @@
       </div>
     </div>
     <div class="mission-wrapper">
-      <div class="wrapper mission">
-        <h2>Our Mission</h2>
-        <p>
-          Technology, more than any other science, is a field of cooperation.
-          Not only do we do better work together, we wouldn't even have a field
-          if it wasn't for giants like Nicola Tesla, Alan Turing and Tim
-          Berners-Lee. That is what To The Root is all about. It's about
-          appreciating the shoulders we stand on, and, in all modesty, trying to
-          be the shoulders for the next generation. Not only do we share our
-          best ideas, we go to work on them. So if you are looking to join a
-          community that is on a mission to make a difference - you can to the
-          right place.
-        </p>
-        <div class="side-by-side-buttons mission-buttons">
-          <a class="new-button" href="#contribute">How to Contribute</a>
-          <a class="new-button" href="/signup">Join us Now</a>
+      <div class="mission-block">
+        <div class="wrapper mission">
+          <h2>Our Mission</h2>
+          <p>
+            Technology, more than any other science, is a field of cooperation.
+            Not only do we do better work together, we wouldn't even have a
+            field if it wasn't for giants like Nicola Tesla, Alan Turing and Tim
+            Berners-Lee. That is what To The Root is all about. It's about
+            appreciating the shoulders we stand on, and, in all modesty, trying
+            to be the shoulders for the next generation. Not only do we share
+            our best ideas, we go to work on them. So if you are looking to join
+            a community that is on a mission to make a difference - you can to
+            the right place.
+          </p>
+          <div class="side-by-side-buttons mission-buttons">
+            <a class="new-button" href="#contribute">How to Contribute</a>
+            <a class="new-button" href="/signup">Join us Now</a>
+          </div>
         </div>
       </div>
     </div>
-    <div class="contribute-wrapper">
+    <div id="contribute" class="contribute-wrapper">
       <div class="wrapper contribute">
         <h2>How to Contribute</h2>
 
@@ -129,7 +133,9 @@
           </p>
           <div class="side-by-side-buttons">
             <a class="new-button" href="/contact">Get in touch</a>
-            <a class="new-button" href="#">More on contributing</a>
+            <a class="new-button" href="/produceContent"
+              >More on contributing</a
+            >
           </div>
         </div>
         <div class="contribute__section discord">
@@ -141,7 +147,7 @@
             interest us. So come and have a look at our Discord community! See
             you there.
           </p>
-          <a class="new-button" href="#">Join our Discord community</a>
+          <a class="new-button" href="/discord">Join our Discord community</a>
         </div>
         <div class="contribute__section open-source">
           <h3>Contribute to Open Source</h3>
@@ -153,8 +159,10 @@
             interested in joining a To The Root Mobbing session for Open Source?
           </p>
           <div class="side-by-side-buttons">
-            <a class="new-button" href="#">Join us - Mob Programming</a>
-            <a class="new-button" href="#">Join us - Open Source</a>
+            <a class="new-button" href="/discord">Mob Programming on Discord</a>
+            <a class="new-button" href="/openSource"
+              >Contribute to Open Source</a
+            >
           </div>
         </div>
         <div class="contribute__section closing-text">
@@ -188,17 +196,21 @@ export default defineComponent({
   height: 700px;
 }
 
+.about-us-block {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
 .wrapper {
-  padding: 1.5em;
+  padding: 2.5em;
   max-width: 630px;
   margin: 0 auto;
 }
 
 .about-us {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  background-color: $accelerate-blue-primary;
   text-align: center;
   color: white;
 
@@ -208,7 +220,7 @@ export default defineComponent({
   }
 
   &__sub-text {
-    margin-bottom: 30px;
+    margin-bottom: 20px;
   }
 }
 
@@ -238,6 +250,7 @@ export default defineComponent({
     box-shadow: 5px 3px 10px $gray-dark;
 
     width: 40%;
+    min-width: 200px;
     padding: 30px 10px 40px;
     margin-bottom: 50px;
     text-align: center;
@@ -272,11 +285,15 @@ export default defineComponent({
   height: 500px;
 }
 
-.mission {
+.mission-block {
   height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+
+.mission {
+  background-color: $accelerate-blue-primary;
   text-align: center;
   color: white;
 
@@ -312,29 +329,13 @@ export default defineComponent({
   }
 }
 
-.new-button {
-  color: $white;
-  background-color: $ordina-orange;
-  border-radius: 50px;
-  display: inline-block;
-  font-family: 'RobotoBold', sans-serif;
-  height: 3.125rem;
-  padding: 0.875rem 2rem;
-  text-decoration: none;
-  line-height: 1.5rem;
-
-  &:active,
-  &:hover {
-    background-color: $ordina-orange-hover;
-  }
-}
-
 .side-by-side-buttons {
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
 
   a {
-    margin: 0 10px;
+    margin: 5px 10px;
   }
 }
 

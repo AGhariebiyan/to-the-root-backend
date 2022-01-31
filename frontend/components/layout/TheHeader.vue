@@ -94,7 +94,11 @@ export default defineComponent({
       },
       {
         name: 'Contribute',
-        to: '/contribute',
+        to: '/produceContent',
+      },
+      {
+        name: 'Open Source',
+        to: '/openSource',
       },
       {
         name: 'Events',

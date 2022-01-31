@@ -129,4 +129,37 @@ a {
     }
   }
 }
+
+.new-button {
+  color: $white;
+  border: none;
+  background-color: $ordina-orange;
+  border-radius: 50px;
+  display: inline-block;
+  font-family: 'RobotoBold', sans-serif;
+  height: 3.125rem;
+  padding: 0.875rem 2rem;
+  text-decoration: none;
+  line-height: 1.5rem;
+
+  &:active,
+  &:hover,
+  &:disabled {
+    background-color: $ordina-orange-hover;
+    color: $white;
+  }
+
+  &:disabled {
+    color: $gray;
+  }
+}
+
+.error-list {
+  list-style: none;
+}
+
+.error {
+  margin: 1rem 0;
+  color: red;
+}
 </style>

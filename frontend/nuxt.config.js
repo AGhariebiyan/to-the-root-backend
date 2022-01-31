@@ -31,6 +31,9 @@ export default {
     algoliaAppId: process.env.ALGOLIA_APP_ID,
     algoliaSearchKey: process.env.ALGOLIA_SEARCH_KEY,
     algoliaIndex: process.env.ALGOLIA_INDEX,
+    emailJSServiceID: process.env.EMAILJS_SERVICE_ID,
+    emailJSTemplateID: process.env.EMAILJS_TEMPLATE_ID,
+    emailJSUserID: process.env.EMAILJS_USER_ID
   },
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: ['~/plugins/axios-accessor.ts'],

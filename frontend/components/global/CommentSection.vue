@@ -10,8 +10,8 @@
       >Login to leave a comment</NuxtLink
     >
     <form v-else @submit.prevent="addComment">
-      <ul class="leave-a-comment__error-list">
-        <li class="leave-a-comment__error" v-for="error in errors" :key="error">
+      <ul class="leave-a-comment error-list">
+        <li class="leave-a-comment error" v-for="error in errors" :key="error">
           {{ error }}
         </li>
       </ul>
@@ -133,15 +133,6 @@ export default defineComponent({
 
   &__comment-text {
     padding: 0.3rem;
-  }
-
-  &__error-list {
-    list-style: none;
-  }
-
-  &__error {
-    margin: 1rem 0;
-    color: red;
   }
 }
 
