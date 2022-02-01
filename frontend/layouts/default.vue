@@ -3,7 +3,7 @@
     <LayoutTheHeader />
     <Nuxt />
     <LayoutTheFooter />
-    <CookieModal v-if="!isLoggedIn" />
+    <CookieModal v-if="showCookieModal" @close="showCookieModal = false" />
   </div>
 </template>
 
@@ -14,27 +14,28 @@ import {
   useContext,
   onMounted,
   computed,
+  ref,
 } from '@nuxtjs/composition-api'
 
 export default defineComponent({
   setup() {
     const { $auth, $ga } = useContext()
-    let showCookieModal = false
 
     const isLoggedIn = computed(() => {
       return $auth.$state.loggedIn
     })
 
+    const showCookieModal = ref(false)
+
     onMounted(async () => {
       try {
         await onAnalyticsReady().then(() => {
-          if (!isLoggedIn) {
-            console.log('test')
-            showCookieModal = true
+          if (!isLoggedIn.value) {
+            showCookieModal.value = true
+            return
           }
-          const hasConsent = $auth.user?.allowsCookies // Your logic for consent
-          if (hasConsent) {
-            $ga.enable() // Activate module
+          if ($auth.user?.allowsCookies) {
+            $ga.enable()
           }
         })
       } catch (err) {
@@ -42,13 +43,14 @@ export default defineComponent({
       }
     })
 
-    return { isLoggedIn }
+    return { showCookieModal, isLoggedIn }
   },
 })
 </script>
 
 <style lang="scss">
 * {
+  font-family: 'Roboto', sans-serif;
   font-size: $default-font-size;
   word-spacing: 1px;
   -ms-text-size-adjust: 100%;
@@ -56,10 +58,6 @@ export default defineComponent({
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   box-sizing: border-box;
-}
-p,
-li {
-  font-family: 'Roboto', sans-serif;
 }
 
 html {
