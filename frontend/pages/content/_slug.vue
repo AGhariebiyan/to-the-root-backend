@@ -37,6 +37,11 @@
           />
         </div>
         <div class="article__content" v-html="article.content"></div>
+
+        <a class="new-button" href="/produceContent"
+          >Submit your own articles</a
+        >
+
         <div class="article__interactions">
           <LikeButton :articleId="article.id" :articleSlug="slug" />
           <div class="article__reactions">
@@ -258,6 +263,7 @@ export default defineComponent({
 
   &__interactions {
     display: flex;
+    margin-top: 50px;
   }
 
   &__likes {
