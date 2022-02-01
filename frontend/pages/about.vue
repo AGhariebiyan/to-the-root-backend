@@ -1,92 +1,99 @@
 <template>
   <BasePageLayout>
-    <div class="about-us-wrapper">
-      <div class="about-us-block">
-        <div class="wrapper about-us">
-          <h1>About Us</h1>
-          <div class="about-us__text">
-            <p>
-              To The Root is an open community for software developers that
-              welcomes everyone who is looking to grow and contribute. We're all
-              about the latest insights from people working in the field, about
-              cool events where we can bang our tech-heads together and about
-              contributing, to each other, to open-source technology and to the
-              world. Here you'll find inspiration to become a better software
-              developer guided by articles, videos, events for peers from peers.
-              So please have a look around. And, if you feel at home, don't
-              hesitate to join our mission!
-            </p>
-            <br />
-            <p class="about-us__sub-text">
-              To The Root was founded in 2022 by Ordina Software development.
-            </p>
-            <br />
-            <a class="new-button" href="#contribute">How to Contribute</a>
-          </div>
+    <section class="about-us__wrapper">
+      <div class="wrapper">
+        <div class="about-us__content">
+          <h1 class="about-us__header">About Us</h1>
+          <p class="about-us__paragraph">
+            To The Root is an open community for software developers that
+            welcomes everyone who is looking to grow and contribute. We're all
+            about the latest insights from people working in the field, about
+            cool events where we can bang our tech-heads together and about
+            contributing, to each other, to open-source technology and to the
+            world. Here you'll find inspiration to become a better software
+            developer guided by articles, videos, events for peers from peers.
+            So please have a look around. And, if you feel at home, don't
+            hesitate to join our mission!
+          </p>
+          <p class="about-us__founded-text">
+            To The Root was founded in 2022 by Ordina Software development.
+          </p>
+          <a class="about-us__action-button new-button" href="#contribute"
+            >How to Contribute</a
+          >
         </div>
       </div>
-    </div>
-    <div class="people-wrapper">
-      <div class="wrapper people">
-        <h2>Say Hello!</h2>
-        <h3>To the creators of To The Root:</h3>
-        <div class="people__flex-container">
-          <div class="people__flex-item">
+    </section>
+
+    <div class="wrapper">
+      <section class="people">
+        <h2 class="people__header">Say Hello!</h2>
+        <h3 class="people__sub-header">To the creators of To The Root:</h3>
+        <div class="people__people-container">
+          <div class="people__people-item">
             <img
               src="https://www.vdeplant.nl/wp-content/uploads/2020/07/Philodendron-White-Wave-1-1-480x480.jpg"
               alt=""
             />
             <p>Menno Wielhouwer</p>
-            <a class="link" href="#" target="_blank" rel="noopener noreferrer"
+            <a
+              class="people__link"
+              href="#"
+              target="_blank"
+              rel="noopener noreferrer"
               >Git</a
             >
           </div>
-          <div class="people__flex-item">
+          <div class="people__people-item">
             <img
               src="https://www.vdeplant.nl/wp-content/uploads/2020/07/Philodendron-White-Wave-1-1-480x480.jpg"
               alt=""
             />
             <p>Joran Minjon</p>
             <a
-              class="link"
+              class="people__link"
               href="https://github.com/DrKlonk"
               target="_blank"
               rel="noopener noreferrer"
               >Git</a
             >
           </div>
-          <div class="people__flex-item">
+          <div class="people__people-item">
             <img
               src="https://www.vdeplant.nl/wp-content/uploads/2020/07/Philodendron-White-Wave-1-1-480x480.jpg"
               alt=""
             />
             <p>Dennis van Oosten</p>
             <a
-              class="link"
+              class="people__link"
               href="https://github.com/dennis-ordina"
               target="_blank"
               rel="noopener noreferrer"
               >Git</a
             >
           </div>
-          <div class="people__flex-item">
+          <div class="people__people-item">
             <img
               src="https://www.vdeplant.nl/wp-content/uploads/2020/07/Philodendron-White-Wave-1-1-480x480.jpg"
               alt=""
             />
             <p>Cindy Davids</p>
-            <a class="link" href="#" target="_blank" rel="noopener noreferrer"
+            <a
+              class="people__link"
+              href="#"
+              target="_blank"
+              rel="noopener noreferrer"
               >Git</a
             >
           </div>
-          <div class="people__flex-item">
+          <div class="people__people-item">
             <img
               src="https://www.vdeplant.nl/wp-content/uploads/2020/07/Philodendron-White-Wave-1-1-480x480.jpg"
               alt=""
             />
             <p>Jolissa Latour</p>
             <a
-              class="link"
+              class="people__link"
               href="https://github.com/Jolissa1"
               target="_blank"
               rel="noopener noreferrer"
@@ -94,13 +101,14 @@
             >
           </div>
         </div>
-      </div>
+      </section>
     </div>
-    <div class="mission-wrapper">
-      <div class="mission-block">
-        <div class="wrapper mission">
-          <h2>Our Mission</h2>
-          <p>
+
+    <section class="mission__wrapper">
+      <div class="wrapper">
+        <div class="mission__content">
+          <h2 class="mission__header">Our Mission</h2>
+          <p class="mission__paragraph">
             Technology, more than any other science, is a field of cooperation.
             Not only do we do better work together, we wouldn't even have a
             field if it wasn't for giants like Nicola Tesla, Alan Turing and Tim
@@ -111,20 +119,21 @@
             a community that is on a mission to make a difference - you can to
             the right place.
           </p>
-          <div class="side-by-side-buttons mission-buttons">
+          <div class="side-by-side-buttons">
             <a class="new-button" href="#contribute">How to Contribute</a>
             <a class="new-button" href="/signup">Join us Now</a>
           </div>
         </div>
       </div>
-    </div>
-    <div id="contribute" class="contribute-wrapper">
-      <div class="wrapper contribute">
-        <h2>How to Contribute</h2>
+    </section>
+
+    <div class="wrapper">
+      <section id="contribute" class="contribute">
+        <h2 class="contribute__header">How to Contribute</h2>
 
         <div class="contribute__section thoughts">
-          <h3>Share your thoughts</h3>
-          <p>
+          <h3 class="contribute__sub-header">Share your thoughts</h3>
+          <p class="contribute__paragraph">
             Anyone can start contributing to the community by sharing with the
             community. So, do you know stuff that could help others? And are you
             ready to sharing? Get in touch with our organization and we will be
@@ -138,9 +147,10 @@
             >
           </div>
         </div>
+
         <div class="contribute__section discord">
-          <h3>Join our Discord community</h3>
-          <p>
+          <h3 class="contribute__sub-header">Join our Discord community</h3>
+          <p class="contribute__paragraph">
             Looking to connect to like-minded professionals? Our in our Discord
             community you'll find them! It is the place where we meet and talk
             about tech, our dreams to change the world and anything else that
@@ -149,9 +159,10 @@
           </p>
           <a class="new-button" href="/discord">Join our Discord community</a>
         </div>
+
         <div class="contribute__section open-source">
-          <h3>Contribute to Open Source</h3>
-          <p>
+          <h3 class="contribute__sub-header">Contribute to Open Source</h3>
+          <p class="contribute__paragraph">
             We regularly hold Mob Programming sessions to make contributions to
             Open Source technology. We do so by picking up issues and request
             from the Open Source communities and, where possible, we work
@@ -165,13 +176,14 @@
             >
           </div>
         </div>
+
         <div class="contribute__section closing-text">
           <p>
             As you can see, there is lots to do! So please join us now, the
             world is big and technology is huge, so we need your shoulders too.
           </p>
         </div>
-      </div>
+      </section>
     </div>
   </BasePageLayout>
 </template>
@@ -185,42 +197,51 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.about-us-wrapper {
-  background: linear-gradient(
-      0deg,
-      rgba($accelerate-blue-primary, 0.5),
-      rgba($accelerate-blue-primary, 0.5)
-    ),
-    url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80');
-  background-size: cover;
-  height: 700px;
-}
-
-.about-us-block {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+p {
+  line-height: 1.4rem;
 }
 
 .wrapper {
-  padding: 2.5em;
   max-width: 630px;
   margin: 0 auto;
 }
 
 .about-us {
-  background-color: $accelerate-blue-primary;
-  text-align: center;
-  color: white;
-
-  h1 {
-    font-size: 5rem;
-    margin-bottom: 30px;
+  &__wrapper {
+    background: linear-gradient(
+        0deg,
+        rgba($accelerate-blue-primary, 0.5),
+        rgba($accelerate-blue-primary, 0.5)
+      ),
+      url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80');
+    background-size: cover;
+    padding: 100px 0;
   }
 
-  &__sub-text {
+  &__content {
+    background-color: $accelerate-blue-primary;
+    padding: 40px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__header {
+    font-size: 5rem;
+    margin-bottom: 30px;
+    text-align: center;
+  }
+
+  &__paragraph {
     margin-bottom: 20px;
+  }
+
+  &__founded-text {
+    margin-bottom: 40px;
+  }
+
+  &__action-button {
+    margin: 0 auto;
   }
 }
 
@@ -228,24 +249,24 @@ export default defineComponent({
   margin-top: 100px;
   text-align: center;
 
-  h2 {
+  &__header {
     font-size: 3rem;
     margin-bottom: 10px;
   }
 
-  h3 {
+  &__sub-header {
     font-size: 1.3rem;
     margin-bottom: 20px;
   }
 
-  &__flex-container {
+  &__people-container {
     margin-top: 60px;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;
   }
 
-  &__flex-item {
+  &__people-item {
     border-radius: 10px;
     box-shadow: 5px 3px 10px $gray-dark;
 
@@ -271,61 +292,70 @@ export default defineComponent({
       display: block;
     }
   }
-}
 
-.mission-wrapper {
-  margin: 80px 0;
-  background: linear-gradient(
-      0deg,
-      rgba($accelerate-blue-primary, 0.5),
-      rgba($accelerate-blue-primary, 0.5)
-    ),
-    url('https://images.unsplash.com/photo-1553877522-43269d4ea984?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80');
-  background-size: cover;
-  height: 500px;
-}
+  &__link {
+    color: $ordina-orange;
+    text-decoration: none;
 
-.mission-block {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+    &:active,
+    &:hover {
+      color: $ordina-orange-hover;
+      text-decoration: underline;
+    }
+  }
 }
 
 .mission {
-  background-color: $accelerate-blue-primary;
-  text-align: center;
-  color: white;
-
-  h2 {
-    font-size: 3rem;
-    margin-bottom: 20px;
+  &__wrapper {
+    margin: 50px 0 80px;
+    background: linear-gradient(
+        0deg,
+        rgba($accelerate-blue-primary, 0.5),
+        rgba($accelerate-blue-primary, 0.5)
+      ),
+      url('https://images.unsplash.com/photo-1553877522-43269d4ea984?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80');
+    background-size: cover;
+    padding: 70px 0;
   }
 
-  .mission-buttons {
-    margin-top: 30px;
+  &__content {
+    background-color: $accelerate-blue-primary;
+    padding: 40px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__header {
+    font-size: 3rem;
+    margin-bottom: 40px;
+    text-align: center;
+  }
+
+  &__paragraph {
+    margin-bottom: 40px;
   }
 }
 
 .contribute {
   text-align: center;
 
-  h2 {
+  &__header {
     font-size: 3rem;
     margin-bottom: 20px;
   }
 
-  h3 {
+  &__sub-header {
     font-size: 1.8rem;
     margin-bottom: 20px;
   }
 
   &__section {
     margin: 75px 0 120px;
+  }
 
-    p {
-      margin-bottom: 30px;
-    }
+  &__paragraph {
+    margin-bottom: 30px;
   }
 }
 
@@ -339,13 +369,37 @@ export default defineComponent({
   }
 }
 
-a.link {
-  color: $ordina-orange;
-  text-decoration: none;
+@media (max-width: 500px) {
+  .about-us {
+    &__wrapper {
+      padding: 0;
+    }
 
-  &:active,
-  &:hover {
-    color: $ordina-orange-hover;
+    &__content {
+      padding: 40px 30px;
+    }
+
+    &__header {
+      font-size: 3rem;
+    }
+  }
+
+  .mission {
+    &__wrapper {
+      padding: 0;
+    }
+
+    &__content {
+      padding: 40px 30px;
+    }
+
+    &__header {
+      font-size: 3rem;
+    }
+  }
+
+  .contribute {
+    padding: 40px 30px;
   }
 }
 </style>
