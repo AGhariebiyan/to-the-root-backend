@@ -3,48 +3,14 @@
     <LayoutTheHeader />
     <Nuxt />
     <LayoutTheFooter />
-    <CookieModal v-if="showCookieModal" @close="showCookieModal = false" />
   </div>
 </template>
 
 <script>
-import { onAnalyticsReady } from 'vue-analytics'
-import {
-  defineComponent,
-  useContext,
-  onMounted,
-  computed,
-  ref,
-} from '@nuxtjs/composition-api'
+import { defineComponent } from '@nuxtjs/composition-api'
 
 export default defineComponent({
-  setup() {
-    const { $auth, $ga } = useContext()
-
-    const isLoggedIn = computed(() => {
-      return $auth.$state.loggedIn
-    })
-
-    const showCookieModal = ref(false)
-
-    onMounted(async () => {
-      try {
-        await onAnalyticsReady().then(() => {
-          if (!isLoggedIn.value) {
-            showCookieModal.value = true
-            return
-          }
-          if ($auth.user?.allowsCookies) {
-            $ga.enable()
-          }
-        })
-      } catch (err) {
-        console.log(err)
-      }
-    })
-
-    return { showCookieModal, isLoggedIn }
-  },
+  setup() {},
 })
 </script>
 

@@ -12,6 +12,9 @@
           class="footer__nav-link"
           >{{ link.name }}</NuxtLink
         >
+        <a class="footer__nav-link" @click="showCookieModal = true">
+          Cookies
+        </a>
       </nav>
       <div class="footer__social-icons">
         <a class="footer__social-link" href="https://www.facebook.com/ordina/"
@@ -32,11 +35,19 @@
         ></a>
       </div>
     </div>
+    <CookieModal v-if="showCookieModal" @close="showCookieModal = false" />
   </footer>
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@nuxtjs/composition-api'
+import { onAnalyticsReady } from 'vue-analytics'
+import {
+  defineComponent,
+  useContext,
+  onMounted,
+  computed,
+  ref,
+} from '@nuxtjs/composition-api'
 
 export default defineComponent({
   setup() {
@@ -46,15 +57,37 @@ export default defineComponent({
         to: '/proclaimer',
       },
       {
-        name: 'Privacy & Cookies',
-        to: '/privacy',
-      },
-      {
         name: 'About Ordina',
         to: '/about',
       },
     ]
-    return { links }
+
+    const context: any = useContext()
+    const { $auth, $ga } = context
+
+    const isLoggedIn = computed(() => {
+      return $auth.$state.loggedIn
+    })
+
+    const showCookieModal = ref(false)
+
+    onMounted(async () => {
+      try {
+        await onAnalyticsReady().then(() => {
+          if (!isLoggedIn.value) {
+            showCookieModal.value = true
+            return
+          }
+          if ($auth.user?.allowsCookies) {
+            $ga.enable()
+          }
+        })
+      } catch (err) {
+        console.log(err)
+      }
+    })
+
+    return { showCookieModal, isLoggedIn, links }
   },
 })
 </script>
@@ -85,6 +118,7 @@ export default defineComponent({
   margin: 1.2rem;
 
   &:hover {
+    cursor: pointer;
     text-decoration: underline;
   }
 }
