@@ -40,7 +40,10 @@
               <BaseButton
                 :disabled="isLastPage"
                 buttonType="primary"
-                @click="refineNext"
+                @click.native="
+                  refineNext()
+                  showMoreClicked()
+                "
               >
                 Show more
               </BaseButton>
@@ -53,7 +56,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from '@nuxtjs/composition-api'
+import { defineComponent, ref, useContext } from '@nuxtjs/composition-api'
 
 import {
   AisConfigure,
@@ -83,10 +86,18 @@ export default defineComponent({
 
     const searchClient = algoliasearch(appId, searchKey)
 
+    const context: any = useContext()
+    const { $ga } = context
+
+    function showMoreClicked() {
+      $ga.event('showMoreClicked')
+    }
+
     return {
       algoliaIndex,
       query,
       searchClient,
+      showMoreClicked,
     }
   },
 })
