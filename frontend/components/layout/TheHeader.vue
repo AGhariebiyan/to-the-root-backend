@@ -2,7 +2,7 @@
   <header class="header">
     <div class="header__content">
       <div class="logo">
-        <NuxtLink class="logo__link" to="/">
+        <NuxtLink class="logo__link" to="/content">
           <img class="logo__image" src="@/assets/Logo.svg" alt="Logo" />
         </NuxtLink>
       </div>
@@ -84,10 +84,6 @@ export default defineComponent({
     })
 
     const links = [
-      {
-        name: 'Community',
-        to: '/',
-      },
       {
         name: 'Content',
         to: '/content',
