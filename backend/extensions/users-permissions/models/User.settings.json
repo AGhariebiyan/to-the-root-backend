@@ -67,7 +67,7 @@
       "via": "user",
       "collection": "like"
     },
-    "allowsCookies": {
+    "allowsGoogleAnalytics": {
       "type": "boolean"
     }
   }
