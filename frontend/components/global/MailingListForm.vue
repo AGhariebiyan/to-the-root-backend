@@ -66,25 +66,27 @@ export default defineComponent({
         return
       }
 
+      isLoading.value = true
+
       const templateParams = {
         interest: props.interest,
         email: email.value,
       }
 
-      isLoading.value = true
+      const emailResponse = await sendEmail(
+        'template_mailing_list',
+        templateParams,
+      )
 
-      sendEmail('template_mailing_list', templateParams)
-        .then((result) => {
-          console.log('SUCCESS!', result)
+      if (emailResponse) {
+        if (emailResponse.status === 200) {
           hasSubscribed.value = true
-        })
-        .catch((error) => {
-          console.log('FAILED...', error)
-          errors.value.push(`Something went wrong: ${error}`)
-        })
-        .finally(() => {
-          isLoading.value = false
-        })
+        } else {
+          errors.value.push(`Something went wrong: ${emailResponse.text}`)
+        }
+      }
+
+      isLoading.value = false
     }
 
     return {

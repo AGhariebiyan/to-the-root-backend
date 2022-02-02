@@ -94,7 +94,7 @@ export default defineComponent({
     const isLoading = ref(false)
     const hasSentMessage = ref(false)
 
-    function sendMessage() {
+    async function sendMessage() {
       errors.value = []
 
       if (!firstName.value.trim().length) {
@@ -117,6 +117,8 @@ export default defineComponent({
         return
       }
 
+      isLoading.value = true
+
       const templateParams = {
         firstName: firstName.value,
         lastName: lastName.value,
@@ -124,20 +126,20 @@ export default defineComponent({
         message: message.value,
       }
 
-      isLoading.value = true
+      const emailResponse = await sendEmail(
+        'template_contact_form',
+        templateParams,
+      )
 
-      sendEmail('template_contact_form', templateParams)
-        .then((result) => {
-          console.log('SUCCESS!', result)
+      if (emailResponse) {
+        if (emailResponse.status === 200) {
           hasSentMessage.value = true
-        })
-        .catch((error) => {
-          console.log('FAILED...', error)
-          errors.value.push(`Something went wrong: ${error}`)
-        })
-        .finally(() => {
-          isLoading.value = false
-        })
+        } else {
+          errors.value.push(`Something went wrong: ${emailResponse.text}`)
+        }
+      }
+
+      isLoading.value = false
     }
 
     return {

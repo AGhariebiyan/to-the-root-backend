@@ -8,7 +8,7 @@ function validateEmail(email: any) {
         )
 }
 
-function sendEmail(emailTemplateId: string, templateParams: any) {
+async function sendEmail(emailTemplateId: string, templateParams: any) {
     const emailServiceId = process.env.emailJSServiceID
     const emailUserId = process.env.emailJSUserID
 
@@ -17,18 +17,10 @@ function sendEmail(emailTemplateId: string, templateParams: any) {
         return
     }
 
-    return new Promise((resolve, reject) => {
-        emailjs
-            .send(emailServiceId, emailTemplateId, templateParams, emailUserId)
-            .then(
-                (result) => {
-                    resolve(result.text);
-                },
-                (error) => {
-                    reject(error.text);
-                }
-            )
-    })
+    const response = emailjs
+        .send(emailServiceId, emailTemplateId, templateParams, emailUserId)
+
+    return response;
 }
 
 export { validateEmail, sendEmail }
