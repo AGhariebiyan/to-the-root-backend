@@ -6,6 +6,7 @@
           <img class="logo__image" src="@/assets/Logo.svg" alt="Logo" />
         </NuxtLink>
       </div>
+
       <span
         v-if="!isHeaderMobileMenuActive"
         class="material-icons header__mobile-menu-button"
@@ -13,6 +14,7 @@
         @touch="openMobileNavMenu"
         >menu</span
       >
+
       <span
         v-else
         class="material-icons header__mobile-menu-button"
@@ -20,6 +22,7 @@
         @touch="closeMobileNavMenu"
         >close</span
       >
+
       <nav class="nav-links--desktop">
         <NuxtLink
           class="nav-links__item"
@@ -29,7 +32,13 @@
           >{{ link.name }}</NuxtLink
         >
       </nav>
+
+      <!-- Dark Mode Toggle -->
+      <DarkModeToggle />
+
+      <!-- Login Buttons -->
       <LoginBox />
+
       <div class="header__menu--mobile" v-if="isHeaderMobileMenuActive">
         <nav class="nav-links--mobile">
           <NuxtLink

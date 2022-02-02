@@ -37,6 +37,20 @@ $danger-red-hover: #a90000;
 $warning-yellow: #ffe100;
 $warning-yellow-hover: #d3bb00;
 
+:root {
+  // Light Theme
+  --color-toggle-bg: linear-gradient($gray, $gray);
+}
+
+[data-theme="dark"] {
+  // Dark Theme
+  --color-toggle-bg: linear-gradient(
+    to right,
+    $accelerate-blue-primary,
+    $ordina-orange
+  );
+}
+
 // Variables
 $header-item-width: 13rem;
 
