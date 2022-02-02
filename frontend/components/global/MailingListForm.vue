@@ -1,7 +1,14 @@
 <template>
   <p v-if="isLoading">hold on...</p>
+
   <h3 v-else-if="hasSubscribed">You're on the list!</h3>
-  <form v-else ref="form" class="mailing-form" @submit.prevent="sendEmail">
+
+  <form
+    v-else
+    ref="form"
+    class="mailing-form"
+    @submit.prevent="applyForMailingList"
+  >
     <ul class="mailing-form error-list">
       <li class="mailing-form error" v-for="error in errors" :key="error">
         {{ error }}
@@ -23,17 +30,8 @@
 </template>
 
 <script lang="ts">
-import {
-  defineComponent,
-  onMounted,
-  ref,
-  Ref,
-  useContext,
-} from '@nuxtjs/composition-api'
-import emailjs from '@emailjs/browser'
-const emailServiceId = process.env.emailJSServiceID
-const emailTemplateId = process.env.emailJSTemplateID
-const emailUserId = process.env.emailJSUserID
+import { defineComponent, ref, Ref, useContext } from '@nuxtjs/composition-api'
+import { validateEmail, sendEmail } from '~/utils/email'
 
 export default defineComponent({
   name: 'MailingListForm',
@@ -48,13 +46,14 @@ export default defineComponent({
   setup(props) {
     const { $auth } = useContext()
 
-    const initialEmailValue: string = String($auth.user?.email) ?? ''
+    const initialEmailValue: string =
+      $auth.user?.email !== undefined ? String($auth.user?.email) : ''
     const email: Ref<string> = ref(initialEmailValue)
     const errors: Ref<string[]> = ref([])
     const isLoading = ref(false)
     const hasSubscribed = ref(false)
 
-    async function sendEmail() {
+    async function applyForMailingList() {
       errors.value = []
 
       if (email.value.trim() === '') {
@@ -72,48 +71,25 @@ export default defineComponent({
         email: email.value,
       }
 
-      if (!emailServiceId || !emailTemplateId || !emailUserId) {
-        alert('emailJS process variables not defined! Contact the admin.')
-        return
-      }
-
       isLoading.value = true
 
-      emailjs
-        // .send(
-        //     'service_hc5nyhf',
-        //     'template_mailing_list',
-        //     templateParams,
-        //     'user_lvX2tiz33iKi07vdvM7a4',
-
-        // )
-        .send(emailServiceId, emailTemplateId, templateParams, emailUserId)
-        .then(
-          (result) => {
-            console.log('SUCCESS!', result.text)
-            hasSubscribed.value = true
-          },
-          (error) => {
-            console.log('FAILED...', error.text)
-            errors.value.push(`Something went wrong: ${error.text}`)
-          },
-        )
+      sendEmail('template_mailing_list', templateParams)
+        .then((result) => {
+          console.log('SUCCESS!', result)
+          hasSubscribed.value = true
+        })
+        .catch((error) => {
+          console.log('FAILED...', error)
+          errors.value.push(`Something went wrong: ${error}`)
+        })
         .finally(() => {
           isLoading.value = false
         })
     }
 
-    function validateEmail(email: any) {
-      return String(email)
-        .toLowerCase()
-        .match(
-          /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-        )
-    }
-
     return {
       email,
-      sendEmail,
+      applyForMailingList,
       errors,
       isLoading,
       hasSubscribed,
