@@ -105,8 +105,8 @@ export default defineComponent({
         })
     }
 
-    function validateEmail(email: any) {
-      return String(email)
+    function validateEmail(email: string) {
+      return email
         .toLowerCase()
         .match(
           /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
@@ -152,8 +152,8 @@ export default defineComponent({
 .mailing-form {
   &__email {
     input {
-      width: 300px;
-      padding: 10px 10px;
+      width: 20rem;
+      padding: 10px;
       margin: 8px 0 30px;
       border: none;
       background-color: $discovery-blue-primary;
