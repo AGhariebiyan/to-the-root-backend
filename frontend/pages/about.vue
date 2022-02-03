@@ -142,7 +142,7 @@
           </p>
           <div class="side-by-side-buttons">
             <a class="new-button" href="/contact">Get in touch</a>
-            <a class="new-button" href="/produceContent"
+            <a class="new-button" href="/produce-content"
               >More on contributing</a
             >
           </div>
@@ -171,7 +171,7 @@
           </p>
           <div class="side-by-side-buttons">
             <a class="new-button" href="/discord">Mob Programming on Discord</a>
-            <a class="new-button" href="/openSource"
+            <a class="new-button" href="/open-source"
               >Contribute to Open Source</a
             >
           </div>

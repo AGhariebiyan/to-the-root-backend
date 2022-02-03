@@ -50,7 +50,7 @@ export default defineComponent({
         to: '/privacy',
       },
       {
-        name: 'About Ordina',
+        name: 'About Us',
         to: '/about',
       },
     ]

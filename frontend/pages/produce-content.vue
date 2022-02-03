@@ -1,6 +1,6 @@
 <template>
   <BasePageLayout>
-    <MailingListForm interest="Discord"
+    <MailingListForm interest="Contribute (Produce Content)"
       ><h1>Join our Discord</h1>
 
       <p>

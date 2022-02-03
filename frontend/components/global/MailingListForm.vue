@@ -1,35 +1,39 @@
 <template>
-  <p v-if="isLoading">hold on...</p>
-  <h3 v-else-if="hasSubscribed">You're on the list!</h3>
-  <form v-else ref="form" class="mailing-form" @submit.prevent="sendEmail">
-    <ul class="mailing-form error-list">
-      <li class="mailing-form error" v-for="error in errors" :key="error">
-        {{ error }}
-      </li>
-    </ul>
-    <div class="mailing-form__email">
-      <input
-        type="text"
-        placeholder="subscribe@totheroot.com"
-        v-model="email"
-      />
+  <div class="oops-wrapper">
+    <div class="wrapper">
+      <slot></slot>
+
+      <p v-if="isLoading">hold on...</p>
+
+      <h3 v-else-if="hasSubscribed">You're on the list!</h3>
+
+      <form v-else ref="form" class="mailing-form" @submit.prevent="sendEmail">
+        <ul class="mailing-form error-list">
+          <li class="mailing-form error" v-for="error in errors" :key="error">
+            {{ error }}
+          </li>
+        </ul>
+
+        <div class="mailing-form__email">
+          <input
+            type="text"
+            placeholder="subscribe@totheroot.com"
+            v-model="email"
+          />
+        </div>
+
+        <div>
+          <button class="new-button" :disabled="!email.length" type="submit">
+            Keep me updated
+          </button>
+        </div>
+      </form>
     </div>
-    <div>
-      <button class="new-button" :disabled="!email.length" type="submit">
-        Keep me updated
-      </button>
-    </div>
-  </form>
+  </div>
 </template>
 
 <script lang="ts">
-import {
-  defineComponent,
-  onMounted,
-  ref,
-  Ref,
-  useContext,
-} from '@nuxtjs/composition-api'
+import { defineComponent, ref, Ref, useContext } from '@nuxtjs/composition-api'
 import emailjs from '@emailjs/browser'
 const emailServiceId = process.env.emailJSServiceID
 const emailTemplateId = process.env.emailJSTemplateID
@@ -72,7 +76,7 @@ export default defineComponent({
         email: email.value,
       }
 
-      if (!emailServiceId || !emailTemplateId || !emailUserId) {
+      if (!emailServiceId || !emailUserId) {
         alert('emailJS process variables not defined! Contact the admin.')
         return
       }
@@ -80,14 +84,12 @@ export default defineComponent({
       isLoading.value = true
 
       emailjs
-        // .send(
-        //     'service_hc5nyhf',
-        //     'template_mailing_list',
-        //     templateParams,
-        //     'user_lvX2tiz33iKi07vdvM7a4',
-
-        // )
-        .send(emailServiceId, emailTemplateId, templateParams, emailUserId)
+        .send(
+          emailServiceId,
+          'template_mailing_list',
+          templateParams,
+          emailUserId,
+        )
         .then(
           (result) => {
             console.log('SUCCESS!', result.text)
@@ -123,21 +125,46 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+.oops-wrapper {
+  background: linear-gradient(
+      0deg,
+      rgba($accelerate-blue-primary, 0.5),
+      rgba($accelerate-blue-primary, 0.5)
+    ),
+    url('https://images.unsplash.com/photo-1480506132288-68f7705954bd?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2420&q=80');
+  background-size: cover;
+  height: 100vh;
+}
+
+.wrapper {
+  background: $accelerate-blue-primary;
+  max-width: 630px;
+  margin: 150px auto 0;
+  padding: 50px;
+  text-align: center;
+  color: $white;
+
+  p {
+    padding: 30px 0;
+  }
+}
+
 .mailing-form {
   &__email {
     input {
       width: 300px;
       padding: 10px 10px;
       margin: 8px 0 30px;
-      box-sizing: border-box;
       border: none;
       background-color: $discovery-blue-primary;
       color: $white;
       text-align: center;
+      border-left: 0 solid $ordina-orange;
+      transition: all 0.2s ease;
 
       &:focus {
-        border-bottom: 4px solid $ordina-orange;
-        padding: 8px 10px;
+        border-left: 8px solid $ordina-orange;
+        padding-left: 2px;
         outline: none;
 
         &::placeholder {
@@ -150,5 +177,10 @@ export default defineComponent({
       }
     }
   }
+}
+
+.error-list {
+  margin: 0 auto;
+  width: 300px;
 }
 </style>
