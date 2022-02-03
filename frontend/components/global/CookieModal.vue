@@ -1,9 +1,8 @@
 <template>
-  <div class="cookie-modal__wrapper" @click="$emit('close')">
-    <div class="cookie-modal__card" @click.stop>
-      <div class="cookie-modal__close-button" @click="$emit('close')">×</div>
-      <h2 class="cookie-modal__heading">Google Analytics</h2>
-      <p class="cookie-modal__paragraph">
+  <BaseModal @close="$emit('close')">
+    <template slot="heading">Google Analytics</template>
+    <template slot="content">
+      <p class="ga-disclaimer-text">
         We like to use Google Analytics to monitor behaviour of visitors of our
         site. This enables us to give you the best experience possible. It also
         helps us prioritize our backlog.
@@ -21,8 +20,8 @@
         >
         <div class="toggle__switch"></div>
       </div>
-    </div>
-  </div>
+    </template>
+  </BaseModal>
 </template>
 
 <script lang="ts">
@@ -61,53 +60,8 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.cookie-modal {
-  &__wrapper {
-    height: 100vh;
-    width: 100vw;
-    position: fixed;
-    top: 0;
-    left: 0;
-    background: rgba(black, 0.5);
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  &__card {
-    position: relative;
-    max-width: 30rem;
-    padding: 2rem;
-    border-radius: 1rem;
-    background-color: white;
-  }
-
-  &__close-button {
-    position: absolute;
-    top: 0.5rem;
-    right: 1rem;
-    font-size: 2rem;
-
-    &:hover {
-      cursor: pointer;
-      color: $discovery-blue-primary;
-    }
-  }
-
-  &__heading {
-    margin-bottom: 1rem;
-  }
-
-  &__paragraph {
-    margin-bottom: 1rem;
-  }
-
-  &__checkbox {
-  }
-
-  &__label {
-  }
+.ga-disclaimer-text {
+  margin-bottom: 1rem;
 }
 
 .toggle {
