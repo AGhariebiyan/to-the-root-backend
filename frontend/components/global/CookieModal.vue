@@ -7,7 +7,9 @@
         site. This enables us to give you the best experience possible. It also
         helps us prioritize our backlog.
       </p>
-      <div class="toggle">
+
+      <div v-if="isLoading">Loading</div>
+      <div v-else class="toggle" @click="toggleGA">
         <input
           type="checkbox"
           id="toggle__input"
@@ -35,26 +37,28 @@ import {
 
 export default defineComponent({
   setup() {
+    const isLoading = ref(true)
     const context: any = useContext()
-    const { $ga } = context
+    const { $ga, $auth } = context
+
+    const enableGoogleAnalytics = ref(false)
+
+    function toggleGA() {
+      // Note how the value of enableGoogleAnalytics is set to the new value after this method is called
+      $ga.disable = enableGoogleAnalytics.value
+    }
 
     onMounted(async () => {
       try {
         await onAnalyticsReady().then(() => {
-          if (true) {
-            $ga.enable() // Activate module
-          }
+          isLoading.value = false
         })
       } catch (err) {
         console.log(err)
       }
     })
 
-    console.log($ga)
-
-    const enableGoogleAnalytics = ref(false)
-
-    return { enableGoogleAnalytics }
+    return { enableGoogleAnalytics, isLoading, toggleGA }
   },
 })
 </script>
