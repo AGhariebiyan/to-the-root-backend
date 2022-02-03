@@ -11,6 +11,32 @@
   </div>
 </template>
 
+<script lang="js">
+// const toggle = document.querySelector(".toggle__input");
+// const defaultTheme = "dark";
+
+// function switchTheme(e) {
+//   const theme = e.target.checked ? "dark" : "light";
+//     console.log(e, theme);
+//   document.documentElement.setAttribute("data-theme", theme);
+//   localStorage.setItem("theme", theme);
+// }
+
+// toggle.addEventListener("change", switchTheme, false);
+
+// const currentTheme = localStorage.getItem("theme")
+//   ? localStorage.getItem("theme")
+//   : defaultTheme;
+
+// if (currentTheme) {
+//   document.documentElement.setAttribute("data-theme", currentTheme);
+
+//   if (currentTheme === "light") {
+//     toggle.checked = false;
+//   }
+// }
+</script>
+
 <style lang="scss" scoped>
 .toggle {
   //   color: $accelerate-blue-primary;
@@ -37,7 +63,7 @@
     width: 3.5rem;
     height: 2rem;
     border-radius: 100px;
-    background-image: var(--color-toggle-bg);
+    background: var(--color-toggle-bg);
     position: relative;
 
     &::before {

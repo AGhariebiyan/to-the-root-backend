@@ -39,15 +39,15 @@ $warning-yellow-hover: #d3bb00;
 
 :root {
   // Light Theme
-  --color-toggle-bg: linear-gradient($gray, $gray);
+  --color-toggle-bg: linear-gradient(#e1e1e1, #e1e1e1);
 }
 
 [data-theme="dark"] {
   // Dark Theme
   --color-toggle-bg: linear-gradient(
     to right,
-    $accelerate-blue-primary,
-    $ordina-orange
+    #f58220,
+    #3da4bf
   );
 }
 
