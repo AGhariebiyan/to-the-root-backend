@@ -1,12 +1,12 @@
 <template>
   <BasePageLayout>
-    <MailingListForm interest="Discord"
-      ><h1>Join our Discord</h1>
+    <MailingListForm interest="Discord" buttonText="Keep me updated">
+      <template v-slot:header> Join our Discord </template>
 
-      <p>
+      <template v-slot:paragraph>
         We're still working on the server. We can let you know as soon as it's
         ready if you leave your email.
-      </p></MailingListForm
-    >
+      </template>
+    </MailingListForm>
   </BasePageLayout>
 </template>

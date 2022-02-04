@@ -1,12 +1,15 @@
 <template>
   <BasePageLayout>
-    <MailingListForm interest="Contribute (Open Source)"
-      ><h1>Join our Discord</h1>
-
-      <p>
-        We're still working on the server. We can let you know as soon as it's
-        ready if you leave your email.
-      </p></MailingListForm
+    <MailingListForm
+      interest="Contribute (Open Source)"
+      buttonText="Keep me updated"
     >
+      <template v-slot:header> Contribute - Open Source </template>
+
+      <template v-slot:paragraph>
+        We're still working on this feature. We can let you know as soon as it's
+        ready if you leave your email.
+      </template>
+    </MailingListForm>
   </BasePageLayout>
 </template>

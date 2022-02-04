@@ -1,11 +1,14 @@
 <template>
   <div class="oops-wrapper">
     <div class="wrapper">
-      <slot></slot>
+      <h1 class="form-header"><slot name="header"></slot></h1>
+      <p class="form-paragraph"><slot name="paragraph"></slot></p>
 
-      <p v-if="isLoading">hold on...</p>
+      <p class="form-paragraph" v-if="isLoading">hold on...</p>
 
-      <h3 v-else-if="hasSubscribed">You're on the list!</h3>
+      <h3 class="confirmation-text" v-else-if="hasSubscribed">
+        You're on the list!
+      </h3>
 
       <form v-else ref="form" class="mailing-form" @submit.prevent="sendEmail">
         <ul class="mailing-form error-list">
@@ -16,6 +19,7 @@
 
         <div class="mailing-form__email">
           <input
+            class="mailing-form__email-input"
             type="text"
             placeholder="subscribe@totheroot.com"
             v-model="email"
@@ -24,7 +28,7 @@
 
         <div>
           <button class="new-button" :disabled="!email.length" type="submit">
-            Keep me updated
+            {{ buttonText }}
           </button>
         </div>
       </form>
@@ -36,7 +40,6 @@
 import { defineComponent, ref, Ref, useContext } from '@nuxtjs/composition-api'
 import emailjs from '@emailjs/browser'
 const emailServiceId = process.env.emailJSServiceID
-const emailTemplateId = process.env.emailJSTemplateID
 const emailUserId = process.env.emailJSUserID
 
 export default defineComponent({
@@ -44,6 +47,10 @@ export default defineComponent({
 
   props: {
     interest: {
+      type: String,
+      required: true,
+    },
+    buttonText: {
       type: String,
       required: true,
     },
@@ -92,11 +99,9 @@ export default defineComponent({
         )
         .then(
           (result) => {
-            console.log('SUCCESS!', result.text)
             hasSubscribed.value = true
           },
           (error) => {
-            console.log('FAILED...', error.text)
             errors.value.push(`Something went wrong: ${error.text}`)
           },
         )
@@ -138,43 +143,41 @@ export default defineComponent({
 
 .wrapper {
   background: $accelerate-blue-primary;
-  max-width: 630px;
+  max-width: 40rem;
   margin: 150px auto 0;
   padding: 50px;
   text-align: center;
   color: $white;
 
-  p {
+  .form-paragraph {
     padding: 30px 0;
   }
 }
 
 .mailing-form {
-  &__email {
-    input {
-      width: 20rem;
-      padding: 10px;
-      margin: 8px 0 30px;
-      border: none;
-      background-color: $discovery-blue-primary;
-      color: $white;
-      text-align: center;
-      border-left: 0 solid $ordina-orange;
-      transition: all 0.2s ease;
+  &__email-input {
+    width: 20rem;
+    padding: 10px;
+    margin: 8px 0 30px;
+    border: none;
+    background-color: $discovery-blue-primary;
+    color: $white;
+    text-align: center;
+    border-left: 0 solid $ordina-orange;
+    transition: all 0.2s ease;
 
-      &:focus {
-        border-left: 8px solid $ordina-orange;
-        padding-left: 2px;
-        outline: none;
-
-        &::placeholder {
-          color: transparent;
-        }
-      }
+    &:focus {
+      border-left: 8px solid $ordina-orange;
+      padding-left: 2px;
+      outline: none;
 
       &::placeholder {
-        color: $gray;
+        color: transparent;
       }
+    }
+
+    &::placeholder {
+      color: $gray;
     }
   }
 }
