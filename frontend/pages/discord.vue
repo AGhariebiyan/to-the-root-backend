@@ -1,6 +1,6 @@
 <template>
   <BasePageLayout>
-    <MailingListForm interest="Discord" buttonText="Keep me updated">
+    <MailingListForm interest="Discord" button-text="Keep me updated">
       <template v-slot:header> Join our Discord </template>
 
       <template v-slot:paragraph>

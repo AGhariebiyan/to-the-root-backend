@@ -90,7 +90,7 @@ export default defineComponent({
       },
       {
         name: 'Contribute',
-        to: '/produce-content',
+        to: '/contribute',
       },
       {
         name: 'Open Source',

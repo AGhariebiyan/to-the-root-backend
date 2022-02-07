@@ -2,7 +2,7 @@
   <BasePageLayout>
     <MailingListForm
       interest="Contribute (Open Source)"
-      buttonText="Keep me updated"
+      button-text="Keep me updated"
     >
       <template v-slot:header> Contribute - Open Source </template>
 

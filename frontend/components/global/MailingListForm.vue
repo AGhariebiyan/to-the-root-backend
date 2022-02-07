@@ -138,27 +138,26 @@ export default defineComponent({
     ),
     url('https://images.unsplash.com/photo-1480506132288-68f7705954bd?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2420&q=80');
   background-size: cover;
-  height: 100vh;
 }
 
 .wrapper {
   background: $accelerate-blue-primary;
   max-width: 40rem;
-  margin: 150px auto 0;
-  padding: 50px;
+  margin: 10rem auto;
+  padding: 4rem;
   text-align: center;
   color: $white;
 
   .form-paragraph {
-    padding: 30px 0;
+    padding: 2rem 0;
   }
 }
 
 .mailing-form {
   &__email-input {
     width: 20rem;
-    padding: 10px;
-    margin: 8px 0 30px;
+    padding: 0.7rem;
+    margin: 0.6rem 0 2rem;
     border: none;
     background-color: $discovery-blue-primary;
     color: $white;
@@ -167,8 +166,8 @@ export default defineComponent({
     transition: all 0.2s ease;
 
     &:focus {
-      border-left: 8px solid $ordina-orange;
-      padding-left: 2px;
+      border-left: 0.5rem solid $ordina-orange;
+      padding-left: 0.2rem;
       outline: none;
 
       &::placeholder {
@@ -184,6 +183,18 @@ export default defineComponent({
 
 .error-list {
   margin: 0 auto;
-  width: 300px;
+  width: 20rem;
+}
+
+@media only screen and (max-width: 500px) {
+  .wrapper {
+    margin: 0;
+  }
+
+  .mailing-form {
+    &__email-input {
+      width: 100%;
+    }
+  }
 }
 </style>
