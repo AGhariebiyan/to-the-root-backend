@@ -34,7 +34,7 @@
       </nav>
 
       <!-- Dark Mode Toggle -->
-      <DarkModeToggle />
+      <ColorModePicker />
 
       <!-- Login Buttons -->
       <LoginBox />

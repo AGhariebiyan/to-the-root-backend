@@ -162,4 +162,11 @@ a {
   margin: 1rem 0;
   color: red;
 }
+
+.dark-mode {
+  * {
+    color: white;
+    background: black;
+  }
+}
 </style>
