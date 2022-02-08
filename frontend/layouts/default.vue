@@ -8,7 +8,6 @@
 
 <style lang="scss">
 * {
-  font-family: 'Roboto', sans-serif;
   font-size: $default-font-size;
   word-spacing: 1px;
   -ms-text-size-adjust: 100%;
@@ -16,6 +15,10 @@
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   box-sizing: border-box;
+}
+p,
+li {
+  font-family: 'Roboto', sans-serif;
 }
 
 html {
