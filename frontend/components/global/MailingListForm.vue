@@ -38,9 +38,7 @@
 
 <script lang="ts">
 import { defineComponent, ref, Ref, useContext } from '@nuxtjs/composition-api'
-import emailjs from '@emailjs/browser'
-const emailServiceId = process.env.emailJSServiceID
-const emailUserId = process.env.emailJSUserID
+import { validateEmail, sendEmail } from '~/utils/email'
 
 export default defineComponent({
   name: 'MailingListForm',
@@ -59,13 +57,14 @@ export default defineComponent({
   setup(props) {
     const { $auth } = useContext()
 
-    const initialEmailValue: string = String($auth.user?.email) ?? ''
+    const initialEmailValue: string =
+      $auth.user?.email !== undefined ? String($auth.user?.email) : ''
     const email: Ref<string> = ref(initialEmailValue)
     const errors: Ref<string[]> = ref([])
     const isLoading = ref(false)
     const hasSubscribed = ref(false)
 
-    async function sendEmail() {
+    async function applyForMailingList() {
       errors.value = []
 
       if (email.value.trim() === '') {
@@ -78,49 +77,32 @@ export default defineComponent({
         return
       }
 
+      isLoading.value = true
+
       const templateParams = {
         interest: props.interest,
         email: email.value,
       }
 
-      if (!emailServiceId || !emailUserId) {
-        alert('emailJS process variables not defined! Contact the admin.')
-        return
+      const emailResponse = await sendEmail(
+        'template_mailing_list',
+        templateParams,
+      )
+
+      if (emailResponse) {
+        if (emailResponse.status === 200) {
+          hasSubscribed.value = true
+        } else {
+          errors.value.push(`Something went wrong: ${emailResponse.text}`)
+        }
       }
 
-      isLoading.value = true
-
-      emailjs
-        .send(
-          emailServiceId,
-          'template_mailing_list',
-          templateParams,
-          emailUserId,
-        )
-        .then(
-          (result) => {
-            hasSubscribed.value = true
-          },
-          (error) => {
-            errors.value.push(`Something went wrong: ${error.text}`)
-          },
-        )
-        .finally(() => {
-          isLoading.value = false
-        })
-    }
-
-    function validateEmail(email: string) {
-      return email
-        .toLowerCase()
-        .match(
-          /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-        )
+      isLoading.value = false
     }
 
     return {
       email,
-      sendEmail,
+      applyForMailingList,
       errors,
       isLoading,
       hasSubscribed,
