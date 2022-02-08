@@ -168,14 +168,33 @@ a {
   }
 }
 
-.error-list {
+.error-list,
+.warning-list,
+.success-list {
   list-style: none;
+}
+
+.error-list {
   background: $error-red;
 }
 
-.error {
+.warning-list {
+  background: $warning-yellow;
+}
+
+.success-list {
+  background: $success-green;
+}
+
+.error,
+.warning,
+.success {
   margin: 1rem 0;
   color: $white;
   padding: 10px;
+}
+
+.warning {
+  color: black;
 }
 </style>
