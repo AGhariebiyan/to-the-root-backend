@@ -8,8 +8,11 @@
 
 <style lang="scss">
 * {
+  font-family: 'Poppins', sans-serif;
   font-size: $default-font-size;
   word-spacing: 1px;
+  letter-spacing: 0.015rem;
+  line-height: 1.7rem;
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
   -moz-osx-font-smoothing: grayscale;
@@ -18,7 +21,7 @@
 }
 p,
 li {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Poppins', sans-serif;
 }
 
 html {
@@ -37,7 +40,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: 'RobotoBold', sans-serif;
+  font-family: 'Poppins-Bold', sans-serif;
 }
 
 h1 {
