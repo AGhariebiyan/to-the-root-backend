@@ -67,6 +67,10 @@ To enable resetting the password of a user, make sure to have the sendgrid_api k
 
 This is temporary as we'd need to upgrade to a domain instead of a single sender in the future.
 
+### Sign up to mailing lists
+
+To enable signing up to mailing lists (on /open-source, /contribute or /discord), you will have to set the EMAILJS_SERVICE_ID and EMAILJS_USER_ID variables in your frontend .env. You can find the keys in Jira Pages.
+
 ## Common problems
 
 ### I can't add a picture to my article (internal server error)
