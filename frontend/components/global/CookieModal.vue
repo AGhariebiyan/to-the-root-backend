@@ -7,8 +7,12 @@
         required to achieve the purposes illustrated in the cookie policy.
       </p>
       <div class="cookie-popup__buttons">
-        <button class="cookie-popup__accept" @click="accept">Accept</button>
-        <a class="cookie-popup__learn-more" @click="learnMore" href="/cookies"
+        <button class="cookie-popup__accept" @click="acceptCookies">
+          Accept
+        </button>
+        <a
+          class="cookie-popup__learn-more"
+          href="https://www.cookiesandyou.com/"
           >Learn more</a
         >
       </div>
@@ -17,38 +21,19 @@
 </template>
 
 <script lang="ts">
-import { onAnalyticsReady } from 'vue-analytics'
-import {
-  defineComponent,
-  ref,
-  useContext,
-  onMounted,
-} from '@nuxtjs/composition-api'
+import { defineComponent, useContext } from '@nuxtjs/composition-api'
 
 export default defineComponent({
-  setup() {
-    const isLoading = ref(true)
-    const context: any = useContext()
-    const { $ga, $auth } = context
+  setup(props, context) {
+    const { $ga, $cookies } = useContext()
 
-    const enableGoogleAnalytics = ref(false)
-
-    function toggleGA() {
-      // Note how the value of enableGoogleAnalytics is set to the new value after this method is called
-      $ga.disable = enableGoogleAnalytics.value
+    function acceptCookies() {
+      $cookies.set('allowsCookies', 'true')
+      $ga.enable()
+      context.emit('close')
     }
 
-    onMounted(async () => {
-      try {
-        await onAnalyticsReady().then(() => {
-          isLoading.value = false
-        })
-      } catch (err) {
-        console.log(err)
-      }
-    })
-
-    return { enableGoogleAnalytics, isLoading, toggleGA }
+    return { acceptCookies }
   },
 })
 </script>
@@ -105,7 +90,6 @@ export default defineComponent({
 
   &__learn-more {
     text-decoration: none;
-    font-size: 0.8rem;
 
     &:link,
     &:visited {

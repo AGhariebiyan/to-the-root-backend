@@ -55,6 +55,7 @@ export default {
     'nuxt-material-design-icons',
     'vue-social-sharing/nuxt',
     'nuxt-lazy-load',
+    'cookie-universal-nuxt',
   ],
 
   auth: {

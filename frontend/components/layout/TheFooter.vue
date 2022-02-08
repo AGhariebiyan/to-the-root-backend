@@ -63,22 +63,17 @@ export default defineComponent({
     ]
 
     const context: any = useContext()
-    const { $auth, $ga } = context
+    const { $auth, $ga, $cookies } = context
 
-    const isLoggedIn = computed(() => {
-      return $auth.$state.loggedIn
-    })
-
-    const showCookieModal = ref(false)
+    const showCookieModal = ref()
 
     onMounted(async () => {
       try {
         await onAnalyticsReady().then(() => {
-          if (!isLoggedIn.value) {
+          if (!$cookies.get('allowsCookies')) {
             showCookieModal.value = true
             return
-          }
-          if ($auth.user?.allowsCookies) {
+          } else {
             $ga.enable()
           }
         })
@@ -87,7 +82,7 @@ export default defineComponent({
       }
     })
 
-    return { showCookieModal, isLoggedIn, links }
+    return { showCookieModal, links }
   },
 })
 </script>
