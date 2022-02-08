@@ -9,11 +9,11 @@ jobs:
       - name: Install node
         uses: actions/setup-node@v1
         with:
-          node-version: '16'
+          node-version: "16"
       - name: Installing node modules
         working-directory: ./frontend
-        run: npm cache clean -f && npm install -g n && n stable
-      - name: Run tests  
+        run: npm install
+      - name: Run tests
         working-directory: ./frontend
         run: npm run test
       - name: Tests ✅
