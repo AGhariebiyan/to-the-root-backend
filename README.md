@@ -69,7 +69,7 @@ This is temporary as we'd need to upgrade to a domain instead of a single sender
 
 ### Sign up to mailing lists
 
-To enable signing up to mailing lists (on /open-source, /produce-content or /discord), you will have to set the EMAILJS_SERVICE_ID and EMAILJS_USER_ID variables in your frontend .env. You can find the keys in Jira Pages.
+To enable signing up to mailing lists (on /open-source, /contribute or /discord), you will have to set the EMAILJS_SERVICE_ID and EMAILJS_USER_ID variables in your frontend .env. You can find the keys in Jira Pages.
 
 ## Common problems
 
