@@ -1,405 +1,150 @@
 <template>
   <BasePageLayout>
-    <section class="about-us__wrapper">
-      <div class="wrapper">
-        <div class="about-us__content">
-          <h1 class="about-us__header">About Us</h1>
-          <p class="about-us__paragraph">
-            To The Root is an open community for software developers that
-            welcomes everyone who is looking to grow and contribute. We're all
-            about the latest insights from people working in the field, about
-            cool events where we can bang our tech-heads together and about
-            contributing, to each other, to open-source technology and to the
-            world. Here you'll find inspiration to become a better software
-            developer guided by articles, videos, events for peers from peers.
-            So please have a look around. And, if you feel at home, don't
-            hesitate to join our mission!
+    <section class="wrapper what-about-it">
+      <div class="what-about-it__layout-container">
+        <h1 class="what-about-it__header">So, what about it?</h1>
+        <div class="what-about-it__content">
+          <p class="what-about-it__paragraph">
+            "Ahead Of IT" is an accesible platform and guild welcome to software
+            developers who are looking for a place to grow, contribute to open
+            source software and have cool events or just share thoughts and hang
+            out.
           </p>
-          <p class="about-us__founded-text">
-            To The Root was founded in 2022 by Ordina Software development.
+          <p class="what-about-it__paragraph">
+            We are a rich source of top tier developers with knowledge of the
+            latests insights, approachable for professionals wether you are a
+            junior or an experienced senior.
           </p>
-          <a class="about-us__action-button new-button" href="#contribute"
-            >How to Contribute</a
+          <p class="what-about-it__paragraph">
+            Get inspired, become a better developer using our sources like
+            articles, videos, events and offcourse direct contact with your
+            peers. So what are you waiting for? Join us!
+          </p>
+          <BaseButtonNew class="what-about-it__button" button-color="white"
+            >Join Us</BaseButtonNew
           >
         </div>
       </div>
     </section>
 
-    <div class="wrapper">
-      <section class="people">
-        <h2 class="people__header">Say Hello!</h2>
-        <h3 class="people__sub-header">To the creators of To The Root:</h3>
-        <div class="people__people-container">
-          <div class="people__people-item">
-            <img
-              src="https://www.vdeplant.nl/wp-content/uploads/2020/07/Philodendron-White-Wave-1-1-480x480.jpg"
-              alt=""
-            />
-            <p>Menno Wielhouwer</p>
-            <a
-              class="people__link"
-              href="#"
-              target="_blank"
-              rel="noopener noreferrer"
-              >Git</a
-            >
-          </div>
-          <div class="people__people-item">
-            <img
-              src="https://www.vdeplant.nl/wp-content/uploads/2020/07/Philodendron-White-Wave-1-1-480x480.jpg"
-              alt=""
-            />
-            <p>Joran Minjon</p>
-            <a
-              class="people__link"
-              href="https://github.com/DrKlonk"
-              target="_blank"
-              rel="noopener noreferrer"
-              >Git</a
-            >
-          </div>
-          <div class="people__people-item">
-            <img
-              src="https://www.vdeplant.nl/wp-content/uploads/2020/07/Philodendron-White-Wave-1-1-480x480.jpg"
-              alt=""
-            />
-            <p>Dennis van Oosten</p>
-            <a
-              class="people__link"
-              href="https://github.com/dennis-ordina"
-              target="_blank"
-              rel="noopener noreferrer"
-              >Git</a
-            >
-          </div>
-          <div class="people__people-item">
-            <img
-              src="https://www.vdeplant.nl/wp-content/uploads/2020/07/Philodendron-White-Wave-1-1-480x480.jpg"
-              alt=""
-            />
-            <p>Cindy Davids</p>
-            <a
-              class="people__link"
-              href="#"
-              target="_blank"
-              rel="noopener noreferrer"
-              >Git</a
-            >
-          </div>
-          <div class="people__people-item">
-            <img
-              src="https://www.vdeplant.nl/wp-content/uploads/2020/07/Philodendron-White-Wave-1-1-480x480.jpg"
-              alt=""
-            />
-            <p>Jolissa Latour</p>
-            <a
-              class="people__link"
-              href="https://github.com/Jolissa1"
-              target="_blank"
-              rel="noopener noreferrer"
-              >Git</a
-            >
-          </div>
-        </div>
-      </section>
-    </div>
-
-    <section class="mission__wrapper">
-      <div class="wrapper">
-        <div class="mission__content">
-          <h2 class="mission__header">Our Mission</h2>
-          <p class="mission__paragraph">
-            Technology, more than any other science, is a field of cooperation.
-            Not only do we do better work together, we wouldn't even have a
-            field if it wasn't for giants like Nicola Tesla, Alan Turing and Tim
-            Berners-Lee. That is what To The Root is all about. It's about
-            appreciating the shoulders we stand on, and, in all modesty, trying
-            to be the shoulders for the next generation. Not only do we share
-            our best ideas, we go to work on them. So if you are looking to join
-            a community that is on a mission to make a difference - you can to
-            the right place.
-          </p>
-          <div class="side-by-side-buttons">
-            <a class="new-button" href="#contribute">How to Contribute</a>
-            <a class="new-button" href="/signup">Join us Now</a>
-          </div>
-        </div>
-      </div>
+    <section class="wrapper why-to-join">
+      <h2 class="why-to-join__header">Why to join</h2>
+      <p class="why-to-join__paragraph">
+        Technology, more than any other science, is a field of cooperation. Not
+        only do we do better work together, we wouldn’t even have a field if it
+        wasn’t for giants like Nicola Tesla, Alan Turing and Tim Berners-Lee.
+        That is what Ahead Of IT is all about. It’s about appreciating the
+        shoulders we stand on, and, in all modesty, trying to be the shoulders
+        for the next generation. Not only do we share our best ideas, we go to
+        work on them. So if you are looking to join a community that is on a
+        mission to make a difference – you came to the right place.
+      </p>
+      <BaseButtonNew class="why-to-join__button" button-color="gray-dark"
+        >Call to action</BaseButtonNew
+      >
     </section>
 
-    <div class="wrapper">
-      <section id="contribute" class="contribute">
-        <h2 class="contribute__header">How to Contribute</h2>
+    <section class="wrapper how-to-join">
+      <h2 class="how-to-join__header">How to join</h2>
+      <div class="how-to-join__cards">
+        <BaseActionCard icon-image="newspaper-regular.svg">
+          <template v-slot:title>Start writing articles</template>
+          <template v-slot:info-text
+            >Knowledge to share? We will help you spread the word.</template
+          >
+          <template v-slot:button-text>Contact the editors</template>
+        </BaseActionCard>
 
-        <div class="contribute__section thoughts">
-          <h3 class="contribute__sub-header">Share your thoughts</h3>
-          <p class="contribute__paragraph">
-            Anyone can start contributing to the community by sharing with the
-            community. So, do you know stuff that could help others? And are you
-            ready to sharing? Get in touch with our organization and we will be
-            more than happy to help you on your way to start contributing on To
-            The Root!
-          </p>
-          <div class="side-by-side-buttons">
-            <a class="new-button" href="/contact">Get in touch</a>
-            <a class="new-button" href="/produce-content"
-              >More on contributing</a
-            >
-          </div>
-        </div>
+        <BaseActionCard icon-image="video-solid.svg">
+          <template v-slot:title>Start making videos</template>
+          <template v-slot:info-text
+            >Are you into vlogging, making tutorials and rather share in video?
+            Let us know.</template
+          >
+          <template v-slot:button-text>Contact the editors</template>
+        </BaseActionCard>
 
-        <div class="contribute__section discord">
-          <h3 class="contribute__sub-header">Join our Discord community</h3>
-          <p class="contribute__paragraph">
-            Looking to connect to like-minded professionals? Our in our Discord
-            community you'll find them! It is the place where we meet and talk
-            about tech, our dreams to change the world and anything else that
-            interest us. So come and have a look at our Discord community! See
-            you there.
-          </p>
-          <a class="new-button" href="/discord">Join our Discord community</a>
-        </div>
+        <BaseActionCard icon-image="discord-brands.svg">
+          <template v-slot:title>Join our Discord</template>
+          <template v-slot:info-text
+            >Connect to like-minded IT professionals.</template
+          >
+          <template v-slot:button-text>Join our Discord channel</template>
+        </BaseActionCard>
 
-        <div class="contribute__section open-source">
-          <h3 class="contribute__sub-header">Contribute to Open Source</h3>
-          <p class="contribute__paragraph">
-            We regularly hold Mob Programming sessions to make contributions to
-            Open Source technology. We do so by picking up issues and request
-            from the Open Source communities and, where possible, we work
-            closely together with the respective organisations. Are you
-            interested in joining a To The Root Mobbing session for Open Source?
-          </p>
-          <div class="side-by-side-buttons">
-            <a class="new-button" href="/discord">Mob Programming on Discord</a>
-            <a class="new-button" href="/open-source"
-              >Contribute to Open Source</a
-            >
-          </div>
-        </div>
-
-        <div class="contribute__section closing-text">
-          <p>
-            As you can see, there is lots to do! So please join us now, the
-            world is big and technology is huge, so we need your shoulders too.
-          </p>
-        </div>
-      </section>
-    </div>
+        <BaseActionCard icon-image="handshake-regular.svg">
+          <template v-slot:title>Start mobbing* together</template>
+          <template v-slot:info-text
+            >We have regular mobbing sessions to help out the open source
+            community.</template
+          >
+          <template v-slot:button-text>More about our sessions</template>
+        </BaseActionCard>
+      </div>
+    </section>
   </BasePageLayout>
 </template>
 
-<script lang="ts">
-import { defineComponent } from '@nuxtjs/composition-api'
-
-export default defineComponent({
-  setup() {},
-})
-</script>
-
 <style lang="scss" scoped>
-p {
-  line-height: 1.4rem;
-}
-
 .wrapper {
-  max-width: 630px;
-  margin: 0 auto;
+  padding: 5rem;
 }
 
-.about-us {
-  &__wrapper {
-    background: linear-gradient(
-        0deg,
-        rgba($accelerate-blue-primary, 0.5),
-        rgba($accelerate-blue-primary, 0.5)
-      ),
-      url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80');
-    background-size: cover;
-    padding: 100px 0;
-  }
+.what-about-it {
+  background: $gray;
+  color: $white;
 
-  &__content {
-    background-color: $accelerate-blue-primary;
-    padding: 40px;
-    color: white;
+  &__layout-container {
     display: flex;
-    flex-direction: column;
   }
 
   &__header {
-    font-size: 5rem;
-    margin-bottom: 30px;
-    text-align: center;
+    min-width: 35rem;
+    font-size: 6rem;
+    margin: auto 0;
+    line-height: 7rem;
+    font-family: 'Poppins-Medium';
   }
 
   &__paragraph {
-    margin-bottom: 20px;
-  }
-
-  &__founded-text {
-    margin-bottom: 40px;
+    margin-bottom: 2rem;
   }
 
   &__action-button {
-    margin: 0 auto;
   }
 }
 
-.people {
-  margin-top: 100px;
-  text-align: center;
+.why-to-join {
+  background: $gray-light;
+  color: $gray-dark;
 
-  &__header {
-    font-size: 3rem;
-    margin-bottom: 10px;
+  &__paragraph {
+    margin-bottom: 1rem;
   }
+}
 
-  &__sub-header {
-    font-size: 1.3rem;
-    margin-bottom: 20px;
-  }
+.how-to-join {
+  background: $gray-dark;
+  color: $white;
+  padding-bottom: 2.8rem;
 
-  &__people-container {
-    margin-top: 60px;
+  &__cards {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-evenly;
-  }
-
-  &__people-item {
-    border-radius: 10px;
-    box-shadow: 5px 3px 10px $gray-dark;
-
-    width: 40%;
-    min-width: 200px;
-    padding: 30px 10px 40px;
-    margin-bottom: 50px;
-    text-align: center;
-
-    img {
-      margin: 0 auto;
-      display: block;
-      max-width: 70%;
-    }
-
-    p {
-      margin-top: 10px;
-      font-weight: bold;
-    }
-
-    a {
-      margin-top: 7px;
-      display: block;
-    }
-  }
-
-  &__link {
-    color: $ordina-orange;
-    text-decoration: none;
-
-    &:active,
-    &:hover {
-      color: $ordina-orange-hover;
-      text-decoration: underline;
-    }
+    justify-content: space-between;
+    margin-top: 4rem;
   }
 }
 
-.mission {
-  &__wrapper {
-    margin: 50px 0 80px;
-    background: linear-gradient(
-        0deg,
-        rgba($accelerate-blue-primary, 0.5),
-        rgba($accelerate-blue-primary, 0.5)
-      ),
-      url('https://images.unsplash.com/photo-1553877522-43269d4ea984?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80');
-    background-size: cover;
-    padding: 70px 0;
-  }
-
-  &__content {
-    background-color: $accelerate-blue-primary;
-    padding: 40px;
-    color: white;
-    display: flex;
-    flex-direction: column;
-  }
-
+.why-to-join,
+.how-to-join {
   &__header {
-    font-size: 3rem;
-    margin-bottom: 40px;
-    text-align: center;
-  }
-
-  &__paragraph {
-    margin-bottom: 40px;
-  }
-}
-
-.contribute {
-  text-align: center;
-
-  &__header {
-    font-size: 3rem;
-    margin-bottom: 20px;
-  }
-
-  &__sub-header {
-    font-size: 1.8rem;
-    margin-bottom: 20px;
-  }
-
-  &__section {
-    margin: 75px 0 120px;
-  }
-
-  &__paragraph {
-    margin-bottom: 30px;
-  }
-}
-
-.side-by-side-buttons {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-
-  a {
-    margin: 5px 10px;
+    text-transform: uppercase;
+    font-family: 'Poppins-Light';
+    margin-bottom: 3rem;
   }
 }
 
 @media (max-width: 500px) {
-  .about-us {
-    &__wrapper {
-      padding: 0;
-    }
-
-    &__content {
-      padding: 40px 30px;
-    }
-
-    &__header {
-      font-size: 3rem;
-    }
-  }
-
-  .mission {
-    &__wrapper {
-      padding: 0;
-    }
-
-    &__content {
-      padding: 40px 30px;
-    }
-
-    &__header {
-      font-size: 3rem;
-    }
-  }
-
-  .contribute {
-    padding: 40px 30px;
-  }
 }
 </style>

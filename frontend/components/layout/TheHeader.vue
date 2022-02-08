@@ -85,24 +85,16 @@ export default defineComponent({
 
     const links = [
       {
-        name: 'Content',
+        name: 'Learn',
         to: '/',
       },
       {
-        name: 'Contribute',
+        name: 'Connect',
         to: '/contribute',
       },
       {
-        name: 'Open Source',
-        to: '/open-source',
-      },
-      {
-        name: 'Events',
-        to: '/events',
-      },
-      {
-        name: 'Get in touch',
-        to: '/contact',
+        name: 'About Us',
+        to: '/about',
       },
     ]
 
@@ -128,7 +120,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .header {
-  background-color: $gray-light;
+  background-color: $white;
   padding: 1rem;
   position: sticky;
   top: 0;

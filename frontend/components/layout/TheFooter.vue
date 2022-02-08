@@ -61,7 +61,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .footer {
-  background-color: $gray-light;
+  background-color: $gray-darker;
   padding: 1rem;
 }
 
