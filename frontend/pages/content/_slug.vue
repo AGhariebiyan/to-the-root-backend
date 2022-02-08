@@ -38,9 +38,11 @@
         </div>
         <div class="article__content" v-html="article.content"></div>
 
-        <a class="new-button" href="/produceContent"
-          >Submit your own articles</a
-        >
+        <p class="article__contribute-text">
+          This article was written by {{ article.author.name }}. If you'd like
+          to have your name here under your own article,
+          <a href="/produce-content" class="link">click here to contribute.</a>
+        </p>
 
         <div class="article__interactions">
           <LikeButton :articleId="article.id" :articleSlug="slug" />
@@ -87,6 +89,7 @@ import {
 
 import { Article } from '~/utils/types'
 import ClipLoader from 'vue-spinner/src/ClipLoader.vue'
+import Prism from '~/plugins/prism'
 
 export default defineComponent({
   components: { ClipLoader },
@@ -129,6 +132,7 @@ export default defineComponent({
       } catch (err) {
       } finally {
         isLoading.value = false
+        Prism.highlightAll()
       }
     })
 
@@ -259,6 +263,11 @@ export default defineComponent({
     p {
       margin-bottom: 1rem;
     }
+  }
+
+  &__contribute-text {
+    color: $gray-darker;
+    font-style: italic;
   }
 
   &__interactions {

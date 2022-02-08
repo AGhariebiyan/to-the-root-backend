@@ -8,7 +8,6 @@
 
 <style lang="scss">
 * {
-  font-family: 'Roboto', sans-serif;
   font-size: $default-font-size;
   word-spacing: 1px;
   -ms-text-size-adjust: 100%;
@@ -16,6 +15,10 @@
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   box-sizing: border-box;
+}
+p,
+li {
+  font-family: 'Roboto', sans-serif;
 }
 
 html {
@@ -47,6 +50,16 @@ h2 {
 
 h3 {
   font-size: 1.5rem;
+}
+
+.link {
+  text-decoration: none;
+  color: $ordina-orange;
+
+  &:focus,
+  &:hover {
+    color: $ordina-orange-hover;
+  }
 }
 
 .secondary-link {
@@ -143,23 +156,26 @@ a {
   line-height: 1.5rem;
 
   &:active,
-  &:hover,
-  &:disabled {
+  &:hover {
     background-color: $ordina-orange-hover;
     color: $white;
   }
 
   &:disabled {
+    background-color: $gray-darker;
     color: $gray;
+    cursor: not-allowed;
   }
 }
 
 .error-list {
   list-style: none;
+  background: $error-red;
 }
 
 .error {
   margin: 1rem 0;
-  color: red;
+  color: $white;
+  padding: 10px;
 }
 </style>

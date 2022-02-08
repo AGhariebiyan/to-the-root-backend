@@ -90,11 +90,11 @@ export default defineComponent({
       },
       {
         name: 'Contribute',
-        to: '/produceContent',
+        to: '/contribute',
       },
       {
         name: 'Open Source',
-        to: '/openSource',
+        to: '/open-source',
       },
       {
         name: 'Events',

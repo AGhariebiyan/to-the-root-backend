@@ -32,11 +32,10 @@ export default {
     algoliaSearchKey: process.env.ALGOLIA_SEARCH_KEY,
     algoliaIndex: process.env.ALGOLIA_INDEX,
     emailJSServiceID: process.env.EMAILJS_SERVICE_ID,
-    emailJSTemplateID: process.env.EMAILJS_TEMPLATE_ID,
     emailJSUserID: process.env.EMAILJS_USER_ID
   },
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: ['~/plugins/axios-accessor.ts'],
+  plugins: ['~/plugins/axios-accessor.ts', { src: '~/plugins/prism' }],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
