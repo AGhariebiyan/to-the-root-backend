@@ -12,7 +12,7 @@ jobs:
           node-version: '16'
       - name: Installing node modules
         working-directory: ./frontend
-        run: npm install -g npm@latest
+        run: npm cache clean -f && npm install -g n && n stable
       - name: Run tests  
         working-directory: ./frontend
         run: npm run test
