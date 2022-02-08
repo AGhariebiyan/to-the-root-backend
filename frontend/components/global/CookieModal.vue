@@ -1,29 +1,19 @@
 <template>
-  <BaseModal @close="$emit('close')">
-    <template slot="heading">Google Analytics</template>
-    <template slot="content">
-      <p class="ga-disclaimer-text">
-        We like to use Google Analytics to monitor behaviour of visitors of our
-        site. This enables us to give you the best experience possible. It also
-        helps us prioritize our backlog.
+  <div class="wrapper">
+    <div class="cookie-popup">
+      <h3 class="cookie-popup__header">Cookie policy</h3>
+      <p class="cookie-popup__paragraph">
+        Our website uses cookies, which are necessary for functioning and
+        required to achieve the purposes illustrated in the cookie policy.
       </p>
-
-      <div v-if="isLoading">Loading</div>
-      <div v-else class="toggle" @click="toggleGA">
-        <input
-          type="checkbox"
-          id="toggle__input"
-          class="toggle__input"
-          checked="checked"
-          v-model="enableGoogleAnalytics"
-        />
-        <label class="toggle__label" for="toggle__input"
-          >Enable Google Analytics</label
+      <div class="cookie-popup__buttons">
+        <button class="cookie-popup__accept" @click="accept">Accept</button>
+        <a class="cookie-popup__learn-more" @click="learnMore" href="/cookies"
+          >Learn more</a
         >
-        <div class="toggle__switch"></div>
       </div>
-    </template>
-  </BaseModal>
+    </div>
+  </div>
 </template>
 
 <script lang="ts">
@@ -64,61 +54,68 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.ga-disclaimer-text {
-  margin-bottom: 1rem;
+.wrapper {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  height: 0;
 }
+.cookie-popup {
+  background: $gray-darkest;
+  color: $white;
+  position: fixed;
+  max-width: calc(max(20%, 10rem));
+  padding: 1rem;
+  right: 2rem;
+  bottom: 2rem;
 
-.toggle {
-  display: flex;
-  align-items: center;
-  position: relative;
-
-  &__label {
-    padding: 1rem 4.5rem 1rem 0rem;
-    margin-right: -3.5rem;
-    position: relative;
-    cursor: pointer;
-    z-index: 100;
+  &__header {
+    margin-bottom: 1rem;
   }
 
-  &__switch {
-    width: 3.5rem;
-    height: 2rem;
-    border-radius: 100px;
-    background-image: linear-gradient(to right, $gray-darkest, $gray-darker);
-    position: relative;
+  &__paragraph {
+    margin-bottom: 1rem;
+  }
 
-    &::before {
-      transition: all 0.8s ease;
-      position: absolute;
-      left: 0.25rem;
-      top: 50%;
-      transform: translate(0, -50%);
-      content: '';
-      display: block;
-      width: 1.5rem;
-      height: 1.5rem;
-      border-radius: 50%;
-      background-color: $white;
+  &__buttons {
+    display: flex;
+    align-items: center;
+  }
+
+  &__accept {
+    cursor: pointer;
+    padding: 1rem;
+    margin-right: 2rem;
+    color: $white;
+    outline: none;
+    background: $ordina-orange;
+    border: none;
+
+    &:hover {
+      cursor: pointer;
+      background: $ordina-orange-hover;
+    }
+
+    &:focus {
+      outline: 1px dotted $ordina-orange;
     }
   }
 
-  &__input {
-    opacity: 0;
-    position: absolute;
-    left: 1rem;
-  }
+  &__learn-more {
+    text-decoration: none;
+    font-size: 0.8rem;
 
-  &__input:checked ~ .toggle__switch::before {
-    transform: translate(1.525rem, -50%);
-  }
+    &:link,
+    &:visited {
+      color: $white;
+    }
 
-  &__input:checked ~ .toggle__switch {
-    background-image: linear-gradient(
-      to right,
-      $accelerate-blue-primary,
-      $discovery-blue-primary
-    );
+    &:hover,
+    &:active {
+      cursor: pointer;
+      color: $discovery-blue-primary;
+    }
   }
 }
 </style>
