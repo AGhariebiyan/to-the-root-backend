@@ -65,10 +65,11 @@ export default defineComponent({
   background: $gray-darkest;
   color: $white;
   position: fixed;
-  max-width: calc(max(20%, 10rem));
+  max-width: calc(max(20%, 15rem));
   padding: 1rem;
   right: 2rem;
   bottom: 2rem;
+  text-align: left;
 
   &__header {
     margin-bottom: 1rem;
