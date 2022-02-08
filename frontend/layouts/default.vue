@@ -52,6 +52,16 @@ h3 {
   font-size: 1.5rem;
 }
 
+.link {
+  text-decoration: none;
+  color: $ordina-orange;
+
+  &:focus,
+  &:hover {
+    color: $ordina-orange-hover;
+  }
+}
+
 .secondary-link {
   text-decoration: none;
   color: inherit;
@@ -131,5 +141,41 @@ a {
       }
     }
   }
+}
+
+.new-button {
+  color: $white;
+  border: none;
+  background-color: $ordina-orange;
+  border-radius: 50px;
+  display: inline-block;
+  font-family: 'RobotoBold', sans-serif;
+  height: 3.125rem;
+  padding: 0.875rem 2rem;
+  text-decoration: none;
+  line-height: 1.5rem;
+
+  &:active,
+  &:hover {
+    background-color: $ordina-orange-hover;
+    color: $white;
+  }
+
+  &:disabled {
+    background-color: $gray-darker;
+    color: $gray;
+    cursor: not-allowed;
+  }
+}
+
+.error-list {
+  list-style: none;
+  background: $error-red;
+}
+
+.error {
+  margin: 1rem 0;
+  color: $white;
+  padding: 10px;
 }
 </style>
