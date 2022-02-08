@@ -10,11 +10,7 @@
 
       <BaseForm @submit="sendMessage">
         <template v-slot:form>
-          <p v-if="isLoading">hold on...</p>
-
-          <h3 v-else-if="hasSentMessage">Your message has been sent!</h3>
-
-          <div v-else>
+          <div>
             <p class="form__heading">Let's talk</p>
 
             <ul class="error-list">
@@ -22,9 +18,28 @@
                 {{ error }}
               </li>
             </ul>
+            <ul class="warning-list">
+              <li
+                v-for="(warning, index) in warnings"
+                :key="index"
+                class="warning"
+              >
+                {{ warning }}
+              </li>
+            </ul>
+            <ul class="success-list">
+              <li
+                v-for="(success, index) in successes"
+                :key="index"
+                class="success"
+              >
+                {{ success }}
+              </li>
+            </ul>
 
             <label class="form__label" for="firstname">First name*</label>
             <input
+              :disabled="isLoading"
               class="form__input"
               type="text"
               name="firstname"
@@ -33,6 +48,7 @@
 
             <label class="form__label" for="lastname">Last name</label>
             <input
+              :disabled="isLoading"
               class="form__input"
               type="text"
               name="lastname"
@@ -41,6 +57,7 @@
 
             <label class="form__label" for="email">Email address*</label>
             <input
+              :disabled="isLoading"
               class="form__input"
               type="text"
               name="email"
@@ -49,6 +66,7 @@
 
             <label class="form__label" for="message">Message*</label>
             <textarea
+              :disabled="isLoading"
               class="form__input contact__textarea"
               type="text"
               name="message"
@@ -56,7 +74,12 @@
             ></textarea>
 
             <div class="contact__accept">
-              <input type="checkbox" name="accept" v-model="accept" />
+              <input
+                :disabled="isLoading"
+                type="checkbox"
+                name="accept"
+                v-model="accept"
+              />
               <label for="accept"
                 >I allow Ordina to store my email address and send me
                 communications (no spam, we promise!)</label
@@ -90,34 +113,17 @@ export default defineComponent({
     const accept = ref(false)
 
     const errors: Ref<string[]> = ref([])
+    const warnings: Ref<string[]> = ref([])
+    const successes: Ref<string[]> = ref([])
 
     const isLoading = ref(false)
     const hasSentMessage = ref(false)
 
     async function sendMessage() {
-      errors.value = []
-
-      if (!firstName.value.trim().length) {
-        errors.value.push('Please enter your first name')
-      }
-
-      if (!validateEmail(email.value)) {
-        errors.value.push('Please enter a valid email address')
-      }
-
-      if (!message.value.trim().length) {
-        errors.value.push('Please enter a message')
-      }
-
-      if (!accept.value) {
-        errors.value.push('Please accept the terms and conditions')
-      }
-
-      if (errors.value.length) {
-        return
-      }
+      if (!validateForm()) return
 
       isLoading.value = true
+      warnings.value.push('Sending message...')
 
       const templateParams = {
         firstName: firstName.value,
@@ -134,12 +140,43 @@ export default defineComponent({
       if (emailResponse) {
         if (emailResponse.status === 200) {
           hasSentMessage.value = true
+          displaySuccessMessage()
         } else {
           errors.value.push(`Something went wrong: ${emailResponse.text}`)
         }
       }
 
+      warnings.value = []
       isLoading.value = false
+    }
+
+    function validateForm() {
+      errors.value = []
+
+      if (!firstName.value.trim().length) {
+        errors.value.push('Please enter your first name')
+      }
+
+      if (!validateEmail(email.value)) {
+        errors.value.push('Please enter a valid email address')
+      }
+
+      if (!message.value.trim().length) {
+        errors.value.push('Please enter a message')
+      }
+
+      if (errors.value.length) {
+        return false
+      }
+
+      return true
+    }
+
+    function displaySuccessMessage() {
+      successes.value.push('Your message has been sent!')
+      setTimeout(() => {
+        successes.value = []
+      }, 3000)
     }
 
     return {
@@ -149,6 +186,8 @@ export default defineComponent({
       message,
       accept,
       errors,
+      warnings,
+      successes,
       isLoading,
       hasSentMessage,
       sendMessage,
