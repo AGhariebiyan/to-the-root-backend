@@ -12,7 +12,7 @@ jobs:
           node-version: '15'
       - name: Installing node modules
         working-directory: ./frontend
-        run: npm install
+        run: npm install -g npm@latest
       - name: Run tests  
         working-directory: ./frontend
         run: npm run test
