@@ -130,6 +130,7 @@ export default defineComponent({
         lastName: lastName.value,
         email: email.value,
         message: message.value,
+        accept: accept.value,
       }
 
       const emailResponse = await sendEmail(

@@ -193,4 +193,8 @@ a {
   color: $white;
   padding: 10px;
 }
+
+.warning {
+  color: black;
+}
 </style>
