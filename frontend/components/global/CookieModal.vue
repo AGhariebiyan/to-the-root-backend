@@ -25,7 +25,9 @@ import { defineComponent, useContext } from '@nuxtjs/composition-api'
 
 export default defineComponent({
   setup(props, context) {
-    const { $ga, $cookies } = useContext()
+    const use_context: any = useContext()
+
+    const { $ga, $cookies } = use_context
 
     function acceptCookies() {
       $cookies.set('allowsCookies', 'true')
