@@ -32,7 +32,7 @@ export default {
     algoliaSearchKey: process.env.ALGOLIA_SEARCH_KEY,
     algoliaIndex: process.env.ALGOLIA_INDEX,
     emailJSServiceID: process.env.EMAILJS_SERVICE_ID,
-    emailJSUserID: process.env.EMAILJS_USER_ID
+    emailJSUserID: process.env.EMAILJS_USER_ID,
   },
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: ['~/plugins/axios-accessor.ts', { src: '~/plugins/prism' }],
@@ -45,7 +45,6 @@ export default {
     // https://go.nuxtjs.dev/typescript
     '@nuxtjs/composition-api/module',
     '@nuxt/typescript-build',
-    '@nuxtjs/google-analytics',
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -58,6 +57,7 @@ export default {
     'vue-social-sharing/nuxt',
     'nuxt-lazy-load',
     'cookie-universal-nuxt',
+    '@nuxtjs/gtm',
   ],
 
   auth: {
@@ -110,15 +110,12 @@ export default {
 
   css: ['~/assets/css/algolia.scss'],
 
-  googleAnalytics: {
-    id: process.env.GOOGLE_ANALYTICS_ID,
-    disabled: true,
-    debug: {
-      sendHitTask: true,
-    },
-    autoTracking: {
-      screenview: true,
-    },
+  gtm: {
+    id: process.env.GTM_ID,
+    autoInit: false,
+    enabled: true,
+    // debug: true, // Uncomment for debugging with the console
+    pageTracking: true,
   },
 
   router: {

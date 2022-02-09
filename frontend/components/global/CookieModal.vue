@@ -27,11 +27,11 @@ export default defineComponent({
   setup(props, context) {
     const use_context: any = useContext()
 
-    const { $ga, $cookies } = use_context
+    const { $gtm, $cookies } = use_context
 
     function acceptCookies() {
       $cookies.set('allowsCookies', 'true')
-      $ga.enable()
+      $gtm.init()
       context.emit('close')
     }
 

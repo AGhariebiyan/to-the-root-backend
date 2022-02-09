@@ -40,7 +40,6 @@
 </template>
 
 <script lang="ts">
-import { onAnalyticsReady } from 'vue-analytics'
 import {
   defineComponent,
   useContext,
@@ -67,20 +66,17 @@ export default defineComponent({
     ]
 
     const context: any = useContext()
-    const { $auth, $ga, $cookies } = context
+    const { $gtm, $cookies } = context
 
     const showCookieModal = ref()
 
     onMounted(async () => {
       try {
-        await onAnalyticsReady().then(() => {
-          if (!$cookies.get('allowsCookies')) {
-            showCookieModal.value = true
-            return
-          } else {
-            $ga.enable()
-          }
-        })
+        if (!$cookies.get('allowsCookies')) {
+          showCookieModal.value = true
+        } else {
+          $gtm.init()
+        }
       } catch (err) {
         console.log(err)
       }
