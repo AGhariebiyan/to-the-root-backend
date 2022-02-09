@@ -37,6 +37,13 @@
           />
         </div>
         <div class="article__content" v-html="article.content"></div>
+
+        <p class="article__contribute-text">
+          This article was written by {{ article.author.name }}. If you'd like
+          to have your name here under your own article,
+          <a href="/produce-content" class="link">click here to contribute.</a>
+        </p>
+
         <div class="article__interactions">
           <LikeButton :articleId="article.id" :articleSlug="slug" />
           <div class="article__reactions">
@@ -258,8 +265,14 @@ export default defineComponent({
     }
   }
 
+  &__contribute-text {
+    color: $gray-darker;
+    font-style: italic;
+  }
+
   &__interactions {
     display: flex;
+    margin-top: 50px;
   }
 
   &__likes {

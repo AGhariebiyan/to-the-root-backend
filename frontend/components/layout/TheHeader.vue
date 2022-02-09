@@ -85,12 +85,16 @@ export default defineComponent({
 
     const links = [
       {
-        name: 'Community',
+        name: 'Content',
         to: '/',
       },
       {
-        name: 'Content',
-        to: '/content',
+        name: 'Contribute',
+        to: '/contribute',
+      },
+      {
+        name: 'Open Source',
+        to: '/open-source',
       },
       {
         name: 'Events',

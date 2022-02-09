@@ -57,7 +57,11 @@ export default defineComponent({
         to: '/proclaimer',
       },
       {
-        name: 'About Ordina',
+        name: 'Privacy & Cookies',
+        to: '/privacy',
+      },
+      {
+        name: 'About Us',
         to: '/about',
       },
     ]

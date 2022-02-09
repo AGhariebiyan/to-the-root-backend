@@ -31,6 +31,8 @@ export default {
     algoliaAppId: process.env.ALGOLIA_APP_ID,
     algoliaSearchKey: process.env.ALGOLIA_SEARCH_KEY,
     algoliaIndex: process.env.ALGOLIA_INDEX,
+    emailJSServiceID: process.env.EMAILJS_SERVICE_ID,
+    emailJSUserID: process.env.EMAILJS_USER_ID
   },
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: ['~/plugins/axios-accessor.ts', { src: '~/plugins/prism' }],
@@ -62,7 +64,7 @@ export default {
     redirect: {
       login: '/login',
       logout: '/login',
-      home: '/content',
+      home: '/',
     },
     strategies: {
       local: {
