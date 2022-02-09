@@ -10,7 +10,12 @@
         You're on the list!
       </h3>
 
-      <form v-else ref="form" class="mailing-form" @submit.prevent="sendEmail">
+      <form
+        v-else
+        ref="form"
+        class="mailing-form"
+        @submit.prevent="applyForMailingList"
+      >
         <ul class="mailing-form error-list">
           <li class="mailing-form error" v-for="error in errors" :key="error">
             {{ error }}
@@ -66,6 +71,7 @@ export default defineComponent({
 
     async function applyForMailingList() {
       errors.value = []
+      console.log('test')
 
       if (email.value.trim() === '') {
         errors.value.push('Please enter your email address')
@@ -74,8 +80,10 @@ export default defineComponent({
 
       if (!validateEmail(email.value)) {
         errors.value.push('Please enter a valid email address')
+        console.log('tesdaasdst')
         return
       }
+      console.log('tesadst')
 
       isLoading.value = true
 
