@@ -10,7 +10,12 @@
         You're on the list!
       </h3>
 
-      <form v-else ref="form" class="mailing-form" @submit.prevent="sendEmail">
+      <form
+        v-else
+        ref="form"
+        class="mailing-form"
+        @submit.prevent="applyForMailingList"
+      >
         <ul class="mailing-form error-list">
           <li class="mailing-form error" v-for="error in errors" :key="error">
             {{ error }}

@@ -3,7 +3,7 @@
     <div class="header__content">
       <div class="logo">
         <NuxtLink class="logo__link" to="/">
-          <img class="logo__image" src="@/assets/Logo.svg" alt="Logo" />
+          <img class="logo__image" src="@/assets/logo.svg" alt="logo" />
         </NuxtLink>
       </div>
       <span
@@ -90,7 +90,7 @@ export default defineComponent({
       },
       {
         name: 'Connect',
-        to: '/contribute',
+        to: '/contact',
       },
       {
         name: 'About Us',
@@ -129,7 +129,6 @@ export default defineComponent({
 
 .header__content {
   display: flex;
-  justify-content: center;
   align-items: center;
   max-width: $nav-max-width;
   margin: 0 auto;
@@ -142,19 +141,23 @@ export default defineComponent({
   padding-top: 0.5rem;
 
   &__image {
-    height: 2rem;
+    height: 5rem;
   }
 }
 
 .nav-links--desktop {
-  flex-grow: 1;
   display: flex;
   justify-content: center;
+  margin-right: 3rem;
 }
 
 .nav-links__item {
   text-decoration: none;
   position: relative;
+  text-transform: uppercase;
+  font-family: 'Poppins-Bold';
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
 
   &:not(:last-child) {
     margin-right: 2.5rem;
@@ -166,16 +169,16 @@ export default defineComponent({
   }
 
   &:hover {
-    color: $discovery-blue-primary;
+    color: $ordina-orange;
   }
 
   &.nuxt-link-exact-active::after {
     content: '';
     position: absolute;
     width: 100%;
-    height: 0.1875rem;
-    background-color: $discovery-blue-primary;
-    top: $default-font-size * 1.375;
+    height: 0.35rem;
+    background-color: $gray;
+    top: $default-font-size * 2;
     left: 0;
   }
 }
@@ -213,7 +216,7 @@ export default defineComponent({
 }
 
 .login-box {
-  width: $header-item-width;
+  // width: $header-item-width;
   display: flex;
   justify-content: flex-end;
 }

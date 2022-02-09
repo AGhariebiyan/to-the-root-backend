@@ -7,7 +7,10 @@
     />
     <h1 class="action-card__title"><slot name="title"></slot></h1>
     <p class="action-card__info-text"><slot name="info-text"></slot></p>
-    <BaseButtonNew class="action-card__button" button-color="gray-darker"
+    <BaseButtonNew
+      class="action-card__button"
+      :nav-route="navRoute"
+      button-color="gray-darker"
       ><slot name="button-text"></slot
     ></BaseButtonNew>
   </div>
@@ -18,6 +21,10 @@ import { defineComponent } from '@nuxtjs/composition-api'
 
 export default defineComponent({
   props: {
+    navRoute: {
+      type: String,
+      required: true,
+    },
     iconImage: {
       type: String,
       required: true,

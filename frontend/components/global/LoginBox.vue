@@ -2,21 +2,22 @@
   <div class="login-box" :class="{ isMobile: isMobile }">
     <template v-if="isLoggedIn">
       <NuxtLink
-        class="login-box__link button-link button-link--transparent"
+        class="login-box__link"
         to="/profile"
         :title="`Logged in as ${$auth.user.username}`"
         @click.native="$emit('closeMobileMenu')"
       >
-        <span class="material-icons">person_outline</span>
+        <BaseButtonNew button-color="gray" nav-route="">Profile</BaseButtonNew>
       </NuxtLink>
 
-      <BaseButton
-        buttonType="primary"
+      <BaseButtonNew
+        nav-route=""
+        button-color="gray"
         class="header__button login-box__logout"
         @click.native="logoutHandler"
       >
         Log out
-      </BaseButton>
+      </BaseButtonNew>
     </template>
 
     <template v-else>

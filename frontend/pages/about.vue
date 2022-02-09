@@ -20,7 +20,10 @@
             articles, videos, events and offcourse direct contact with your
             peers. So what are you waiting for? Join us!
           </p>
-          <BaseButtonNew class="what-about-it__button" button-color="white"
+          <BaseButtonNew
+            class="what-about-it__button"
+            nav-route="/discord"
+            button-color="white"
             >Join Us</BaseButtonNew
           >
         </div>
@@ -39,15 +42,21 @@
         work on them. So if you are looking to join a community that is on a
         mission to make a difference – you came to the right place.
       </p>
-      <BaseButtonNew class="why-to-join__button" button-color="gray-dark"
-        >Call to action</BaseButtonNew
+      <BaseButtonNew
+        class="why-to-join__button"
+        nav-route="/open-source"
+        button-color="gray-dark"
+        >Contribute together</BaseButtonNew
       >
     </section>
 
     <section class="wrapper how-to-join">
       <h2 class="how-to-join__header">How to join</h2>
       <div class="how-to-join__cards">
-        <BaseActionCard icon-image="newspaper-regular.svg">
+        <BaseActionCard
+          icon-image="newspaper-regular.svg"
+          nav-route="/contribute"
+        >
           <template v-slot:title>Start writing articles</template>
           <template v-slot:info-text
             >Knowledge to share? We will help you spread the word.</template
@@ -55,7 +64,7 @@
           <template v-slot:button-text>Contact the editors</template>
         </BaseActionCard>
 
-        <BaseActionCard icon-image="video-solid.svg">
+        <BaseActionCard icon-image="video-solid.svg" nav-route="/contribute">
           <template v-slot:title>Start making videos</template>
           <template v-slot:info-text
             >Are you into vlogging, making tutorials and rather share in video?
@@ -64,7 +73,7 @@
           <template v-slot:button-text>Contact the editors</template>
         </BaseActionCard>
 
-        <BaseActionCard icon-image="discord-brands.svg">
+        <BaseActionCard icon-image="discord-brands.svg" nav-route="/discord">
           <template v-slot:title>Join our Discord</template>
           <template v-slot:info-text
             >Connect to like-minded IT professionals.</template
@@ -72,7 +81,7 @@
           <template v-slot:button-text>Join our Discord channel</template>
         </BaseActionCard>
 
-        <BaseActionCard icon-image="handshake-regular.svg">
+        <BaseActionCard icon-image="handshake-regular.svg" nav-route="/discord">
           <template v-slot:title>Start mobbing* together</template>
           <template v-slot:info-text
             >We have regular mobbing sessions to help out the open source
@@ -87,7 +96,7 @@
 
 <style lang="scss" scoped>
 .wrapper {
-  padding: 5rem;
+  padding: 5rem 12rem;
 }
 
 .what-about-it {
@@ -101,7 +110,7 @@
   &__header {
     min-width: 35rem;
     font-size: 6rem;
-    margin: auto 0;
+    margin: 5rem 0 0;
     line-height: 7rem;
     font-family: 'Poppins-Medium';
   }

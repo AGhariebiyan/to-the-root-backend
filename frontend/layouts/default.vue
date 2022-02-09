@@ -112,10 +112,11 @@ code {
 }
 
 a {
-  color: $discovery-blue-primary-darker;
+  color: $accelerate-blue-primary;
+  cursor: pointer;
   &:active,
   &:hover {
-    color: $gray-darkest;
+    color: $accelerate-blue-3;
   }
 
   &.button-link {

@@ -1,6 +1,10 @@
 <template>
-  <button :class="buttonColor" @click="navigateTo">
-    <slot>BASEBUTTONNEW</slot>
+  <button :class="buttonColor">
+    <img
+      class="button-image"
+      :src="require(`~/assets/icons/${icon}`)"
+      :alt="icon"
+    />
   </button>
 </template>
 
@@ -9,7 +13,7 @@ import { defineComponent } from '@nuxtjs/composition-api'
 
 export default defineComponent({
   props: {
-    navRoute: {
+    icon: {
       type: String,
       required: true,
     },
@@ -28,31 +32,21 @@ export default defineComponent({
       },
     },
   },
-
-  setup(props) {
-    function navigateTo() {
-      this.$router.push({
-        path: props.navRoute,
-      })
-    }
-
-    return {
-      navigateTo,
-    }
-  },
 })
 </script>
 
 <style lang="scss" scoped>
 button {
-  padding: 0.3rem 2rem;
-  margin: 2rem 0;
-  font-family: 'Poppins-Bold', sans-serif;
   cursor: pointer;
   border-radius: 5px;
   background: none;
-  text-transform: uppercase;
   transition: all 0.3s ease;
+  display: flex;
+  justify-content: center;
+}
+
+.button-image {
+  width: 1.5rem;
 }
 
 button.white {
