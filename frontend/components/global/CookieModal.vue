@@ -1,14 +1,14 @@
 <template>
   <div class="wrapper">
     <div class="cookie-popup">
-      <h3 class="cookie-popup__header">Cookie policy</h3>
+      <h3 class="cookie-popup__header">We use cookies</h3>
       <p class="cookie-popup__paragraph">
         Our website uses cookies, which are necessary for functioning and
-        required to achieve the purposes illustrated in the cookie policy.
+        analysis of our website.
       </p>
       <div class="cookie-popup__buttons">
         <button class="cookie-popup__accept" @click="acceptCookies">
-          Accept
+          Got it
         </button>
         <a
           class="cookie-popup__learn-more"
@@ -48,11 +48,12 @@ export default defineComponent({
   top: 0;
   height: 0;
 }
+
 .cookie-popup {
   background: $gray-darkest;
   color: $white;
   position: fixed;
-  max-width: calc(max(20%, 15rem));
+  max-width: calc(max(30%, 15rem));
   padding: 1rem;
   right: 2rem;
   bottom: 2rem;
