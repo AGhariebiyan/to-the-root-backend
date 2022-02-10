@@ -67,4 +67,10 @@ export default defineComponent({
     bottom: 3rem;
   }
 }
+
+@media (max-width: $max-width-tablets) {
+  .action-card {
+    width: 100%;
+  }
+}
 </style>
