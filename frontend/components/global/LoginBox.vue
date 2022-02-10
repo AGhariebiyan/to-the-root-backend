@@ -103,6 +103,12 @@ export default {
   margin-left: 1rem;
 }
 
+@media (max-width: $desktop-max-width) {
+  .login-box {
+    margin-right: 1rem;
+  }
+}
+
 @media only screen and (max-width: 54.5em) {
   .header__button.primary {
     margin-left: 0;

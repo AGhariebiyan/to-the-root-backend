@@ -20,16 +20,6 @@ export default defineComponent({
     buttonColor: {
       type: String,
       required: true,
-      validator(value: string) {
-        return [
-          'white',
-          'gray-lighter',
-          'gray-light',
-          'gray',
-          'gray-dark',
-          'gray-darker',
-        ].includes(value)
-      },
     },
   },
 })

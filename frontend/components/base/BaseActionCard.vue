@@ -11,6 +11,7 @@
       class="action-card__button"
       :nav-route="navRoute"
       button-color="gray-darker"
+      :is-responsive="true"
       ><slot name="button-text"></slot
     ></BaseButtonNew>
   </div>
@@ -57,20 +58,106 @@ export default defineComponent({
   }
 
   &__info-text {
-    margin-bottom: 1rem;
     font-size: 1rem;
   }
 
   &__button {
-    margin-bottom: 1rem;
     position: absolute;
-    bottom: 3rem;
+    bottom: 2rem;
   }
 }
 
-@media (max-width: $max-width-tablets) {
+@media (max-width: 900px) {
+  .action-card {
+    padding: 1.5rem 3rem;
+
+    &__icon {
+      width: 4rem;
+      margin: 1rem 0 3rem;
+    }
+
+    &__title {
+      font-size: 1.5rem;
+      margin-bottom: 3rem;
+    }
+
+    &__info-text {
+      font-size: 1rem;
+    }
+
+    &__button {
+      position: absolute;
+      bottom: 1rem;
+    }
+  }
+}
+
+@media (max-width: 680px) {
+  .action-card {
+    padding: 1rem 2rem;
+    min-height: 28rem;
+
+    &__icon {
+      width: 4rem;
+      margin: 1rem 0 3rem;
+    }
+
+    &__title {
+      font-size: 1.4rem;
+      margin-bottom: 2rem;
+    }
+
+    &__info-text {
+      font-size: 0.9rem;
+    }
+
+    &__button {
+      position: absolute;
+      bottom: 1rem;
+    }
+  }
+}
+
+@media (max-width: 550px) {
   .action-card {
     width: 100%;
+    padding: 1rem 2rem;
+
+    &__icon {
+      width: 5rem;
+      margin: 1rem 0 3rem;
+    }
+
+    &__title {
+      font-size: 1.7rem;
+      margin-bottom: 2rem;
+    }
+
+    &__info-text {
+      font-size: 1.2rem;
+    }
+
+    &__button {
+      position: absolute;
+      bottom: 1rem;
+    }
+  }
+}
+
+@media (max-width: $max-width-phone) {
+  .action-card {
+    &__icon {
+      width: 4rem;
+    }
+
+    &__title {
+      font-size: 1.6rem;
+      margin-bottom: 2rem;
+    }
+
+    &__info-text {
+      font-size: 1.1rem;
+    }
   }
 }
 </style>

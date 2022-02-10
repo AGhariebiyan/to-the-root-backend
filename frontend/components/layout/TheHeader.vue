@@ -121,7 +121,6 @@ export default defineComponent({
 <style lang="scss" scoped>
 .header {
   background-color: $white;
-  padding: 1rem;
   position: sticky;
   top: 0;
   z-index: 50;
@@ -130,7 +129,7 @@ export default defineComponent({
 .header__content {
   display: flex;
   align-items: center;
-  max-width: $nav-max-width;
+  max-width: $desktop-max-width;
   margin: 0 auto;
   position: relative;
 }
@@ -138,10 +137,13 @@ export default defineComponent({
 .logo {
   width: $header-item-width;
   margin-right: auto;
-  padding-top: 0.5rem;
+
+  &__link {
+    line-height: 0;
+  }
 
   &__image {
-    height: 5rem;
+    height: 130px;
   }
 }
 

@@ -161,7 +161,18 @@
   }
 }
 
-@media (max-width: $max-width-tablets) {
+@media (max-width: 900px) {
+  .what-about-it {
+    &__header {
+      min-width: 40%;
+      font-size: 3.5rem;
+      margin: 5rem 0;
+      line-height: 6rem;
+    }
+  }
+}
+
+@media (max-width: $max-width-tablet) {
   .what-about-it {
     &__layout-container {
       display: block;

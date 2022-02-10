@@ -11,8 +11,8 @@
   font-family: 'Poppins', sans-serif;
   font-size: $default-font-size;
   word-spacing: 1px;
-  letter-spacing: 0.015rem;
-  line-height: 1.7rem;
+  letter-spacing: $letter-spacing;
+  line-height: $line-height;
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
   -moz-osx-font-smoothing: grayscale;

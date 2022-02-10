@@ -47,30 +47,30 @@ $gray: #797979;
 $gray-dark: #4a4a4a;
 $gray-darker: #1c1c1c;
 
+// Layout variables
+$desktop-max-width: 1200px;
+$desktop-half-width: 600px;
+
+// Media query breakpoints
+$max-width-large-display: 1200px;
+$max-width-tablet: 764px;
+$max-width-phone: 420px;
+
 // Variables
 $header-item-width: 13rem;
-
-$line-height: 1.3125rem;
-
-$desktop-max-width: 1000px;
-$desktop-half-width: 630px;
-
-$nav-max-width: 1400px;
 
 $article-card-width: 21.875rem;
 $article-card-width-landscape: 18rem;
 $article-card-image-height: 13.6875rem;
 $article-card-content-height: 10rem;
 
-// Media query breakpoints
-$max-width-tablets: 900px;
-$max-width-phones: 550px;
-
 // Box shadows
 $box-shadow-small: 0px 0.25rem 0.25rem rgba(0, 0, 0, 0.25);
 
 // Fonts
 $default-font-size: 1rem;
+$letter-spacing: 0.015rem;
+$line-height: 1.7rem;
 
 // Poppins
 @font-face {
