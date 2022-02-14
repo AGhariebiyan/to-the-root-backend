@@ -26,50 +26,60 @@
           </div>
         </section>
 
-        <h3
-          v-if="author.linkedIn || author.github || author.twitter"
-          class="socials__text"
+        <section
+          v-if="
+            author.email || author.linkedIn || author.github || author.twitter
+          "
+          class="connect"
         >
-          Connect with me
-        </h3>
-        <div
-          v-if="author.linkedIn || author.github || author.twitter"
-          class="socials"
-        >
-          <a
-            v-if="author.linkedIn"
-            :href="author.linkedIn"
-            target="_blank"
-            class="fade-in-top socials__link"
-            ><img
-              src="https://cdn-icons-png.flaticon.com/512/174/174857.png"
-              class="socials__icon"
-              :alt="`The link to the LinkedIn profile of ${author.name}`"
-            />
-          </a>
-          <a
-            v-if="author.github"
-            :href="author.github"
-            target="_blank"
-            class="fade-in-top socials__link"
-            ><img
-              src="https://cdn4.iconfinder.com/data/icons/iconsimple-logotypes/512/github-512.png"
-              class="socials__icon"
-              :alt="`The link to the Github profile of ${author.name}`"
-            />
-          </a>
-          <a
-            v-if="author.twitter"
-            :href="author.twitter"
-            target="_blank"
-            class="fade-in-top socials__link"
-            ><img
-              src="https://cdn-icons-png.flaticon.com/512/124/124021.png"
-              class="socials__icon"
-              :alt="`The link to the Twitter profile of ${author.name}`"
-            />
-          </a>
-        </div>
+          <h3 class="connect__header">Connect with me</h3>
+          <div class="connect__socials">
+            <a
+              v-if="author.email"
+              :href="`mailto:${author.email}?subject=Connect with me&body=Hey ${author.name},`"
+              target="_blank"
+              class="fade-in-top socials__link"
+              ><img
+                src="https://cdn-icons-png.flaticon.com/512/646/646094.png"
+                class="socials__icon"
+                :alt="`The link to the email of ${author.name}`"
+              />
+            </a>
+            <a
+              v-if="author.linkedIn"
+              :href="author.linkedIn"
+              target="_blank"
+              class="fade-in-top socials__link"
+              ><img
+                src="https://cdn-icons-png.flaticon.com/512/174/174857.png"
+                class="socials__icon"
+                :alt="`The link to the LinkedIn profile of ${author.name}`"
+              />
+            </a>
+            <a
+              v-if="author.github"
+              :href="author.github"
+              target="_blank"
+              class="fade-in-top socials__link"
+              ><img
+                src="https://cdn4.iconfinder.com/data/icons/iconsimple-logotypes/512/github-512.png"
+                class="socials__icon"
+                :alt="`The link to the Github profile of ${author.name}`"
+              />
+            </a>
+            <a
+              v-if="author.twitter"
+              :href="author.twitter"
+              target="_blank"
+              class="fade-in-top socials__link"
+              ><img
+                src="https://cdn-icons-png.flaticon.com/512/124/124021.png"
+                class="socials__icon"
+                :alt="`The link to the Twitter profile of ${author.name}`"
+              />
+            </a>
+          </div>
+        </section>
       </div>
     </BaseContainer>
     <BaseContainer class="related-articles" containerType="color">
@@ -212,17 +222,18 @@ export default defineComponent({
   box-shadow: 5px 5px 5px #999;
 }
 
-.socials__text {
-  margin-top: 3rem;
-}
+.connect {
+  &__header {
+    margin-top: 3rem;
+  }
 
-.socials {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  width: 25%;
-  margin-bottom: 2rem;
-  margin-top: 1.25rem;
+  &__socials {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-bottom: 2rem;
+    margin-top: 1.25rem;
+  }
 
   @media screen and (max-width: 992px) {
     flex-direction: row;
