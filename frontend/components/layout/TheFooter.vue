@@ -12,6 +12,9 @@
           class="footer__nav-link"
           >{{ link.name }}</NuxtLink
         >
+        <a class="footer__nav-link" @click="showCookieModal = true">
+          Cookies
+        </a>
       </nav>
       <div class="footer__social-icons">
         <a class="footer__social-link" href="https://www.facebook.com/ordina/"
@@ -32,11 +35,18 @@
         ></a>
       </div>
     </div>
+    <CookieModal v-if="showCookieModal" @close="showCookieModal = false" />
   </footer>
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@nuxtjs/composition-api'
+import {
+  defineComponent,
+  useContext,
+  onMounted,
+  computed,
+  ref,
+} from '@nuxtjs/composition-api'
 
 export default defineComponent({
   setup() {
@@ -54,7 +64,25 @@ export default defineComponent({
         to: '/about',
       },
     ]
-    return { links }
+
+    const context: any = useContext()
+    const { $gtm, $cookies } = context
+
+    const showCookieModal = ref()
+
+    onMounted(async () => {
+      try {
+        if (!$cookies.get('allowsCookies')) {
+          showCookieModal.value = true
+        } else {
+          $gtm.init()
+        }
+      } catch (err) {
+        console.log(err)
+      }
+    })
+
+    return { showCookieModal, links }
   },
 })
 </script>
@@ -85,6 +113,7 @@ export default defineComponent({
   margin: 1.2rem;
 
   &:hover {
+    cursor: pointer;
     text-decoration: underline;
   }
 }
