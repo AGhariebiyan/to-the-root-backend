@@ -60,21 +60,6 @@ import {
 
 export default defineComponent({
   setup() {
-    const links = [
-      {
-        name: 'Proclaimer',
-        to: '/proclaimer',
-      },
-      {
-        name: 'Privacy & Cookies',
-        to: '/privacy',
-      },
-      {
-        name: 'About Us',
-        to: '/about',
-      },
-    ]
-
     const context: any = useContext()
     const { $gtm, $cookies } = context
 
@@ -92,7 +77,7 @@ export default defineComponent({
       }
     })
 
-    return { showCookieModal, links }
+    return { showCookieModal }
   },
 })
 </script>
@@ -132,7 +117,6 @@ export default defineComponent({
         font-size: 0.9rem;
         color: $gray-lighter;
         text-decoration: none;
-        padding: 0 0.5rem;
 
         &:hover,
         &:focus {
