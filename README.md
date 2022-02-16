@@ -20,7 +20,7 @@ In the minimal setup, you can view the site and search for articles.
 3. Copy the .env.example and rename the file to .env
 4. Set the ALGOLIA_INDEX to 'dev_content'
 5. Run `npm i`
-6. Run `npm run develop` to start the Strapi server
+6. Run `npm run dev` to start the Strapi server
 7. A Strapi instance should start, serving the app on localhost:1337
 
 #### Database

@@ -41,16 +41,59 @@
       </div>
       <div class="footer__bottom">
         <div class="ordina-legal">© 2022 Ordina NV</div>
+        <a class="footer__nav-link" @click="showCookieModal = true">
+          Cookies
+        </a>
       </div>
     </div>
+    <CookieModal v-if="showCookieModal" @close="showCookieModal = false" />
   </footer>
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@nuxtjs/composition-api'
+import {
+  defineComponent,
+  useContext,
+  onMounted,
+  ref,
+} from '@nuxtjs/composition-api'
 
 export default defineComponent({
-  setup() {},
+  setup() {
+    const links = [
+      {
+        name: 'Proclaimer',
+        to: '/proclaimer',
+      },
+      {
+        name: 'Privacy & Cookies',
+        to: '/privacy',
+      },
+      {
+        name: 'About Us',
+        to: '/about',
+      },
+    ]
+
+    const context: any = useContext()
+    const { $gtm, $cookies } = context
+
+    const showCookieModal = ref()
+
+    onMounted(async () => {
+      try {
+        if (!$cookies.get('allowsCookies')) {
+          showCookieModal.value = true
+        } else {
+          $gtm.init()
+        }
+      } catch (err) {
+        console.log(err)
+      }
+    })
+
+    return { showCookieModal, links }
+  },
 })
 </script>
 
@@ -125,6 +168,23 @@ export default defineComponent({
     &__bottom {
       justify-content: center;
     }
+  }
+}
+
+.footer__nav {
+  display: flex;
+  flex-grow: 1;
+  justify-content: center;
+}
+
+.footer__nav-link {
+  text-decoration: none;
+  color: $gray-darkest;
+  margin: 1.2rem;
+
+  &:hover {
+    cursor: pointer;
+    text-decoration: underline;
   }
 }
 </style>
