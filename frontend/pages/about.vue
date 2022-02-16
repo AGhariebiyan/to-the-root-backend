@@ -22,8 +22,8 @@
               peers. So what are you waiting for? Join us!
             </p>
             <div class="what-about-it__button">
-              <BaseButtonNew nav-route="/discord" button-color="white"
-                >Join Us</BaseButtonNew
+              <OutlineButton nav-route="/discord" color="white"
+                >Join Us</OutlineButton
               >
             </div>
           </div>
@@ -46,8 +46,8 @@
           right place.
         </p>
         <div class="why-to-join__button">
-          <BaseButtonNew nav-route="/open-source" button-color="gray-dark"
-            >Contribute together</BaseButtonNew
+          <OutlineButton nav-route="/open-source" color="gray-dark"
+            >Contribute together</OutlineButton
           >
         </div>
       </div>
@@ -58,49 +58,65 @@
         <h2 class="how-to-join__header">How to join</h2>
         <div class="how-to-join__cards">
           <BaseActionCard
-            icon-image="newspaper-regular.svg"
-            nav-route="/contribute"
+            v-for="(actionCard, index) in actionCards"
+            :key="index"
+            :icon-image="actionCard.iconImage"
+            :nav-route="actionCard.navRoute"
           >
-            <template v-slot:title>Start writing articles</template>
-            <template v-slot:info-text
-              >Knowledge to share? We will help you spread the word.</template
-            >
-            <template v-slot:button-text>Contact the editors</template>
-          </BaseActionCard>
-
-          <BaseActionCard icon-image="video-solid.svg" nav-route="/contribute">
-            <template v-slot:title>Start making videos</template>
-            <template v-slot:info-text
-              >Are you into vlogging, making tutorials and rather share in
-              video? Let us know.</template
-            >
-            <template v-slot:button-text>Contact the editors</template>
-          </BaseActionCard>
-
-          <BaseActionCard icon-image="discord-brands.svg" nav-route="/discord">
-            <template v-slot:title>Join our Discord</template>
-            <template v-slot:info-text
-              >Connect to like-minded IT professionals.</template
-            >
-            <template v-slot:button-text>Join our Discord channel</template>
-          </BaseActionCard>
-
-          <BaseActionCard
-            icon-image="handshake-regular.svg"
-            nav-route="/discord"
-          >
-            <template v-slot:title>Start mobbing* together</template>
-            <template v-slot:info-text
-              >We have regular mobbing sessions to help out the open source
-              community.</template
-            >
-            <template v-slot:button-text>More about our sessions</template>
+            <template #title>{{ actionCard.title }}</template>
+            <template #info-text>{{ actionCard.infoText }}</template>
+            <template #button-text>{{ actionCard.buttonText }}</template>
           </BaseActionCard>
         </div>
       </div>
     </section>
   </BasePageLayout>
 </template>
+
+<script lang="ts">
+import { defineComponent } from '@nuxtjs/composition-api'
+
+export default defineComponent({
+  setup() {
+    const actionCards = [
+      {
+        title: 'Start writing articles',
+        infoText: 'Knowledge to share? We will help you spread the word.',
+        buttonText: 'Contact the editors',
+        iconImage: 'newspaper-regular.svg',
+        navRoute: '/contribute',
+      },
+      {
+        title: 'Start making videos',
+        infoText:
+          'Are you into vlogging, making tutorials and rather share a video? Let us know.',
+        buttonText: 'Contact the editors',
+        iconImage: 'video-solid.svg',
+        navRoute: '/contribute',
+      },
+      {
+        title: 'Join our Discord',
+        infoText: 'Connect to like-minded IT professionals.',
+        buttonText: 'Join our Discord channel',
+        iconImage: 'discord-brands.svg',
+        navRoute: '/discord',
+      },
+      {
+        title: 'Start mobbing together',
+        infoText:
+          'We have regular mobbing sessions to help out the open source community.',
+        buttonText: 'More about our sessions',
+        iconImage: 'handshake-regular.svg',
+        navRoute: '/discord',
+      },
+    ]
+
+    return {
+      actionCards,
+    }
+  },
+})
+</script>
 
 <style lang="scss" scoped>
 .wrapper {
@@ -161,7 +177,7 @@
   }
 }
 
-@media (max-width: 900px) {
+@media (max-width: 56.25em) {
   .what-about-it {
     &__header {
       min-width: 40%;
@@ -194,11 +210,6 @@
     &__button {
       display: flex;
       justify-content: center;
-    }
-  }
-
-  .how-to-join {
-    &__cards {
     }
   }
 }

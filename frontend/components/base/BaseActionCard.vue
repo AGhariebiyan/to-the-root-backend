@@ -3,17 +3,16 @@
     <img
       class="action-card__icon"
       :src="require(`~/assets/icons/${iconImage}`)"
-      alt="newspaper"
     />
-    <h1 class="action-card__title"><slot name="title"></slot></h1>
+    <h3 class="action-card__title"><slot name="title"></slot></h3>
     <p class="action-card__info-text"><slot name="info-text"></slot></p>
-    <BaseButtonNew
+    <OutlineButton
       class="action-card__button"
       :nav-route="navRoute"
-      button-color="gray-darker"
+      color="gray-darker"
       :is-responsive="true"
       ><slot name="button-text"></slot
-    ></BaseButtonNew>
+    ></OutlineButton>
   </div>
 </template>
 
@@ -44,7 +43,7 @@ export default defineComponent({
   flex-direction: column;
   align-items: center;
   margin-bottom: 3rem;
-  min-height: 30rem;
+  height: 30rem;
   position: relative;
 
   &__icon {
@@ -67,7 +66,7 @@ export default defineComponent({
   }
 }
 
-@media (max-width: 900px) {
+@media (max-width: 56.25em) {
   .action-card {
     padding: 1.5rem 3rem;
 
@@ -92,15 +91,10 @@ export default defineComponent({
   }
 }
 
-@media (max-width: 680px) {
+@media (max-width: 42.5em) {
   .action-card {
     padding: 1rem 2rem;
-    min-height: 28rem;
-
-    &__icon {
-      width: 4rem;
-      margin: 1rem 0 3rem;
-    }
+    height: 28rem;
 
     &__title {
       font-size: 1.4rem;
@@ -110,22 +104,15 @@ export default defineComponent({
     &__info-text {
       font-size: 0.9rem;
     }
-
-    &__button {
-      position: absolute;
-      bottom: 1rem;
-    }
   }
 }
 
-@media (max-width: 550px) {
+@media (max-width: 34.375em) {
   .action-card {
     width: 100%;
-    padding: 1rem 2rem;
 
     &__icon {
       width: 5rem;
-      margin: 1rem 0 3rem;
     }
 
     &__title {
@@ -135,11 +122,6 @@ export default defineComponent({
 
     &__info-text {
       font-size: 1.2rem;
-    }
-
-    &__button {
-      position: absolute;
-      bottom: 1rem;
     }
   }
 }
@@ -152,7 +134,6 @@ export default defineComponent({
 
     &__title {
       font-size: 1.6rem;
-      margin-bottom: 2rem;
     }
 
     &__info-text {

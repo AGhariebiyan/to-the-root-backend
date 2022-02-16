@@ -1,24 +1,35 @@
 <template>
   <button
-    :class="`${buttonColor} responsive-${isResponsive}`"
+    class="outline-button"
+    :class="`${color} responsive-${isResponsive}`"
     @click="navigateTo"
   >
-    <slot>BASEBUTTONNEW</slot>
+    <slot>OUTLINE BUTTON</slot>
   </button>
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@nuxtjs/composition-api'
+import { defineComponent, useRouter } from '@nuxtjs/composition-api'
 
 export default defineComponent({
   props: {
     navRoute: {
       type: String,
-      required: true,
+      required: false,
     },
-    buttonColor: {
+    color: {
       type: String,
       required: true,
+      validator(this: void, value: string) {
+        return [
+          'white',
+          'gray-lighter',
+          'gray-light',
+          'gray',
+          'gray-dark',
+          'gray-darker',
+        ].includes(value)
+      },
     },
     isResponsive: {
       type: Boolean,
@@ -28,7 +39,10 @@ export default defineComponent({
 
   setup(props) {
     function navigateTo() {
-      this.$router.push({
+      // if (isNavButton) return
+
+      const router = useRouter()
+      router.push({
         path: props.navRoute,
       })
     }
@@ -41,7 +55,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-button {
+.outline-button {
   padding: 0.3rem 2rem;
   margin: 2rem 0;
   font-family: 'Poppins-Bold', sans-serif;
@@ -52,7 +66,7 @@ button {
   transition: all 0.3s ease;
 }
 
-button.white {
+.outline-button.white {
   color: $white;
   border: 1px solid $white;
 
@@ -61,7 +75,7 @@ button.white {
   }
 }
 
-button.gray-lighter {
+.outline-button.gray-lighter {
   color: $gray-lighter;
   border: 1px solid $gray-lighter;
 
@@ -70,7 +84,7 @@ button.gray-lighter {
   }
 }
 
-button.gray-light {
+.outline-button.gray-light {
   color: $gray-light;
   border: 1px solid $gray-light;
 
@@ -79,7 +93,7 @@ button.gray-light {
   }
 }
 
-button.gray {
+.outline-button.gray {
   color: $gray;
   border: 1px solid $gray;
 
@@ -88,7 +102,7 @@ button.gray {
   }
 }
 
-button.gray-dark {
+.outline-button.gray-dark {
   color: $gray-dark;
   border: 1px solid $gray-dark;
 
@@ -97,7 +111,7 @@ button.gray-dark {
   }
 }
 
-button.gray-darker {
+.outline-button.gray-darker {
   color: $gray-darker;
   border: 1px solid $gray-darker;
 
@@ -106,28 +120,29 @@ button.gray-darker {
   }
 }
 
-@media (max-width: 850px) {
-  button.responsive-true {
+@media (max-width: 53em) {
+  .outline-button.responsive-true {
     font-size: 0.9rem;
     padding: 0.2rem 1.5rem;
   }
 }
 
-@media (max-width: 700px) {
-  button.responsive-true {
+@media (max-width: 44em) {
+  .outline-button.responsive-true {
     font-size: 0.7rem;
     padding: 0.1rem 1rem;
   }
 }
 
-@media (max-width: 550px) {
-  button.responsive-true {
+@media (max-width: 34em) {
+  .outline-button.responsive-true {
     font-size: 1rem;
     padding: 0.3rem 2rem;
   }
 }
+
 @media (max-width: $max-width-phone) {
-  button.responsive-true {
+  .outline-button.responsive-true {
     font-size: 0.8rem;
     padding: 0.2rem 1.5rem;
   }
