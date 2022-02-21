@@ -1,22 +1,14 @@
 <template>
-  <button
-    class="outline-button"
-    :class="`${color} responsive-${isResponsive}`"
-    @click="navigateTo"
-  >
+  <button class="outline-button" :class="color">
     <slot>OUTLINE BUTTON</slot>
   </button>
 </template>
 
 <script lang="ts">
-import { defineComponent, useRouter } from '@nuxtjs/composition-api'
+import { defineComponent } from '@nuxtjs/composition-api'
 
 export default defineComponent({
   props: {
-    navRoute: {
-      type: String,
-      required: false,
-    },
     color: {
       type: String,
       required: true,
@@ -31,25 +23,6 @@ export default defineComponent({
         ].includes(value)
       },
     },
-    isResponsive: {
-      type: Boolean,
-      default: false,
-    },
-  },
-
-  setup(props) {
-    function navigateTo() {
-      // if (isNavButton) return
-
-      const router = useRouter()
-      router.push({
-        path: props.navRoute,
-      })
-    }
-
-    return {
-      navigateTo,
-    }
   },
 })
 </script>
@@ -117,34 +90,6 @@ export default defineComponent({
 
   &:hover {
     box-shadow: 4px 4px 10px rgba($gray-darker, 0.3);
-  }
-}
-
-@media (max-width: 53em) {
-  .outline-button.responsive-true {
-    font-size: 0.9rem;
-    padding: 0.2rem 1.5rem;
-  }
-}
-
-@media (max-width: 44em) {
-  .outline-button.responsive-true {
-    font-size: 0.7rem;
-    padding: 0.1rem 1rem;
-  }
-}
-
-@media (max-width: 34em) {
-  .outline-button.responsive-true {
-    font-size: 1rem;
-    padding: 0.3rem 2rem;
-  }
-}
-
-@media (max-width: $max-width-phone) {
-  .outline-button.responsive-true {
-    font-size: 0.8rem;
-    padding: 0.2rem 1.5rem;
   }
 }
 </style>

@@ -88,7 +88,7 @@ export default defineComponent({
     margin: 0 0 1rem;
   }
   &--text {
-    font-family: RobotoLight, sans-serif;
+    font-family: Poppins-Light, sans-serif;
   }
   button {
     width: fit-content;

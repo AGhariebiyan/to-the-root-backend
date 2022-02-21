@@ -7,11 +7,10 @@
         :title="`Logged in as ${$auth.user.username}`"
         @click.native="$emit('closeMobileMenu')"
       >
-        <OutlineButton color="gray" nav-route="">Profile</OutlineButton>
+        <OutlineButton color="gray">Profile</OutlineButton>
       </NuxtLink>
 
       <OutlineButton
-        nav-route=""
         color="gray"
         class="header__button login-box__logout"
         @click.native="logoutHandler"

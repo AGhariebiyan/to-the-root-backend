@@ -6,13 +6,11 @@
     />
     <h3 class="action-card__title"><slot name="title"></slot></h3>
     <p class="action-card__info-text"><slot name="info-text"></slot></p>
-    <OutlineButton
-      class="action-card__button"
-      :nav-route="navRoute"
-      color="gray-darker"
-      :is-responsive="true"
+    <a
+      class="action-card__button outline-button-link button-gray-darker"
+      :href="navRoute"
       ><slot name="button-text"></slot
-    ></OutlineButton>
+    ></a>
   </div>
 </template>
 
@@ -87,6 +85,9 @@ export default defineComponent({
     &__button {
       position: absolute;
       bottom: 1rem;
+
+      font-size: 0.9rem;
+      padding: 0.2rem 1.5rem;
     }
   }
 }
@@ -103,6 +104,11 @@ export default defineComponent({
 
     &__info-text {
       font-size: 0.9rem;
+    }
+
+    &__button {
+      font-size: 0.7rem;
+      padding: 0.1rem 1rem;
     }
   }
 }
@@ -123,6 +129,11 @@ export default defineComponent({
     &__info-text {
       font-size: 1.2rem;
     }
+
+    &__button {
+      font-size: 1rem;
+      padding: 0.3rem 2rem;
+    }
   }
 }
 
@@ -138,6 +149,11 @@ export default defineComponent({
 
     &__info-text {
       font-size: 1.1rem;
+    }
+
+    &__button {
+      font-size: 0.8rem;
+      padding: 0.2rem 1.5rem;
     }
   }
 }

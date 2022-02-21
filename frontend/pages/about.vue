@@ -22,8 +22,8 @@
               peers. So what are you waiting for? Join us!
             </p>
             <div class="what-about-it__button">
-              <OutlineButton nav-route="/discord" color="white"
-                >Join Us</OutlineButton
+              <a href="/discord" class="outline-button-link button-white"
+                >Join Us</a
               >
             </div>
           </div>
@@ -46,8 +46,8 @@
           right place.
         </p>
         <div class="why-to-join__button">
-          <OutlineButton nav-route="/open-source" color="gray-dark"
-            >Contribute together</OutlineButton
+          <a href="/open-source" class="outline-button-link button-gray-dark"
+            >Contribute together</a
           >
         </div>
       </div>
@@ -151,7 +151,7 @@ export default defineComponent({
   color: $gray-dark;
 
   &__paragraph {
-    margin-bottom: 1rem;
+    margin-bottom: 3rem;
   }
 }
 
