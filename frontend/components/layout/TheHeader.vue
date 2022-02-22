@@ -3,10 +3,12 @@
     <div class="header__content">
       <div class="logo">
         <NuxtLink class="logo__link" to="/">
-          <img class="logo__image" src="@/assets/Logo.svg" alt="Logo" />
+          <img class="logo__image" src="@/assets/logo.svg" alt="home" />
         </NuxtLink>
       </div>
       <span
+        role="navigation"
+        aria-label="open mobile menu"
         v-if="!isHeaderMobileMenuActive"
         class="material-icons header__mobile-menu-button"
         @click="openMobileNavMenu"
@@ -14,13 +16,15 @@
         >menu</span
       >
       <span
+        role="navigation"
+        aria-label="close mobile menu"
         v-else
         class="material-icons header__mobile-menu-button"
         @click="closeMobileNavMenu"
         @touch="closeMobileNavMenu"
         >close</span
       >
-      <nav class="nav-links--desktop">
+      <nav role="navigation" aria-label="Main" class="nav-links--desktop">
         <NuxtLink
           class="nav-links__item"
           v-for="link in links"
@@ -29,9 +33,9 @@
           >{{ link.name }}</NuxtLink
         >
       </nav>
-      <LoginBox />
+      <LoginBox role="navigation" aria-label="Login" />
       <div class="header__menu--mobile" v-if="isHeaderMobileMenuActive">
-        <nav class="nav-links--mobile">
+        <nav role="navigation" aria-label="Main" class="nav-links--mobile">
           <NuxtLink
             class="nav-links__item"
             v-for="link in links"
@@ -85,24 +89,16 @@ export default defineComponent({
 
     const links = [
       {
-        name: 'Content',
+        name: 'Learn',
         to: '/',
       },
       {
-        name: 'Contribute',
-        to: '/contribute',
-      },
-      {
-        name: 'Open Source',
-        to: '/open-source',
-      },
-      {
-        name: 'Events',
-        to: '/events',
-      },
-      {
-        name: 'Get in touch',
+        name: 'Connect',
         to: '/contact',
+      },
+      {
+        name: 'About Us',
+        to: '/about',
       },
     ]
 
@@ -128,8 +124,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .header {
-  background-color: $gray-light;
-  padding: 1rem;
+  background-color: $white;
   position: sticky;
   top: 0;
   z-index: 50;
@@ -137,9 +132,8 @@ export default defineComponent({
 
 .header__content {
   display: flex;
-  justify-content: center;
   align-items: center;
-  max-width: $nav-max-width;
+  max-width: $desktop-max-width;
   margin: 0 auto;
   position: relative;
 }
@@ -147,22 +141,29 @@ export default defineComponent({
 .logo {
   width: $header-item-width;
   margin-right: auto;
-  padding-top: 0.5rem;
+
+  &__link {
+    line-height: 0;
+  }
 
   &__image {
-    height: 2rem;
+    height: 130px;
   }
 }
 
 .nav-links--desktop {
-  flex-grow: 1;
   display: flex;
   justify-content: center;
+  margin-right: 3rem;
 }
 
 .nav-links__item {
   text-decoration: none;
   position: relative;
+  text-transform: uppercase;
+  font-family: 'Poppins-Bold';
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
 
   &:not(:last-child) {
     margin-right: 2.5rem;
@@ -174,16 +175,16 @@ export default defineComponent({
   }
 
   &:hover {
-    color: $discovery-blue-primary;
+    color: $ordina-orange;
   }
 
   &.nuxt-link-exact-active::after {
     content: '';
     position: absolute;
     width: 100%;
-    height: 0.1875rem;
-    background-color: $discovery-blue-primary;
-    top: $default-font-size * 1.375;
+    height: 0.35rem;
+    background-color: $gray;
+    top: $default-font-size * 2;
     left: 0;
   }
 }
@@ -221,7 +222,6 @@ export default defineComponent({
 }
 
 .login-box {
-  width: $header-item-width;
   display: flex;
   justify-content: flex-end;
 }
