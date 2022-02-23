@@ -187,6 +187,7 @@ export default defineComponent({
         relatedAuthorArticles,
       )
 
+      // Remove duplicates
       const uniqueArticles: Article[] = Object.values(
         combinedArticles.reduce((uniqueArticles: any, article: Article) => {
           return uniqueArticles[article.id]
@@ -200,6 +201,25 @@ export default defineComponent({
         .filter((relArt: Article) => relArt.id !== article.value.id)
         // Only show at most 3 items
         .slice(0, 3)
+
+      // Complement relatedArticles if there are less than 3
+      const nrComplementaryArticles = 3 - relatedArticles.value.length
+      if (nrComplementaryArticles > 0) {
+        const complementaryArticles = await store.dispatch(
+          'articles/fetchArticles',
+          {
+            limit: nrComplementaryArticles,
+            offset: ref(0),
+            sort: 'updated_at',
+          },
+        )
+        relatedArticles.value = relatedArticles.value.concat(
+          complementaryArticles,
+        )
+      }
+
+      // TODO: check for duplicates in complementary articles
+      // TODO: implement this similarly on author page
     }
 
     return {
