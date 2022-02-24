@@ -183,8 +183,17 @@ export default defineComponent({
         })
       }
 
+      // Always add the 3 most recent articles
+      const recentArticles = await store.dispatch('articles/fetchArticles', {
+        limit: 3,
+        offset: ref(0),
+        sort: 'updated_at',
+      })
+
+      // Combine all articles
       const combinedArticles = relatedCategoryArticles.concat(
         relatedAuthorArticles,
+        recentArticles,
       )
 
       // Remove duplicates
@@ -202,23 +211,6 @@ export default defineComponent({
         // Only show at most 3 items
         .slice(0, 3)
 
-      // Complement relatedArticles if there are less than 3
-      const nrComplementaryArticles = 3 - relatedArticles.value.length
-      if (nrComplementaryArticles > 0) {
-        const complementaryArticles = await store.dispatch(
-          'articles/fetchArticles',
-          {
-            limit: nrComplementaryArticles,
-            offset: ref(0),
-            sort: 'updated_at',
-          },
-        )
-        relatedArticles.value = relatedArticles.value.concat(
-          complementaryArticles,
-        )
-      }
-
-      // TODO: check for duplicates in complementary articles
       // TODO: implement this similarly on author page
     }
 
