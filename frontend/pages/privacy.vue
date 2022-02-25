@@ -7,10 +7,14 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@nuxtjs/composition-api'
+import { defineComponent, useMeta } from '@nuxtjs/composition-api'
 
 export default defineComponent({
-  setup() {},
+  head: {},
+  setup() {
+    const { title } = useMeta()
+    title.value = `Privacy / ${process.env.platformName}`
+  },
 })
 </script>
 

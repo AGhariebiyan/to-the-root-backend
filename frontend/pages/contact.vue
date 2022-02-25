@@ -97,11 +97,21 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, Ref, useContext } from '@nuxtjs/composition-api'
+import {
+  defineComponent,
+  ref,
+  Ref,
+  useContext,
+  useMeta,
+} from '@nuxtjs/composition-api'
 import { validateEmail, sendEmail } from '~/utils/email'
 
 export default defineComponent({
+  head: {},
   setup() {
+    const { title } = useMeta()
+    title.value = `Contact / ${process.env.platformName}`
+
     const { $auth } = useContext()
 
     const firstName = ref('')

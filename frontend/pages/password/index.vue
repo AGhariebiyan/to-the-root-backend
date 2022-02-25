@@ -31,10 +31,19 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, useContext, ref } from '@nuxtjs/composition-api'
+import {
+  defineComponent,
+  useContext,
+  ref,
+  useMeta,
+} from '@nuxtjs/composition-api'
 
 export default defineComponent({
+  head: {},
   setup() {
+    const { title } = useMeta()
+    title.value = `Reset password / ${process.env.platformName}`
+
     const { $axios, $strapi } = useContext()
     const forgotEmail = ref('')
     const isFormSubmitted = ref(false)

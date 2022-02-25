@@ -10,6 +10,19 @@
   </BasePageLayout>
 </template>
 
+<script>
+import { defineComponent, useMeta } from '@nuxtjs/composition-api'
+
+export default defineComponent({
+  head: {},
+  setup() {
+    const { title } = useMeta()
+    title.value = `Cookie policy / ${process.env.platformName}`
+  },
+})
+</script>
+
+
 <style lang="scss" scoped>
 .header {
   margin-bottom: 3rem;

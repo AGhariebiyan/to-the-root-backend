@@ -7,11 +7,13 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, useStore } from '@nuxtjs/composition-api'
+import { defineComponent, useMeta } from '@nuxtjs/composition-api'
 
 export default defineComponent({
+  head: {},
   setup() {
-    const store = useStore()
+    const { title } = useMeta()
+    title.value = `Events / ${process.env.platformName}`
   },
 })
 </script>

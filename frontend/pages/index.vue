@@ -53,7 +53,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from '@nuxtjs/composition-api'
+import { defineComponent, ref, useMeta } from '@nuxtjs/composition-api'
 
 import {
   AisConfigure,
@@ -67,6 +67,8 @@ import algoliasearch from 'algoliasearch/lite'
 export default defineComponent({
   name: 'PageContent',
 
+  head: {},
+
   components: {
     AisConfigure,
     AisInstantSearch,
@@ -76,6 +78,9 @@ export default defineComponent({
   },
 
   setup() {
+    const { title } = useMeta()
+    title.value = `Search / ${process.env.platformName}`
+
     const query = ref('')
     const algoliaIndex: string = process.env.algoliaIndex || ''
     const appId: string = process.env.algoliaAppId || ''

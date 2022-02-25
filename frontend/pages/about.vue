@@ -74,10 +74,14 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@nuxtjs/composition-api'
+import { defineComponent, useMeta } from '@nuxtjs/composition-api'
 
 export default defineComponent({
+  head: {},
   setup() {
+    const { title } = useMeta()
+    title.value = `About / ${process.env.platformName}`
+
     const actionCards = [
       {
         title: 'Start writing articles',

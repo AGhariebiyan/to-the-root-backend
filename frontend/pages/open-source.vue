@@ -13,3 +13,15 @@
     </MailingListForm>
   </BasePageLayout>
 </template>
+
+<script>
+import { defineComponent, useMeta } from '@nuxtjs/composition-api'
+
+export default defineComponent({
+  head: {},
+  setup() {
+    const { title } = useMeta()
+    title.value = `Open source / ${process.env.platformName}`
+  },
+})
+</script>

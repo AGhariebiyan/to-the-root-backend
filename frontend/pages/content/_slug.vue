@@ -85,6 +85,7 @@ import {
   useRoute,
   onMounted,
   ref,
+  useMeta,
 } from '@nuxtjs/composition-api'
 
 import { Article } from '~/utils/types'
@@ -95,6 +96,8 @@ export default defineComponent({
   components: { ClipLoader },
 
   name: 'PageContentDetail',
+
+  head: {},
 
   setup() {
     const isLoading = ref(true)
@@ -114,6 +117,9 @@ export default defineComponent({
         ) ?? {}
       )
     })
+
+    const { title } = useMeta()
+    title.value = `${article.value.title} / ${process.env.platformName}`
 
     const comments = computed(() => {
       return store.getters['comments/comments']

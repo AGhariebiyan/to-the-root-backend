@@ -97,11 +97,13 @@ import {
   onMounted,
   computed,
   ref,
+  useMeta,
 } from '@nuxtjs/composition-api'
 import { Author, Article } from '../../utils/types'
 
 export default defineComponent({
   name: 'PageAuthor',
+  head: {},
   setup() {
     const isLoading = ref(true)
     const { store, $config } = useContext()
@@ -116,6 +118,9 @@ export default defineComponent({
         ) ?? {}
       )
     })
+
+    const { title } = useMeta()
+    title.value = `${author.value.name} / ${process.env.platformName}`
 
     const sortedArticles = computed(() => {
       const articlesCopy = JSON.parse(JSON.stringify(author.value)).articles
