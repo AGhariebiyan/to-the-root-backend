@@ -3,7 +3,7 @@
     <BaseContainer containerType="narrow">
       <h2 class="signup__title">Sign up</h2>
 
-      <BaseForm @submit="registerUser">
+      <BaseForm v-if="!emailVerificationPending" @submit="registerUser">
         <template v-slot:socials>
           <LoginSocials divider-text="Or signup with email" />
         </template>
@@ -67,6 +67,17 @@
           </div>
         </template>
       </BaseForm>
+
+      <BaseForm v-else>
+        <template #form>
+          <h3 class="email-verification-pending__header">
+            Thank you for signing up!
+          </h3>
+          <p class="email-verification-pending__paragraph">
+            Please verify your email address before logging in.
+          </p>
+        </template>
+      </BaseForm>
     </BaseContainer>
   </BasePageLayout>
 </template>
@@ -84,6 +95,7 @@ import BaseButton from '@/components/base/BaseButton.vue'
 export default defineComponent({
   components: { BaseButton },
   setup() {
+    const emailVerificationPending = ref(false)
     const email = ref('')
     const error = ref('')
     const username = ref('')
@@ -124,13 +136,7 @@ export default defineComponent({
           password: password.value,
         })
 
-        await $auth.loginWith('local', {
-          data: {
-            identifier: username.value,
-            password: password.value,
-          },
-        })
-
+        emailVerificationPending.value = true
         resetInput()
       } catch (e: any) {
         error.value = errorMessageFromResponse(e)
@@ -138,6 +144,7 @@ export default defineComponent({
     }
 
     return {
+      emailVerificationPending,
       email,
       error,
       password,
@@ -154,5 +161,11 @@ export default defineComponent({
 <style lang="scss" scoped>
 .signup__title {
   margin-bottom: 2rem;
+}
+
+.email-verification-pending {
+  &__header {
+    margin-bottom: 1rem;
+  }
 }
 </style>
