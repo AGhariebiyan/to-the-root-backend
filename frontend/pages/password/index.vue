@@ -31,18 +31,13 @@
 </template>
 
 <script lang="ts">
-import {
-  defineComponent,
-  useContext,
-  ref,
-  useMeta,
-} from '@nuxtjs/composition-api'
+import { defineComponent, useContext, ref } from '@nuxtjs/composition-api'
+import { composePageTitle } from '~/utils/helpers'
 
 export default defineComponent({
   head: {},
   setup() {
-    const { title } = useMeta()
-    title.value = `Reset password / ${process.env.platformName}`
+    composePageTitle('Reset password')
 
     const { $axios, $strapi } = useContext()
     const forgotEmail = ref('')

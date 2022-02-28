@@ -85,10 +85,10 @@ import {
   useRoute,
   onMounted,
   ref,
-  useMeta,
 } from '@nuxtjs/composition-api'
 
 import { Article } from '~/utils/types'
+import { composePageTitle } from '~/utils/helpers'
 import ClipLoader from 'vue-spinner/src/ClipLoader.vue'
 import Prism from '~/plugins/prism'
 
@@ -118,8 +118,7 @@ export default defineComponent({
       )
     })
 
-    const { title } = useMeta()
-    title.value = `${article.value.title} / ${process.env.platformName}`
+    composePageTitle(article.value.title)
 
     const comments = computed(() => {
       return store.getters['comments/comments']

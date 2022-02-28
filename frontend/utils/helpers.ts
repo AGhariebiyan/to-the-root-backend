@@ -2,6 +2,7 @@ import { AxiosError } from 'axios'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import localizedDate from 'dayjs/plugin/localizedFormat'
+import { useMeta } from '@nuxtjs/composition-api'
 dayjs.extend(relativeTime)
 dayjs.extend(localizedDate)
 
@@ -19,4 +20,9 @@ function readableTimeDifference(timeStamp: string) {
   return dayjs(date).fromNow()
 }
 
-export { errorMessageFromResponse, readableTimeDifference }
+function composePageTitle(page: string) {
+  const { title } = useMeta()
+  title.value = `/ ${page}`
+}
+
+export { errorMessageFromResponse, readableTimeDifference, composePageTitle }

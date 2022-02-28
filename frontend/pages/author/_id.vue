@@ -97,9 +97,9 @@ import {
   onMounted,
   computed,
   ref,
-  useMeta,
 } from '@nuxtjs/composition-api'
 import { Author, Article } from '../../utils/types'
+import { composePageTitle } from '~/utils/helpers'
 
 export default defineComponent({
   name: 'PageAuthor',
@@ -119,8 +119,7 @@ export default defineComponent({
       )
     })
 
-    const { title } = useMeta()
-    title.value = `${author.value.name} / ${process.env.platformName}`
+    composePageTitle(author.value.name)
 
     const sortedArticles = computed(() => {
       const articlesCopy = JSON.parse(JSON.stringify(author.value)).articles

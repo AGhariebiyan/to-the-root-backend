@@ -53,7 +53,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, useMeta } from '@nuxtjs/composition-api'
+import { defineComponent, ref } from '@nuxtjs/composition-api'
+import { composePageTitle } from '~/utils/helpers'
 
 import {
   AisConfigure,
@@ -78,8 +79,7 @@ export default defineComponent({
   },
 
   setup() {
-    const { title } = useMeta()
-    title.value = `Search / ${process.env.platformName}`
+    composePageTitle('Search')
 
     const query = ref('')
     const algoliaIndex: string = process.env.algoliaIndex || ''

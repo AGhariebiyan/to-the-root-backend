@@ -54,18 +54,13 @@
 </template>
 
 <script lang="ts">
-import {
-  defineComponent,
-  useContext,
-  ref,
-  useMeta,
-} from '@nuxtjs/composition-api'
+import { defineComponent, useContext, ref } from '@nuxtjs/composition-api'
+import { composePageTitle } from '~/utils/helpers'
 
 export default defineComponent({
   middleware: 'auth',
   setup() {
-    const { title } = useMeta()
-    title.value = `Profile / ${process.env.platformName}`
+    composePageTitle('Profile')
 
     const { $auth } = useContext()
     const currentSection = ref('profile')

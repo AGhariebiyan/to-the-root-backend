@@ -7,13 +7,13 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, useMeta } from '@nuxtjs/composition-api'
+import { defineComponent } from '@nuxtjs/composition-api'
+import { composePageTitle } from '~/utils/helpers'
 
 export default defineComponent({
   head: {},
   setup() {
-    const { title } = useMeta()
-    title.value = `Proclaimer / ${process.env.platformName}`
+    composePageTitle('Proclaimer')
   },
 })
 </script>

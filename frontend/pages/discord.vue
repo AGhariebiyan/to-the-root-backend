@@ -12,13 +12,13 @@
 </template>
 
 <script>
-import { defineComponent, useMeta } from '@nuxtjs/composition-api'
+import { defineComponent } from '@nuxtjs/composition-api'
+import { composePageTitle } from '~/utils/helpers'
 
 export default defineComponent({
   head: {},
   setup() {
-    const { title } = useMeta()
-    title.value = `Discord / ${process.env.platformName}`
+    composePageTitle('Discord')
   },
 })
 </script>
