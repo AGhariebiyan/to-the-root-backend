@@ -66,6 +66,7 @@ import {
   computed,
   useRoute,
   useRouter,
+  useMeta,
 } from '@nuxtjs/composition-api'
 import { errorMessageFromResponse, composePageTitle } from '@/utils/helpers'
 import BaseForm from '../components/base/BaseForm.vue'
@@ -79,7 +80,7 @@ export default defineComponent({
   components: { BaseForm, BaseButton },
 
   setup() {
-    composePageTitle('Login')
+    useMeta(() => ({ title: composePageTitle('Login') }))
 
     const { $auth } = useContext()
     const route = useRoute()

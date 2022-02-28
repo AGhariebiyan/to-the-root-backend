@@ -85,6 +85,7 @@ import {
   useRoute,
   onMounted,
   ref,
+  useMeta,
 } from '@nuxtjs/composition-api'
 
 import { Article } from '~/utils/types'
@@ -118,7 +119,7 @@ export default defineComponent({
       )
     })
 
-    composePageTitle(article.value.title)
+    useMeta(() => ({ title: composePageTitle(article.value.title) }))
 
     const comments = computed(() => {
       return store.getters['comments/comments']

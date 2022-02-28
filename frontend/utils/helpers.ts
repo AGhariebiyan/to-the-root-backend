@@ -21,8 +21,7 @@ function readableTimeDifference(timeStamp: string) {
 }
 
 function composePageTitle(page: string) {
-  const { title } = useMeta()
-  title.value = `/ ${page}`
+  return `/ ${page}`
 }
 
 export { errorMessageFromResponse, readableTimeDifference, composePageTitle }

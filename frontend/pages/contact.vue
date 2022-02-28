@@ -97,14 +97,20 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, Ref, useContext } from '@nuxtjs/composition-api'
+import {
+  defineComponent,
+  ref,
+  Ref,
+  useContext,
+  useMeta,
+} from '@nuxtjs/composition-api'
 import { validateEmail, sendEmail } from '~/utils/email'
 import { composePageTitle } from '~/utils/helpers'
 
 export default defineComponent({
   head: {},
   setup() {
-    composePageTitle('Contact')
+    useMeta(() => ({ title: composePageTitle('Contact') }))
 
     const { $auth } = useContext()
 
