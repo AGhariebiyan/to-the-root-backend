@@ -39,11 +39,11 @@ export const mutations: MutationTree<RootState> = {
 }
 
 export const actions: ActionTree<RootState, RootState> = {
-  async fetchArticles({ commit }, { limit = 6, offset = 0, params = {} }) {
+  async fetchArticles({ commit }, { limit = 6, offset = 0, sort, params = {} }) {
     const paramString = qs.stringify(params)
 
     const response = await $axios.get(
-      `/articles?_start=${offset.value}&_limit=${limit}${paramString ? '&' + paramString : ''
+      `/articles?_start=${offset.value}&_limit=${limit}${sort ? '&_sort=' + sort : ''}${paramString ? '&' + paramString : ''
       }`,
     )
     const articles: Article[] = response.data
