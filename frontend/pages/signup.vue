@@ -3,7 +3,7 @@
     <BaseContainer containerType="narrow">
       <h2 class="signup__title">Sign up</h2>
 
-      <BaseForm v-if="!emailVerificationPending" @submit="registerUser">
+      <BaseForm v-if="!isRegistrationComplete" @submit="registerUser">
         <template v-slot:socials>
           <LoginSocials divider-text="Or signup with email" />
         </template>
@@ -95,7 +95,7 @@ import BaseButton from '@/components/base/BaseButton.vue'
 export default defineComponent({
   components: { BaseButton },
   setup() {
-    const emailVerificationPending = ref(false)
+    const isRegistrationComplete = ref(false)
     const email = ref('')
     const error = ref('')
     const username = ref('')
@@ -136,7 +136,7 @@ export default defineComponent({
           password: password.value,
         })
 
-        emailVerificationPending.value = true
+        isRegistrationComplete.value = true
         resetInput()
       } catch (e: any) {
         error.value = errorMessageFromResponse(e)
@@ -144,7 +144,7 @@ export default defineComponent({
     }
 
     return {
-      emailVerificationPending,
+      isRegistrationComplete,
       email,
       error,
       password,

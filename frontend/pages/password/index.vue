@@ -18,11 +18,7 @@
             class="reset-email__submit"
             >Send reset email</BaseButton
           >
-          <p
-            :class="{
-              'form__error-message': emailValidationError.length > 0,
-            }"
-          >
+          <p v-if="emailValidationError.length > 0" class="form__error-message">
             {{ emailValidationError }}
           </p>
           <p v-if="isFormSubmitted">
