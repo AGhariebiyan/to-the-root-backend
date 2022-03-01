@@ -38,9 +38,11 @@
         </div>
         <div class="article__content" v-html="article.content"></div>
 
-        <a class="new-button" href="/produceContent"
-          >Submit your own articles</a
-        >
+        <p class="article__contribute-text">
+          This article was written by {{ article.author.name }}. If you'd like
+          to have your name here under your own article,
+          <a href="/produce-content" class="link">click here to contribute.</a>
+        </p>
 
         <div class="article__interactions">
           <LikeButton :articleId="article.id" :articleSlug="slug" />
@@ -87,6 +89,7 @@ import {
 
 import { Article } from '~/utils/types'
 import ClipLoader from 'vue-spinner/src/ClipLoader.vue'
+import Prism from '~/plugins/prism'
 
 export default defineComponent({
   components: { ClipLoader },
@@ -129,6 +132,7 @@ export default defineComponent({
       } catch (err) {
       } finally {
         isLoading.value = false
+        Prism.highlightAll()
       }
     })
 
@@ -179,10 +183,20 @@ export default defineComponent({
         })
       }
 
+      // Always add the 3 most recent articles
+      const recentArticles = await store.dispatch('articles/fetchArticles', {
+        limit: 3,
+        offset: ref(0),
+        sort: 'updated_at',
+      })
+
+      // Combine all articles
       const combinedArticles = relatedCategoryArticles.concat(
         relatedAuthorArticles,
+        recentArticles,
       )
 
+      // Remove duplicates
       const uniqueArticles: Article[] = Object.values(
         combinedArticles.reduce((uniqueArticles: any, article: Article) => {
           return uniqueArticles[article.id]
@@ -261,6 +275,11 @@ export default defineComponent({
     }
   }
 
+  &__contribute-text {
+    color: $gray-darker;
+    font-style: italic;
+  }
+
   &__interactions {
     display: flex;
     margin-top: 50px;
@@ -300,20 +319,14 @@ export default defineComponent({
 
 .related-articles {
   &__heading {
-    margin-bottom: 1rem;
+    margin-bottom: 2rem;
+    text-align: center;
   }
   &__container {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    display: flex;
+    flex-wrap: wrap;
     gap: 1rem;
-
-    @include respond(tab-landscape) {
-      grid-template-columns: 1fr 1fr;
-    }
-
-    @media screen and (max-width: 36em) {
-      grid-template-columns: 1fr;
-    }
+    justify-content: center;
   }
 }
 </style>

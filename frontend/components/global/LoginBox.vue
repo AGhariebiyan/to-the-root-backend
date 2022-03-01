@@ -2,21 +2,21 @@
   <div class="login-box" :class="{ isMobile: isMobile }">
     <template v-if="isLoggedIn">
       <NuxtLink
-        class="login-box__link button-link button-link--transparent"
+        class="login-box__link"
         to="/profile"
         :title="`Logged in as ${$auth.user.username}`"
         @click.native="$emit('closeMobileMenu')"
       >
-        <span class="material-icons">person_outline</span>
+        <OutlineButton color="gray">Profile</OutlineButton>
       </NuxtLink>
 
-      <BaseButton
-        buttonType="primary"
+      <OutlineButton
+        color="gray"
         class="header__button login-box__logout"
         @click.native="logoutHandler"
       >
         Log out
-      </BaseButton>
+      </OutlineButton>
     </template>
 
     <template v-else>
@@ -100,6 +100,12 @@ export default {
 .header__button:not(:first-child),
 .button-link:not(:first-child) {
   margin-left: 1rem;
+}
+
+@media (max-width: $desktop-max-width) {
+  .login-box {
+    margin-right: 1rem;
+  }
 }
 
 @media only screen and (max-width: 54.5em) {

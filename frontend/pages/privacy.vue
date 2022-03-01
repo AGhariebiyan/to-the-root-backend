@@ -1,7 +1,7 @@
 <template>
   <BasePageLayout>
     <BaseContainer>
-      <h1>PRIVACY & COOKIES</h1>
+      <h1>PRIVACY</h1>
     </BaseContainer>
   </BasePageLayout>
 </template>

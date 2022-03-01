@@ -81,7 +81,7 @@ export default {
     z-index: 5;
     text-transform: uppercase;
     font-size: 0.75rem;
-    letter-spacing: 0.125rem;
+    letter-spacing: $letter-spacing;
   }
 
   &::before {

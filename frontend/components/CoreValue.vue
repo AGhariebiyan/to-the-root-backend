@@ -34,7 +34,7 @@ export default {
   }
 
   &__heading {
-    font-family: 'Roboto';
+    font-family: 'Poppins';
     margin-top: 1rem;
     padding-bottom: 0.625rem;
     border-bottom: solid $discovery-blue-primary 0.1875rem;

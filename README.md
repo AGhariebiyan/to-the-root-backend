@@ -20,7 +20,7 @@ In the minimal setup, you can view the site and search for articles.
 3. Copy the .env.example and rename the file to .env
 4. Set the ALGOLIA_INDEX to 'dev_content'
 5. Run `npm i`
-6. Run `npm run develop` to start the Strapi server
+6. Run `npm run dev` to start the Strapi server
 7. A Strapi instance should start, serving the app on localhost:1337
 
 #### Database
@@ -69,7 +69,7 @@ This is temporary as we'd need to upgrade to a domain instead of a single sender
 
 ### Sending emails
 
-To enable signing up to mailing lists (on /openSource, /produceContent or /discord) or sending a contact request using the contact form, you will have to set the EMAILJS_SERVICE_ID and EMAILJS_USER_ID variables in your frontend .env. You can find the keys in Jira Pages.
+To enable signing up to mailing lists (on /open-source, /contribute or /discord) or sending a contact request using the contact form, you will have to set the EMAILJS_SERVICE_ID and EMAILJS_USER_ID variables in your frontend .env. You can find the keys in Jira Pages.
 
 ## Common problems
 

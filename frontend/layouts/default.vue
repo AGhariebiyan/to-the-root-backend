@@ -8,14 +8,20 @@
 
 <style lang="scss">
 * {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: $default-font-size;
   word-spacing: 1px;
+  letter-spacing: $letter-spacing;
+  line-height: $line-height;
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   box-sizing: border-box;
+}
+p,
+li {
+  font-family: 'Poppins', sans-serif;
 }
 
 html {
@@ -34,7 +40,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: 'RobotoBold', sans-serif;
+  font-family: 'Poppins-Bold', sans-serif;
 }
 
 h1 {
@@ -47,6 +53,16 @@ h2 {
 
 h3 {
   font-size: 1.5rem;
+}
+
+.link {
+  text-decoration: none;
+  color: $ordina-orange;
+
+  &:focus,
+  &:hover {
+    color: $ordina-orange-hover;
+  }
 }
 
 .secondary-link {
@@ -96,10 +112,11 @@ code {
 }
 
 a {
-  color: $discovery-blue-primary-darker;
+  color: $accelerate-blue-primary;
+  cursor: pointer;
   &:active,
   &:hover {
-    color: $gray-darkest;
+    color: $accelerate-blue-3;
   }
 
   &.button-link {
@@ -107,7 +124,7 @@ a {
     background-color: $discovery-blue-primary;
     border-radius: 3px;
     display: inline-block;
-    font-family: 'RobotoBold', sans-serif;
+    font-family: 'Poppins-Bold', sans-serif;
     height: 3.125rem;
     padding: 0.875rem;
     text-decoration: none;
@@ -128,6 +145,53 @@ a {
       }
     }
   }
+
+  &.outline-button-link {
+    padding: 0.3rem 2rem;
+    margin: 2rem 0;
+    font-family: 'Poppins-Bold', sans-serif;
+    cursor: pointer;
+    border-radius: 5px;
+    background: none;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+
+    &:hover {
+      color: $ordina-orange;
+      border: 1px solid $ordina-orange;
+    }
+  }
+
+  &.button-white {
+    color: $white;
+    border: 1px solid $white;
+  }
+
+  &.button-gray-lighter {
+    color: $gray-lighter;
+    border: 1px solid $gray-lighter;
+  }
+
+  &.button-gray-light {
+    color: $gray-light;
+    border: 1px solid $gray-light;
+  }
+
+  &.button-gray {
+    color: $gray;
+    border: 1px solid $gray;
+  }
+
+  &.button-gray-dark {
+    color: $gray-dark;
+    border: 1px solid $gray-dark;
+  }
+
+  &.button-gray-darker {
+    color: $gray-darker;
+    border: 1px solid $gray-darker;
+  }
 }
 
 .new-button {
@@ -136,31 +200,53 @@ a {
   background-color: $ordina-orange;
   border-radius: 50px;
   display: inline-block;
-  font-family: 'RobotoBold', sans-serif;
+  font-family: 'Poppins-Bold', sans-serif;
   height: 3.125rem;
   padding: 0.875rem 2rem;
   text-decoration: none;
   line-height: 1.5rem;
 
   &:active,
-  &:hover,
-  &:disabled {
+  &:hover {
     background-color: $ordina-orange-hover;
     color: $white;
   }
 
   &:disabled {
+    background-color: $gray-darker;
     color: $gray;
+    cursor: not-allowed;
   }
 }
 
-.error-list {
+.error-list,
+.warning-list,
+.success-list {
   list-style: none;
 }
 
-.error {
+.error-list {
+  background: $error-red;
+}
+
+.warning-list {
+  background: $warning-yellow;
+}
+
+.success-list {
+  background: $success-green;
+}
+
+.error,
+.warning,
+.success {
   margin: 1rem 0;
-  color: red;
+  color: $white;
+  padding: 10px;
+}
+
+.warning {
+  color: black;
 }
 
 .dark-mode {
