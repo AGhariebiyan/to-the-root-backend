@@ -41,7 +41,7 @@
         <p class="article__contribute-text">
           This article was written by {{ article.author.name }}. If you'd like
           to have your name here under your own article,
-          <a href="/produce-content" class="link">click here to contribute.</a>
+          <a href="/contribute" class="link">click here to contribute.</a>
         </p>
 
         <div class="article__interactions">
