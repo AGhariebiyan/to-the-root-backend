@@ -36,7 +36,7 @@
           <div class="connect__socials">
             <a
               v-if="author.email"
-              :href="`mailto:${author.email}?subject=Connect with me&body=Hey ${author.name},`"
+              :href="`mailto:${author.email}?subject=${emailMessageData.subject}&body=${emailMessageData.body}`"
               target="_blank"
               class="fade-in-top socials__link"
               ><img
@@ -167,7 +167,12 @@ export default defineComponent({
       }
     }
 
-    return { author, strapiUrl, sortedArticles }
+    const emailMessageData = {
+      subject: 'Connect with me',
+      body: `Hey ${author.value.name},`,
+    }
+
+    return { author, strapiUrl, sortedArticles, emailMessageData }
   },
 })
 </script>
