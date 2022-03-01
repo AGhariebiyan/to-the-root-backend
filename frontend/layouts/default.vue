@@ -124,7 +124,7 @@ a {
     background-color: $discovery-blue-primary;
     border-radius: 3px;
     display: inline-block;
-    font-family: 'RobotoBold', sans-serif;
+    font-family: 'Poppins-Bold', sans-serif;
     height: 3.125rem;
     padding: 0.875rem;
     text-decoration: none;
@@ -145,6 +145,53 @@ a {
       }
     }
   }
+
+  &.outline-button-link {
+    padding: 0.3rem 2rem;
+    margin: 2rem 0;
+    font-family: 'Poppins-Bold', sans-serif;
+    cursor: pointer;
+    border-radius: 5px;
+    background: none;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+
+    &:hover {
+      color: $ordina-orange;
+      border: 1px solid $ordina-orange;
+    }
+  }
+
+  &.button-white {
+    color: $white;
+    border: 1px solid $white;
+  }
+
+  &.button-gray-lighter {
+    color: $gray-lighter;
+    border: 1px solid $gray-lighter;
+  }
+
+  &.button-gray-light {
+    color: $gray-light;
+    border: 1px solid $gray-light;
+  }
+
+  &.button-gray {
+    color: $gray;
+    border: 1px solid $gray;
+  }
+
+  &.button-gray-dark {
+    color: $gray-dark;
+    border: 1px solid $gray-dark;
+  }
+
+  &.button-gray-darker {
+    color: $gray-darker;
+    border: 1px solid $gray-darker;
+  }
 }
 
 .new-button {
@@ -153,7 +200,7 @@ a {
   background-color: $ordina-orange;
   border-radius: 50px;
   display: inline-block;
-  font-family: 'RobotoBold', sans-serif;
+  font-family: 'Poppins-Bold', sans-serif;
   height: 3.125rem;
   padding: 0.875rem 2rem;
   text-decoration: none;

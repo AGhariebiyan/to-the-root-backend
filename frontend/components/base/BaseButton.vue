@@ -31,7 +31,7 @@ export default defineComponent({
 button {
   height: 3.125rem;
   padding: 0.875rem;
-  font-family: 'RobotoBold', sans-serif;
+  font-family: 'Poppins-Bold', sans-serif;
   border: none;
   border-radius: 3px;
   cursor: pointer;
@@ -41,7 +41,7 @@ button a {
   text-decoration: none;
   color: inherit;
   background-color: $transparent;
-  font-family: 'RobotoBold', sans-serif;
+  font-family: 'Poppins-Bold', sans-serif;
 
   &:hover,
   &:active {
@@ -97,7 +97,7 @@ button.pill {
   height: 1.6875rem;
   padding: 0.43rem;
   border-radius: 1.25rem;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.875rem;
   background-color: $discovery-blue-4;
 

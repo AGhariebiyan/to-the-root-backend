@@ -3,10 +3,12 @@
     <div class="header__content">
       <div class="logo">
         <NuxtLink class="logo__link" to="/">
-          <img class="logo__image" src="@/assets/logo.svg" alt="logo" />
+          <img class="logo__image" src="@/assets/logo.svg" alt="home" />
         </NuxtLink>
       </div>
       <span
+        role="navigation"
+        aria-label="open mobile menu"
         v-if="!isHeaderMobileMenuActive"
         class="material-icons header__mobile-menu-button"
         @click="openMobileNavMenu"
@@ -14,13 +16,15 @@
         >menu</span
       >
       <span
+        role="navigation"
+        aria-label="close mobile menu"
         v-else
         class="material-icons header__mobile-menu-button"
         @click="closeMobileNavMenu"
         @touch="closeMobileNavMenu"
         >close</span
       >
-      <nav class="nav-links--desktop">
+      <nav role="navigation" aria-label="Main" class="nav-links--desktop">
         <NuxtLink
           class="nav-links__item"
           v-for="link in links"
@@ -29,9 +33,9 @@
           >{{ link.name }}</NuxtLink
         >
       </nav>
-      <LoginBox />
+      <LoginBox role="navigation" aria-label="Login" />
       <div class="header__menu--mobile" v-if="isHeaderMobileMenuActive">
-        <nav class="nav-links--mobile">
+        <nav role="navigation" aria-label="Main" class="nav-links--mobile">
           <NuxtLink
             class="nav-links__item"
             v-for="link in links"
@@ -218,7 +222,6 @@ export default defineComponent({
 }
 
 .login-box {
-  // width: $header-item-width;
   display: flex;
   justify-content: flex-end;
 }

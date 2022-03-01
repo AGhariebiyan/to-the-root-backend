@@ -3,34 +3,9 @@
     <div class="wrapper">
       <div class="footer__columns">
         <div class="column">
-          <div class="column__header">Organisation</div>
-          <div class="column__links">
-            <a href="/contact" class="column__link">Contact</a>
-            <a href="/about" class="column__link">About us</a>
-            <a href="/discord" class="column__link">Join</a>
-          </div>
-        </div>
-        <div class="column">
-          <div class="column__header">Terms & Policies</div>
-          <div class="column__links">
-            <a href="" class="column__link">Code of Conduct</a>
-            <a href="" class="column__link">Privacy</a>
-          </div>
-        </div>
-        <div class="column">
-          <div class="column__header">Lorem ipsum</div>
-          <div class="column__links">
-            <a href="" class="column__link">Dolor</a>
-            <a href="" class="column__link">Sit amet</a>
-          </div>
-        </div>
-      </div>
-      <div class="footer__bottom">
-        <div class="ordina-legal">© 2022 Ordina NV</div>
-        <div class="socials">
-          <div class="socials__header">Socials</div>
-          <div class="socials__links">
-            <a class="socials__link" href="https://www.facebook.com/ordina/"
+          <div class="column__header">Socials</div>
+          <nav class="column__links--socials">
+            <a class="column__link" href="https://www.facebook.com/ordina/"
               ><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20">
                 <path
                   d="M15 4.129h-2.856c-.338 0-.715.444-.715 1.039V7.23H15v2.94h-3.571V19H8.057v-8.829H5V7.23h3.057V5.5c0-2.481 1.722-4.5 4.086-4.5H15v3.129z"
@@ -38,7 +13,7 @@
                 /></svg
             ></a>
             <a
-              class="socials__link"
+              class="column__link"
               href="https://www.linkedin.com/company/ordina/"
               ><svg width="18" height="17" xmlns="http://www.w3.org/2000/svg">
                 <path
@@ -46,18 +21,64 @@
                   fill="currentColor"
                 /></svg
             ></a>
-          </div>
+          </nav>
+        </div>
+        <div class="column">
+          <div class="column__header">Organisation</div>
+          <nav class="column__links">
+            <a href="/contact" class="column__link">Contact</a>
+            <a href="/about" class="column__link">About us</a>
+            <a href="/discord" class="column__link">Join our Discord</a>
+          </nav>
+        </div>
+        <div class="column">
+          <div class="column__header">Terms & Policies</div>
+          <nav class="column__links">
+            <a href="/cookie-policy" class="column__link">Cookie Policy</a>
+            <a href="/privacy" class="column__link">Privacy</a>
+          </nav>
         </div>
       </div>
+      <div class="footer__bottom">
+        <div class="ordina-legal">© 2022 Ordina NV</div>
+        <a class="footer__nav-link" @click="showCookieModal = true">
+          Cookies
+        </a>
+      </div>
     </div>
+    <CookieModal v-if="showCookieModal" @close="showCookieModal = false" />
   </footer>
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@nuxtjs/composition-api'
+import {
+  defineComponent,
+  useContext,
+  onMounted,
+  ref,
+} from '@nuxtjs/composition-api'
 
 export default defineComponent({
-  setup() {},
+  setup() {
+    const context: any = useContext()
+    const { $gtm, $cookies } = context
+
+    const showCookieModal = ref()
+
+    onMounted(async () => {
+      try {
+        if (!$cookies.get('allowsCookies')) {
+          showCookieModal.value = true
+        } else {
+          $gtm.init()
+        }
+      } catch (err) {
+        console.log(err)
+      }
+    })
+
+    return { showCookieModal }
+  },
 })
 </script>
 
@@ -115,29 +136,39 @@ export default defineComponent({
     .ordina-legal {
       font-size: 0.7rem;
     }
-
-    .socials {
-      &__header {
-        font-family: 'Poppins-Bold';
-        margin-bottom: 0.9rem;
-        font-size: 1.1rem;
-      }
-
-      &__link {
-        color: $gray-lighter;
-        margin-right: 1rem;
-
-        &:hover {
-          color: $ordina-orange;
-        }
-      }
-    }
   }
 
-  .column,
-  .ordina-legal,
-  .socials {
-    width: 10rem;
+  @media (max-width: $max-width-phone) {
+    &__columns {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+
+      .column:not(:last-child) {
+        margin-bottom: 4rem;
+      }
+    }
+
+    &__bottom {
+      justify-content: center;
+    }
+  }
+}
+
+.footer__nav {
+  display: flex;
+  flex-grow: 1;
+  justify-content: center;
+}
+
+.footer__nav-link {
+  text-decoration: none;
+  color: $gray-darkest;
+  margin: 1.2rem;
+
+  &:hover {
+    cursor: pointer;
+    text-decoration: underline;
   }
 }
 </style>

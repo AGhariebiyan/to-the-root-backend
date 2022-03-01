@@ -339,20 +339,14 @@ export default defineComponent({
 
 .related-articles {
   &__heading {
-    margin-bottom: 1rem;
+    margin-bottom: 2rem;
+    text-align: center;
   }
   &__container {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    display: flex;
+    flex-wrap: wrap;
     gap: 1rem;
-
-    @include respond(tab-landscape) {
-      grid-template-columns: 1fr 1fr;
-    }
-
-    @media screen and (max-width: 36em) {
-      grid-template-columns: 1fr;
-    }
+    justify-content: center;
   }
 }
 
