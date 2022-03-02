@@ -2,9 +2,9 @@
 
 ## Project structure
 
-Our frontend is written using the [Vue.js](https://vuejs.org) and [NuxtJS](https://nuxtjs.org) frameworks. After completing the setup, the frontend is accessible on [localhost:3000](localhost:300). 
+Our frontend is written using the [Vue.js](https://vuejs.org) and [NuxtJS](https://nuxtjs.org) frameworks. After completing the setup, the frontend is accessible on [localhost:3000](http://localhost:3000). 
 
-The backend is built using [Strapi](https://strapi.io). This is where articles, authors, categories and other content is stored. The backend will be referred to as the **Strapi admin panel** and is accessible on [localhost:1337](localhost:1337) after completing this setup.
+The backend is built using [Strapi](https://strapi.io). This is where articles, authors, categories and other content is stored. The backend will be referred to as the **Strapi admin panel** and is accessible on [localhost:1337](http://localhost:1337/admin/) after completing this setup.
 
 You won't have to interact with the database directly (this is all handled by Strapi), but of course a database is used to store the content. The database of choice is [PostgreSQL](https://www.postgresql.org).
 
@@ -38,13 +38,13 @@ We start by setting up an Algolia index. This index will be basicallly a strippe
 5. Run `npm i` to install npm packages
 6. Run `npm run dev` to start the Strapi server
 7. A Strapi instance should start, serving the app on localhost:1337
-8. Go to [localhost:1337](localhost:1337) and create a Strapi admin account
+8. Go to [localhost:1337](http://localhost:1337) and create a Strapi admin account
 
 ### Database
 
 Now that Strapi is setup, we can setup permission to populate the database with some sample data:
 
-1. Go to the [Strapi admin panel](localhost:1337) 
+1. Go to the [Strapi admin panel](http://localhost:1337/admin/) 
 2. Go to Settings > User & permissions > roles > public 
 3. Tick the 'create' permissions for all entities
 4. Be sure to to save your changes
@@ -78,7 +78,7 @@ This ensures everyone uses the same search logic.
 5. Set the ALGOLIA_SEARCH_KEY (in Algolia, see Overview > API Keys > Search-Only API Key) 
 6. run `npm i` to install npm packages
 7. run `npm run dev`
-8. A nuxt server should start, serving the app on [localhost:3000](localhost:3000)
+8. A nuxt server should start, serving the app on [localhost:3000](http://localhost:3000)
 
 Take a look at some overview pages, such as the search page. Everything you see here is powered by Algolia. When you click on an article however, you're taken to the article detail page and the information here is retrieved from the Strapi database.
 
@@ -89,7 +89,7 @@ Take a look at some overview pages, such as the search page. Everything you see 
 You can create your own content in Strapi.
 
 1. Create a folder named "uploads" in backend/public. This is needed to upload images.
-2. Go to localhost:1337 to access the server
+2. Go to the [localhost:1337](http://localhost:1337) to access the Strapi admin panel
 3. Create an admin account if you haven't already and login
 4. In Articles (top left) create an article (or more of course)
 5. Publish the article. Only now it will show up in Algolia and the frontend.
@@ -98,7 +98,7 @@ You can create your own content in Strapi.
 
 To login as a user in the frontend, you'll have to setup [Sendgrid](https://sendgrid.com) in order to enable the 'confirm email' and 'reset password' functionality. You can find the login credentials for the To The Root Sendgrid account in the [Project Pages on Confluence](https://one-community.atlassian.net/wiki/spaces/OC/pages/262146/Accounts).
 
-1. Go to the [Strapi admin panel](localhost:1337)
+1. Go to the [Strapi admin panel](http://localhost:1337/admin/)
 2. Go to Settings > Advanced Settings and set 'Enable email configuration' to 'ON'
 3. In your backend .env, set the SENDGRID_API_KEY. You can find it in the [Project Pages on Confluence](https://one-community.atlassian.net/wiki/spaces/OC/pages/53215239/.env+variables)
 
