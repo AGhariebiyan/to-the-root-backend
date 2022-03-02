@@ -18,22 +18,30 @@ In the minimal setup, you can view the site and search for articles.
 1. Start a terminal of your choice
 2. cd into the backend folder
 3. Copy the .env.example and rename the file to .env
-4. Set the ALGOLIA_INDEX to 'dev_content'
+4. Make sure the ALGOLIA_INDEX is set to 'dev_content'
 5. Run `npm i`
 6. Run `npm run dev` to start the Strapi server
 7. A Strapi instance should start, serving the app on localhost:1337
+8. Going to localhost:1337 create a Strapi admin account
 
 #### Database
 
-A small and basic Strapi setup can be obtained by running `npm run seed-db` (still in the backend folder). This db is connected to Algolia index `dev_content`. Running it allows you to view the articles on the detail page (clicking on it).
+You can fill your local database with some sample data. Before you can do so, make sure you have the right permissions to populate the database:
 
-The images of the articles won't work though. So for now, it is advised to add your own articles(see below).
+1. Go to the Strapi admin panel (available on localhost:1337) 
+2. Go to Settings > User & permissions > roles > public and 
+3. Tick the 'create' permissions for all entities
+4. Be sure to to save your changes
+
+Now Strapi is ready to be populated. Still in the backend folder, run `npm run seed-db`. This db is connected to Algolia index `dev_content`. Running it allows you to view the articles on the detail page (clicking on it).
+
+The images of the articles won't work though. So for now, it is advised to add your own articles (see below).
 
 #### Frontend
 
 1. Cd into the frontend folder using your favourite terminal
 2. Copy the .env.example and rename the file to .env
-3. Set the ALGOLIA_INDEX to 'dev_content'
+3. Make sure the ALGOLIA_INDEX is set to 'dev_content'
 4. run `npm i`
 5. run `npm run dev`
 6. A nuxt server should start, serving the app on localhost:3000
