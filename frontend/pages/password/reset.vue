@@ -49,11 +49,15 @@ import {
   ref,
   useRouter,
   computed,
+  useMeta,
 } from '@nuxtjs/composition-api'
-import { errorMessageFromResponse } from '~/utils/helpers'
+import { errorMessageFromResponse, composePageTitle } from '~/utils/helpers'
 
 export default defineComponent({
+  head: {},
   setup() {
+    useMeta(() => ({ title: composePageTitle('Reset password') }))
+
     const { $auth, $axios, $strapi, query } = useContext()
     const newPassword1 = ref('')
     const newPassword2 = ref('')

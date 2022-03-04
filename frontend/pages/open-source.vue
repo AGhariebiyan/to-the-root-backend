@@ -13,3 +13,15 @@
     </MailingListForm>
   </BasePageLayout>
 </template>
+
+<script>
+import { defineComponent, useMeta } from '@nuxtjs/composition-api'
+import { composePageTitle } from '~/utils/helpers'
+
+export default defineComponent({
+  head: {},
+  setup() {
+    useMeta(() => ({ title: composePageTitle('Open source') }))
+  },
+})
+</script>
