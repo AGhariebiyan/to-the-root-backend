@@ -85,9 +85,11 @@ import {
   useRoute,
   onMounted,
   ref,
+  useMeta,
 } from '@nuxtjs/composition-api'
 
 import { Article } from '~/utils/types'
+import { composePageTitle } from '~/utils/helpers'
 import ClipLoader from 'vue-spinner/src/ClipLoader.vue'
 import Prism from '~/plugins/prism'
 
@@ -95,6 +97,8 @@ export default defineComponent({
   components: { ClipLoader },
 
   name: 'PageContentDetail',
+
+  head: {},
 
   setup() {
     const isLoading = ref(true)
@@ -114,6 +118,8 @@ export default defineComponent({
         ) ?? {}
       )
     })
+
+    useMeta(() => ({ title: composePageTitle(article.value.title) }))
 
     const comments = computed(() => {
       return store.getters['comments/comments']

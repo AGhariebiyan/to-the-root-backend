@@ -77,13 +77,17 @@ import {
   ref,
   computed,
   useContext,
+  useMeta,
 } from '@nuxtjs/composition-api'
-import { errorMessageFromResponse } from '@/utils/helpers'
+import { errorMessageFromResponse, composePageTitle } from '@/utils/helpers'
 import BaseButton from '@/components/base/BaseButton.vue'
 
 export default defineComponent({
+  head: {},
   components: { BaseButton },
   setup() {
+    useMeta(() => ({ title: composePageTitle('Sign up') }))
+
     const email = ref('')
     const error = ref('')
     const username = ref('')
