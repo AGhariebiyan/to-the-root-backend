@@ -167,10 +167,9 @@ export default defineComponent({
       }
     }
 
-    const emailMessageData = {
-      subject: 'Connect with me',
-      body: `Hey ${author.value.name},`,
-    }
+    const emailMessageData = computed(() => {
+      return { subject: 'Connect with me', body: `Hey ${author.value.name},` }
+    })
 
     return { author, strapiUrl, sortedArticles, emailMessageData }
   },
