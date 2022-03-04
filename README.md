@@ -47,7 +47,7 @@ Now that Strapi is setup, we can setup permission to populate the database with 
 1. Go to the [Strapi admin panel](http://localhost:1337/admin/) 
 2. Go to _Settings > Roles (Users & Permissions Plugin) > Public_ 
 3. Tick the 'find' permission for the Article entity
-4. Tick the 'create' permission for the Article, Author and Category entities
+4. Tick the 'create' permission for the Article, Author, Category and Tag entities
 5. Be sure to to save your changes
 
 Now Strapi is ready to be populated: 
@@ -80,9 +80,10 @@ Now that you've got some data in your Algolia index, you can tweak how Algolia p
     - author.name
     - content
     - description
-    - categories.name
+    - category.name
+    - tags.name
 3. Click 'Review and Save Settings' and save your settings
-4. Under _Configuration > Facets_, add the attribute 'categories.name'
+4. Under _Configuration > Facets_, add the attribute 'tags.name'
 5. Click 'Review and Save Settings' and save your settings again
 
 This ensures everyone uses the same search logic. 
