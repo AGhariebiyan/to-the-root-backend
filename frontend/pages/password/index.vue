@@ -33,11 +33,20 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, useContext, ref } from '@nuxtjs/composition-api'
+import {
+  defineComponent,
+  useContext,
+  ref,
+  useMeta,
+} from '@nuxtjs/composition-api'
+import { composePageTitle } from '~/utils/helpers'
 import { validateEmail } from '~/utils/email'
 
 export default defineComponent({
+  head: {},
   setup() {
+    useMeta(() => ({ title: composePageTitle('Reset password') }))
+
     const { $axios, $strapi } = useContext()
     const forgotEmail = ref('')
     const isFormSubmitted = ref(false)

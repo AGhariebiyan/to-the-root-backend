@@ -88,14 +88,17 @@ import {
   ref,
   computed,
   useContext,
+  useMeta,
 } from '@nuxtjs/composition-api'
-import { errorMessageFromResponse } from '@/utils/helpers'
+import { errorMessageFromResponse, composePageTitle } from '@/utils/helpers'
 import BaseButton from '@/components/base/BaseButton.vue'
 
 export default defineComponent({
+  head: {},
   components: { BaseButton },
   setup() {
-    const isRegistrationComplete = ref(false)
+    useMeta(() => ({ title: composePageTitle('Sign up') }))
+
     const email = ref('')
     const error = ref('')
     const username = ref('')
@@ -105,6 +108,7 @@ export default defineComponent({
         return 'Please enter a valid password. Your password needs to be a minimum of 10 characters long.'
       }
     })
+    const isRegistrationComplete = ref(false)
     const isPasswordValid = computed(() => {
       return password.value.length >= 10
     })
