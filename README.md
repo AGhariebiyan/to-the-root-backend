@@ -162,4 +162,4 @@ Make sure you have an "uploads" folder in the public map. See _Creating your own
 
 ### My Algolia index is not searchable
 
-Did you create searchable attributes in Algolia for your index? See _Algolia (yes, again)'_.
+Did you create searchable attributes in Algolia for your index? See _Algolia (yes, again)_.
