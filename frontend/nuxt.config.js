@@ -28,6 +28,7 @@ export default {
   },
 
   env: {
+    platformName: process.env.PLATFORM_NAME,
     algoliaAppId: process.env.ALGOLIA_APP_ID,
     algoliaSearchKey: process.env.ALGOLIA_SEARCH_KEY,
     algoliaIndex: process.env.ALGOLIA_INDEX,
