@@ -47,10 +47,6 @@
       "via": "articles",
       "model": "author"
     },
-    "categories": {
-      "via": "articles",
-      "collection": "category"
-    },
     "comments": {
       "via": "article",
       "collection": "comment"
@@ -58,6 +54,14 @@
     "likes": {
       "via": "article",
       "collection": "like"
+    },
+    "category": {
+      "via": "articles",
+      "model": "category"
+    },
+    "tags": {
+      "via": "articles",
+      "collection": "tag"
     }
   }
 }

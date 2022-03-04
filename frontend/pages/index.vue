@@ -6,7 +6,7 @@
         :index-name="algoliaIndex"
       >
         <AisRefinementList
-          attribute="categories.name"
+          attribute="tags.name"
           operator="or"
           :sort-by="['name:asc']"
         >
