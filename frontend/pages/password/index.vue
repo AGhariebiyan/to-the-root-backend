@@ -6,7 +6,6 @@
           <h3 class="reset-email__title">Get password reset link</h3>
           <label class="form__label" for="email">Email</label>
           <input
-            type="email"
             id="email"
             placeholder="Enter your email"
             v-model="forgotEmail"
@@ -19,6 +18,9 @@
             class="reset-email__submit"
             >Send reset email</BaseButton
           >
+          <p v-if="emailValidationError.length > 0" class="form__error-message">
+            {{ emailValidationError }}
+          </p>
           <p v-if="isFormSubmitted">
             Your email has been submitted. If it exists in our database an email
             will be sent to you. Check your mailbox in the next few minutes.
@@ -31,15 +33,38 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, useContext, ref } from '@nuxtjs/composition-api'
+import {
+  defineComponent,
+  useContext,
+  ref,
+  useMeta,
+} from '@nuxtjs/composition-api'
+import { composePageTitle } from '~/utils/helpers'
+import { validateEmail } from '~/utils/email'
 
 export default defineComponent({
+  head: {},
   setup() {
+    useMeta(() => ({ title: composePageTitle('Reset password') }))
+
     const { $axios, $strapi } = useContext()
     const forgotEmail = ref('')
     const isFormSubmitted = ref(false)
+    const emailValidationError = ref('')
 
     async function forgotPassword() {
+      emailValidationError.value = ''
+
+      if (forgotEmail.value.trim() === '') {
+        emailValidationError.value = 'Please enter your email address'
+        return
+      }
+
+      if (!validateEmail(forgotEmail.value)) {
+        emailValidationError.value = 'Please enter a valid email address'
+        return
+      }
+
       // Request API.
       try {
         isFormSubmitted.value = true
@@ -52,6 +77,7 @@ export default defineComponent({
     return {
       forgotEmail,
       forgotPassword,
+      emailValidationError,
       isFormSubmitted,
     }
   },
