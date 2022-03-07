@@ -1,6 +1,7 @@
 <template>
   <div class="wrapper">
     <div class="cookie-popup">
+      <div class="cookie-popup__close" @click="$emit('close')">×</div>
       <h3 class="cookie-popup__header">We use cookies</h3>
       <p class="cookie-popup__paragraph">
         Our website uses cookies, which are necessary for analysis of our
@@ -53,11 +54,24 @@ export default defineComponent({
   background: $gray-darkest;
   color: $white;
   position: fixed;
-  max-width: calc(max(30%, 15rem));
+  max-width: calc(max(30%, 17rem));
   padding: 1rem;
   right: 2rem;
   bottom: 2rem;
   text-align: left;
+
+  &__close {
+    position: absolute;
+    top: 0.5rem;
+    right: 1rem;
+    font-size: 1.5rem;
+    color: $gray;
+
+    &:hover {
+      cursor: pointer;
+      color: $discovery-blue-primary;
+    }
+  }
 
   &__header {
     margin-bottom: 1rem;
