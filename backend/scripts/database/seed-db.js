@@ -1,6 +1,9 @@
 require('dotenv').config('../../.env')
 
 const axios = require('axios')
+const fetch = require('node-fetch');
+const fs = require('fs');
+var url = require('url');
 
 const authors = [
   {
@@ -79,6 +82,10 @@ const tags = [
   },
 ]
 
+const imageUrls = [
+  'https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80',
+]
+
 const articles = [
   {
     title: '10 Best tech gadgets you need in your life',
@@ -87,6 +94,9 @@ const articles = [
     original_date: '2021-07-23',
     slug: '10-best-tech-gadgets-you-need-in-your-life',
     description: 'A short article about anything',
+    cover_image: {
+      id: 1,
+    },
   },
   {
     title: 'Apps I can’t live without (v2021)',
@@ -142,17 +152,19 @@ const articles = [
 // Generating and uploading images does not work for now. I did not find how to fill the Media Library through API.
 
 async function seedDb() {
-  let articles = await getArticles()
+  // let articles = await getArticles()
 
-  if (articles.length > 0) {
-    return
-  }
+  // if (articles.length > 0) {
+  //   return
+  // }
   // We can expect an empty database here
 
-  const authorIds = await seedAuthors()
-  const categoryIds = await seedCategories()
-  const tagIds = await seedTags()
-  await seedArticles(authorIds, categoryIds, tagIds)
+  console.log("TEST")
+  await seedImages()
+  // const authorIds = await seedAuthors()
+  // const categoryIds = await seedCategories()
+  // const tagIds = await seedTags()
+  // await seedArticles(authorIds, categoryIds, tagIds)
 }
 
 async function getArticles() {
@@ -218,6 +230,32 @@ async function seedTags() {
     }
   console.log(`${tagIds.length} tags set`)
   return tagIds
+}
+
+async function seedImages() {
+  // const imageIds = []
+  // for (const imageUrl of imageUrls)
+  // try {
+  const response = await fetch(imageUrls[0])
+  const blob = await response.blob()
+  // const file = new File([blob], 'image.jpg', { type: blob.type });
+  // console.log({ file });
+  // console.log('im here')
+
+  const reader = new window.FileReader();
+  // const imageObjectURL = url.createObjectURL(blob);
+  // console.log(imageObjectURL);
+
+  //     const response = await axios.post(`${process.env.URL}/tags`, tag)
+  //     tagIds.push(response.data.id)
+  //   } catch (err) {
+  //     console.log(
+  //       err.data,
+  //       'Setting tags went wrong! See error above or the logging of the strapi server',
+  //     )
+  //   }
+  // console.log(`${tagIds.length} tags set`)
+  // return tagIds
 }
 
 async function seedArticles(authorIds, categoryIds, tagIds) {
