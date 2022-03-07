@@ -3,12 +3,12 @@
     <div class="cookie-popup">
       <h3 class="cookie-popup__header">We use cookies</h3>
       <p class="cookie-popup__paragraph">
-        Our website uses cookies, which are necessary for functioning and
-        analysis of our website.
+        Our website uses cookies, which are necessary for analysis of our
+        website. The analysis is used to improve the user experience.
       </p>
       <div class="cookie-popup__buttons">
         <button class="cookie-popup__accept" @click="acceptCookies">
-          Got it
+          I'm ok with it
         </button>
         <a
           class="cookie-popup__learn-more"
