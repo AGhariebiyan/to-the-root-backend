@@ -24,21 +24,21 @@ We start by setting up an Algolia index. This index will be basicallly a strippe
 
 1. Log in to Algolia using the credentials in the [Project Pages on Confluence](https://one-community.atlassian.net/wiki/spaces/OC/pages/262146/Accounts)
 2. Go to Search and under Index, click _New > Index_.
-3. Create a new index and name it something you like. I named mine 'joran_content'
+3. Create a new index and name it something you like. As a default, go with <your_name>_content.
 
 ### Backend
 
 1. Start a terminal of your choice
 2. cd into the backend folder
 3. Copy the .env.example and rename the file to .env
-4. Set the ALGOLIA_INDEX is set to the name of your own Algolia index. For example: 'joran_content'
+4. Set the ALGOLIA_INDEX is set to the name of your own Algolia index.
 5. Set the ALGOLIA_APP_ID (in Algolia, see _Overview > API Keys > Application ID_) 
-5. Set the ALGOLIA_ADMIN_KEY (in Algolia, see _Overview > API Keys > Admin API Key_) 
-5. Set the ALGOLIA_SEARCH_KEY (in Algolia, see _Overview > API Keys > Search-Only API Key_) 
-5. Run `npm i` to install npm packages
-6. Run `npm run dev` to start the Strapi server
-7. A Strapi instance should start, serving the app on localhost:1337
-8. Go to [localhost:1337](http://localhost:1337) and create a Strapi admin account
+6. Set the ALGOLIA_ADMIN_KEY (in Algolia, see _Overview > API Keys > Admin API Key_) 
+7. Set the ALGOLIA_SEARCH_KEY (in Algolia, see _Overview > API Keys > Search-Only API Key_) 
+8. Run `npm i` to install npm packages
+9. Run `npm run dev` to start the Strapi server
+10. A Strapi instance should start, serving the app on localhost:1337
+11. Go to [localhost:1337](http://localhost:1337) and create a Strapi admin account
 
 #### Adding sample data
 
@@ -57,7 +57,7 @@ Now Strapi is ready to be populated:
 
 #### More on permissions
 
-Later on, when you've got the frontend up-and-running, everyting will work just fine and you are allowed to view articles. However, when you sign up and log in as a user, access will be denied. For every action you perform as an admin in Strapi or as a user in the frontend, you have to grant the right permissions in Strapi. 
+Later on, when you've got the frontend up-and-running, everything will work just fine and you are allowed to view articles. However, when you sign up and log in as a user, access will be denied. For every action you perform as an admin in Strapi or as a user in the frontend, you have to grant the right permissions in Strapi. 
 
 - For admins (people who do stuff in Strapi). You can set these permissions under _Settings > Roles (Administration Panel)_.
 - For users (people who created an account in the frontend). You can set these permissions under _Settings > Roles (Users & Permissions Plugin)_.
@@ -77,6 +77,7 @@ Now that you've got some data in your Algolia index, you can tweak how Algolia p
 
 1. In [Algolia](https://www.algolia.com), go to Search and select your own index.
 2. Under _Configuration > Searchable attributes_, add: 
+    - title
     - author.name
     - content
     - description
@@ -93,11 +94,11 @@ This ensures everyone uses the same search logic.
 
 1. Cd into the frontend folder using your favourite terminal
 2. Copy the .env.example and rename the file to .env
-3. Set the ALGOLIA_INDEX is set to the name of your own Algolia index. For example: 'joran_content'
+3. Set the ALGOLIA_INDEX to the name of your own Algolia index.
 4. Set the ALGOLIA_APP_ID (in Algolia, see _Overview > API Keys > Application ID_) 
 5. Set the ALGOLIA_SEARCH_KEY (in Algolia, see _Overview > API Keys > Search-Only API Key_) 
-6. run `npm i` to install npm packages
-7. run `npm run dev`
+6. Run `npm i` to install npm packages
+7. Run `npm run dev`
 8. A nuxt server should start, serving the app on [localhost:3000](http://localhost:3000)
 
 Take a look at some overview pages, such as the search page. Everything you see here is powered by Algolia. When you click on an article however, you're taken to the article detail page and the information here is retrieved from the Strapi database.
@@ -110,7 +111,7 @@ You can create your own content in Strapi.
 
 1. Create a folder named "uploads" in backend/public. This is needed to upload images.
 2. Go to [localhost:1337](http://localhost:1337) to access the Strapi admin panel
-3. Create an admin account if you haven't already and login
+3. Create an admin account if you haven't already and log in
 4. Go to Articles (top left) to get an overview of the sample articles
 5. Click 'Add new articles' (top right)
 6. Create your new article and hit 'Save'
@@ -118,7 +119,7 @@ You can create your own content in Strapi.
 
 ### Enable login as a user
 
-> Login will work without doing this. However, without confirming the email or the ability to send a password reset link. 
+> Login will work just fine without this step. However, the account will be verified by default, without any confirmation of the email address. This step will enable email confirmation as well as password reset using a 'forgot password' email.
 
 To login or sign up as a user in the frontend, you'll have to setup [Sendgrid](https://sendgrid.com). This will enable the 'confirm email' and 'reset password' functionality. You can find the login credentials for the To The Root Sendgrid account in the [Project Pages on Confluence](https://one-community.atlassian.net/wiki/spaces/OC/pages/262146/Accounts).
 
@@ -133,6 +134,39 @@ To login or sign up as a user in the frontend, you'll have to setup [Sendgrid](h
 9. Terminate your frontend Nuxt server and run `npm run dev` again for the changes to take effect (_.env_ changes always require a rebuild)
 
 This is temporary as we'd need to upgrade to a domain instead of a single sender in the future.
+
+### Locally test login with GitHub
+
+#### Setup ngrok
+
+Open an [ngrok](https://ngrok.com) pipeline on the backend:
+
+1. [Download ngrok.exe](https://ngrok.com/download)
+2. Go to the ngrok location in a terminal
+3. Type `./ngrok http 1337`
+4. Copy the `<ngrok-url>` (it should look like `http://54847af08315.ngrok.io`)
+
+#### Add a GitHub OAuth application
+
+1. [Add a GitHub application](https://github.com/cosettings/applications/new)
+2. As application homepage, use the `<ngrok-url>`.
+3. As callback url, add `<nrgok-url>/connect/github/callback`
+4. Copy the _Client ID_ and _Client secret_ (you have to generate a new client secret) of the application and save for later.
+
+#### Change both .env's
+
+1. Change STRAPI_URL in the frontend .env to `<ngrok-url>`
+2. Change URL in the backend .env to `<ngrok-url>`
+3. Rebuild both applications (`npm run dev`).
+
+#### Setup Strapi provider
+
+1. In Strapi, go to Settings > Providers > Github
+2. Enable the GitHub provider
+3. Add the Client ID and Client secret from the Github app
+4. As a redirect URL to your front-end app, add: `http://localhost:3000/connect/github`
+
+This will redirect the user to `\_provider.vue`, where the logging in is handled.
 
 ### Sending emails
 
