@@ -3,48 +3,54 @@
     <BaseContainer
       containerType="narrow"
       containerDirection="row"
-      class="profile__section-nav"
+      class="navigation"
     >
       <p
-        class="profile__section-link"
+        class="navigation__tab"
         :class="{ active: currentSection === 'profile' }"
         @click="setCurrentSection('profile')"
       >
         My Profile
       </p>
       <p
-        class="profile__section-link"
+        class="navigation__tab"
         :class="{ active: currentSection === 'content' }"
         @click="setCurrentSection('content')"
       >
         My Content
       </p>
       <p
-        class="profile__section-link"
+        class="navigation__tab"
         :class="{ active: currentSection === 'projects' }"
         @click="setCurrentSection('projects')"
       >
         My Projects
       </p>
     </BaseContainer>
-    <BaseContainer containerType="narrow" class="profile__section">
+    <BaseContainer containerType="narrow" class="profile">
       <template v-if="currentSection === 'profile'">
-        <h3 class="profile__section--title">{{ $auth.user.username }}</h3>
-        <p class="profile__section--text">{{ $auth.user.email }}</p>
+        <h3 class="profile__name">{{ $auth.user.username }}</h3>
+        <p class="profile__email">{{ $auth.user.email }}</p>
 
-        <label for="allows-cookies">Allow cookies for analysis</label>
+        <label class="profile__cookie-toggle-label" for="allows-cookies"
+          >Allow cookies for analysis</label
+        >
         <input
+          class="profile__cookie-toggle-input"
           type="checkbox"
           id="allows-cookies"
           :checked="allowsCookies"
           @input="toggleAllowsCookies"
         />
 
-        <p class="profile__reset-link">
+        <p class="profile__reset-password">
           Click here to <NuxtLink to="/password">reset your password</NuxtLink>
         </p>
 
-        <BaseButton buttonType="secondary" @click.native="logout"
+        <BaseButton
+          class="profile__logout"
+          buttonType="secondary"
+          @click.native="logout"
           >Logout</BaseButton
         >
       </template>
@@ -117,21 +123,49 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.profile__section-nav.container {
-  padding-bottom: 0;
-  border-bottom: 2px solid $discovery-blue-5;
-}
-.profile__section {
-  &--title {
-    margin: 0 0 1rem;
+.navigation {
+  &.container {
+    padding-bottom: 0;
+    border-bottom: 2px solid $discovery-blue-5;
   }
-  &--text {
+
+  &__tab {
+    cursor: pointer;
+    padding: 1rem;
+    font-size: $default-font-size * 1.2;
+    border-radius: 3px 3px 0 0;
+
+    &:hover {
+      color: $discovery-blue-primary;
+    }
+
+    &.active {
+      background-color: $discovery-blue-5;
+    }
+  }
+}
+
+.profile {
+  &__name {
+    margin-bottom: 1rem;
+  }
+
+  &__text {
     font-family: Poppins-Light, sans-serif;
   }
-  button {
+
+  &__reset-password {
+    padding: 1rem 0;
+    margin: 1rem 0;
+    border-top: 1px solid $gray;
+    border-bottom: 1px solid $gray;
+  }
+
+  &__logout {
     width: fit-content;
     margin-top: 2rem;
   }
+
   &.container--narrow {
     @include respond(phone) {
       margin: 1rem;
@@ -140,23 +174,5 @@ export default defineComponent({
       }
     }
   }
-}
-.profile__section-link {
-  cursor: pointer;
-  padding: 1rem;
-  font-size: $default-font-size * 1.2;
-  border-radius: 3px 3px 0 0;
-  &:hover {
-    color: $discovery-blue-primary;
-  }
-  &.active {
-    background-color: $discovery-blue-5;
-  }
-}
-.profile__reset-link {
-  padding: 1rem 0;
-  margin: 1rem 0;
-  border-top: 1px solid $gray;
-  border-bottom: 1px solid $gray;
 }
 </style>
