@@ -82,7 +82,8 @@ export default defineComponent({
   setup() {
     useMeta(() => ({ title: composePageTitle('Profile') }))
 
-    const { $auth, $cookies, $gtm } = useContext()
+    const context: any = useContext()
+    const { $auth, $cookies, $gtm } = context
     const currentSection = ref('profile')
 
     const allowsCookies = $cookies.get('allowsCookies')
