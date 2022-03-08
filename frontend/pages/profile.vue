@@ -51,7 +51,7 @@
           class="profile__logout"
           buttonType="secondary"
           @click.native="logout"
-          >Logout</BaseButton
+          >Log out</BaseButton
         >
       </template>
       <template v-else-if="currentSection === 'content'">
@@ -150,8 +150,19 @@ export default defineComponent({
     margin-bottom: 1rem;
   }
 
-  &__text {
-    font-family: Poppins-Light, sans-serif;
+  &__email {
+    margin-bottom: 1rem;
+  }
+
+  &__cookie-toggle {
+    &-label {
+      margin-bottom: 0.5rem;
+    }
+    &-input {
+      position: relative;
+      transform: scale(1.5);
+      left: 0.25rem;
+    }
   }
 
   &__reset-password {
