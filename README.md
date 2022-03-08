@@ -137,36 +137,7 @@ This is temporary as we'd need to upgrade to a domain instead of a single sender
 
 ### Locally test login with GitHub
 
-#### Setup ngrok
-
-Open an [ngrok](https://ngrok.com) pipeline on the backend:
-
-1. [Download ngrok.exe](https://ngrok.com/download)
-2. Go to the ngrok location in a terminal
-3. Type `./ngrok http 1337`
-4. Copy the `<ngrok-url>` (it should look like `http://54847af08315.ngrok.io`)
-
-#### Add a GitHub OAuth application
-
-1. [Add a GitHub application](https://github.com/cosettings/applications/new)
-2. As application homepage, use the `<ngrok-url>`.
-3. As callback url, add `<nrgok-url>/connect/github/callback`
-4. Copy the _Client ID_ and _Client secret_ (you have to generate a new client secret) of the application and save for later.
-
-#### Change both .env's
-
-1. Change STRAPI_URL in the frontend .env to `<ngrok-url>`
-2. Change URL in the backend .env to `<ngrok-url>`
-3. Rebuild both applications (`npm run dev`).
-
-#### Setup Strapi provider
-
-1. In Strapi, go to Settings > Providers > Github
-2. Enable the GitHub provider
-3. Add the Client ID and Client secret from the Github app
-4. As a redirect URL to your front-end app, add: `http://localhost:3000/connect/github`
-
-This will redirect the user to `\_provider.vue`, where the logging in is handled.
+> This does not work at the moment. It used to work with [ngrok](https://ngrok.com), but due to updated safety blockages, this is not possible right now. It does work outside the development enviroment however, just not locally.
 
 ### Sending emails
 
