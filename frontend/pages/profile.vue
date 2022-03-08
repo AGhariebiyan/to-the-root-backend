@@ -32,7 +32,7 @@
         <h3 class="profile__section--title">{{ $auth.user.username }}</h3>
         <p class="profile__section--text">{{ $auth.user.email }}</p>
 
-        <label for="allows-cookies">Allows cookies</label>
+        <label for="allows-cookies">Allow cookies for analysis</label>
         <input
           type="checkbox"
           id="allows-cookies"
