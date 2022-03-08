@@ -3,7 +3,7 @@ require('dotenv').config('../../.env')
 const axios = require('axios')
 const fetch = require('node-fetch');
 const fs = require('fs');
-var url = require('url');
+const FormData = require('form-data');
 
 const authors = [
   {
@@ -235,14 +235,46 @@ async function seedTags() {
 async function seedImages() {
   // const imageIds = []
   // for (const imageUrl of imageUrls)
-  // try {
-  const response = await fetch(imageUrls[0])
-  const blob = await response.blob()
+  try {
+
+    //Get image
+    let imageResponse = await axios({
+      url: imageUrls[0],
+      method: 'GET',
+      responseType: 'arraybuffer'
+    })
+
+    //Create form data
+    const form = new FormData()
+    form.append('image', imageResponse.data, {
+      contentType: 'image/jpeg',
+      name: 'files',
+      filename: 'imageFileName.jpg'
+    })
+
+    //Submit form
+    let result = await axios({
+      url: `${process.env.URL}/upload`,
+      method: "POST",
+      data: form,
+      headers: { "Content-Type": `multipart/form-data; boundary=${form._boundary}` }
+    })
+
+    console.log(result)
+  } catch (err) {
+    console.log(err, '*** Image upload failed ***')
+  }
+
+  // const response = await fetch(imageUrls[0])
+  // const blob = await response.blob()
+  // const reader = new window.FileReader();
+
+
+
   // const file = new File([blob], 'image.jpg', { type: blob.type });
   // console.log({ file });
   // console.log('im here')
 
-  const reader = new window.FileReader();
   // const imageObjectURL = url.createObjectURL(blob);
   // console.log(imageObjectURL);
 

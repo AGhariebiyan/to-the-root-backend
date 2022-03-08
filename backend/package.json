@@ -26,6 +26,7 @@
   },
   "dependencies": {
     "algoliasearch": "^4.10.3",
+    "form-data": "^4.0.0",
     "node-fetch": "^2.6.7",
     "strapi": "3.6.5",
     "strapi-admin": "^3.6.8",
