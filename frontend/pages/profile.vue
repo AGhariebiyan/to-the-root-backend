@@ -32,6 +32,14 @@
         <h3 class="profile__section--title">{{ $auth.user.username }}</h3>
         <p class="profile__section--text">{{ $auth.user.email }}</p>
 
+        <label for="allows-cookies">Allows cookies</label>
+        <input
+          type="checkbox"
+          id="allows-cookies"
+          :checked="allowsCookies"
+          @input="toggleAllowsCookies"
+        />
+
         <p class="profile__reset-link">
           Click here to <NuxtLink to="/password">reset your password</NuxtLink>
         </p>
@@ -64,11 +72,27 @@ import { composePageTitle } from '~/utils/helpers'
 
 export default defineComponent({
   middleware: 'auth',
+  head: {},
   setup() {
     useMeta(() => ({ title: composePageTitle('Profile') }))
 
-    const { $auth } = useContext()
+    const { $auth, $cookies, $gtm } = useContext()
     const currentSection = ref('profile')
+
+    const allowsCookies = $cookies.get('allowsCookies')
+
+    function toggleAllowsCookies() {
+      const newAllowsCookies = !$cookies.get('allowsCookies')
+      $cookies.set('allowsCookies', newAllowsCookies)
+
+      if (!newAllowsCookies) {
+        // Reload the page when we disable cookies
+        location.reload()
+      } else {
+        // Start GTM when we enable cookies
+        $gtm.init()
+      }
+    }
 
     // Logout
     async function logout() {
@@ -81,7 +105,13 @@ export default defineComponent({
       currentSection.value = section
     }
 
-    return { logout, currentSection, setCurrentSection }
+    return {
+      allowsCookies,
+      logout,
+      currentSection,
+      setCurrentSection,
+      toggleAllowsCookies,
+    }
   },
 })
 </script>
