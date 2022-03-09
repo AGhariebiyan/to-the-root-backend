@@ -89,30 +89,30 @@ const images = [
     title: 'tech-gadgets',
     url: 'https://images.unsplash.com/photo-1519335553051-96f1218cd5fa?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2440&q=80',
   },
-  // {
-  //   title: '3d-app-blocks',
-  //   url: 'https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1974&q=80',
-  // },
-  // {
-  //   title: 'netflix-office',
-  //   url: 'https://images.unsplash.com/photo-1621955964441-c173e01c135b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2086&q=80',
-  // },
-  // {
-  //   title: 'laptop-with-code',
-  //   url: 'https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80',
-  // },
-  // {
-  //   title: 'app-store',
-  //   url: 'https://images.unsplash.com/photo-1601034913836-a1f43e143611?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1974&q=80',
-  // },
-  // {
-  //   title: 'apple-tv',
-  //   url: 'https://images.unsplash.com/photo-1621685950846-9323d993bbf3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80',
-  // },
-  // {
-  //   title: 'developer-in-front-of-screens',
-  //   url: 'https://images.unsplash.com/photo-1550439062-609e1531270e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80',
-  // },
+  {
+    title: '3d-app-blocks',
+    url: 'https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1974&q=80',
+  },
+  {
+    title: 'netflix-office',
+    url: 'https://images.unsplash.com/photo-1621955964441-c173e01c135b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2086&q=80',
+  },
+  {
+    title: 'laptop-with-code',
+    url: 'https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80',
+  },
+  {
+    title: 'app-store',
+    url: 'https://images.unsplash.com/photo-1601034913836-a1f43e143611?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1974&q=80',
+  },
+  {
+    title: 'apple-tv',
+    url: 'https://images.unsplash.com/photo-1621685950846-9323d993bbf3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80',
+  },
+  {
+    title: 'developer-in-front-of-screens',
+    url: 'https://images.unsplash.com/photo-1550439062-609e1531270e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80',
+  },
 ]
 
 const articles = [
@@ -123,9 +123,6 @@ const articles = [
     original_date: '2021-07-23',
     slug: '10-best-tech-gadgets-you-need-in-your-life',
     description: 'The ones I use day to day',
-    cover_image: {
-      id: 1,
-    },
   },
   {
     title: 'Apps I can’t live without (v2021)',
@@ -181,19 +178,18 @@ const articles = [
 // Generating and uploading images does not work for now. I did not find how to fill the Media Library through API.
 
 async function seedDb() {
-  // let articles = await getArticles()
+  let articles = await getArticles()
 
-  // if (articles.length > 0) {
-  //   return
-  // }
+  if (articles.length > 0) {
+    return
+  }
   // We can expect an empty database here
 
-  console.log("TEST")
-  await seedImages()
-  // const authorIds = await seedAuthors()
-  // const categoryIds = await seedCategories()
-  // const tagIds = await seedTags()
-  // await seedArticles(authorIds, categoryIds, tagIds)
+  const authorIds = await seedAuthors()
+  const categoryIds = await seedCategories()
+  const tagIds = await seedTags()
+  const imageIds = await seedImages()
+  await seedArticles(authorIds, categoryIds, tagIds, imageIds)
 }
 
 async function getArticles() {
@@ -263,32 +259,39 @@ async function seedTags() {
 
 async function seedImages() {
   const imageIds = []
-  for (const image of images)
+  for (const [index, image] of images.entries()) {
     try {
       var data = new FormData();
-      var writeStream = fs.createWriteStream('testStream')
-      data.append('files', request(image.url).pipe(writeStream).pipe(writeStream));
-      // data.append('files', got.stream(image.url).pipe(fs.createWriteStream('pic')).pipe(writestream));
+      request(image.url).pipe(fs.createWriteStream('streamImage.jpg'));
 
-      const response = await axios({
-        url: `${process.env.URL}/upload`,
-        method: "POST",
-        data: data,
-        headers: { "Content-Type": `multipart/form-data; boundary=${data._boundary}` }
-      })
+      setTimeout(() => {
+        data.append('files', fs.createReadStream('streamImage.jpg'));
+      }, 1000);
 
-      imageIds.push(response.data.id)
+      setTimeout(async () => {
+        const response = await axios({
+          url: `${process.env.URL}/upload`,
+          method: "POST",
+          data: data,
+          headers: { "Content-Type": `multipart/form-data; boundary=${data._boundary}` }
+        })
+
+        imageIds.push(response.data[0].id)
+      }, 3000);
+
+      await new Promise(r => setTimeout(r, 3200));
     } catch (err) {
       console.log(
         err,
         'Setting images went wrong! See error above or the logging of the strapi server',
       )
     }
+  }
   console.log(`${imageIds.length} images set`)
   return imageIds
 }
 
-async function seedArticles(authorIds, categoryIds, tagIds) {
+async function seedArticles(authorIds, categoryIds, tagIds, imageIds) {
   for (let [index, article] of articles.entries())
     try {
       // pick 1 to 3 tags
@@ -307,7 +310,11 @@ async function seedArticles(authorIds, categoryIds, tagIds) {
         {
           id: getNextItemFrom(categoryIds, index),
         },
-        tags
+        tags,
+        cover_image:
+        {
+          id: getNextItemFrom(imageIds, index),
+        },
       }
       await axios.post(`${process.env.URL}/articles`, article)
     } catch (err) {
