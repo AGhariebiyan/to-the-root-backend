@@ -84,8 +84,35 @@ const tags = [
   },
 ]
 
-const imageUrls = [
-  'https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80',
+const images = [
+  {
+    title: 'tech-gadgets',
+    url: 'https://images.unsplash.com/photo-1519335553051-96f1218cd5fa?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2440&q=80',
+  },
+  // {
+  //   title: '3d-app-blocks',
+  //   url: 'https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1974&q=80',
+  // },
+  // {
+  //   title: 'netflix-office',
+  //   url: 'https://images.unsplash.com/photo-1621955964441-c173e01c135b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2086&q=80',
+  // },
+  // {
+  //   title: 'laptop-with-code',
+  //   url: 'https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80',
+  // },
+  // {
+  //   title: 'app-store',
+  //   url: 'https://images.unsplash.com/photo-1601034913836-a1f43e143611?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1974&q=80',
+  // },
+  // {
+  //   title: 'apple-tv',
+  //   url: 'https://images.unsplash.com/photo-1621685950846-9323d993bbf3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80',
+  // },
+  // {
+  //   title: 'developer-in-front-of-screens',
+  //   url: 'https://images.unsplash.com/photo-1550439062-609e1531270e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80',
+  // },
 ]
 
 const articles = [
@@ -95,7 +122,7 @@ const articles = [
       '<p>Your life is about to get a little simpler and more fulfilling with our list of the top 10 best gadgets for daily use. Because sometimes we need a helping hand or a nudge in the right direction to make healthier choices. If you’re reaching to tech for guidance, you’re in the right place with today’s Daily Digest. Enhance your leisure time, get more creative at work, feel safer indoors, and more with our list of the best tech gadgets for everyday use.</p><ul><li>We crafted a list of some must-have tech that you can easily incorporate into your daily routine. Want to stand up straighter? There’s a gadget for that. Planning on upping your fitness regime? We have the equipment for that. There’s so much more to discover in today’s article, too.</li><li>The best air purifiers of 2021 for your home We included a smart breath training system that assesses your breathing health and provides exercises to increase your lung capacity. We also included a smart robot vacuum that learns your cleaning habits and features voice assistants. Explore all of our recommended tech in the list below.</li></ul><blockquote>The #1 gadget is the MacBook Pro 2021</blockquote><p>Best of all, the adjustable stand makes Tabletop mode ideal for multiplayer gaming. Or the built-in wired LAN port is great for using in the TV mode gaming. This item is available for order on October 8 for $349.99. 2. Take your well-being to new heights with the Airofit PRO smart breath training system. See improvements in your lung capacity in just a couple of weeks with 5–10 minutes of use daily. Designed in the form of a tiny gadget, you can take the Airofit PRO smart breath training system everywhere you go. It comes with an app that analyzes your lung capacity, anaerobic threshold, respiratory strength, and other areas of your breathing. You’ll then receive all of this data to your phone, where you can make improvements.</p>',
     original_date: '2021-07-23',
     slug: '10-best-tech-gadgets-you-need-in-your-life',
-    description: 'A short article about anything',
+    description: 'The ones I use day to day',
     cover_image: {
       id: 1,
     },
@@ -109,12 +136,12 @@ const articles = [
     description: 'The best apps to own right now',
   },
   {
-    title: 'Netflix vs Prime: Streaming quality comparison',
+    title: 'Netflix vs Prime Video: Streaming quality comparison',
     content:
       '<p>With this post, my wish is to highlight some of the great apps I use in my daily life. Let me start by giving you some context that may help understand my choices a bit better. Personally, I’m a tech geek and an Apple fanboy, so I’ll be mostly talking about apps in the Apple ecosystem. Professionally I’ve been working in web development for the last 20 years, started as a developer, and now I lead tech and product teams. Currently, I’m CTO at sheerME. Let’s dive into the apps, starting with my Macbook Pro. I’m working in a 13-inch core i5 from 2016 with 16GB of ram (eagerly awaiting the arrival of my M1 Macbook Pro). The browser of choice: Google Chrome Two reasons why I prefer chrome, the devtools, and the extension ecosystem. These are the extensions I currently use: Metamask: A crypto wallet (I’m big into Ethereum)&nbsp;</p><p>Defi Saver Gas Price extension: Also for the Ethereum ecosystem, it keeps me informed of gas prices (used to pay for transactions inside the network) Ghostery: My preferred ad blocker Raindrop.io: A very well done bookmark manager where I store bookmarks for future reference but also where I drop articles I want to read later. raindrop.io bookmark manager Mail Client: Superhuman It’s a bit on the expensive side but it helps me deal with email a lot faster than all the other clients I tried so for someone that spends a big chunk of his day on email, it’s well worth it. I’m very tempted to try hey.com from the basecamp guys but I can’t switch to a hey.com email address so for now I’ll stick with Superhuman. Calendar App: Fantastical Fantastical is all about the little details… the way you can identify a zoom, hangout, skype call or any other just by looking at the event in the calendar, the small icon that tells you how the weather is for the day, the natural language parser that enables you to create events just by typing what you want…&nbsp;</p><blockquote><p>4K HDR</p></blockquote><p>Fantastical Music Player: Spotif…Apple Music Being so entrenched in the Apple ecosystem it is very hard not to go with apple music, as much as I love Spotify, particularly the dynamic playlists that allow me to discover new music every day, Apple music just works so well across all my apple setup that I couldn’t resist. Note-taking: Roam Research As a very visual person I’m naturally drawn to apps like Bear notes or Craft but after a couple of tries, I’m now convinced that Rom is the best note-taking app for me. The main reason is that it solves my biggest problem with notes in general, the resurfacing of relevant content when needed. Before Roam, most of my notes would quickly fall by the wayside. With Roam, they just pop up when needed.</p>',
     original_date: '2021-08-20',
     slug: 'apps-i-can-t-live-without-v2022',
-    description: 'The best apps to own right now',
+    description: 'Battle of the streaming giants',
   },
   {
     title: 'Python 101',
@@ -235,96 +262,30 @@ async function seedTags() {
 }
 
 async function seedImages() {
-  // const imageIds = []
-  // for (const imageUrl of imageUrls)
-  try {
+  const imageIds = []
+  for (const image of images)
+    try {
+      var data = new FormData();
+      var writeStream = fs.createWriteStream('testStream')
+      data.append('files', request(image.url).pipe(writeStream).pipe(writeStream));
+      // data.append('files', got.stream(image.url).pipe(fs.createWriteStream('pic')).pipe(writestream));
 
-    var data = new FormData();
-    // data.append('files', fs.createReadStream('/Users/dennisvanoosten/Downloads/luca-bravo-XJXWbfSo2f0-unsplash.jpg'));
-    // data.append('files', request(imageUrls[0]).pipe(fs.createWriteStream('song.mp3')))
-    app.get('/video', (req, res) => {
-      got.stream(imageUrls[0]).pipe(res);
-    });
+      const response = await axios({
+        url: `${process.env.URL}/upload`,
+        method: "POST",
+        data: data,
+        headers: { "Content-Type": `multipart/form-data; boundary=${data._boundary}` }
+      })
 
-    let result = await axios({
-      url: `${process.env.URL}/upload`,
-      method: "POST",
-      data: data,
-      headers: { "Content-Type": `multipart/form-data; boundary=${data._boundary}` }
-    })
-
-    // var config = {
-    //   method: 'post',
-    //   url: 'localhost:1337/upload',
-    //   headers: {
-    //     ...data.getHeaders()
-    //   },
-    //   data: data
-    // };
-
-
-    // let result = await axios(config);
-
-    // console.log(result)
-    // axios(config)
-    //   .then(function (response) {
-    //     console.log(JSON.stringify(response.data));
-    //   })
-    //   .catch(function (error) {
-    //     console.log(error);
-    //   });
-
-    // //Get image
-    // let imageResponse = await axios({
-    //   url: imageUrls[0],
-    //   method: 'GET',
-    //   responseType: 'arraybuffer'
-    // })
-
-    // //Create form data
-    // const form = new FormData()
-    // form.append('image', imageResponse.data, {
-    //   contentType: 'image/jpeg',
-    //   name: 'files',
-    //   filename: 'imageFileName.jpg'
-    // })
-
-    // //Submit form
-    // let result = await axios({
-    //   url: `${process.env.URL}/upload`,
-    //   method: "POST",
-    //   data: form,
-    //   headers: { "Content-Type": `multipart/form-data; boundary=${form._boundary}` }
-    // })
-
-    console.log(result)
-  } catch (err) {
-    console.log(err, '*** Image upload failed ***')
-  }
-
-  // const response = await fetch(imageUrls[0])
-  // const blob = await response.blob()
-  // const reader = new window.FileReader();
-
-
-
-  // const file = new File([blob], 'image.jpg', { type: blob.type });
-  // console.log({ file });
-  // console.log('im here')
-
-  // const imageObjectURL = url.createObjectURL(blob);
-  // console.log(imageObjectURL);
-
-  //     const response = await axios.post(`${process.env.URL}/tags`, tag)
-  //     tagIds.push(response.data.id)
-  //   } catch (err) {
-  //     console.log(
-  //       err.data,
-  //       'Setting tags went wrong! See error above or the logging of the strapi server',
-  //     )
-  //   }
-  // console.log(`${tagIds.length} tags set`)
-  // return tagIds
+      imageIds.push(response.data.id)
+    } catch (err) {
+      console.log(
+        err,
+        'Setting images went wrong! See error above or the logging of the strapi server',
+      )
+    }
+  console.log(`${imageIds.length} images set`)
+  return imageIds
 }
 
 async function seedArticles(authorIds, categoryIds, tagIds) {
