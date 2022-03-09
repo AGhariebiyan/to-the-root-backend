@@ -141,13 +141,14 @@ export default defineComponent({
 .logo {
   width: $header-item-width;
   margin-right: auto;
+  padding: 2rem;
 
   &__link {
     line-height: 0;
   }
 
   &__image {
-    height: 130px;
+    height: 6rem;
   }
 }
 
