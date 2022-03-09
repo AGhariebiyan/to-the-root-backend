@@ -2,8 +2,10 @@ require('dotenv').config('../../.env')
 
 const axios = require('axios')
 const fetch = require('node-fetch');
+const request = require('request');
 const fs = require('fs');
 const FormData = require('form-data');
+const got = require('got');
 
 const authors = [
   {
@@ -237,28 +239,63 @@ async function seedImages() {
   // for (const imageUrl of imageUrls)
   try {
 
-    //Get image
-    let imageResponse = await axios({
-      url: imageUrls[0],
-      method: 'GET',
-      responseType: 'arraybuffer'
-    })
+    var data = new FormData();
+    // data.append('files', fs.createReadStream('/Users/dennisvanoosten/Downloads/luca-bravo-XJXWbfSo2f0-unsplash.jpg'));
+    // data.append('files', request(imageUrls[0]).pipe(fs.createWriteStream('song.mp3')))
+    app.get('/video', (req, res) => {
+      got.stream(imageUrls[0]).pipe(res);
+    });
 
-    //Create form data
-    const form = new FormData()
-    form.append('image', imageResponse.data, {
-      contentType: 'image/jpeg',
-      name: 'files',
-      filename: 'imageFileName.jpg'
-    })
-
-    //Submit form
     let result = await axios({
       url: `${process.env.URL}/upload`,
       method: "POST",
-      data: form,
-      headers: { "Content-Type": `multipart/form-data; boundary=${form._boundary}` }
+      data: data,
+      headers: { "Content-Type": `multipart/form-data; boundary=${data._boundary}` }
     })
+
+    // var config = {
+    //   method: 'post',
+    //   url: 'localhost:1337/upload',
+    //   headers: {
+    //     ...data.getHeaders()
+    //   },
+    //   data: data
+    // };
+
+
+    // let result = await axios(config);
+
+    // console.log(result)
+    // axios(config)
+    //   .then(function (response) {
+    //     console.log(JSON.stringify(response.data));
+    //   })
+    //   .catch(function (error) {
+    //     console.log(error);
+    //   });
+
+    // //Get image
+    // let imageResponse = await axios({
+    //   url: imageUrls[0],
+    //   method: 'GET',
+    //   responseType: 'arraybuffer'
+    // })
+
+    // //Create form data
+    // const form = new FormData()
+    // form.append('image', imageResponse.data, {
+    //   contentType: 'image/jpeg',
+    //   name: 'files',
+    //   filename: 'imageFileName.jpg'
+    // })
+
+    // //Submit form
+    // let result = await axios({
+    //   url: `${process.env.URL}/upload`,
+    //   method: "POST",
+    //   data: form,
+    //   headers: { "Content-Type": `multipart/form-data; boundary=${form._boundary}` }
+    // })
 
     console.log(result)
   } catch (err) {
