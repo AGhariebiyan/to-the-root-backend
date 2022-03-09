@@ -173,16 +173,33 @@ const articles = [
   },
 ]
 
+// Colors for console:
+// https://stackoverflow.com/questions/9781218/how-to-change-node-jss-console-font-color
+const consoleColorRed = "\x1b[31m%s\x1b[0m"
+const consoleColorYellow = "\x1b[33m%s\x1b[0m"
+const consoleColorGreen = "\x1b[32m%s\x1b[0m"
+
+// Function to determine the color of a console message, comparing two values
+function getConsoleColor(desiredValue, actualValue) {
+  if (actualValue === 0) {
+    return consoleColorRed
+  } else if (actualValue < desiredValue) {
+    return consoleColorYellow
+  } else if (actualValue === desiredValue) {
+    return consoleColorGreen
+  }
+}
+
 // Make sure you have the right permissions:
 // In Strapi > Settings > User & permissions > roles > public, tick the create permissions for all entities.
 // Generating and uploading images does not work for now. I did not find how to fill the Media Library through API.
 
 async function seedDb() {
-  let articles = await getArticles()
+  // let articles = await getArticles()
 
-  if (articles.length > 0) {
-    return
-  }
+  // if (articles.length > 0) {
+  //   return
+  // }
   // We can expect an empty database here
 
   const authorIds = await seedAuthors()
@@ -199,8 +216,7 @@ async function getArticles() {
     articles = await response.data
   } catch (err) {
     console.log(
-      err.data,
-      'Getting articles went wrong! See error above or the logging of the strapi server',
+      `${err.toJSON().message} \n Getting articles went wrong! See error above or the logging of the strapi server`,
     )
   }
   return articles
@@ -214,11 +230,10 @@ async function seedAuthors() {
       authorIds.push(response.data.id)
     } catch (err) {
       console.log(
-        err.data,
-        'Setting authors went wrong! See error above or the logging of the strapi server',
+        `${err.toJSON().message} \n Setting authors went wrong! See error above or the logging of the strapi server`,
       )
     }
-  console.log(`${authorIds.length} authors set`)
+  console.log(getConsoleColor(authors.length, authorIds.length), `${authorIds.length} authors set`)
   return authorIds
 }
 
@@ -233,11 +248,10 @@ async function seedCategories() {
       categoryIds.push(response.data.id)
     } catch (err) {
       console.log(
-        `${err.toJSON().message}
-        Setting categories went wrong! See error above or the logging of the strapi server`,
+        `${err.toJSON().message} \n Setting categories went wrong! See error above or the logging of the strapi server`,
       )
     }
-  console.log(`${categoryIds.length} categories set`)
+  console.log(getConsoleColor(categories.length, categoryIds.length), `${categoryIds.length} categories set`)
   return categoryIds
 }
 
@@ -249,11 +263,10 @@ async function seedTags() {
       tagIds.push(response.data.id)
     } catch (err) {
       console.log(
-        err.data,
-        'Setting tags went wrong! See error above or the logging of the strapi server',
+        `${err.toJSON().message} \n Setting tags went wrong! See error above or the logging of the strapi server`,
       )
     }
-  console.log(`${tagIds.length} tags set`)
+  console.log(getConsoleColor(tags.length, tagIds.length), `${tagIds.length} tags set`)
   return tagIds
 }
 
@@ -282,16 +295,16 @@ async function seedImages() {
       await new Promise(r => setTimeout(r, 3200));
     } catch (err) {
       console.log(
-        err,
-        'Setting images went wrong! See error above or the logging of the strapi server',
+        `${err.toJSON().message} \n Setting images went wrong! See error above or the logging of the strapi server`,
       )
     }
   }
-  console.log(`${imageIds.length} images set`)
+  console.log(getConsoleColor(images.length, imageIds.length), `${imageIds.length} images set`)
   return imageIds
 }
 
 async function seedArticles(authorIds, categoryIds, tagIds, imageIds) {
+  const articleIds = []
   for (let [index, article] of articles.entries())
     try {
       // pick 1 to 3 tags
@@ -316,14 +329,14 @@ async function seedArticles(authorIds, categoryIds, tagIds, imageIds) {
           id: getNextItemFrom(imageIds, index),
         },
       }
-      await axios.post(`${process.env.URL}/articles`, article)
+      const response = await axios.post(`${process.env.URL}/articles`, article)
+      articleIds.push(response.data.id)
     } catch (err) {
       console.log(
-        err.data,
-        'Setting articles went wrong! See error above or the logging of the strapi server',
+        `${err.toJSON().message} \n Setting articles went wrong! See error above or the logging of the strapi server`,
       )
     }
-  console.log(`${articles.length} articles set`)
+  console.log(getConsoleColor(articles.length, articleIds.length), `${articleIds.length} articles set`)
 }
 
 function getNextItemFrom(array, index) {
