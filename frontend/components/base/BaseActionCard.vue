@@ -6,11 +6,11 @@
     />
     <h3 class="action-card__title"><slot name="title"></slot></h3>
     <p class="action-card__info-text"><slot name="info-text"></slot></p>
-    <a
+    <NuxtLink
       class="action-card__button outline-button-link button-gray-darker"
-      :href="navRoute"
+      :to="navRoute"
       ><slot name="button-text"></slot
-    ></a>
+    ></NuxtLink>
   </div>
 </template>
 

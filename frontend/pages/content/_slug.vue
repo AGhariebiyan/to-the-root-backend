@@ -41,7 +41,7 @@
         <p class="article__contribute-text">
           This article was written by {{ article.author.name }}. If you'd like
           to have your name here under your own article,
-          <a href="/contribute" class="link">click here to contribute.</a>
+          <NuxtLink to="/contribute">click here to contribute.</NuxtLink>
         </p>
 
         <div class="article__interactions">

@@ -22,8 +22,8 @@
               peers. So what are you waiting for? Join us!
             </p>
             <div class="what-about-it__button">
-              <a href="/discord" class="outline-button-link button-white"
-                >Join Us</a
+              <NuxtLink to="/discord" class="outline-button-link button-white"
+                >Join Us</NuxtLink
               >
             </div>
           </div>
@@ -46,8 +46,8 @@
           right place.
         </p>
         <div class="why-to-join__button">
-          <a href="/open-source" class="outline-button-link button-gray-dark"
-            >Contribute together</a
+          <NuxtLink to="/open-source" class="outline-button-link button-gray-dark"
+            >Contribute together</NuxtLink
           >
         </div>
       </div>
