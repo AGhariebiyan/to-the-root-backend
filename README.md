@@ -80,11 +80,11 @@ Now that you've got some data in your Algolia index, you can tweak how Algolia p
 1. In [Algolia](https://www.algolia.com), go to Search and select your own index.
 2. Under _Configuration > Searchable attributes_, add: 
     - title
-    - author.name
-    - content
     - description
+    - author.name
     - category.name
     - tags.name
+    - content
 3. Click 'Review and Save Settings' and save your settings
 4. Under _Configuration > Facets_, add the attribute 'tags.name'
 5. Click 'Review and Save Settings' and save your settings again
