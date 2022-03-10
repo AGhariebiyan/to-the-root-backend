@@ -48,13 +48,13 @@ Now that Strapi is setup, we can setup permission to populate the database with 
 2. Go to _Settings > Roles (Users & Permissions Plugin) > Public_ 
 3. Tick the 'find' permission for the Article entity
 4. Tick the 'create' permission for the Article, Author, Category and Tag entities
-5. Expand the _UPLOAD_ dropdown (below _Application_ permissions) and tick the 'upload' permission
+5. Expand the _UPLOAD_ dropdown (below _APPLICATION_ permissions) and tick the 'upload' permission
 6. Be sure to to save your changes
 
 Now Strapi is ready to be populated: 
 
 7. Create a folder named "uploads" in backend/public. This is needed to upload images.
-8. Still in the backend folder, run `npm run seed-db`. Make sure Strapi is still running, so don't kill the process but rather open up a second terminal. This script file contains some sample data and will populate Strapi with it. Your console will tell you how much entities have been seeded. Logs will pop up <span style="color:green">green</span> if all sample data was successfully seeded, <span style="color:yellow">yellow</span> if some sample data has been successfully seeded and <span style="color:red">red</span> if no sample data of that entity has been successfully seeded.
+8. Still in the backend folder, run `npm run seed-db`. Make sure Strapi is still running, so don't kill the process but rather open up a second terminal. This script file (backend/scripts/database/seed-db.js) contains some sample data and will populate Strapi with it. Your console will tell you how much entities have been seeded. Logs will pop up <span style="color:green">green</span> if all sample data was successfully seeded, <span style="color:yellow">yellow</span> if some sample data has been successfully seeded and <span style="color:red">red</span> if no sample data of that entity has been successfully seeded.
 9. Run `npm run content-to-algolia` to fill your own Algolia index with the data you just created in your Strapi database. 
 
 #### More on permissions
