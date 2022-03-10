@@ -53,14 +53,11 @@
           <p class="form__error-message" v-if="error">{{ error }}</p>
 
           <div class="form__buttons">
-            <BaseButton buttonType="primary" class="form__button" type="submit"
-              >Sign up</BaseButton
-            >
+            <button class="btn btn-primary form__button" type="submit">
+              Sign up
+            </button>
             <NuxtLink
-              class="
-                form__button
-                button-link button-link button-link--transparent
-              "
+              class="form__button button-link button-link--transparent"
               to="/login"
               >Login instead</NuxtLink
             >
@@ -91,11 +88,9 @@ import {
   useMeta,
 } from '@nuxtjs/composition-api'
 import { errorMessageFromResponse, composePageTitle } from '@/utils/helpers'
-import BaseButton from '@/components/base/BaseButton.vue'
 
 export default defineComponent({
   head: {},
-  components: { BaseButton },
   setup() {
     useMeta(() => ({ title: composePageTitle('Sign up') }))
 

@@ -38,13 +38,13 @@
           </p>
 
           <div class="form__buttons">
-            <BaseButton
-              buttonType="primary"
-              class="form__button"
+            <button
+              class="btn btn-primary form__button"
               type="submit"
               :disabled="isLoggedIn || error.length > 0"
-              >Login</BaseButton
             >
+              Log in
+            </button>
 
             <NuxtLink
               class="form__button button-link button-link--transparent"
@@ -70,14 +70,13 @@ import {
 } from '@nuxtjs/composition-api'
 import { errorMessageFromResponse, composePageTitle } from '@/utils/helpers'
 import BaseForm from '../components/base/BaseForm.vue'
-import BaseButton from '../components/base/BaseButton.vue'
 
 export default defineComponent({
   name: 'PageLogin',
 
   head: {},
 
-  components: { BaseForm, BaseButton },
+  components: { BaseForm },
 
   setup() {
     useMeta(() => ({ title: composePageTitle('Login') }))

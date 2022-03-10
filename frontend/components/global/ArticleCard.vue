@@ -17,13 +17,14 @@
         <p class="article__description">{{ article.description }}</p>
       </div>
       <div class="article__categories">
-        <BaseButton
-          buttonType="pill"
+        <NuxtLink
+          to="#"
+          class="btn btn-pill"
           v-for="(category, index) in article.categories"
           :key="index"
         >
           {{ category.name }}
-        </BaseButton>
+        </NuxtLink>
       </div>
     </div>
   </NuxtLink>

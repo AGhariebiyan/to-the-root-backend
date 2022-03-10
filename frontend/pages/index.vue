@@ -37,13 +37,13 @@
 
           <template v-slot:loadMore="{ isLastPage, refineNext }">
             <div class="show-more__container">
-              <BaseButton
+              <button
                 :disabled="isLastPage"
-                buttonType="primary"
+                class="btn btn-primary"
                 @click="refineNext"
               >
                 Show more
-              </BaseButton>
+              </button>
             </div>
           </template>
         </AisInfiniteHits>
