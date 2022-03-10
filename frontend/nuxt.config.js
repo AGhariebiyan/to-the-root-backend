@@ -1,7 +1,7 @@
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'ToTheRoot',
+    title: 'To The Root',
     htmlAttrs: {
       lang: 'en',
     },
@@ -114,9 +114,9 @@ export default {
   gtm: {
     id: process.env.GTM_ID,
     autoInit: false,
-    enabled: true,
+    enabled: false,
     // debug: true, // Uncomment for debugging with the console
-    pageTracking: true,
+    pageTracking: false,
   },
 
   router: {
