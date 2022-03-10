@@ -1,11 +1,9 @@
 require('dotenv').config('../../.env')
 
 const axios = require('axios')
-const fetch = require('node-fetch');
 const request = require('request');
 const fs = require('fs');
 const FormData = require('form-data');
-const got = require('got');
 
 const authors = [
   {
@@ -173,33 +171,16 @@ const articles = [
   },
 ]
 
-// Colors for console:
-// https://stackoverflow.com/questions/9781218/how-to-change-node-jss-console-font-color
-const consoleColorRed = "\x1b[31m%s\x1b[0m"
-const consoleColorYellow = "\x1b[33m%s\x1b[0m"
-const consoleColorGreen = "\x1b[32m%s\x1b[0m"
-
-// Function to determine the color of a console message, comparing two values
-function getConsoleColor(desiredValue, actualValue) {
-  if (actualValue === 0) {
-    return consoleColorRed
-  } else if (actualValue < desiredValue) {
-    return consoleColorYellow
-  } else if (actualValue === desiredValue) {
-    return consoleColorGreen
-  }
-}
-
 // Make sure you have the right permissions:
 // In Strapi > Settings > User & permissions > roles > public, tick the create permissions for all entities.
 // Generating and uploading images does not work for now. I did not find how to fill the Media Library through API.
 
 async function seedDb() {
-  // let articles = await getArticles()
+  let articles = await getArticles()
 
-  // if (articles.length > 0) {
-  //   return
-  // }
+  if (articles.length > 0) {
+    return
+  }
   // We can expect an empty database here
 
   const authorIds = await seedAuthors()
@@ -271,16 +252,26 @@ async function seedTags() {
 }
 
 async function seedImages() {
+  // We create a temporary map to store the seed images
+  fs.mkdir("seed_images", (err) => {
+    if (err) {
+      return console.error(err);
+    }
+  });
+
+  // This bit's not pretty... feel free to improve :D
   const imageIds = []
-  for (const [index, image] of images.entries()) {
+  for (const image of images) {
     try {
       var data = new FormData();
-      request(image.url).pipe(fs.createWriteStream('streamImage.jpg'));
+      request(image.url).pipe(fs.createWriteStream(`seed_images/${image.title}.jpg`));
 
+      // We have to wait for the image to be written before we can read it
       setTimeout(() => {
-        data.append('files', fs.createReadStream('streamImage.jpg'));
+        data.append('files', fs.createReadStream(`seed_images/${image.title}.jpg`));
       }, 1000);
 
+      // We have to wait for the FormData to include the image before we can POST it
       setTimeout(async () => {
         const response = await axios({
           url: `${process.env.URL}/upload`,
@@ -300,6 +291,14 @@ async function seedImages() {
     }
   }
   console.log(getConsoleColor(images.length, imageIds.length), `${imageIds.length} images set`)
+
+  // We remove the temporary map
+  removeDir("seed_images")
+
+  // For a reason unknown to science, we have to wait 
+  // for the directory to be removed before moving on
+  await new Promise(r => setTimeout(r, 3000));
+
   return imageIds
 }
 
@@ -341,6 +340,44 @@ async function seedArticles(authorIds, categoryIds, tagIds, imageIds) {
 
 function getNextItemFrom(array, index) {
   return array[index % array.length]
+}
+
+function removeDir(path) {
+  if (fs.existsSync(path)) {
+    const files = fs.readdirSync(path)
+
+    if (files.length > 0) {
+      files.forEach(function (filename) {
+        if (fs.statSync(path + "/" + filename).isDirectory()) {
+          removeDir(path + "/" + filename)
+        } else {
+          fs.unlinkSync(path + "/" + filename)
+        }
+      })
+      fs.rmdirSync(path)
+    } else {
+      fs.rmdirSync(path)
+    }
+  } else {
+    console.log("Directory path not found.")
+  }
+}
+
+// Colors for console:
+// https://stackoverflow.com/questions/9781218/how-to-change-node-jss-console-font-color
+const consoleColorRed = "\x1b[31m%s\x1b[0m"
+const consoleColorYellow = "\x1b[33m%s\x1b[0m"
+const consoleColorGreen = "\x1b[32m%s\x1b[0m"
+
+// Function to determine the color of a console message, comparing two values
+function getConsoleColor(desiredValue, actualValue) {
+  if (actualValue === 0) {
+    return consoleColorRed
+  } else if (actualValue < desiredValue) {
+    return consoleColorYellow
+  } else if (actualValue === desiredValue) {
+    return consoleColorGreen
+  }
 }
 
 seedDb()
