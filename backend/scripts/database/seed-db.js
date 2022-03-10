@@ -1,9 +1,11 @@
 require('dotenv').config('../../.env')
 
 const axios = require('axios')
+const fetch = require('node-fetch');
 const request = require('request');
 const fs = require('fs');
 const FormData = require('form-data');
+const got = require('got');
 
 const authors = [
   {
@@ -91,26 +93,26 @@ const images = [
     title: '3d-app-blocks',
     url: 'https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1974&q=80',
   },
-  // {
-  //   title: 'netflix-office',
-  //   url: 'https://images.unsplash.com/photo-1621955964441-c173e01c135b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2086&q=80',
-  // },
-  // {
-  //   title: 'laptop-with-code',
-  //   url: 'https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80',
-  // },
-  // {
-  //   title: 'app-store',
-  //   url: 'https://images.unsplash.com/photo-1601034913836-a1f43e143611?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1974&q=80',
-  // },
-  // {
-  //   title: 'apple-tv',
-  //   url: 'https://images.unsplash.com/photo-1621685950846-9323d993bbf3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80',
-  // },
-  // {
-  //   title: 'developer-in-front-of-screens',
-  //   url: 'https://images.unsplash.com/photo-1550439062-609e1531270e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80',
-  // },
+  {
+    title: 'netflix-office',
+    url: 'https://images.unsplash.com/photo-1621955964441-c173e01c135b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2086&q=80',
+  },
+  {
+    title: 'laptop-with-code',
+    url: 'https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80',
+  },
+  {
+    title: 'app-store',
+    url: 'https://images.unsplash.com/photo-1601034913836-a1f43e143611?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1974&q=80',
+  },
+  {
+    title: 'apple-tv',
+    url: 'https://images.unsplash.com/photo-1621685950846-9323d993bbf3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80',
+  },
+  {
+    title: 'developer-in-front-of-screens',
+    url: 'https://images.unsplash.com/photo-1550439062-609e1531270e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80',
+  },
 ]
 
 const articles = [
@@ -171,16 +173,33 @@ const articles = [
   },
 ]
 
+// Colors for console:
+// https://stackoverflow.com/questions/9781218/how-to-change-node-jss-console-font-color
+const consoleColorRed = "\x1b[31m%s\x1b[0m"
+const consoleColorYellow = "\x1b[33m%s\x1b[0m"
+const consoleColorGreen = "\x1b[32m%s\x1b[0m"
+
+// Function to determine the color of a console message, comparing two values
+function getConsoleColor(desiredValue, actualValue) {
+  if (actualValue === 0) {
+    return consoleColorRed
+  } else if (actualValue < desiredValue) {
+    return consoleColorYellow
+  } else if (actualValue === desiredValue) {
+    return consoleColorGreen
+  }
+}
+
 // Make sure you have the right permissions:
 // In Strapi > Settings > User & permissions > roles > public, tick the create permissions for all entities.
 // Generating and uploading images does not work for now. I did not find how to fill the Media Library through API.
 
 async function seedDb() {
-  let articles = await getArticles()
+  // let articles = await getArticles()
 
-  if (articles.length > 0) {
-    return
-  }
+  // if (articles.length > 0) {
+  //   return
+  // }
   // We can expect an empty database here
 
   const authorIds = await seedAuthors()
@@ -252,26 +271,16 @@ async function seedTags() {
 }
 
 async function seedImages() {
-  // We create a temporary map to store the seed images
-  fs.mkdir("seed_images", (err) => {
-    if (err) {
-      return console.error(err);
-    }
-  });
-
-  // This bit's not pretty... feel free to improve :D
   const imageIds = []
-  for (const image of images) {
+  for (const [index, image] of images.entries()) {
     try {
       var data = new FormData();
-      request(image.url).pipe(fs.createWriteStream(`seed_images/${image.title}.jpg`));
+      request(image.url).pipe(fs.createWriteStream('streamImage.jpg'));
 
-      // We have to wait for the image to be written before we can read it
       setTimeout(() => {
-        data.append('files', fs.createReadStream(`seed_images/${image.title}.jpg`));
+        data.append('files', fs.createReadStream('streamImage.jpg'));
       }, 1000);
 
-      // We have to wait for the FormData to include the image before we can POST it
       setTimeout(async () => {
         const response = await axios({
           url: `${process.env.URL}/upload`,
@@ -290,17 +299,11 @@ async function seedImages() {
       )
     }
   }
-
   console.log(getConsoleColor(images.length, imageIds.length), `${imageIds.length} images set`)
-
-  // We remove the temporary map
-  removeDir("seed_images")
-
   return imageIds
 }
 
 async function seedArticles(authorIds, categoryIds, tagIds, imageIds) {
-  console.log({ authorIds, categoryIds, tagIds, imageIds })
   const articleIds = []
   for (let [index, article] of articles.entries())
     try {
@@ -338,44 +341,6 @@ async function seedArticles(authorIds, categoryIds, tagIds, imageIds) {
 
 function getNextItemFrom(array, index) {
   return array[index % array.length]
-}
-
-function removeDir(path) {
-  if (fs.existsSync(path)) {
-    const files = fs.readdirSync(path)
-
-    if (files.length > 0) {
-      files.forEach(function (filename) {
-        if (fs.statSync(path + "/" + filename).isDirectory()) {
-          removeDir(path + "/" + filename)
-        } else {
-          fs.unlinkSync(path + "/" + filename)
-        }
-      })
-      fs.rmdirSync(path)
-    } else {
-      fs.rmdirSync(path)
-    }
-  } else {
-    console.log("Directory path not found.")
-  }
-}
-
-// Colors for console:
-// https://stackoverflow.com/questions/9781218/how-to-change-node-jss-console-font-color
-const consoleColorRed = "\x1b[31m%s\x1b[0m"
-const consoleColorYellow = "\x1b[33m%s\x1b[0m"
-const consoleColorGreen = "\x1b[32m%s\x1b[0m"
-
-// Function to determine the color of a console message, comparing two values
-function getConsoleColor(desiredValue, actualValue) {
-  if (actualValue === 0) {
-    return consoleColorRed
-  } else if (actualValue < desiredValue) {
-    return consoleColorYellow
-  } else if (actualValue === desiredValue) {
-    return consoleColorGreen
-  }
 }
 
 seedDb()
