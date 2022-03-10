@@ -166,23 +166,6 @@ p > a {
   &:hover {
     color: $ordina-orange-hover;
   }
-
-  &.outline-button-link {
-    padding: 0.3rem 2rem;
-    margin: 2rem 0;
-    font-family: 'Poppins-Bold', sans-serif;
-    cursor: pointer;
-    border-radius: 5px;
-    background: none;
-    text-decoration: none;
-    text-transform: uppercase;
-    transition: all 0.3s ease;
-
-    &:hover {
-      color: $ordina-orange;
-      border: 1px solid $ordina-orange;
-    }
-  }
 }
 
 // Blockquote
