@@ -24,7 +24,7 @@
         </AisRefinementList>
 
         <AisSearchBox />
-        <AisConfigure :hits-per-page.camel="6" />
+        <AisConfigure :hits-per-page.camel="9" />
         <AisInfiniteHits>
           <template slot="item" slot-scope="{ item }">
             <ArticleCard :article="item" />

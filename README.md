@@ -48,12 +48,14 @@ Now that Strapi is setup, we can setup permission to populate the database with 
 2. Go to _Settings > Roles (Users & Permissions Plugin) > Public_ 
 3. Tick the 'find' permission for the Article entity
 4. Tick the 'create' permission for the Article, Author, Category and Tag entities
-5. Be sure to to save your changes
+5. Expand the _UPLOAD_ dropdown (below _Application_ permissions) and tick the 'upload' permission
+6. Be sure to to save your changes
 
 Now Strapi is ready to be populated: 
 
-6. Still in the backend folder, run `npm run seed-db`. Make sure Strapi is still running, so don't kill the process but rather open up a second terminal. This script file contains some sample data and will populate Strapi with it. The images of the articles won't work though. So for now, it is advised to add your own articles (see below).
-7. Run `npm run content-to-algolia` to fill your own Algolia index with the data you just created in your Strapi database. 
+7. Create a folder named "uploads" in backend/public. This is needed to upload images.
+8. Still in the backend folder, run `npm run seed-db`. Make sure Strapi is still running, so don't kill the process but rather open up a second terminal. This script file contains some sample data and will populate Strapi with it. Your console will tell you how much entities have been seeded. Logs will pop up <span style="color:green">green</span> if all sample data was successfully seeded, <span style="color:yellow">yellow</span> if some sample data has been successfully seeded and <span style="color:red">red</span> if no sample data of that entity has been successfully seeded.
+9. Run `npm run content-to-algolia` to fill your own Algolia index with the data you just created in your Strapi database. 
 
 #### More on permissions
 
@@ -109,13 +111,14 @@ Take a look at some overview pages, such as the search page. Everything you see 
 
 You can create your own content in Strapi.
 
-1. Create a folder named "uploads" in backend/public. This is needed to upload images.
-2. Go to [localhost:1337](http://localhost:1337) to access the Strapi admin panel
-3. Create an admin account if you haven't already and login
-4. Go to Articles (top left) to get an overview of the sample articles
-5. Click 'Add new articles' (top right)
-6. Create your new article and hit 'Save'
-7. Make sure to hit 'Publish' as well. Only published articles will show up in Algolia and in the frontend.
+> Make sure you have a folder named "uploads" in backend/public. This is needed to upload images. If you've followed the _Minimal setup_ and thus seeded your database (_Adding sample data_) you have already done this.
+
+1. Go to [localhost:1337](http://localhost:1337) to access the Strapi admin panel
+2. Create an admin account if you haven't already and login
+3. Go to Articles (top left) to get an overview of the sample articles
+4. Click 'Add new articles' (top right)
+5. Create your new article and hit 'Save'
+6. Make sure to hit 'Publish' as well. Only published articles will show up in Algolia and in the frontend.
 
 ### Enable login as a user
 
