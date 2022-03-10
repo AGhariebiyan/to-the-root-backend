@@ -19,10 +19,6 @@
   -webkit-font-smoothing: antialiased;
   box-sizing: border-box;
 }
-p,
-li {
-  font-family: 'Poppins', sans-serif;
-}
 
 html {
   scroll-behavior: smooth;
@@ -55,95 +51,78 @@ h3 {
   font-size: 1.5rem;
 }
 
-.link {
+// Buttons and anchors (links)
+.btn {
+  height: 3.125rem;
+  padding: 0.875rem;
+  font-family: 'Poppins-Bold', sans-serif;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+
+  text-decoration: none;
+
+  &-primary,
+  &-primary:link,
+  &-primary:visited {
+    color: $white;
+    background-color: $discovery-blue-primary;
+
+    &:hover {
+      background-color: $discovery-blue-primary-hover;
+    }
+  }
+
+  &-secondary,
+  &-secondary:link,
+  &-secondary:visited {
+    background-color: $accelerate-blue-3;
+    color: $gray-darker;
+
+    &:hover {
+      background-color: $accelerate-blue-3-hover;
+    }
+  }
+
+  &-pill {
+    height: 1.6875rem;
+    padding: 0.43rem;
+    border-radius: 1.25rem;
+    font-size: 0.875rem;
+    color: $gray-darker;
+    background-color: $discovery-blue-4;
+    text-decoration: none;
+
+    &:hover {
+      background-color: $discovery-blue-4-hover;
+    }
+  }
+
+  &-transparent {
+    background-color: $transparent;
+    color: $discovery-blue-primary;
+
+    &:active,
+    &:hover {
+      color: $gray-darkest;
+      background-color: $transparent-hover;
+    }
+  }
+
+  &:disabled {
+    background-color: $gray;
+    color: $gray-light;
+    cursor: not-allowed;
+  }
+}
+
+p > a {
   text-decoration: none;
   color: $ordina-orange;
 
   &:focus,
   &:hover {
     color: $ordina-orange-hover;
-  }
-}
-
-.secondary-link {
-  text-decoration: none;
-  color: inherit;
-  &:link,
-  &:visited {
-  }
-
-  &:hover,
-  &:active {
-    text-decoration: underline;
-  }
-}
-
-blockquote {
-  padding: 1rem 2rem;
-  border-left: 0.125rem solid $gray-dark;
-  background: $gray-light;
-  font-style: italic;
-}
-
-// Inline code
-code {
-  display: inline-block;
-  background-color: $gray-light;
-  font-family: 'Monaco', 'Consolas', 'Monospace';
-  font-size: 0.875rem;
-  padding: 0.1875rem;
-  border-radius: 0.1875rem;
-}
-
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-.article__content > p {
-  margin-bottom: 1rem;
-}
-
-.article__content > .image > img {
-  max-width: 100%;
-}
-
-a {
-  color: $accelerate-blue-primary;
-  cursor: pointer;
-  &:active,
-  &:hover {
-    color: $accelerate-blue-3;
-  }
-
-  &.button-link {
-    color: $white;
-    background-color: $discovery-blue-primary;
-    border-radius: 3px;
-    display: inline-block;
-    font-family: 'Poppins-Bold', sans-serif;
-    height: 3.125rem;
-    padding: 0.875rem;
-    text-decoration: none;
-    line-height: 1.5rem;
-
-    &:active,
-    &:hover {
-      background-color: $discovery-blue-primary-hover;
-    }
-
-    &--transparent {
-      background-color: $transparent;
-      color: $discovery-blue-primary;
-      &:active,
-      &:hover {
-        color: $gray-darkest;
-        background-color: $transparent-hover;
-      }
-    }
   }
 
   &.outline-button-link {
@@ -217,6 +196,41 @@ a {
     color: $gray;
     cursor: not-allowed;
   }
+}
+
+// Blockquote
+
+blockquote {
+  padding: 1rem 2rem;
+  border-left: 0.125rem solid $gray-dark;
+  background: $gray-light;
+  font-style: italic;
+}
+
+// Inline code
+code {
+  display: inline-block;
+  background-color: $gray-light;
+  font-family: 'Monaco', 'Consolas', 'Monospace';
+  font-size: 0.875rem;
+  padding: 0.1875rem;
+  border-radius: 0.1875rem;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.article__content > p {
+  margin-bottom: 1rem;
+}
+
+.article__content > .image > img {
+  max-width: 100%;
 }
 
 .error-list,

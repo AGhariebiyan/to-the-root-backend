@@ -56,9 +56,8 @@
             <button class="btn btn-primary form__button" type="submit">
               Sign up
             </button>
-            <NuxtLink
-              class="form__button button-link button-link--transparent"
-              to="/login"
+
+            <NuxtLink class="form__button btn btn-transparent" to="/login"
               >Login instead</NuxtLink
             >
           </div>

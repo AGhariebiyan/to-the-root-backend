@@ -22,15 +22,15 @@
     <template v-else>
       <template v-if="routeName !== 'login'">
         <NuxtLink
-          class="login-box__link button-link"
+          class="login-box__link btn btn-primary"
           to="/login"
           @click.native="$emit('closeMobileMenu')"
-          >Login</NuxtLink
+          >Log in</NuxtLink
         >
       </template>
       <template v-if="routeName !== 'signup'">
         <NuxtLink
-          class="login-box__link button-link"
+          class="login-box__link btn btn-secondary"
           to="/signup"
           @click.native="$emit('closeMobileMenu')"
           >Sign up</NuxtLink
@@ -85,21 +85,15 @@ export default {
   &__logout {
     cursor: pointer;
   }
+
+  &__link:not(:first-child) {
+    margin-left: 1rem;
+  }
 }
 
-.isMobile > .button-link:not(:first-child),
-.isMobile > .button-link:not(:first-child) {
+.isMobile > .login-box__link:not(:first-child) {
   margin-left: 0;
   margin-top: 2rem;
-}
-
-.material-icons {
-  display: inline-block;
-}
-
-.header__button:not(:first-child),
-.button-link:not(:first-child) {
-  margin-left: 1rem;
 }
 
 @media (max-width: $desktop-max-width) {
