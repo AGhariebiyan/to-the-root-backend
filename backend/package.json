@@ -12,7 +12,8 @@
     "format": "npx prettier --write .",
     "content-to-algolia": "node scripts/content-to-algolia",
     "postinstall": "(cd plugins/wysiwyg && npm install)",
-    "seed-db": "node scripts/database/seed-db.js"
+    "seed-db": "node scripts/database/seed-db.js",
+    "clear-db": "node scripts/database/clear-db.js"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.14.7",
