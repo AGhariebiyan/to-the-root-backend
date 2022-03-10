@@ -59,13 +59,13 @@ h3 {
   border: none;
   border-radius: 3px;
   cursor: pointer;
+  color: $white;
 
   text-decoration: none;
 
   &-primary,
   &-primary:link,
   &-primary:visited {
-    color: $white;
     background-color: $discovery-blue-primary;
 
     &:hover {
@@ -106,6 +106,19 @@ h3 {
     &:hover {
       color: $gray-darkest;
       background-color: $transparent-hover;
+    }
+  }
+
+  &-orange {
+    background-color: $ordina-orange;
+    border-radius: 50px;
+    display: inline-block;
+    padding: 0.875rem 2rem;
+    line-height: 1.5rem;
+
+    &:active,
+    &:hover {
+      background-color: $ordina-orange-hover;
     }
   }
 
@@ -170,31 +183,6 @@ p > a {
   &.button-gray-darker {
     color: $gray-darker;
     border: 1px solid $gray-darker;
-  }
-}
-
-.new-button {
-  color: $white;
-  border: none;
-  background-color: $ordina-orange;
-  border-radius: 50px;
-  display: inline-block;
-  font-family: 'Poppins-Bold', sans-serif;
-  height: 3.125rem;
-  padding: 0.875rem 2rem;
-  text-decoration: none;
-  line-height: 1.5rem;
-
-  &:active,
-  &:hover {
-    background-color: $ordina-orange-hover;
-    color: $white;
-  }
-
-  &:disabled {
-    background-color: $gray-darker;
-    color: $gray;
-    cursor: not-allowed;
   }
 }
 
