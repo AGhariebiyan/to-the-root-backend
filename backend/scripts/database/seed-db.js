@@ -84,31 +84,31 @@ const tags = [
 
 const images = [
   {
-    title: 'tech-gadgets',
+    name: 'tech-gadgets',
     url: 'https://images.unsplash.com/photo-1519335553051-96f1218cd5fa?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2440&q=80',
   },
   {
-    title: '3d-app-blocks',
+    name: '3d-app-blocks',
     url: 'https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1974&q=80',
   },
   {
-    title: 'netflix-office',
+    name: 'netflix-office',
     url: 'https://images.unsplash.com/photo-1621955964441-c173e01c135b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2086&q=80',
   },
   {
-    title: 'laptop-with-code',
+    name: 'laptop-with-code',
     url: 'https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80',
   },
   {
-    title: 'app-store',
+    name: 'app-store',
     url: 'https://images.unsplash.com/photo-1601034913836-a1f43e143611?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1974&q=80',
   },
   {
-    title: 'apple-tv',
+    name: 'apple-tv',
     url: 'https://images.unsplash.com/photo-1621685950846-9323d993bbf3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80',
   },
   {
-    title: 'developer-in-front-of-screens',
+    name: 'developer-in-front-of-screens',
     url: 'https://images.unsplash.com/photo-1550439062-609e1531270e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80',
   },
 ]
@@ -173,7 +173,6 @@ const articles = [
 
 // Make sure you have the right permissions:
 // In Strapi > Settings > User & permissions > roles > public, tick the create permissions for all entities.
-// Generating and uploading images does not work for now. I did not find how to fill the Media Library through API.
 
 async function seedDb() {
   let articles = await getArticles()
@@ -264,11 +263,11 @@ async function seedImages() {
   for (const image of images) {
     try {
       var data = new FormData();
-      request(image.url).pipe(fs.createWriteStream(`seed_images/${image.title}.jpg`));
+      request(image.url).pipe(fs.createWriteStream(`seed_images/${image.name}.jpg`));
 
       // We have to wait for the image to be written before we can read it
       setTimeout(() => {
-        data.append('files', fs.createReadStream(`seed_images/${image.title}.jpg`));
+        data.append('files', fs.createReadStream(`seed_images/${image.name}.jpg`));
       }, 1000);
 
       // We have to wait for the FormData to include the image before we can POST it
