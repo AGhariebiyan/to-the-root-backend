@@ -1,13 +1,14 @@
 <template>
   <div class="action-card">
     <img
+      alt=""
       class="action-card__icon"
       :src="require(`~/assets/icons/${iconImage}`)"
     />
     <h3 class="action-card__title"><slot name="title"></slot></h3>
     <p class="action-card__info-text"><slot name="info-text"></slot></p>
     <NuxtLink
-      class="action-card__button outline-button-link button-gray-darker"
+      class="action-card__button btn-outline btn-outline--gray-darker"
       :to="navRoute"
       ><slot name="button-text"></slot
     ></NuxtLink>

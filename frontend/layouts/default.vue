@@ -91,7 +91,6 @@ h3 {
     font-size: 0.875rem;
     color: $gray-darker;
     background-color: $discovery-blue-4;
-    text-decoration: none;
 
     &:hover {
       background-color: $discovery-blue-4-hover;
@@ -129,6 +128,36 @@ h3 {
   }
 }
 
+.btn-outline {
+  text-decoration: none;
+  padding: 0.3rem 2rem;
+  margin: 2rem 0;
+  border-radius: 5px;
+  background: none;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+
+  &:hover {
+    color: $ordina-orange;
+    border: 1px solid $ordina-orange;
+  }
+
+  &--white {
+    color: $white;
+    border: 1px solid $white;
+  }
+
+  &--gray-dark {
+    color: $gray-dark;
+    border: 1px solid $gray-dark;
+  }
+
+  &--gray-darker {
+    color: $gray-darker;
+    border: 1px solid $gray-darker;
+  }
+}
+
 p > a {
   text-decoration: none;
   color: $ordina-orange;
@@ -153,36 +182,6 @@ p > a {
       color: $ordina-orange;
       border: 1px solid $ordina-orange;
     }
-  }
-
-  &.button-white {
-    color: $white;
-    border: 1px solid $white;
-  }
-
-  &.button-gray-lighter {
-    color: $gray-lighter;
-    border: 1px solid $gray-lighter;
-  }
-
-  &.button-gray-light {
-    color: $gray-light;
-    border: 1px solid $gray-light;
-  }
-
-  &.button-gray {
-    color: $gray;
-    border: 1px solid $gray;
-  }
-
-  &.button-gray-dark {
-    color: $gray-dark;
-    border: 1px solid $gray-dark;
-  }
-
-  &.button-gray-darker {
-    color: $gray-darker;
-    border: 1px solid $gray-darker;
   }
 }
 
