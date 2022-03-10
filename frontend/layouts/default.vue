@@ -148,6 +148,11 @@ h3 {
     border: 1px solid $white;
   }
 
+  &--gray {
+    color: $gray;
+    border: 1px solid $gray;
+  }
+
   &--gray-dark {
     color: $gray-dark;
     border: 1px solid $gray-dark;
