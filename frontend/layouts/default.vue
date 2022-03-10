@@ -129,6 +129,7 @@ h3 {
 }
 
 .btn-outline {
+  font-family: 'Poppins-Bold', sans-serif;
   text-decoration: none;
   padding: 0.3rem 2rem;
   margin: 2rem 0;
