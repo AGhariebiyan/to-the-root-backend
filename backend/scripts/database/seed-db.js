@@ -351,7 +351,7 @@ async function seedArticles(authorIds, categoryIds, tagIds, imageIds) {
         category: {
           id: getNextItemFrom(categoryIds, index),
         },
-        localTags,
+        tags: localTags,
         cover_image: {
           id: getNextItemFrom(imageIds, index),
         },
