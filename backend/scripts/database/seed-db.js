@@ -91,30 +91,30 @@ const images = [
     name: 'tech-gadgets',
     url: 'https://images.unsplash.com/photo-1519335553051-96f1218cd5fa?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2440&q=80',
   },
-  // {
-  //   name: '3d-app-blocks',
-  //   url: 'https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1974&q=80',
-  // },
-  // {
-  //   name: 'netflix-office',
-  //   url: 'https://images.unsplash.com/photo-1621955964441-c173e01c135b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2086&q=80',
-  // },
-  // {
-  //   name: 'laptop-with-code',
-  //   url: 'https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80',
-  // },
-  // {
-  //   name: 'app-store',
-  //   url: 'https://images.unsplash.com/photo-1601034913836-a1f43e143611?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1974&q=80',
-  // },
-  // {
-  //   name: 'apple-tv',
-  //   url: 'https://images.unsplash.com/photo-1621685950846-9323d993bbf3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80',
-  // },
-  // {
-  //   name: 'developer-in-front-of-screens',
-  //   url: 'https://images.unsplash.com/photo-1550439062-609e1531270e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80',
-  // },
+  {
+    name: '3d-app-blocks',
+    url: 'https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1974&q=80',
+  },
+  {
+    name: 'netflix-office',
+    url: 'https://images.unsplash.com/photo-1621955964441-c173e01c135b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2086&q=80',
+  },
+  {
+    name: 'laptop-with-code',
+    url: 'https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80',
+  },
+  {
+    name: 'app-store',
+    url: 'https://images.unsplash.com/photo-1601034913836-a1f43e143611?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1974&q=80',
+  },
+  {
+    name: 'apple-tv',
+    url: 'https://images.unsplash.com/photo-1621685950846-9323d993bbf3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80',
+  },
+  {
+    name: 'developer-in-front-of-screens',
+    url: 'https://images.unsplash.com/photo-1550439062-609e1531270e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80',
+  },
 ]
 
 const articles = [
@@ -285,20 +285,26 @@ async function seedImages() {
       const pipeInput = fs.createWriteStream(`${IMAGES_PATH}/${image.name}.jpg`)
       request(image.url).pipe(pipeInput)
 
-      const readStream = fs.createReadStream(`${IMAGES_PATH}/${image.name}.jpg`)
-      data.append('files', readStream)
+      setTimeout(() => {
+        const readStream = fs.createReadStream(`${IMAGES_PATH}/${image.name}.jpg`)
+        data.append('files', readStream)
+      }, 1000)
 
-      console.log('posting', image, typeof data)
-      const response = await axios({
-        method: 'POST',
-        url: `${process.env.URL}/upload`,
-        data: data,
-        headers: {
-          'Content-Type': `multipart/form-data; boundary=${data._boundary}`,
-        },
-      })
+      setTimeout(async () => {
+        console.log('posting', image, typeof data)
+        const response = await axios({
+          method: 'POST',
+          url: `${process.env.URL}/upload`,
+          data: data,
+          headers: {
+            'Content-Type': `multipart/form-data; boundary=${data._boundary}`,
+          },
+        })
 
-      imageIds.push(response.data[0].id)
+        imageIds.push(response.data[0].id)
+      }, 3000)
+
+      await new Promise(r => setTimeout(r, 5000));
     } catch (err) {
       console.log(
         'Setting images went wrong! See error above or the logging of the strapi server',
