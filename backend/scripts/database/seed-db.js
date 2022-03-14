@@ -280,18 +280,19 @@ async function seedImages() {
   const imageIds = []
   for (const image of images) {
     try {
-      console.log('trying image', image)
+      console.log('uploading image ', image.name)
       var data = new FormData()
       const pipeInput = fs.createWriteStream(`${IMAGES_PATH}/${image.name}.jpg`)
       request(image.url).pipe(pipeInput)
 
       setTimeout(() => {
-        const readStream = fs.createReadStream(`${IMAGES_PATH}/${image.name}.jpg`)
+        const readStream = fs.createReadStream(
+          `${IMAGES_PATH}/${image.name}.jpg`,
+        )
         data.append('files', readStream)
       }, 1000)
 
       setTimeout(async () => {
-        console.log('posting', image, typeof data)
         const response = await axios({
           method: 'POST',
           url: `${process.env.URL}/upload`,
@@ -304,7 +305,7 @@ async function seedImages() {
         imageIds.push(response.data[0].id)
       }, 3000)
 
-      await new Promise(r => setTimeout(r, 5000));
+      await new Promise((r) => setTimeout(r, 5000))
     } catch (err) {
       console.log(
         'Setting images went wrong! See error above or the logging of the strapi server',
