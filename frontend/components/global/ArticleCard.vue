@@ -16,13 +16,13 @@
         <h3 class="article__title">{{ article.title }}</h3>
         <p class="article__description">{{ article.description }}</p>
       </div>
-      <div class="article__categories">
+      <div class="article__tags">
         <BaseButton
           buttonType="pill"
-          v-for="(category, index) in article.categories"
+          v-for="(tag, index) in article.tags"
           :key="index"
         >
-          {{ category.name }}
+          {{ tag.name }}
         </BaseButton>
       </div>
     </div>
@@ -125,7 +125,7 @@ export default defineComponent({
     position: relative;
   }
 
-  &__categories {
+  &__tags {
     height: 3.5rem;
     padding: 1rem 1.3rem;
 
