@@ -21,7 +21,7 @@
           :article="{
             title: article.title,
             description: article.description,
-            categories: article.categories,
+            tags: article.tags,
           }"
           :url="articleUrl"
         />
@@ -156,22 +156,20 @@ export default defineComponent({
     const relatedArticles: any = ref([])
 
     async function loadRelatedArticles() {
-      const relatedCategoryParams = {
+      const relatedTagParams = {
         _where: [
           {
-            'categories.name': article.value.categories.map(
-              (category: any) => category.name,
-            ),
+            'tags.name': article.value.tags.map((tag: any) => tag.name),
           },
         ],
       }
 
-      const relatedCategoryArticles: Article[] = await store.dispatch(
+      const relatedTagArticles: Article[] = await store.dispatch(
         'articles/fetchArticles',
         {
           limit: 4,
           offset: ref(0),
-          params: relatedCategoryParams,
+          params: relatedTagParams,
         },
       )
 
@@ -197,7 +195,7 @@ export default defineComponent({
       })
 
       // Combine all articles
-      const combinedArticles = relatedCategoryArticles.concat(
+      const combinedArticles = relatedTagArticles.concat(
         relatedAuthorArticles,
         recentArticles,
       )

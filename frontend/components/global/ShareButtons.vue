@@ -9,7 +9,7 @@
       :url="url"
       :title="article.title"
       :description="article.title"
-      :hashtags="categories"
+      :hashtags="tags"
     >
       <span class="icon-wrapper" v-html="social.icon"></span>
     </ShareNetwork>
@@ -41,10 +41,8 @@ export default {
       },
     ]
 
-    const categories = props.article.categories
-      .map((category) => category.name)
-      .join(',')
-    return { socials, categories }
+    const tags = props.article.tags.map((tag) => tag.name).join(',')
+    return { socials, tags }
   },
 }
 </script>
