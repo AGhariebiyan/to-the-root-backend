@@ -13,9 +13,6 @@ describe('Login socials', () => {
       propsData: {
         dividerText: 'Lorem ipsum',
       },
-      stubs: {
-        BaseButton: { template: '<button><slot /></button>' },
-      },
       mocks: {
         $nuxt: {
           context: {

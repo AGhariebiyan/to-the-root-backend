@@ -32,7 +32,11 @@
         </div>
 
         <div>
-          <button class="new-button" :disabled="!email.length" type="submit">
+          <button
+            class="btn btn-orange"
+            :disabled="!email.length"
+            type="submit"
+          >
             {{ buttonText }}
           </button>
         </div>
