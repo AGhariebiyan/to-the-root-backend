@@ -95,26 +95,26 @@ const images = [
     name: '3d-app-blocks',
     url: 'https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1974&q=80',
   },
-  {
-    name: 'netflix-office',
-    url: 'https://images.unsplash.com/photo-1621955964441-c173e01c135b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2086&q=80',
-  },
-  {
-    name: 'laptop-with-code',
-    url: 'https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80',
-  },
-  {
-    name: 'app-store',
-    url: 'https://images.unsplash.com/photo-1601034913836-a1f43e143611?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1974&q=80',
-  },
-  {
-    name: 'apple-tv',
-    url: 'https://images.unsplash.com/photo-1621685950846-9323d993bbf3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80',
-  },
-  {
-    name: 'developer-in-front-of-screens',
-    url: 'https://images.unsplash.com/photo-1550439062-609e1531270e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80',
-  },
+  // {
+  //   name: 'netflix-office',
+  //   url: 'https://images.unsplash.com/photo-1621955964441-c173e01c135b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2086&q=80',
+  // },
+  // {
+  //   name: 'laptop-with-code',
+  //   url: 'https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80',
+  // },
+  // {
+  //   name: 'app-store',
+  //   url: 'https://images.unsplash.com/photo-1601034913836-a1f43e143611?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1974&q=80',
+  // },
+  // {
+  //   name: 'apple-tv',
+  //   url: 'https://images.unsplash.com/photo-1621685950846-9323d993bbf3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80',
+  // },
+  // {
+  //   name: 'developer-in-front-of-screens',
+  //   url: 'https://images.unsplash.com/photo-1550439062-609e1531270e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80',
+  // },
 ]
 
 const articles = [
@@ -176,6 +176,18 @@ const articles = [
   },
 ]
 
+const featureds = [
+  {
+    description: 'From our newest author',
+  },
+  {
+    description: 'New in Flutter',
+  },
+  {
+    description: 'Best read of 2021',
+  },
+]
+
 // Make sure you have the right permissions:
 // In Strapi > Settings > User & permissions > roles > public, tick the create permissions for all entities.
 // And have the permission for the Upload thingy
@@ -192,7 +204,8 @@ async function seedDb() {
   const categoryIds = await seedCategories()
   const tagIds = await seedTags()
   const imageIds = await seedImages()
-  await seedArticles(authorIds, categoryIds, tagIds, imageIds)
+  const articleIds = await seedArticles(authorIds, categoryIds, tagIds, imageIds)
+  await seedFeatureds(articleIds)
 }
 
 async function getArticles() {
@@ -369,9 +382,36 @@ async function seedArticles(authorIds, categoryIds, tagIds, imageIds) {
       )
     }
   }
+
   console.log(
     getConsoleColor(articles.length, articleIds.length),
     `${articleIds.length} articles set`,
+  )
+
+  return articleIds
+}
+
+async function seedFeatureds(articleIds) {
+  const featuredIds = []
+  for (let [index, featured] of featureds.entries())
+    try {
+      const newFeatured = {
+        ...featured,
+        article: {
+          id: getNextItemFrom(articleIds, index)
+        }
+      }
+      const response = await axios.post(`${process.env.URL}/featureds`, newFeatured)
+      featuredIds.push(response.data.id)
+    } catch (err) {
+      console.log(
+        'Setting featureds went wrong! See error above or the logging of the strapi server',
+        err,
+      )
+    }
+  console.log(
+    getConsoleColor(featureds.length, featuredIds.length),
+    `${featuredIds.length} featureds set`,
   )
 }
 
