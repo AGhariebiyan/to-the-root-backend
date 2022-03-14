@@ -1,8 +1,8 @@
 {
   "kind": "collectionType",
-  "collectionName": "categories",
+  "collectionName": "tags",
   "info": {
-    "name": "Category",
+    "name": "Tag",
     "description": ""
   },
   "options": {
@@ -14,16 +14,15 @@
   "attributes": {
     "name": {
       "type": "string",
-      "required": true,
-      "unique": true
+      "required": true
     },
     "slug": {
       "type": "uid",
       "targetField": "name"
     },
     "articles": {
-      "via": "category",
       "collection": "article",
+      "via": "tags",
       "dominant": true
     }
   }
