@@ -1,9 +1,11 @@
 require('dotenv').config('../../.env')
 
 const axios = require('axios')
-const request = require('request');
-const fs = require('fs');
-const FormData = require('form-data');
+const request = require('request')
+const fs = require('fs')
+const fsPromises = require('fs/promises')
+const FormData = require('form-data')
+const { type } = require('os')
 
 const authors = [
   {
@@ -82,6 +84,8 @@ const tags = [
   },
 ]
 
+const IMAGES_PATH = '../seed_images'
+
 const images = [
   {
     name: 'tech-gadgets',
@@ -140,7 +144,8 @@ const articles = [
   },
   {
     title: 'Python 101',
-    content: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ut lorem congue, mollis neque a, commodo tellus. Sed lobortis, quam ut dapibus fermentum, libero elit suscipit nunc, ut faucibus odio eros sit amet urna. Duis sagittis, sapien non aliquet tincidunt, nibh tellus tempor erat, at ornare ligula odio vestibulum est. Suspendisse eget sollicitudin lacus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Aenean interdum enim non euismod dapibus. Ut placerat, ante rutrum hendrerit imperdiet, nisi nisi aliquet eros, non consectetur sapien massa vitae sem. Fusce rhoncus id arcu nec vestibulum.</p><p>Nullam condimentum dui eros, vitae malesuada leo posuere non. Praesent semper sit amet sapien nec tincidunt. Cras sodales in mi sit amet egestas. Sed tincidunt purus eros, at ultricies ex mollis lobortis. Maecenas dignissim semper est, sed scelerisque mauris placerat quis. Fusce faucibus vehicula dui, et efficitur justo varius lacinia. Donec lectus enim, condimentum vitae commodo sit amet, pellentesque sit amet quam. Maecenas ac lectus ut ante interdum pharetra non sit amet diam. Donec gravida nibh a elit dignissim viverra. Praesent accumsan lacinia venenatis. Vivamus quis odio vitae nulla iaculis pretium at vitae lorem. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Maecenas lorem leo, ultricies vulputate ultricies eget, lobortis nec tellus.</p><p>Vestibulum ut tempus dolor. Ut faucibus, arcu finibus mattis varius, sem nisi convallis justo, ac posuere enim felis vel ante. Duis id pellentesque lectus, hendrerit suscipit neque. Donec neque lorem, molestie non quam et, tincidunt varius enim. Vivamus non sodales tellus. Curabitur facilisis elit a lacus ullamcorper blandit. Aenean semper justo ac sapien sagittis, ut condimentum arcu tempor. Pellentesque justo elit, feugiat ut ligula vel, laoreet commodo mauris. Donec tristique mauris mi, nec fringilla metus luctus ac. Donec maximus tortor elit, et sollicitudin tellus vehicula ut. Etiam ut volutpat justo.</p><p>In malesuada suscipit sem nec vehicula. Integer mattis, urna vel hendrerit pharetra, dolor justo sodales nulla, vitae faucibus erat sapien a tortor. Vestibulum et posuere quam, vitae lacinia sem. Curabitur gravida, mauris vel aliquet mattis, nunc lorem laoreet tortor, in aliquam odio leo non elit. Etiam eu sem id nisl ornare auctor at vel neque. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Suspendisse in nulla nunc. Praesent a urna eu nisl maximus pellentesque sit amet ac massa. Suspendisse aliquet ex at felis pellentesque aliquet.</p><p>Praesent nisl augue, gravida sit amet condimentum at, sodales gravida elit. Nulla ut placerat ante, quis ultrices urna. Maecenas et nisi massa. Phasellus iaculis sapien a dolor elementum varius. Nulla facilisi. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent a vehicula magna, vel faucibus mauris. In vel elit vel dolor rhoncus condimentum quis vitae lectus. Mauris volutpat turpis at elit feugiat, vel pretium dui vulputate.</p><p>Phasellus eget urna vitae arcu varius cursus. Ut eget libero eget turpis tincidunt fermentum. Fusce quis sapien vitae eros hendrerit euismod euismod id erat. Praesent porttitor molestie nibh, ut venenatis nibh suscipit ultrices. Sed consequat dolor nec tortor interdum ultricies. Donec ante elit, rhoncus id dui nec, consectetur viverra ligula. Donec eget interdum mi. Maecenas id tempus felis, ac aliquet elit. Morbi dictum commodo purus, quis dictum felis interdum non. Aliquam maximus felis nec nulla posuere viverra. Donec gravida arcu eu libero malesuada bibendum. Phasellus posuere felis molestie, efficitur erat sit amet, rutrum turpis. Nunc interdum justo lectus, ac tempor quam venenatis sollicitudin. Integer vitae pretium nunc, vel auctor leo.</p><p>Nulla vitae consectetur eros. Etiam elementum vehicula dui at facilisis. Mauris lectus turpis, accumsan vel lacinia suscipit, posuere sit amet ex. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque fermentum vehicula lectus nec rutrum. Donec vitae euismod nibh. Nam condimentum felis mi, non luctus nulla suscipit vel. Duis tincidunt est augue, eget malesuada ante blandit sed. Vivamus semper hendrerit finibus. Nam pharetra tellus id turpis ultricies sollicitudin volutpat tristique odio. Donec aliquam odio orci, in ultrices ex pulvinar ut. Proin est ligula, accumsan consectetur nibh ac, eleifend lobortis diam. Mauris cursus consectetur ligula, eu consequat ligula blandit eget. Pellentesque accumsan id nisl in sodales. Sed porttitor gravida porta.</p>',
+    content:
+      '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ut lorem congue, mollis neque a, commodo tellus. Sed lobortis, quam ut dapibus fermentum, libero elit suscipit nunc, ut faucibus odio eros sit amet urna. Duis sagittis, sapien non aliquet tincidunt, nibh tellus tempor erat, at ornare ligula odio vestibulum est. Suspendisse eget sollicitudin lacus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Aenean interdum enim non euismod dapibus. Ut placerat, ante rutrum hendrerit imperdiet, nisi nisi aliquet eros, non consectetur sapien massa vitae sem. Fusce rhoncus id arcu nec vestibulum.</p><p>Nullam condimentum dui eros, vitae malesuada leo posuere non. Praesent semper sit amet sapien nec tincidunt. Cras sodales in mi sit amet egestas. Sed tincidunt purus eros, at ultricies ex mollis lobortis. Maecenas dignissim semper est, sed scelerisque mauris placerat quis. Fusce faucibus vehicula dui, et efficitur justo varius lacinia. Donec lectus enim, condimentum vitae commodo sit amet, pellentesque sit amet quam. Maecenas ac lectus ut ante interdum pharetra non sit amet diam. Donec gravida nibh a elit dignissim viverra. Praesent accumsan lacinia venenatis. Vivamus quis odio vitae nulla iaculis pretium at vitae lorem. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Maecenas lorem leo, ultricies vulputate ultricies eget, lobortis nec tellus.</p><p>Vestibulum ut tempus dolor. Ut faucibus, arcu finibus mattis varius, sem nisi convallis justo, ac posuere enim felis vel ante. Duis id pellentesque lectus, hendrerit suscipit neque. Donec neque lorem, molestie non quam et, tincidunt varius enim. Vivamus non sodales tellus. Curabitur facilisis elit a lacus ullamcorper blandit. Aenean semper justo ac sapien sagittis, ut condimentum arcu tempor. Pellentesque justo elit, feugiat ut ligula vel, laoreet commodo mauris. Donec tristique mauris mi, nec fringilla metus luctus ac. Donec maximus tortor elit, et sollicitudin tellus vehicula ut. Etiam ut volutpat justo.</p><p>In malesuada suscipit sem nec vehicula. Integer mattis, urna vel hendrerit pharetra, dolor justo sodales nulla, vitae faucibus erat sapien a tortor. Vestibulum et posuere quam, vitae lacinia sem. Curabitur gravida, mauris vel aliquet mattis, nunc lorem laoreet tortor, in aliquam odio leo non elit. Etiam eu sem id nisl ornare auctor at vel neque. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Suspendisse in nulla nunc. Praesent a urna eu nisl maximus pellentesque sit amet ac massa. Suspendisse aliquet ex at felis pellentesque aliquet.</p><p>Praesent nisl augue, gravida sit amet condimentum at, sodales gravida elit. Nulla ut placerat ante, quis ultrices urna. Maecenas et nisi massa. Phasellus iaculis sapien a dolor elementum varius. Nulla facilisi. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent a vehicula magna, vel faucibus mauris. In vel elit vel dolor rhoncus condimentum quis vitae lectus. Mauris volutpat turpis at elit feugiat, vel pretium dui vulputate.</p><p>Phasellus eget urna vitae arcu varius cursus. Ut eget libero eget turpis tincidunt fermentum. Fusce quis sapien vitae eros hendrerit euismod euismod id erat. Praesent porttitor molestie nibh, ut venenatis nibh suscipit ultrices. Sed consequat dolor nec tortor interdum ultricies. Donec ante elit, rhoncus id dui nec, consectetur viverra ligula. Donec eget interdum mi. Maecenas id tempus felis, ac aliquet elit. Morbi dictum commodo purus, quis dictum felis interdum non. Aliquam maximus felis nec nulla posuere viverra. Donec gravida arcu eu libero malesuada bibendum. Phasellus posuere felis molestie, efficitur erat sit amet, rutrum turpis. Nunc interdum justo lectus, ac tempor quam venenatis sollicitudin. Integer vitae pretium nunc, vel auctor leo.</p><p>Nulla vitae consectetur eros. Etiam elementum vehicula dui at facilisis. Mauris lectus turpis, accumsan vel lacinia suscipit, posuere sit amet ex. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque fermentum vehicula lectus nec rutrum. Donec vitae euismod nibh. Nam condimentum felis mi, non luctus nulla suscipit vel. Duis tincidunt est augue, eget malesuada ante blandit sed. Vivamus semper hendrerit finibus. Nam pharetra tellus id turpis ultricies sollicitudin volutpat tristique odio. Donec aliquam odio orci, in ultrices ex pulvinar ut. Proin est ligula, accumsan consectetur nibh ac, eleifend lobortis diam. Mauris cursus consectetur ligula, eu consequat ligula blandit eget. Pellentesque accumsan id nisl in sodales. Sed porttitor gravida porta.</p>',
     original_date: '2021-07-23',
     slug: 'python-101',
     description: 'The basics of Python',
@@ -173,11 +178,12 @@ const articles = [
 
 // Make sure you have the right permissions:
 // In Strapi > Settings > User & permissions > roles > public, tick the create permissions for all entities.
+// And have the permission for the Upload thingy
 
 async function seedDb() {
-  let articles = await getArticles()
+  let articlesCheck = await getArticles()
 
-  if (articles.length > 0) {
+  if (articlesCheck.length > 0) {
     return
   }
   // We can expect an empty database here
@@ -190,16 +196,16 @@ async function seedDb() {
 }
 
 async function getArticles() {
-  let articles = []
+  let result = []
   try {
     const response = await axios.get(`${process.env.URL}/articles`)
-    articles = await response.data
+    result = await response.data
   } catch (err) {
     console.log(
-      `${err.toJSON().message} \n Getting articles went wrong! See error above or the logging of the strapi server`,
+      'Getting articles went wrong! See error above or the logging of the strapi server',
     )
   }
-  return articles
+  return result
 }
 
 async function seedAuthors() {
@@ -210,10 +216,14 @@ async function seedAuthors() {
       authorIds.push(response.data.id)
     } catch (err) {
       console.log(
-        `${err.toJSON().message} \n Setting authors went wrong! See error above or the logging of the strapi server`,
+        'Setting authors went wrong! See error above or the logging of the strapi server',
+        err,
       )
     }
-  console.log(getConsoleColor(authors.length, authorIds.length), `${authorIds.length} authors set`)
+  console.log(
+    getConsoleColor(authors.length, authorIds.length),
+    `${authorIds.length} authors set`,
+  )
   return authorIds
 }
 
@@ -228,10 +238,14 @@ async function seedCategories() {
       categoryIds.push(response.data.id)
     } catch (err) {
       console.log(
-        `${err.toJSON().message} \n Setting categories went wrong! See error above or the logging of the strapi server`,
+        'Setting categories went wrong! See error above or the logging of the strapi server',
+        err,
       )
     }
-  console.log(getConsoleColor(categories.length, categoryIds.length), `${categoryIds.length} categories set`)
+  console.log(
+    getConsoleColor(categories.length, categoryIds.length),
+    `${categoryIds.length} categories set`,
+  )
   return categoryIds
 }
 
@@ -243,130 +257,133 @@ async function seedTags() {
       tagIds.push(response.data.id)
     } catch (err) {
       console.log(
-        `${err.toJSON().message} \n Setting tags went wrong! See error above or the logging of the strapi server`,
+        'Setting tags went wrong! See error above or the logging of the strapi server',
+        err,
       )
     }
-  console.log(getConsoleColor(tags.length, tagIds.length), `${tagIds.length} tags set`)
+  console.log(
+    getConsoleColor(tags.length, tagIds.length),
+    `${tagIds.length} tags set`,
+  )
   return tagIds
 }
 
 async function seedImages() {
   // We create a temporary map to store the seed images
-  fs.mkdir("seed_images", (err) => {
-    if (err) {
-      return console.error(err);
-    }
-  });
+  try {
+    await fsPromises.mkdir(IMAGES_PATH)
+  } catch (err) {
+    console.log('Making the folder went wrong', err)
+  }
 
   // This bit's not pretty... feel free to improve :D
   const imageIds = []
   for (const image of images) {
     try {
-      var data = new FormData();
-      request(image.url).pipe(fs.createWriteStream(`seed_images/${image.name}.jpg`));
+      console.log('uploading image ', image.name)
+      var data = new FormData()
+      const pipeInput = fs.createWriteStream(`${IMAGES_PATH}/${image.name}.jpg`)
+      request(image.url).pipe(pipeInput)
 
-      // We have to wait for the image to be written before we can read it
       setTimeout(() => {
-        data.append('files', fs.createReadStream(`seed_images/${image.name}.jpg`));
-      }, 1000);
+        const readStream = fs.createReadStream(
+          `${IMAGES_PATH}/${image.name}.jpg`,
+        )
+        data.append('files', readStream)
+      }, 1000)
 
-      // We have to wait for the FormData to include the image before we can POST it
       setTimeout(async () => {
         const response = await axios({
+          method: 'POST',
           url: `${process.env.URL}/upload`,
-          method: "POST",
           data: data,
-          headers: { "Content-Type": `multipart/form-data; boundary=${data._boundary}` }
+          headers: {
+            'Content-Type': `multipart/form-data; boundary=${data._boundary}`,
+          },
         })
 
         imageIds.push(response.data[0].id)
-      }, 3000);
+      }, 3000)
 
-      await new Promise(r => setTimeout(r, 3200));
+      await new Promise((r) => setTimeout(r, 5000))
     } catch (err) {
       console.log(
-        `${err.toJSON().message} \n Setting images went wrong! See error above or the logging of the strapi server`,
+        'Setting images went wrong! See error above or the logging of the strapi server',
+        err.toJSON().message,
       )
     }
   }
-  console.log(getConsoleColor(images.length, imageIds.length), `${imageIds.length} images set`)
+
+  console.log(
+    getConsoleColor(images.length, imageIds.length),
+    `${imageIds.length} images set`,
+  )
 
   // We remove the temporary map
-  removeDir("seed_images")
-
-  // For a reason unknown to science, we have to wait 
-  // for the directory to be removed before moving on
-  await new Promise(r => setTimeout(r, 3000));
+  try {
+    if (fs.existsSync(IMAGES_PATH)) {
+      fs.rmSync(IMAGES_PATH, { recursive: true, force: true })
+    } else {
+      console.log('Directory path not found.')
+    }
+  } catch (err) {
+    console.log('Removing dir went wrong', err)
+  }
 
   return imageIds
 }
 
 async function seedArticles(authorIds, categoryIds, tagIds, imageIds) {
   const articleIds = []
-  for (let [index, article] of articles.entries())
+  for (let [index, article] of articles.entries()) {
     try {
       // pick 1 to 3 tags
       const nrTags = Math.floor(Math.random() * 3) + 1
-      const tags = []
+      const localTags = []
       for (var t = 0; t < nrTags; t++) {
-        tags.push({ id: getNextItemFrom(tagIds, index) })
+        localTags.push({ id: getNextItemFrom(tagIds, index) })
       }
 
-      article = {
+      const newArticle = {
         ...article,
         author: {
           id: getNextItemFrom(authorIds, index),
         },
-        category:
-        {
+        category: {
           id: getNextItemFrom(categoryIds, index),
         },
-        tags,
-        cover_image:
-        {
+        tags: localTags,
+        cover_image: {
           id: getNextItemFrom(imageIds, index),
         },
       }
-      const response = await axios.post(`${process.env.URL}/articles`, article)
+      const response = await axios.post(
+        `${process.env.URL}/articles`,
+        newArticle,
+      )
       articleIds.push(response.data.id)
     } catch (err) {
       console.log(
-        `${err.toJSON().message} \n Setting articles went wrong! See error above or the logging of the strapi server`,
+        'Setting articles went wrong! See error above or the logging of the strapi server',
+        err.toJSON().message,
       )
     }
-  console.log(getConsoleColor(articles.length, articleIds.length), `${articleIds.length} articles set`)
+  }
+  console.log(
+    getConsoleColor(articles.length, articleIds.length),
+    `${articleIds.length} articles set`,
+  )
 }
 
 function getNextItemFrom(array, index) {
   return array[index % array.length]
 }
 
-function removeDir(path) {
-  if (fs.existsSync(path)) {
-    const files = fs.readdirSync(path)
-
-    if (files.length > 0) {
-      files.forEach(function (filename) {
-        if (fs.statSync(path + "/" + filename).isDirectory()) {
-          removeDir(path + "/" + filename)
-        } else {
-          fs.unlinkSync(path + "/" + filename)
-        }
-      })
-      fs.rmdirSync(path)
-    } else {
-      fs.rmdirSync(path)
-    }
-  } else {
-    console.log("Directory path not found.")
-  }
-}
-
 // Colors for console:
 // https://stackoverflow.com/questions/9781218/how-to-change-node-jss-console-font-color
-const consoleColorRed = "\x1b[31m%s\x1b[0m"
-const consoleColorYellow = "\x1b[33m%s\x1b[0m"
-const consoleColorGreen = "\x1b[32m%s\x1b[0m"
+const consoleColorRed = '\x1b[31m%s\x1b[0m'
+const consoleColorYellow = '\x1b[33m%s\x1b[0m'
+const consoleColorGreen = '\x1b[32m%s\x1b[0m'
 
 // Function to determine the color of a console message, comparing two values
 function getConsoleColor(desiredValue, actualValue) {
