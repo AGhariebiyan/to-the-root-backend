@@ -1,15 +1,27 @@
 // Colors
 
+// New Design
+// ! Use these colors for the new design (and add if needed)
+// ! Old colors will be removed once the new design is implemented
+
 $ordina-orange: #f58220;
 $ordina-orange-hover: #d06e19;
 
-$black: #000;
+$ordina-blue: #3da4bf;
+$ordina-blue-hover: #8bc8d9;
+
+$tiles-inside: #fff;
+$button-1: #f58220;
+$button-2: #3da4bf;
+$black: #252525;
+$icons: #999;
+$background: #e1e1e1;
+$text: #e1e1e1;
+
+// Old Design
+
 $white: #fff;
 
-// $gray-light: #f8f8f8; // same as code highlight
-// $gray: #e1e1e1;
-// $gray-dark: #b2b2b2;
-// $gray-darker: #58595b;
 $gray-darkest: #262626;
 
 $discovery-blue-primary: #007f92;
@@ -40,7 +52,7 @@ $success-green: #609d6d;
 
 $warning-yellow-hover: #d3bb00;
 
-// New Design Colors
+// About Us Grays
 $gray-lighter: #e1e1e1;
 $gray-light: #d7d7d7;
 $gray: #797979;
@@ -51,18 +63,15 @@ $gray-darker: #1c1c1c;
 $desktop-max-width: 75em;
 $desktop-half-width: 37.5em;
 
+$header-item-width: 13rem;
+
+$article-card-image-width: 50rem;
+$article-card-height: 27rem;
+
 // Media query breakpoints
 $max-width-large-display: 75em;
 $max-width-tablet: 47.75em;
 $max-width-phone: 26.25em;
-
-// Variables
-$header-item-width: 13rem;
-
-$article-card-width: 21.875rem;
-$article-card-width-landscape: 18rem;
-$article-card-image-height: 13.6875rem;
-$article-card-content-height: 10rem;
 
 // Box shadows
 $box-shadow-small: 0px 0.25rem 0.25rem rgba(0, 0, 0, 0.25);
@@ -214,5 +223,14 @@ $line-height: 1.7rem;
   font-weight: 900;
   font-style: italic;
   src: url('~assets/fonts/Poppins/Poppins-BlackItalic.ttf')
+    format('truetype');
+}
+
+// Code Next
+@font-face {
+  font-family: 'Code-Next-ExtraBold';
+  font-weight: 800;
+  font-style: normal;
+  src: url('~assets/fonts/CodeNext/Code-Next-ExtraBold.ttf')
     format('truetype');
 }

@@ -1,117 +1,61 @@
 <template>
   <BasePageLayout>
     <BaseContainer>
-      <AisInstantSearch
-        :search-client="searchClient"
-        :index-name="algoliaIndex"
-      >
-        <AisRefinementList
-          attribute="tags.name"
-          operator="or"
-          :sort-by="['name:asc']"
-        >
-          <template v-slot="{ items, createURL, refine }">
-            <li v-for="item in items" :key="item.value">
-              <a
-                :href="createURL(item.value)"
-                @click.prevent="refine(item.value)"
-                :class="item.isRefined ? 'selected' : ''"
-              >
-                {{ item.label }}
-              </a>
-            </li>
-          </template>
-        </AisRefinementList>
-
-        <AisSearchBox />
-        <AisConfigure :hits-per-page.camel="9" />
-        <AisInfiniteHits>
-          <template slot="item" slot-scope="{ item }">
-            <ArticleCard :article="item" />
-          </template>
-          <template v-slot="{ items }">
-            <p class="no-articles-text" v-if="items.length === 0">
-              We couldn't find any content.
-            </p>
-          </template>
-
-          <template v-slot:loadMore="{ isLastPage, refineNext }">
-            <div class="show-more__container">
-              <BaseButton
-                :disabled="isLastPage"
-                buttonType="primary"
-                @click="refineNext"
-              >
-                Show more
-              </BaseButton>
-            </div>
-          </template>
-        </AisInfiniteHits>
-      </AisInstantSearch>
+      <BaseHeaderDivider slashColor="orange">Featured</BaseHeaderDivider>
+      <BaseArticleCard
+        class="featured-articles"
+        v-for="featuredArticle in featuredArticles"
+        :key="featuredArticle.id"
+        :article="featuredArticle.article"
+      />
+      <!-- <div v-for="article in featuredArticles" :key="article.id">
+        {{ article.article }}
+      </div> -->
+      <BaseHeaderDivider slashColor="blue">Events</BaseHeaderDivider>
+      <BaseHeaderDivider slashColor="orange">Categories</BaseHeaderDivider>
     </BaseContainer>
   </BasePageLayout>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, useMeta } from '@nuxtjs/composition-api'
-import { composePageTitle } from '~/utils/helpers'
-
 import {
-  AisConfigure,
-  AisInstantSearch,
-  AisInfiniteHits,
-  AisSearchBox,
-  AisRefinementList,
-} from 'vue-instantsearch'
-import algoliasearch from 'algoliasearch/lite'
+  computed,
+  defineComponent,
+  onMounted,
+  ref,
+  useContext,
+} from '@nuxtjs/composition-api'
 
 export default defineComponent({
-  name: 'PageContent',
-
-  head: {},
-
-  components: {
-    AisConfigure,
-    AisInstantSearch,
-    AisInfiniteHits,
-    AisSearchBox,
-    AisRefinementList,
-  },
-
   setup() {
-    useMeta(() => ({ title: composePageTitle('Search') }))
+    const { store } = useContext()
 
-    const query = ref('')
-    const algoliaIndex: string = process.env.algoliaIndex || ''
-    const appId: string = process.env.algoliaAppId || ''
-    const searchKey: string = process.env.algoliaSearchKey || ''
+    onMounted(async () => {
+      try {
+        await loadFeaturedArticles()
+      } catch (err) {
+        console.log(err)
+      }
+    })
 
-    const searchClient = algoliasearch(appId, searchKey)
+    const featuredArticles = computed(() => {
+      return store.getters['featureds/featuredArticles']
+    })
 
-    return {
-      algoliaIndex,
-      query,
-      searchClient,
+    async function loadFeaturedArticles() {
+      await store.dispatch('featureds/fetchFeaturedArticles', {
+        limit: 3,
+        offset: ref(0),
+      })
     }
+
+    return { featuredArticles }
   },
 })
 </script>
 
 <style lang="scss" scoped>
-.loader {
-  width: 100%;
-  margin-top: 4rem;
-}
-
-.show-more {
-  &__container {
-    margin-top: 2rem;
-    display: flex;
-    justify-content: center;
-  }
-}
-
-.selected {
-  background-color: red;
+.featured-articles {
+  margin-bottom: 1rem;
 }
 </style>

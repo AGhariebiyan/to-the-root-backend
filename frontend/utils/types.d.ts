@@ -53,4 +53,10 @@ export interface Like {
   user: string
 }
 
+export interface Featured {
+  id: number
+  description: string
+  article: Article
+}
+
 type ErrorResponse = { message: any[] }

@@ -89,8 +89,8 @@ export default defineComponent({
 
     const links = [
       {
-        name: 'Learn',
-        to: '/',
+        name: 'Search',
+        to: '/search',
       },
       {
         name: 'Connect',

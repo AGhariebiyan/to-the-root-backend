@@ -19,6 +19,11 @@
   -webkit-font-smoothing: antialiased;
   box-sizing: border-box;
 }
+
+body {
+  background: $background;
+}
+
 p,
 li {
   font-family: 'Poppins', sans-serif;

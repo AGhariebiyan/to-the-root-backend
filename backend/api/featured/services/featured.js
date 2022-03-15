@@ -5,4 +5,8 @@
  * to customize this service
  */
 
-module.exports = {};
+module.exports = {
+    find(params, populate) {
+        return strapi.query('featured').find(params, ["article", "article.cover_image", "article.author"]);
+    },
+};
