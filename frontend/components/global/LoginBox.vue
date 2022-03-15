@@ -12,7 +12,7 @@
 
       <button
         class="btn-outline btn-outline--gray login-box__link"
-        @click.native="logoutHandler"
+        @click="logoutHandler"
       >
         Log out
       </button>
