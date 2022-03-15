@@ -48,6 +48,7 @@
         <LoginBox @closeMobileMenu="closeMobileNavMenu" :isMobile="true" />
       </div>
     </div>
+    <HeaderSlashes class="header__slashes" />
   </header>
 </template>
 
@@ -59,9 +60,10 @@ import {
   ref,
 } from '@nuxtjs/composition-api'
 import LoginBox from '../global/LoginBox.vue'
+import HeaderSlashes from './HeaderSlashes.vue'
 
 export default defineComponent({
-  components: { LoginBox },
+  components: { LoginBox, HeaderSlashes },
 
   setup() {
     function resizeHandler() {
@@ -124,7 +126,8 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .header {
-  background-color: $white;
+  background-color: green;
+  height: 316px;
   position: sticky;
   top: 0;
   z-index: 50;
@@ -132,6 +135,7 @@ export default defineComponent({
 
 .header__content {
   display: flex;
+  height: 261px;
   align-items: center;
   max-width: $desktop-max-width;
   margin: 0 auto;
@@ -230,6 +234,14 @@ export default defineComponent({
 .header__mobile-menu-button {
   display: none;
   cursor: pointer;
+}
+
+.header__slashes {
+  position: absolute;
+  bottom: 0px;
+  left: -41px;
+  height: 385px;
+  width: calc(100% + 41px);
 }
 
 // breaking at 872px to avoid weird underline issues
