@@ -32,7 +32,16 @@
         </div>
       </div>
       <div class="categories">
-        <BaseHeaderDivider slashColor="orange">Categories</BaseHeaderDivider>
+        <BaseHeaderDivider class="categories__header" slashColor="orange"
+          >Categories</BaseHeaderDivider
+        >
+        <div class="categories__categories">
+          <CategoryCard
+            v-for="category in categories"
+            :key="category"
+            :categorySlug="category"
+          />
+        </div>
       </div>
     </BaseContainer>
   </BasePageLayout>
@@ -77,7 +86,16 @@ export default defineComponent({
       })
     }
 
-    return { featuredArticles, featuredArticlesSmall }
+    const categories = [
+      'backend',
+      'frontend',
+      'design',
+      'security',
+      'hardware',
+      'ai-ml',
+    ]
+
+    return { featuredArticles, featuredArticlesSmall, categories }
   },
 })
 </script>
@@ -100,6 +118,14 @@ export default defineComponent({
     flex-direction: column;
     justify-content: space-between;
     width: 25%;
+  }
+}
+
+.categories {
+  &__categories {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
   }
 }
 </style>

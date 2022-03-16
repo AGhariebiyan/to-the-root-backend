@@ -47,6 +47,7 @@ export default defineComponent({
   &__inner {
     max-width: $desktop-max-width;
     width: 100%;
+    padding: 0 1rem;
     display: flex;
     flex-direction: column;
 
