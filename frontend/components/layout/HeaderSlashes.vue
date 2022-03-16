@@ -522,7 +522,7 @@ M49.952,330.904L43.882,349.072L43.882,349.555L47.86,349.555L53.907,331.387L53.90
 export default {}
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .wrapper {
   background: linear-gradient(
     to right,
