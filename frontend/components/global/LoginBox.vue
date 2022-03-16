@@ -89,6 +89,11 @@ export default {
     color: #252525;
     text-transform: uppercase;
     font-weight: 700;
+    cursor: pointer;
+
+    &:hover {
+      background-color: $ordina-orange-hover;
+    }
 
     &:not(:first-child) {
       margin-left: 1rem;
@@ -105,7 +110,7 @@ export default {
       margin-right: 2rem;
 
       &:hover {
-        cursor: pointer;
+        background-color: $ordina-orange-hover;
       }
     }
   }
@@ -113,12 +118,20 @@ export default {
   &__profile {
     height: 3rem;
     margin-top: 7px;
+
+    &:hover {
+      background-color: $ordina-orange;
+    }
   }
 }
 
 .nuxt-link-exact-active {
   background-color: $accelerate-blue-primary;
   color: white;
+
+  &:hover {
+    background-color: $accelerate-blue-primary;
+  }
 }
 
 .is-mobile {
