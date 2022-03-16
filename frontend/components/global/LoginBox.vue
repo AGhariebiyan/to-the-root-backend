@@ -2,12 +2,11 @@
   <div class="login-box" :class="{ isMobile: isMobile }">
     <template v-if="isLoggedIn">
       <NuxtLink
-        class="btn-outline btn-outline--gray login-box__link"
         to="/profile"
         :title="`Logged in as ${$auth.user.username}`"
         @click.native="$emit('closeMobileMenu')"
       >
-        Profile
+        <img :src="require(`~/assets/icons/profile.svg`)" />
       </NuxtLink>
 
       <button
@@ -19,22 +18,18 @@
     </template>
 
     <template v-else>
-      <template v-if="routeName !== 'login'">
-        <NuxtLink
-          class="login-box__link btn btn-primary"
-          to="/login"
-          @click.native="$emit('closeMobileMenu')"
-          >Log in</NuxtLink
-        >
-      </template>
-      <template v-if="routeName !== 'signup'">
-        <NuxtLink
-          class="login-box__link btn btn-secondary"
-          to="/signup"
-          @click.native="$emit('closeMobileMenu')"
-          >Sign up</NuxtLink
-        >
-      </template>
+      <NuxtLink
+        class="login-box__link"
+        to="/login"
+        @click.native="$emit('closeMobileMenu')"
+        >Log in
+      </NuxtLink>
+      <NuxtLink
+        class="login-box__link"
+        to="/signup"
+        @click.native="$emit('closeMobileMenu')"
+        >Sign up
+      </NuxtLink>
     </template>
   </div>
 </template>
@@ -85,9 +80,27 @@ export default {
     cursor: pointer;
   }
 
-  &__link:not(:first-child) {
-    margin-left: 1rem;
+  &__link {
+    background: $ordina-orange;
+    padding: 0.75rem 2rem;
+    color: #252525;
+    text-transform: uppercase;
+    font-weight: 700;
+
+    &:not(:first-child) {
+      margin-left: 1rem;
+    }
+
+    &:link,
+    &:visited {
+      text-decoration: none;
+    }
   }
+}
+
+.nuxt-link-exact-active {
+  background-color: $accelerate-blue-primary;
+  color: white;
 }
 
 .isMobile > .login-box__link:not(:first-child) {
