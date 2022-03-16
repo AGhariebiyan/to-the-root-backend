@@ -1,20 +1,23 @@
 <template>
   <div class="login-box" :class="{ isMobile: isMobile }">
     <template v-if="isLoggedIn">
+      <button
+        class="login-box__link login-box__link--logout"
+        @click="logoutHandler"
+      >
+        Log out
+      </button>
       <NuxtLink
         to="/profile"
         :title="`Logged in as ${$auth.user.username}`"
         @click.native="$emit('closeMobileMenu')"
       >
-        <img :src="require(`~/assets/icons/profile.svg`)" />
+        <img
+          :src="require(`~/assets/icons/profile.svg`)"
+          alt=""
+          class="login-box__profile"
+        />
       </NuxtLink>
-
-      <button
-        class="btn-outline btn-outline--gray login-box__link"
-        @click="logoutHandler"
-      >
-        Log out
-      </button>
     </template>
 
     <template v-else>
@@ -95,6 +98,20 @@ export default {
     &:visited {
       text-decoration: none;
     }
+
+    &--logout {
+      border: none;
+      outline: none;
+      margin-right: 2rem;
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+
+  &__profile {
+    height: 3rem;
+    margin-top: 7px;
   }
 }
 
