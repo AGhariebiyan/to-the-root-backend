@@ -7,8 +7,8 @@ on:
   push:
     branches:
       - feature/ci-cd-pipeline
-    paths:
-      - './backend/**'
+    # paths:
+    #   - './backend/**'
   workflow_dispatch:
 
 jobs:

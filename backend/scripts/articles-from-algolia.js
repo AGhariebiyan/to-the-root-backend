@@ -19,8 +19,6 @@ async function getStrapiArticleIds() {
     return response.data.map((article) => article.id)
   } catch (err) {
     console.log('Something went wrong getting the article ids: ', err)
-    console.log('1')
-
   }
 }
 
