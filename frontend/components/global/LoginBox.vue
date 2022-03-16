@@ -1,5 +1,5 @@
 <template>
-  <div class="login-box" :class="{ isMobile: isMobile }">
+  <div class="login-box" :class="{ 'is-mobile': isMobile }">
     <template v-if="isLoggedIn">
       <button
         class="login-box__link login-box__link--logout"
@@ -103,6 +103,7 @@ export default {
       border: none;
       outline: none;
       margin-right: 2rem;
+
       &:hover {
         cursor: pointer;
       }
@@ -120,7 +121,24 @@ export default {
   color: white;
 }
 
-.isMobile > .login-box__link:not(:first-child) {
+.is-mobile {
+  flex-direction: column;
+
+  &.login-box {
+    margin-top: 1rem;
+    margin-right: 0;
+  }
+
+  & > .login-box__link {
+    margin-bottom: 1rem;
+  }
+
+  & > .login-box__link--logout {
+    margin-right: 0;
+  }
+}
+
+.is-mobile > .login-box__link:not(:first-child) {
   margin-left: 0;
   margin-top: 2rem;
 }

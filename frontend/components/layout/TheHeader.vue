@@ -19,7 +19,7 @@
               :link="link"
               class="header__link"
             />
-            <LoginBox :isMobile="true" />
+            <LoginBox :is-mobile="false" />
           </div>
         </nav>
         <HeaderSlashes class="header__slashes" />
@@ -27,7 +27,7 @@
 
       <!-- Mobile menu starts here -->
       <div v-else class="header__container header__container--mobile">
-        <TheLogo :isFlat="true" />
+        <TheLogo :is-flat="true" />
 
         <div class="header__menu-toggle">
           <span
@@ -57,16 +57,16 @@
         aria-label="Main"
         class="header__navigation header__navigation--mobile"
       >
-        <div class="header__links">
+        <div class="header__links header__links--mobile">
           <HeaderMenuLink
             v-for="link in links"
             :key="link.name"
             :link="link"
-            :isMobile="true"
+            :is-mobile="true"
             @click.native="closeMobileNavMenu"
             class="header__link"
           />
-          <LoginBox @closeMobileMenu="closeMobileNavMenu" :isMobile="true" />
+          <LoginBox @closeMobileMenu="closeMobileNavMenu" :is-mobile="true" />
         </div>
       </nav>
     </template>
@@ -185,7 +185,7 @@ export default defineComponent({
     &--mobile {
       position: fixed;
       flex-direction: column;
-      background: #ddd;
+      background: #282828;
       right: 0;
       top: $mobile-header-height;
     }
@@ -194,15 +194,25 @@ export default defineComponent({
   &__links {
     display: flex;
     align-items: center;
+
+    &--mobile {
+      flex-direction: column;
+      padding: 3rem 4rem 2rem;
+
+      & > .header__link {
+        margin-right: 0;
+        margin-bottom: 2rem;
+      }
+    }
   }
 
   &__link {
-    text-decoration: none;
-    color: white;
     margin-right: 6rem;
   }
 
   &__menu-toggle {
+    color: white;
+
     &:hover {
       cursor: pointer;
     }
