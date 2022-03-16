@@ -8,19 +8,18 @@
         <nav
           role="navigation"
           aria-label="Main"
-          class="header__menu header__menu--desktop"
+          class="header__navigation header__navigation--desktop"
         >
           <TheLogo />
 
           <div class="header__links">
-            <NuxtLink
+            <HeaderMenuLink
               v-for="link in links"
               :key="link.name"
-              :to="link.to"
+              :link="link"
               class="header__link"
-              >{{ link.name }}</NuxtLink
-            >
-            <LoginBox role="navigation" aria-label="Log in" />
+            />
+            <LoginBox />
           </div>
         </nav>
         <HeaderSlashes class="header__slashes" />
@@ -75,9 +74,10 @@ import {
 import LoginBox from '../global/LoginBox.vue'
 import HeaderSlashes from './HeaderSlashes.vue'
 import TheLogo from './TheLogo.vue'
+import HeaderMenuLink from '../HeaderMenuLink.vue'
 
 export default defineComponent({
-  components: { LoginBox, HeaderSlashes, TheLogo },
+  components: { LoginBox, HeaderMenuLink, HeaderSlashes, TheLogo },
 
   setup() {
     const isMounted = ref(false)
@@ -101,14 +101,17 @@ export default defineComponent({
     const links = [
       {
         name: 'Explore',
+        icon: 'sign-up',
         to: '/',
       },
       {
         name: 'Events',
+        icon: 'events',
         to: '/events',
       },
       {
         name: 'About',
+        icon: 'about',
         to: '/about',
       },
     ]
@@ -156,7 +159,7 @@ export default defineComponent({
     }
   }
 
-  &__menu {
+  &__navigation {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -176,6 +179,7 @@ export default defineComponent({
   &__link {
     text-decoration: none;
     color: white;
+    margin-right: 6rem;
   }
 }
 
