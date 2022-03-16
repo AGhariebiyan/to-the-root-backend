@@ -1,32 +1,34 @@
 <template>
-  <NuxtLink class="article-link" :to="`/content/${article.slug}`">
-    <div class="card article">
-      <div class="article__image-container">
-        <img
-          class="article__image"
-          :src="
-            article.cover_image
-              ? `${url}${article.cover_image.url}`
-              : require('~/assets/img/rainbow_ordina.png')
-          "
-          :alt="article.cover_image"
-        />
-      </div>
-      <div class="article__content">
-        <h5 class="article__author">
-          <span class="article__author-prefix">by</span
-          ><span class="article__author-name">{{ article.author.name }}</span>
-        </h5>
-        <h3 class="article__title">{{ article.title }}</h3>
-        <p class="article__description">{{ formattedArticleContent }}</p>
-        <div class="article__additional-info">
-          <span class="article__date">{{ formattedDate }}</span>
-          <span class="article__slash-icon">/</span>
-          <span class="article__reading-time">{{ readingTime }}</span>
+  <div>
+    <NuxtLink class="article-link" :to="`/content/${article.slug}`">
+      <div class="card article">
+        <div class="article__image-container">
+          <img
+            class="article__image"
+            :src="
+              article.cover_image
+                ? `${url}${article.cover_image.url}`
+                : require('~/assets/img/rainbow_ordina.png')
+            "
+            :alt="article.cover_image"
+          />
+        </div>
+        <div class="article__content">
+          <h5 class="article__author">
+            <span class="article__author-prefix">by</span
+            ><span class="article__author-name">{{ article.author.name }}</span>
+          </h5>
+          <h3 class="article__title">{{ article.title }}</h3>
+          <p class="article__description">{{ formattedArticleContent }}</p>
+          <div class="article__additional-info">
+            <span class="article__date">{{ formattedDate }}</span>
+            <span class="article__slash-icon">/</span>
+            <span class="article__reading-time">{{ readingTime }}</span>
+          </div>
         </div>
       </div>
-    </div>
-  </NuxtLink>
+    </NuxtLink>
+  </div>
 </template>
 
 <script lang="ts">

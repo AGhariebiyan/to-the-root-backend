@@ -1,18 +1,39 @@
 <template>
   <BasePageLayout>
     <BaseContainer>
-      <BaseHeaderDivider slashColor="orange">Featured</BaseHeaderDivider>
-      <BaseArticleCard
-        class="featured-articles"
-        v-for="featuredArticle in featuredArticles"
-        :key="featuredArticle.id"
-        :article="featuredArticle.article"
-      />
-      <!-- <div v-for="article in featuredArticles" :key="article.id">
-        {{ article.article }}
-      </div> -->
-      <BaseHeaderDivider slashColor="blue">Events</BaseHeaderDivider>
-      <BaseHeaderDivider slashColor="orange">Categories</BaseHeaderDivider>
+      <div class="featured-articles">
+        <BaseHeaderDivider class="featured-articles__header" slashColor="orange"
+          >Featured</BaseHeaderDivider
+        >
+        <div class="featured-articles__articles">
+          <div class="featured-articles__big">
+            <div
+              v-for="(featuredArticle, index) in featuredArticles"
+              :key="index"
+            >
+              <FeaturedCardBig
+                v-if="index == 0"
+                class="featured-articles__article-big"
+                :article="featuredArticle.article"
+              />
+            </div>
+          </div>
+          <div class="featured-articles__small">
+            <div
+              v-for="(featuredArticle, index) in featuredArticlesSmall"
+              :key="index"
+            >
+              <FeaturedCardSmall
+                class="featured-articles__article-small"
+                :article="featuredArticle.article"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="categories">
+        <BaseHeaderDivider slashColor="orange">Categories</BaseHeaderDivider>
+      </div>
     </BaseContainer>
   </BasePageLayout>
 </template>
@@ -25,6 +46,7 @@ import {
   ref,
   useContext,
 } from '@nuxtjs/composition-api'
+import { Featured } from '../utils/types'
 
 export default defineComponent({
   setup() {
@@ -42,6 +64,12 @@ export default defineComponent({
       return store.getters['featureds/featuredArticles']
     })
 
+    const featuredArticlesSmall = computed(() => {
+      const featuredArticles: Array<Featured> =
+        store.getters['featureds/featuredArticles']
+      return [...featuredArticles].splice(1, 2)
+    })
+
     async function loadFeaturedArticles() {
       await store.dispatch('featureds/fetchFeaturedArticles', {
         limit: 3,
@@ -49,13 +77,29 @@ export default defineComponent({
       })
     }
 
-    return { featuredArticles }
+    return { featuredArticles, featuredArticlesSmall }
   },
 })
 </script>
 
 <style lang="scss" scoped>
 .featured-articles {
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
+
+  &__articles {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__big {
+    width: 74%;
+  }
+
+  &__small {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 25%;
+  }
 }
 </style>
