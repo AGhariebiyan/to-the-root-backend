@@ -19,46 +19,56 @@
               :link="link"
               class="header__link"
             />
-            <LoginBox />
+            <LoginBox :isMobile="true" />
           </div>
         </nav>
         <HeaderSlashes class="header__slashes" />
       </div>
 
       <!-- Mobile menu starts here -->
-      <div v-else class="header__container--mobile">
-        <span
-          role="navigation"
-          aria-label="open mobile menu"
-          v-if="!isMobileMenuActive"
-          class="material-icons header__mobile-menu-button"
-          @click="openMobileNavMenu"
-          @touch="openMobileNavMenu"
-          >menu</span
-        >
-        <span
-          role="navigation"
-          aria-label="close mobile menu"
-          v-else
-          class="material-icons header__mobile-menu-button"
-          @click="closeMobileNavMenu"
-          @touch="closeMobileNavMenu"
-          >close</span
-        >
+      <div v-else class="header__container header__container--mobile">
+        <TheLogo :isFlat="true" />
 
-        <nav role="navigation" aria-label="Main" class="header__menu--mobile">
-          <NuxtLink
-            class="nav-links__item"
-            v-for="link in links"
-            @click.native="closeMobileNavMenu"
-            :key="link.name"
-            :to="link.to"
-            >{{ link.name }}</NuxtLink
+        <div class="header__menu-toggle">
+          <span
+            v-if="!isMobileMenuActive"
+            @click="openMobileNavMenu"
+            @touch="openMobileNavMenu"
+            class="material-icons header__mobile-menu-button"
+            aria-label="open mobile menu"
+            role="navigation"
+            >menu</span
           >
-        </nav>
-
-        <LoginBox @closeMobileMenu="closeMobileNavMenu" :isMobile="true" />
+          <span
+            v-else
+            @click="closeMobileNavMenu"
+            @touch="closeMobileNavMenu"
+            class="material-icons header__mobile-menu-button"
+            aria-label="close mobile menu"
+            role="navigation"
+            >close</span
+          >
+        </div>
       </div>
+
+      <nav
+        v-if="isMobileMenuActive"
+        role="navigation"
+        aria-label="Main"
+        class="header__navigation header__navigation--mobile"
+      >
+        <div class="header__links">
+          <HeaderMenuLink
+            v-for="link in links"
+            :key="link.name"
+            :link="link"
+            :isMobile="true"
+            @click.native="closeMobileNavMenu"
+            class="header__link"
+          />
+          <LoginBox @closeMobileMenu="closeMobileNavMenu" :isMobile="true" />
+        </div>
+      </nav>
     </template>
     <div v-else>Loading header</div>
   </header>
@@ -80,8 +90,8 @@ export default defineComponent({
   components: { LoginBox, HeaderMenuLink, HeaderSlashes, TheLogo },
 
   setup() {
+    const largeScreenSize = 1000
     const isMounted = ref(false)
-    const largeScreenSize = 872
     const isLargeScreen = ref(true)
 
     function resizeHandler() {
@@ -91,7 +101,7 @@ export default defineComponent({
     onMounted(() => {
       isMounted.value = true
       window.addEventListener('resize', resizeHandler)
-      isLargeScreen.value = window.innerWidth >= 872
+      isLargeScreen.value = window.innerWidth >= largeScreenSize
     })
 
     onUnmounted(() => {
@@ -156,6 +166,11 @@ export default defineComponent({
     }
 
     &--mobile {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-right: 2rem;
+      height: $mobile-header-height;
     }
   }
 
@@ -168,6 +183,11 @@ export default defineComponent({
     }
 
     &--mobile {
+      position: fixed;
+      flex-direction: column;
+      background: #ddd;
+      right: 0;
+      top: $mobile-header-height;
     }
   }
 
@@ -180,6 +200,12 @@ export default defineComponent({
     text-decoration: none;
     color: white;
     margin-right: 6rem;
+  }
+
+  &__menu-toggle {
+    &:hover {
+      cursor: pointer;
+    }
   }
 }
 

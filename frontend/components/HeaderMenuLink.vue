@@ -1,6 +1,7 @@
 <template>
   <NuxtLink :to="link.to" class="link">
     <img
+      v-if="!isMobile"
       :src="require(`~/assets/icons/${link.icon}.svg`)"
       alt=""
       class="link__icon"
@@ -16,6 +17,11 @@ export default {
       type: Object,
       required: true,
     },
+    isMobile: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
   },
 }
 </script>
@@ -25,9 +31,11 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
+
   &__icon {
     height: 3rem;
   }
+
   &__name {
     text-transform: uppercase;
     font-size: 0.875rem;

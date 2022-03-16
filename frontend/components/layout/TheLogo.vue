@@ -1,10 +1,10 @@
 <template>
-  <div class="logo">
+  <div class="logo" :class="{ 'logo--flat': isFlat }">
     <NuxtLink class="logo__link" to="/">
       <img
         v-if="isFlat"
         class="logo__image"
-        src="@/assets/logo.svg"
+        src="@/assets/logo-flat.svg"
         alt="home"
       />
       <img v-else class="logo__image" src="@/assets/logo.svg" alt="home" />
@@ -27,6 +27,14 @@ export default {
 <style lang="scss" scoped>
 .logo {
   padding: 4rem;
+
+  &--flat {
+    padding: 1rem;
+
+    & .logo__image {
+      height: 3rem;
+    }
+  }
 
   &__link {
   }
