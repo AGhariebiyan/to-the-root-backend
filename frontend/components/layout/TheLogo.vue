@@ -26,13 +26,13 @@ export default {
 
 <style lang="scss" scoped>
 .logo {
-  padding: 2rem;
+  padding: 4rem;
 
   &__link {
   }
 
   &__image {
-    height: 6rem;
+    height: 7rem;
   }
 }
 </style>

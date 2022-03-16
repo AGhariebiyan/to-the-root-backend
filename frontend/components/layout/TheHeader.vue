@@ -1,19 +1,27 @@
 <template>
   <header class="header">
     <template v-if="isMounted">
-      <div v-if="isLargeScreen" class="header__container--desktop">
-        <nav role="navigation" aria-label="Main" class="header__menu--desktop">
+      <div
+        v-if="isLargeScreen"
+        class="header__container header__container--desktop"
+      >
+        <nav
+          role="navigation"
+          aria-label="Main"
+          class="header__menu header__menu--desktop"
+        >
           <TheLogo />
 
-          <NuxtLink
-            v-for="link in links"
-            :key="link.name"
-            :to="link.to"
-            class="header__menu-item"
-            >{{ link.name }}</NuxtLink
-          >
-
-          <LoginBox role="navigation" aria-label="Log in" />
+          <div class="header__links">
+            <NuxtLink
+              v-for="link in links"
+              :key="link.name"
+              :to="link.to"
+              class="header__link"
+              >{{ link.name }}</NuxtLink
+            >
+            <LoginBox role="navigation" aria-label="Log in" />
+          </div>
         </nav>
         <HeaderSlashes class="header__slashes" />
       </div>
@@ -92,15 +100,15 @@ export default defineComponent({
 
     const links = [
       {
-        name: 'Learn',
+        name: 'Explore',
         to: '/',
       },
       {
-        name: 'Connect',
-        to: '/contact',
+        name: 'Events',
+        to: '/events',
       },
       {
-        name: 'About Us',
+        name: 'About',
         to: '/about',
       },
     ]
@@ -130,24 +138,44 @@ export default defineComponent({
 <style lang="scss" scoped>
 .header {
   background-color: #262626;
-  height: 316px;
   position: sticky;
   top: 0;
   z-index: 50;
 
   &__container {
-    display: flex;
-    height: 261px;
-    align-items: center;
-    max-width: $desktop-max-width;
-    margin: 0 auto;
     position: relative;
+
+    &--desktop {
+      max-width: $desktop-max-width;
+      height: 261px;
+      margin: 0 auto;
+      flex-direction: row;
+    }
+
+    &--mobile {
+    }
+  }
+
+  &__menu {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 
     &--desktop {
     }
 
     &--mobile {
     }
+  }
+
+  &__links {
+    display: flex;
+    align-items: center;
+  }
+
+  &__link {
+    text-decoration: none;
+    color: white;
   }
 }
 
