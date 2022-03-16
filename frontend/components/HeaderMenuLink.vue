@@ -36,9 +36,14 @@ export default {
   text-decoration: none;
   color: white;
 
+  &:hover {
+    color: $ordina-orange;
+  }
+
   &.nuxt-link-exact-active {
     color: $accelerate-blue-primary;
-    border-bottom: 3px solid $accelerate-blue-primary;
+    border-bottom: 0.25rem solid $accelerate-blue-primary;
+    margin-top: 0.25rem;
   }
 
   &__icon {
