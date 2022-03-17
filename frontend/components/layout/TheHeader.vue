@@ -144,7 +144,7 @@ export default defineComponent({
     const links = [
       {
         name: 'Explore',
-        icon: 'sign-up',
+        icon: 'explore',
         to: '/',
       },
       {
