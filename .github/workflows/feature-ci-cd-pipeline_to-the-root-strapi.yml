@@ -32,9 +32,6 @@ jobs:
       - name: Zip artifact for deployment
         run: zip release.zip ./backend/* -r
 
-      - name: Debugging
-        run: ls -a
-
       # replace with zip action
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
@@ -56,7 +53,9 @@ jobs:
           name: node-app
 
       - name: unzip artifact for deployment
-        run: unzip release.zip
+        run: |  
+          unzip release.zip
+          mv backend/* ./
 
       - name: 'Deploy to Azure Web App'
         id: deploy-to-webapp
