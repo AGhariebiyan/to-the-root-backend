@@ -166,7 +166,6 @@ export default defineComponent({
       align-items: center;
       justify-content: space-between;
       padding-right: 2rem;
-      height: $mobile-header-height;
     }
   }
 
@@ -183,7 +182,7 @@ export default defineComponent({
       flex-direction: column;
       background: #282828;
       right: 0;
-      top: $mobile-header-height;
+      top: $header-height-mobile;
     }
   }
 
@@ -229,7 +228,7 @@ export default defineComponent({
   position: fixed;
   background: rgba(#262626, 0.4);
   left: 0;
-  top: $mobile-header-height;
+  top: $header-height-mobile;
 }
 
 // breaking at 872px to avoid weird underline issues

@@ -4,7 +4,12 @@
       :is-large-screen="isLargeScreen"
       :has-scrolled-down="hasScrolledDown"
     />
-    <Nuxt :class="{ 'padding-small': hasScrolledDown }" />
+    <Nuxt
+      :class="{
+        'padding-small': hasScrolledDown,
+        'padding-mobile': !isLargeScreen,
+      }"
+    />
     <LayoutTheFooter />
   </div>
 </template>
@@ -18,7 +23,7 @@ import {
 } from '@nuxtjs/composition-api'
 
 export default defineComponent({
-  setup(props, context) {
+  setup() {
     const largeScreenSize = 1024
     const scrollDownHeight = 200
     const isMounted = ref(false)
@@ -95,6 +100,10 @@ main {
 
 main.padding-small {
   padding-top: $header-height-small;
+}
+
+main.padding-mobile {
+  padding-top: $header-height-mobile;
 }
 
 .flex-container {
