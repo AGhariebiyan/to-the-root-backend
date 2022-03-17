@@ -23,7 +23,9 @@
           <LoginBox :is-mobile="false" />
         </div>
       </nav>
-      <HeaderSlashes v-if="!hasScrolledDown" class="header__slashes" />
+      <transition name="slide">
+        <HeaderSlashes v-if="!hasScrolledDown" class="header__slashes" />
+      </transition>
     </div>
 
     <!-- Mobile menu starts here -->
@@ -52,29 +54,31 @@
       </div>
     </div>
 
-    <div
-      class="mobile-menu-wrapper"
-      v-if="isMobileMenuActive"
-      @click="closeMobileNavMenu"
-    >
-      <nav
-        role="navigation"
-        aria-label="Main"
-        class="header__navigation header__navigation--mobile"
+    <transition name="fade">
+      <div
+        class="mobile-menu-wrapper"
+        v-if="isMobileMenuActive"
+        @click="closeMobileNavMenu"
       >
-        <div class="header__links header__links--mobile">
-          <HeaderMenuLink
-            v-for="link in links"
-            :key="link.name"
-            :link="link"
-            :is-mobile="true"
-            @click.native="closeMobileNavMenu"
-            class="header__link"
-          />
-          <LoginBox @closeMobileMenu="closeMobileNavMenu" :is-mobile="true" />
-        </div>
-      </nav>
-    </div>
+        <nav
+          role="navigation"
+          aria-label="Main"
+          class="header__navigation header__navigation--mobile"
+        >
+          <div class="header__links header__links--mobile">
+            <HeaderMenuLink
+              v-for="link in links"
+              :key="link.name"
+              :link="link"
+              :is-mobile="true"
+              @click.native="closeMobileNavMenu"
+              class="header__link"
+            />
+            <LoginBox @closeMobileMenu="closeMobileNavMenu" :is-mobile="true" />
+          </div>
+        </nav>
+      </div>
+    </transition>
   </header>
 </template>
 
@@ -98,8 +102,7 @@ export default defineComponent({
     },
   },
 
-  setup(props, context) {
-    console.log(props)
+  setup() {
     const links = [
       {
         name: 'Explore',
@@ -148,13 +151,13 @@ export default defineComponent({
 
   &__container {
     position: relative;
-    transition: padding $header-transition-time ease;
 
     &--desktop {
       max-width: $desktop-max-width;
       padding: 1rem 0 3rem;
       margin: 0 auto;
       flex-direction: row;
+      transition: padding $header-transition-time ease;
     }
 
     &--flat {
@@ -229,6 +232,26 @@ export default defineComponent({
   background: rgba(#262626, 0.4);
   left: 0;
   top: $header-height-mobile;
+}
+
+.slide-enter-active,
+.slide-leave-active {
+  transition: height $header-transition-time;
+}
+
+.slide-enter,
+.slide-leave-to {
+  height: 0;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity $header-transition-time;
+}
+
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
 }
 
 // breaking at 872px to avoid weird underline issues
