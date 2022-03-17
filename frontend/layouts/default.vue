@@ -1,10 +1,33 @@
 <template>
   <div class="flex-container">
-    <LayoutTheHeader />
-    <Nuxt />
+    <LayoutTheHeader
+      @hasScrolledDown="
+        () => {
+          hasScrolledDown = true
+        }
+      "
+      @hasScrolledUp="
+        () => {
+          hasScrolledDown = false
+        }
+      "
+    />
+    <Nuxt :class="{ 'padding-small': hasScrolledDown }" />
     <LayoutTheFooter />
   </div>
 </template>
+
+<script lang="ts">
+import { defineComponent, ref } from '@nuxtjs/composition-api'
+
+export default defineComponent({
+  setup() {
+    const hasScrolledDown = ref(false)
+
+    return { hasScrolledDown }
+  },
+})
+</script>
 
 <style lang="scss">
 * {
@@ -22,6 +45,15 @@
 
 html {
   scroll-behavior: smooth;
+}
+
+main {
+  padding-top: $header-height-large;
+  transition: padding $header-transition-time ease;
+}
+
+main.padding-small {
+  padding-top: $header-height-small;
 }
 
 .flex-container {

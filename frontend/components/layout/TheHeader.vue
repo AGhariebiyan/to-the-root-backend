@@ -4,19 +4,21 @@
       <div
         v-if="isLargeScreen"
         class="header__container header__container--desktop"
+        :class="{ 'header__container--flat': hasScrolledDown }"
       >
         <nav
           role="navigation"
           aria-label="Main"
           class="header__navigation header__navigation--desktop"
         >
-          <TheLogo />
+          <TheLogo :isFlat="hasScrolledDown" />
 
           <div class="header__links">
             <HeaderMenuLink
               v-for="link in links"
               :key="link.name"
               :link="link"
+              :hide-logo="hasScrolledDown"
               class="header__link"
             />
             <LoginBox :is-mobile="false" />
@@ -94,19 +96,45 @@ import HeaderMenuLink from '../HeaderMenuLink.vue'
 export default defineComponent({
   components: { LoginBox, HeaderMenuLink, HeaderSlashes, TheLogo },
 
-  setup() {
-    const largeScreenSize = 1000
+  setup(props, context) {
+    const largeScreenSize = 1024
+    const scrollDownHeight = 200
     const isMounted = ref(false)
     const isLargeScreen = ref(true)
+    const hasScrolledDown = ref(false)
 
     function resizeHandler() {
       isLargeScreen.value = window.innerWidth >= largeScreenSize
+    }
+
+    function onScroll() {
+      if (
+        !hasScrolledDown.value &&
+        Math.round(document.documentElement.scrollTop) > scrollDownHeight
+      ) {
+        hasScrolledDown.value = true
+        context.emit('hasScrolledDown')
+      } else if (
+        hasScrolledDown.value &&
+        Math.round(document.documentElement.scrollTop) <= scrollDownHeight
+      ) {
+        hasScrolledDown.value = false
+        context.emit('hasScrolledUp')
+      }
     }
 
     onMounted(() => {
       isMounted.value = true
       window.addEventListener('resize', resizeHandler)
       isLargeScreen.value = window.innerWidth >= largeScreenSize
+
+      if (Math.round(document.documentElement.scrollTop) > scrollDownHeight) {
+        hasScrolledDown.value = true
+      }
+
+      window.onscroll = () => {
+        onScroll()
+      }
     })
 
     onUnmounted(() => {
@@ -143,6 +171,7 @@ export default defineComponent({
 
     return {
       links,
+      hasScrolledDown,
       isLargeScreen,
       isMobileMenuActive,
       isMounted,
@@ -156,18 +185,24 @@ export default defineComponent({
 <style lang="scss" scoped>
 .header {
   background-color: #262626;
-  position: sticky;
+  position: fixed;
   top: 0;
   z-index: 50;
+  width: 100%;
 
   &__container {
     position: relative;
+    transition: padding $header-transition-time ease;
 
     &--desktop {
       max-width: $desktop-max-width;
-      height: 261px;
+      padding: 1rem 0 3rem;
       margin: 0 auto;
       flex-direction: row;
+    }
+
+    &--flat {
+      padding: 0;
     }
 
     &--mobile {
