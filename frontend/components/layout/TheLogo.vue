@@ -44,7 +44,7 @@ export default {
     background-size: cover;
     height: 112px;
     width: 135px;
-    transition: all $header-transition-time ease;
+    transition: height $header-transition-time ease;
   }
 }
 </style>
