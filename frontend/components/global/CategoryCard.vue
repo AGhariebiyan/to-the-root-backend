@@ -1,10 +1,12 @@
 <template>
   <div class="card">
     <h3 class="title">{{ categoryName }}</h3>
-    <div
+
+    <NuxtLink
       class="featured-article"
       v-for="article in featuredArticle"
       :key="article.id"
+      :to="`/content/${article.slug}`"
     >
       <div class="featured-article__content">
         <h5 class="featured-article__author">
@@ -26,10 +28,29 @@
           :alt="article.cover_image"
         />
       </div>
-    </div>
+    </NuxtLink>
+
     <div class="divider"></div>
-    <div class="article-list"></div>
-    <div class="more-button"></div>
+
+    <div class="article-list">
+      <NuxtLink
+        v-for="article in articles"
+        :key="article.id"
+        class="article-list__article-link"
+        :to="`/content/${article.slug}`"
+      >
+        <p class="article-list__article-arrow">></p>
+        <!-- <p class="article-list__article-slash">/</p> -->
+        <p class="article-list__article-title">{{ article.title }}</p>
+      </NuxtLink>
+    </div>
+
+    <div class="more-button">
+      <div class="more-button__margin"></div>
+      <NuxtLink class="more-button__link" :to="`/search`"
+        ><p class="more-button__text">More</p></NuxtLink
+      >
+    </div>
   </div>
 </template>
 
@@ -91,12 +112,15 @@ export default defineComponent({
 </script>
 
 <style lang='scss' scoped>
+$card-padding: 1rem;
+
 .card {
   background: $black;
   color: $text;
   padding: 1.5rem 0.75rem;
-  margin-bottom: 1rem;
+  margin-bottom: $card-padding;
   width: 32.5%;
+  position: relative;
 }
 
 .title {
@@ -107,10 +131,12 @@ export default defineComponent({
 }
 
 .featured-article {
+  text-decoration: none;
+
   &__content {
     background: $tiles-inside;
     color: $black;
-    padding: 1rem;
+    padding: 1.3rem $card-padding 0;
     height: $category-featured-article-card-height;
   }
 
@@ -145,9 +171,98 @@ export default defineComponent({
     overflow: hidden;
   }
 
+  &:hover {
+    .featured-article__image {
+      transform: scale(1.1);
+    }
+  }
+
   &__image {
     width: 100%;
     object-fit: cover;
+    transition: transform 0.2s;
+  }
+}
+
+.divider {
+  margin: 1.5rem $card-padding;
+  border-bottom: 0.15rem solid $text;
+}
+
+.article-list {
+  padding: 0 $card-padding;
+
+  &__article-link {
+    text-decoration: none;
+    display: flex;
+    padding: 0.5rem 0;
+  }
+
+  &__article-arrow {
+    color: $ordina-orange;
+    font-size: 1.8rem;
+    font-family: 'Poppins-Medium', sans-serif;
+    margin-right: 0.7rem;
+  }
+
+  &__article-slash {
+    color: $ordina-orange;
+    font-size: 1.3rem;
+    font-family: 'Code-Next-ExtraBold', sans-serif;
+    margin-right: 0.7rem;
+  }
+
+  &__article-title {
+    color: $text;
+    font-size: 0.95rem;
+    font-family: 'Poppins-Medium', sans-serif;
+    line-height: 1.3rem;
+    padding-top: 0.165rem;
+    transition: 0.2s all ease;
+
+    &:hover,
+    &:focus {
+      color: $ordina-orange;
+    }
+  }
+}
+
+.more-button {
+  &__margin {
+    height: 3rem;
+  }
+
+  &__link {
+    text-decoration: none;
+    color: $text;
+    position: absolute;
+    inset: auto 0 1.3rem;
+    margin: auto;
+  }
+
+  &__text {
+    text-align: center;
+    transition: 0.2s all ease;
+    position: relative;
+    font-size: 0.95rem;
+    font-family: 'Poppins-Medium', sans-serif;
+    text-transform: uppercase;
+
+    &::after {
+      $width: 2.3rem;
+      position: absolute;
+      content: '';
+      width: $width;
+      height: 2px;
+      bottom: -0.02rem;
+      left: calc(50% - $width / 2);
+      background: $ordina-orange;
+    }
+
+    &:hover,
+    &:focus {
+      color: $ordina-orange;
+    }
   }
 }
 </style>
