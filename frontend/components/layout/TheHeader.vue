@@ -1,32 +1,33 @@
 <template>
   <header class="header">
-    <div
-      v-if="isLargeScreen"
-      class="header__container header__container--desktop"
-      :class="{ 'header__container--flat': hasScrolledDown }"
-    >
-      <nav
-        role="navigation"
-        aria-label="Main"
-        class="header__navigation header__navigation--desktop"
+    <template v-if="isLargeScreen">
+      <div
+        class="header__container header__container--desktop"
+        :class="{ 'header__container--flat': hasScrolledDown }"
       >
-        <TheLogo :isFlat="hasScrolledDown" />
+        <nav
+          role="navigation"
+          aria-label="Main"
+          class="header__navigation header__navigation--desktop"
+        >
+          <TheLogo :isFlat="hasScrolledDown" />
 
-        <div class="header__links">
-          <HeaderMenuLink
-            v-for="link in links"
-            :key="link.name"
-            :link="link"
-            :has-scrolled-down="hasScrolledDown"
-            class="header__link"
-          />
-          <LoginBox :is-mobile="false" />
-        </div>
-      </nav>
+          <div class="header__links">
+            <HeaderMenuLink
+              v-for="link in links"
+              :key="link.name"
+              :link="link"
+              :has-scrolled-down="hasScrolledDown"
+              class="header__link"
+            />
+            <LoginBox :is-mobile="false" />
+          </div>
+        </nav>
+      </div>
       <transition name="slide">
         <HeaderSlashes v-if="!hasScrolledDown" class="header__slashes" />
       </transition>
-    </div>
+    </template>
 
     <!-- Mobile menu starts here -->
     <div v-else class="header__container header__container--mobile">
