@@ -1,16 +1,8 @@
 <template>
   <div class="flex-container">
     <LayoutTheHeader
-      @hasScrolledDown="
-        () => {
-          hasScrolledDown = true
-        }
-      "
-      @hasScrolledUp="
-        () => {
-          hasScrolledDown = false
-        }
-      "
+      :is-large-screen="isLargeScreen"
+      :has-scrolled-down="hasScrolledDown"
     />
     <Nuxt :class="{ 'padding-small': hasScrolledDown }" />
     <LayoutTheFooter />
@@ -18,13 +10,62 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from '@nuxtjs/composition-api'
+import {
+  defineComponent,
+  ref,
+  onMounted,
+  onUnmounted,
+} from '@nuxtjs/composition-api'
 
 export default defineComponent({
-  setup() {
+  setup(props, context) {
+    const largeScreenSize = 1024
+    const scrollDownHeight = 200
+    const isMounted = ref(false)
+    const isLargeScreen = ref(true)
     const hasScrolledDown = ref(false)
 
-    return { hasScrolledDown }
+    function resizeHandler() {
+      isLargeScreen.value = window.innerWidth >= largeScreenSize
+    }
+
+    function onScroll() {
+      if (
+        !hasScrolledDown.value &&
+        Math.round(document.documentElement.scrollTop) > scrollDownHeight
+      ) {
+        hasScrolledDown.value = true
+      } else if (
+        hasScrolledDown.value &&
+        Math.round(document.documentElement.scrollTop) <= scrollDownHeight
+      ) {
+        hasScrolledDown.value = false
+      }
+    }
+
+    onMounted(() => {
+      isMounted.value = true
+      window.addEventListener('resize', resizeHandler)
+      isLargeScreen.value = window.innerWidth >= largeScreenSize
+
+      if (Math.round(document.documentElement.scrollTop) > scrollDownHeight) {
+        hasScrolledDown.value = true
+      }
+
+      window.onscroll = () => {
+        onScroll()
+      }
+    })
+
+    onUnmounted(() => {
+      window.removeEventListener('resize', resizeHandler)
+    })
+
+    return {
+      hasScrolledDown,
+      isLargeScreen,
+      isMounted,
+    }
   },
 })
 </script>

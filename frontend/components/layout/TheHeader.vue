@@ -1,93 +1,85 @@
 <template>
   <header class="header">
-    <template v-if="isMounted">
-      <div
-        v-if="isLargeScreen"
-        class="header__container header__container--desktop"
-        :class="{ 'header__container--flat': hasScrolledDown }"
+    <div
+      v-if="isLargeScreen"
+      class="header__container header__container--desktop"
+      :class="{ 'header__container--flat': hasScrolledDown }"
+    >
+      <nav
+        role="navigation"
+        aria-label="Main"
+        class="header__navigation header__navigation--desktop"
       >
-        <nav
-          role="navigation"
-          aria-label="Main"
-          class="header__navigation header__navigation--desktop"
-        >
-          <TheLogo :isFlat="hasScrolledDown" />
+        <TheLogo :isFlat="hasScrolledDown" />
 
-          <div class="header__links">
-            <HeaderMenuLink
-              v-for="link in links"
-              :key="link.name"
-              :link="link"
-              :has-scrolled-down="hasScrolledDown"
-              class="header__link"
-            />
-            <LoginBox :is-mobile="false" />
-          </div>
-        </nav>
-        <HeaderSlashes v-if="!hasScrolledDown" class="header__slashes" />
-      </div>
-
-      <!-- Mobile menu starts here -->
-      <div v-else class="header__container header__container--mobile">
-        <TheLogo :is-flat="true" />
-
-        <div class="header__menu-toggle">
-          <span
-            v-if="!isMobileMenuActive"
-            @click="openMobileNavMenu"
-            @touch="openMobileNavMenu"
-            class="material-icons header__mobile-menu-button"
-            aria-label="open mobile menu"
-            role="navigation"
-            >menu</span
-          >
-          <span
-            v-else
-            @click="closeMobileNavMenu"
-            @touch="closeMobileNavMenu"
-            class="material-icons header__mobile-menu-button"
-            aria-label="close mobile menu"
-            role="navigation"
-            >close</span
-          >
+        <div class="header__links">
+          <HeaderMenuLink
+            v-for="link in links"
+            :key="link.name"
+            :link="link"
+            :has-scrolled-down="hasScrolledDown"
+            class="header__link"
+          />
+          <LoginBox :is-mobile="false" />
         </div>
-      </div>
+      </nav>
+      <HeaderSlashes v-if="!hasScrolledDown" class="header__slashes" />
+    </div>
 
-      <div
-        class="mobile-menu-wrapper"
-        v-if="isMobileMenuActive"
-        @click="closeMobileNavMenu"
-      >
-        <nav
+    <!-- Mobile menu starts here -->
+    <div v-else class="header__container header__container--mobile">
+      <TheLogo :is-flat="true" />
+
+      <div class="header__menu-toggle">
+        <span
+          v-if="!isMobileMenuActive"
+          @click="openMobileNavMenu"
+          @touch="openMobileNavMenu"
+          class="material-icons header__mobile-menu-button"
+          aria-label="open mobile menu"
           role="navigation"
-          aria-label="Main"
-          class="header__navigation header__navigation--mobile"
+          >menu</span
         >
-          <div class="header__links header__links--mobile">
-            <HeaderMenuLink
-              v-for="link in links"
-              :key="link.name"
-              :link="link"
-              :is-mobile="true"
-              @click.native="closeMobileNavMenu"
-              class="header__link"
-            />
-            <LoginBox @closeMobileMenu="closeMobileNavMenu" :is-mobile="true" />
-          </div>
-        </nav>
+        <span
+          v-else
+          @click="closeMobileNavMenu"
+          @touch="closeMobileNavMenu"
+          class="material-icons header__mobile-menu-button"
+          aria-label="close mobile menu"
+          role="navigation"
+          >close</span
+        >
       </div>
-    </template>
-    <div v-else>Loading header</div>
+    </div>
+
+    <div
+      class="mobile-menu-wrapper"
+      v-if="isMobileMenuActive"
+      @click="closeMobileNavMenu"
+    >
+      <nav
+        role="navigation"
+        aria-label="Main"
+        class="header__navigation header__navigation--mobile"
+      >
+        <div class="header__links header__links--mobile">
+          <HeaderMenuLink
+            v-for="link in links"
+            :key="link.name"
+            :link="link"
+            :is-mobile="true"
+            @click.native="closeMobileNavMenu"
+            class="header__link"
+          />
+          <LoginBox @closeMobileMenu="closeMobileNavMenu" :is-mobile="true" />
+        </div>
+      </nav>
+    </div>
   </header>
 </template>
 
 <script lang="ts">
-import {
-  defineComponent,
-  onMounted,
-  onUnmounted,
-  ref,
-} from '@nuxtjs/composition-api'
+import { defineComponent, ref } from '@nuxtjs/composition-api'
 import LoginBox from '../global/LoginBox.vue'
 import HeaderSlashes from './HeaderSlashes.vue'
 import TheLogo from './TheLogo.vue'
@@ -95,52 +87,19 @@ import HeaderMenuLink from '../HeaderMenuLink.vue'
 
 export default defineComponent({
   components: { LoginBox, HeaderMenuLink, HeaderSlashes, TheLogo },
+  props: {
+    hasScrolledDown: {
+      type: Boolean,
+      required: true,
+    },
+    isLargeScreen: {
+      type: Boolean,
+      required: true,
+    },
+  },
 
   setup(props, context) {
-    const largeScreenSize = 1024
-    const scrollDownHeight = 200
-    const isMounted = ref(false)
-    const isLargeScreen = ref(true)
-    const hasScrolledDown = ref(false)
-
-    function resizeHandler() {
-      isLargeScreen.value = window.innerWidth >= largeScreenSize
-    }
-
-    function onScroll() {
-      if (
-        !hasScrolledDown.value &&
-        Math.round(document.documentElement.scrollTop) > scrollDownHeight
-      ) {
-        hasScrolledDown.value = true
-        context.emit('hasScrolledDown')
-      } else if (
-        hasScrolledDown.value &&
-        Math.round(document.documentElement.scrollTop) <= scrollDownHeight
-      ) {
-        hasScrolledDown.value = false
-        context.emit('hasScrolledUp')
-      }
-    }
-
-    onMounted(() => {
-      isMounted.value = true
-      window.addEventListener('resize', resizeHandler)
-      isLargeScreen.value = window.innerWidth >= largeScreenSize
-
-      if (Math.round(document.documentElement.scrollTop) > scrollDownHeight) {
-        hasScrolledDown.value = true
-      }
-
-      window.onscroll = () => {
-        onScroll()
-      }
-    })
-
-    onUnmounted(() => {
-      window.removeEventListener('resize', resizeHandler)
-    })
-
+    console.log(props)
     const links = [
       {
         name: 'Explore',
@@ -171,10 +130,7 @@ export default defineComponent({
 
     return {
       links,
-      hasScrolledDown,
-      isLargeScreen,
       isMobileMenuActive,
-      isMounted,
       openMobileNavMenu,
       closeMobileNavMenu,
     }
