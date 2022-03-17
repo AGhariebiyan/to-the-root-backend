@@ -4,10 +4,15 @@
       <img
         v-if="isFlat"
         class="logo__image"
-        src="@/assets/logo-flat.svg"
+        src="@/assets/logo_dianegative_horizontal.svg"
         alt="home"
       />
-      <img v-else class="logo__image" src="@/assets/logo.svg" alt="home" />
+      <img
+        v-else
+        class="logo__image"
+        src="@/assets/logo_dianeg.svg"
+        alt="home"
+      />
     </NuxtLink>
   </div>
 </template>
