@@ -51,24 +51,29 @@
         </div>
       </div>
 
-      <nav
+      <div
+        class="mobile-menu-wrapper"
         v-if="isMobileMenuActive"
-        role="navigation"
-        aria-label="Main"
-        class="header__navigation header__navigation--mobile"
+        @click="closeMobileNavMenu"
       >
-        <div class="header__links header__links--mobile">
-          <HeaderMenuLink
-            v-for="link in links"
-            :key="link.name"
-            :link="link"
-            :is-mobile="true"
-            @click.native="closeMobileNavMenu"
-            class="header__link"
-          />
-          <LoginBox @closeMobileMenu="closeMobileNavMenu" :is-mobile="true" />
-        </div>
-      </nav>
+        <nav
+          role="navigation"
+          aria-label="Main"
+          class="header__navigation header__navigation--mobile"
+        >
+          <div class="header__links header__links--mobile">
+            <HeaderMenuLink
+              v-for="link in links"
+              :key="link.name"
+              :link="link"
+              :is-mobile="true"
+              @click.native="closeMobileNavMenu"
+              class="header__link"
+            />
+            <LoginBox @closeMobileMenu="closeMobileNavMenu" :is-mobile="true" />
+          </div>
+        </nav>
+      </div>
     </template>
     <div v-else>Loading header</div>
   </header>
@@ -225,6 +230,15 @@ export default defineComponent({
   left: -41px;
   height: 385px;
   width: calc(100% + 41px);
+}
+
+.mobile-menu-wrapper {
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  background: rgba(#262626, 0.4);
+  left: 0;
+  top: $mobile-header-height;
 }
 
 // breaking at 872px to avoid weird underline issues
