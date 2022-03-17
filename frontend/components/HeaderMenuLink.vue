@@ -2,7 +2,7 @@
   <div class="wrapper">
     <NuxtLink :to="link.to" class="link">
       <img
-        v-if="!isMobile"
+        v-if="!isMobile && !hasScrolledDown"
         :src="require(`~/assets/icons/${link.icon}.svg`)"
         alt=""
         class="link__icon"
@@ -20,6 +20,11 @@ export default {
       required: true,
     },
     isMobile: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
+    hasScrolledDown: {
       type: Boolean,
       required: false,
       default: false,

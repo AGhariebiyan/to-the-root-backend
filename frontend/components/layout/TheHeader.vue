@@ -18,13 +18,13 @@
               v-for="link in links"
               :key="link.name"
               :link="link"
-              :hide-logo="hasScrolledDown"
+              :has-scrolled-down="hasScrolledDown"
               class="header__link"
             />
             <LoginBox :is-mobile="false" />
           </div>
         </nav>
-        <HeaderSlashes class="header__slashes" />
+        <HeaderSlashes v-if="!hasScrolledDown" class="header__slashes" />
       </div>
 
       <!-- Mobile menu starts here -->
