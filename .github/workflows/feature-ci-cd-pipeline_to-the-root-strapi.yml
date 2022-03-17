@@ -34,6 +34,7 @@ jobs:
           cd ./backend/
           zip release.zip ./* -r
           mv release.zip ../
+          la -a
 
       # replace with zip action
       - name: Upload artifact for deployment job

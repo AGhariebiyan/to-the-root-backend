@@ -48,7 +48,6 @@ export default {
     '@nuxt/typescript-build',
   ],
 
-  // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     '@nuxtjs/auth-next',
     '@nuxtjs/axios',
