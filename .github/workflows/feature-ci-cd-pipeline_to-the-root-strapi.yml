@@ -55,7 +55,7 @@ jobs:
           name: node-app
 
       - name: unzip artifact for deployment
-        run: unzip release.zip -d ./backend/
+        run: unzip release.zip
 
       - name: Debug 
         run: ls -a
@@ -67,4 +67,4 @@ jobs:
           app-name: 'to-the-root-strapi'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_3A792DE741AD48BBAC98C1529B27202B }}
-          package: ./backend/
+          package: .
