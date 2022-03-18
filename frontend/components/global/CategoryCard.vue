@@ -122,6 +122,14 @@ $card-padding: 1rem;
   margin-bottom: $card-padding;
   width: 32.5%;
   position: relative;
+
+  @media (max-width: 60rem) {
+    width: 49%;
+  }
+
+  @media (max-width: 42rem) {
+    width: 100%;
+  }
 }
 
 .title {
@@ -261,6 +269,7 @@ $card-padding: 1rem;
 
     &::after {
       $width: 2.3rem;
+
       position: absolute;
       content: '';
       width: $width;

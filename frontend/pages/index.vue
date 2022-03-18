@@ -100,6 +100,7 @@ export default defineComponent({
       await store.dispatch('featureds/fetchFeaturedArticles', {
         limit: 3,
         offset: ref(0),
+        sort: 'updated_at:DESC',
       })
     }
 
@@ -110,6 +111,9 @@ export default defineComponent({
       'security',
       'hardware',
       'ai-ml',
+      'agile',
+      'business-development',
+      'dev-ops',
     ]
 
     return {
@@ -124,7 +128,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .featured-articles {
-  margin-bottom: 1.5rem;
+  margin-bottom: 2.5rem;
 
   &__articles-wide {
     display: flex;

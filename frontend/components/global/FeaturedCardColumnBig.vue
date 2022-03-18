@@ -68,7 +68,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-$card-image-height: 15rem;
+$card-image-height: 12.5rem;
 
 $author-font-size: 0.9rem;
 $title-font-size: 1.6rem;

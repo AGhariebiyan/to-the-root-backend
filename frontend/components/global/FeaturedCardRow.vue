@@ -145,6 +145,12 @@ export default defineComponent({
     font-size: 1.7rem;
     line-height: 2.3rem;
     margin-bottom: 1.8rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    word-wrap: break-word;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
   }
 
   &__description {
