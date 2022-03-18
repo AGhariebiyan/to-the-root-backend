@@ -26,24 +26,28 @@
         <div class="column">
           <div class="column__header">Organisation</div>
           <nav class="column__links">
-            <a href="/contact" class="column__link">Contact</a>
-            <a href="/about" class="column__link">About us</a>
-            <a href="/discord" class="column__link">Join our Discord</a>
+            <NuxtLink to="/contact" class="column__link">Contact</NuxtLink>
+            <NuxtLink to="/about" class="column__link">About us</NuxtLink>
+            <NuxtLink to="/discord" class="column__link"
+              >Join our Discord</NuxtLink
+            >
           </nav>
         </div>
         <div class="column">
           <div class="column__header">Terms & Policies</div>
           <nav class="column__links">
-            <a href="/cookie-policy" class="column__link">Cookie Policy</a>
-            <a href="/privacy" class="column__link">Privacy</a>
+            <NuxtLink to="/cookie-policy" class="column__link"
+              >Cookie Policy</NuxtLink
+            >
+            <NuxtLink to="/privacy" class="column__link">Privacy</NuxtLink>
           </nav>
         </div>
       </div>
       <div class="footer__bottom">
         <div class="ordina-legal">© 2022 Ordina NV</div>
-        <a class="footer__nav-link" @click="showCookieModal = true">
+        <button class="footer__nav-link" @click="showCookieModal = true">
           Cookies
-        </a>
+        </button>
       </div>
     </div>
     <CookieModal v-if="showCookieModal" @close="showCookieModal = false" />
@@ -163,12 +167,16 @@ export default defineComponent({
 
 .footer__nav-link {
   text-decoration: none;
-  color: $gray-darkest;
+  color: $gray;
   margin: 1.2rem;
+  background: transparent;
+  outline: none;
+  border: none;
 
-  &:hover {
+  &:hover,
+  &:focus {
     cursor: pointer;
-    text-decoration: underline;
+    color: $ordina-orange;
   }
 }
 </style>

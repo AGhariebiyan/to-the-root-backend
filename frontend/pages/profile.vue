@@ -47,12 +47,13 @@
           Click here to <NuxtLink to="/password">reset your password</NuxtLink>
         </p>
 
-        <BaseButton
-          class="profile__logout"
-          buttonType="secondary"
-          @click.native="logout"
-          >Log out</BaseButton
+        <button
+          class="btn btn-secondary profile__logout"
+          type="button"
+          @click="logout"
         >
+          Log out
+        </button>
       </template>
       <template v-else-if="currentSection === 'content'">
         <p>This is an overview of the content you have produced so far</p>

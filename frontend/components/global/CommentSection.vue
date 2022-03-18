@@ -5,7 +5,7 @@
     <h4 class="leave-a-comment">Leave a comment</h4>
     <NuxtLink
       v-if="!$auth.user"
-      class="login-box__link button-link"
+      class="login-box__link btn btn-primary"
       :to="{ path: '/login', query: { redirectSlug: `${articleSlug}` } }"
       >Login to leave a comment</NuxtLink
     >
