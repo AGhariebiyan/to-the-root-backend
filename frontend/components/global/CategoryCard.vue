@@ -204,6 +204,14 @@ $card-padding: 1rem;
     text-decoration: none;
     display: flex;
     padding: 0.5rem 0;
+
+    &:hover,
+    &:focus {
+      .article-list__article-title {
+        transition: 0.2s all ease;
+        color: $ordina-orange;
+      }
+    }
   }
 
   &__article-arrow {
@@ -227,11 +235,6 @@ $card-padding: 1rem;
     line-height: 1.3rem;
     padding-top: 0.165rem;
     transition: 0.2s all ease;
-
-    &:hover,
-    &:focus {
-      color: $ordina-orange;
-    }
   }
 }
 
