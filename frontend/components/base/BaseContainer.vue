@@ -50,10 +50,6 @@ export default defineComponent({
     padding: 0 1rem;
     display: flex;
     flex-direction: column;
-
-    @include respond(tab-portrait) {
-      width: 90%;
-    }
   }
 
   &--row > .container__inner {

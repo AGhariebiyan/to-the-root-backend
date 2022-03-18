@@ -5,32 +5,43 @@
         <BaseHeaderDivider class="featured-articles__header" slashColor="orange"
           >Featured</BaseHeaderDivider
         >
-        <div class="featured-articles__articles">
-          <div class="featured-articles__big">
+        <div class="featured-articles__articles-wide">
+          <div class="featured-articles__main">
             <div
-              v-for="(featuredArticle, index) in featuredArticles"
-              :key="index"
+              v-for="featuredArticle in featuredArticleBig"
+              :key="featuredArticle.id"
             >
-              <FeaturedCardBig
-                v-if="index == 0"
+              <FeaturedCardRow
                 class="featured-articles__article-big"
                 :article="featuredArticle.article"
               />
             </div>
           </div>
-          <div class="featured-articles__small">
+          <div class="featured-articles__secondary">
             <div
               v-for="(featuredArticle, index) in featuredArticlesSmall"
               :key="index"
             >
-              <FeaturedCardSmall
+              <FeaturedCardColumnSmall
                 class="featured-articles__article-small"
+                :class="index == 0 ? 'first' : 'last'"
                 :article="featuredArticle.article"
               />
             </div>
           </div>
         </div>
+        <div
+          class="featured-articles__articles-narrow"
+          v-for="featuredArticle in featuredArticles"
+          :key="featuredArticle.id"
+        >
+          <FeaturedCardColumnBig
+            class="featured-articles__article-big"
+            :article="featuredArticle.article"
+          />
+        </div>
       </div>
+
       <div class="categories">
         <BaseHeaderDivider class="categories__header" slashColor="orange"
           >Categories</BaseHeaderDivider
@@ -73,6 +84,12 @@ export default defineComponent({
       return store.getters['featureds/featuredArticles']
     })
 
+    const featuredArticleBig = computed(() => {
+      const featuredArticles: Array<Featured> =
+        store.getters['featureds/featuredArticles']
+      return [...featuredArticles].splice(0, 1)
+    })
+
     const featuredArticlesSmall = computed(() => {
       const featuredArticles: Array<Featured> =
         store.getters['featureds/featuredArticles']
@@ -95,7 +112,12 @@ export default defineComponent({
       'ai-ml',
     ]
 
-    return { featuredArticles, featuredArticlesSmall, categories }
+    return {
+      featuredArticles,
+      featuredArticleBig,
+      featuredArticlesSmall,
+      categories,
+    }
   },
 })
 </script>
@@ -104,16 +126,21 @@ export default defineComponent({
 .featured-articles {
   margin-bottom: 1.5rem;
 
-  &__articles {
+  &__articles-wide {
     display: flex;
     justify-content: space-between;
   }
 
-  &__big {
+  &__articles-narrow {
+    display: none;
+    visibility: hidden;
+  }
+
+  &__main {
     width: 74%;
   }
 
-  &__small {
+  &__secondary {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -126,6 +153,50 @@ export default defineComponent({
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+  }
+}
+
+@media (max-width: 55rem) {
+  .featured-articles {
+    &__articles-wide {
+      flex-direction: column;
+    }
+
+    &__main {
+      width: 100%;
+      margin-bottom: 0.5rem;
+    }
+
+    &__secondary {
+      width: 100%;
+      flex-direction: row;
+    }
+
+    &__article-small.first {
+      margin-right: 0.3rem;
+    }
+
+    &__article-small.last {
+      margin-left: 0.3rem;
+    }
+  }
+}
+
+@media (max-width: 42rem) {
+  .featured-articles {
+    &__articles-wide {
+      display: none;
+      visibility: hidden;
+    }
+
+    &__articles-narrow {
+      display: block;
+      visibility: visible;
+
+      .featured-articles__article-big {
+        margin-bottom: 1rem;
+      }
+    }
   }
 }
 </style>
