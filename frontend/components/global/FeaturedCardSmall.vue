@@ -15,6 +15,7 @@
             "
             :alt="article.cover_image"
           />
+          <ReadLink class="article__read-link" :slug="article.slug" />
         </div>
       </div>
     </NuxtLink>
@@ -64,6 +65,7 @@ export default defineComponent({
     height: calc(($article-card-height / 2.05) * 0.6);
     overflow: hidden;
     background-position: center;
+    position: relative;
   }
 
   &__image {
@@ -90,6 +92,12 @@ export default defineComponent({
     word-wrap: break-word;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
+  }
+
+  &__read-link {
+    position: absolute;
+    right: 0.5rem;
+    bottom: 0.5rem;
   }
 }
 </style>

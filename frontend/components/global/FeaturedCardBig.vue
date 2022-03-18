@@ -25,6 +25,7 @@
             <span class="article__slash-icon">/</span>
             <span class="article__reading-time">{{ readingTime }}</span>
           </div>
+          <ReadLink class="article__read-link" :slug="article.slug" />
         </div>
       </div>
     </NuxtLink>
@@ -159,6 +160,12 @@ export default defineComponent({
     font-size: 0.8rem;
     font-family: 'Poppins-Bold', sans-serif;
     margin: 0 0.3rem;
+  }
+
+  &__read-link {
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
   }
 }
 </style>

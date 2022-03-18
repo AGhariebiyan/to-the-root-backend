@@ -27,6 +27,7 @@
           "
           :alt="article.cover_image"
         />
+        <ReadLink class="featured-article__read-link" :slug="article.slug" />
       </div>
     </NuxtLink>
 
@@ -117,7 +118,7 @@ $card-padding: 1rem;
 .card {
   background: $black;
   color: $text;
-  padding: 1.5rem 0.75rem;
+  padding: 1.2rem 0.75rem;
   margin-bottom: $card-padding;
   width: 32.5%;
   position: relative;
@@ -127,7 +128,7 @@ $card-padding: 1rem;
   padding: 0 1rem;
   font-size: 1.2rem;
   text-transform: uppercase;
-  margin-bottom: 0.85rem;
+  margin-bottom: 1.05rem;
 }
 
 .featured-article {
@@ -169,6 +170,7 @@ $card-padding: 1rem;
   &__image-container {
     height: $category-featured-article-image-height;
     overflow: hidden;
+    position: relative;
   }
 
   &:hover {
@@ -181,6 +183,12 @@ $card-padding: 1rem;
     width: 100%;
     object-fit: cover;
     transition: transform 0.2s;
+  }
+
+  &__read-link {
+    position: absolute;
+    bottom: 0.5rem;
+    right: 0.5rem;
   }
 }
 
@@ -201,7 +209,7 @@ $card-padding: 1rem;
   &__article-arrow {
     color: $ordina-orange;
     font-size: 1.8rem;
-    font-family: 'Poppins-Medium', sans-serif;
+    font-family: 'Poppins-SemiBold', sans-serif;
     margin-right: 0.7rem;
   }
 
