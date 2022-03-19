@@ -88,8 +88,8 @@ export default defineComponent({
 
     const searchClient = algoliasearch(appId, searchKey)
 
-    console.log(process.env.ALGOLIA_INDEX)
-    console.log(process.env.NUXT_ENV_STRAPI_URL)
+    // console.log(process.env.ALGOLIA_INDEX)
+    console.log(process.env.STRAPI_URL)
 
     return {
       algoliaIndex,

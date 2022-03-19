@@ -20,10 +20,10 @@ export default {
   },
 
   publicRuntimeConfig: {
-    strapiUrl: process.env.NUXT_ENV_STRAPI_URL,
+    strapiUrl: process.env.STRAPI_URL,
     baseUrl: process.env.BASE_URL || 'http://localhost:3000',
     axios: {
-      baseUrl: process.env.NUXT_ENV_STRAPI_URL,
+      baseUrl: process.env.STRAPI_URL,
     },
   },
 

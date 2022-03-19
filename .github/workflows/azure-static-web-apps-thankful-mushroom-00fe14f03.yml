@@ -32,6 +32,8 @@ jobs:
           api_location: "" # Api source code path - optional
           output_location: "dist" # Built app content directory - optional
           build_timeout_in_minutes: 30
+        env: 
+          STRAPI_URL: https://to-the-root-strapi.azurewebsites.net
           ###### End of Repository/Build Configurations ######
 
   close_pull_request_job:
