@@ -7,8 +7,6 @@ on:
   push:
     branches:
       - feature/ci-cd-pipeline
-    paths:
-      - backend/**
   workflow_dispatch:
 
 jobs:
@@ -57,9 +55,6 @@ jobs:
 
       - name: unzip artifact for deployment
         run: unzip release.zip
-
-      - name: Debug 
-        run: ls -a
 
       - name: 'Deploy to Azure Web App'
         id: deploy-to-webapp
