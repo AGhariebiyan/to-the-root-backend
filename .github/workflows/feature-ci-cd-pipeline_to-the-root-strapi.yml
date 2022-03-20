@@ -12,6 +12,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    environment: Production
 
     steps:
       - uses: actions/checkout@v2
@@ -22,6 +23,11 @@ jobs:
           node-version: '14.x'
 
       - name: npm install, build, and test
+        env: 
+          STORAGE_ACCOUNT: ${{ secrets.STORAGE_ACCOUNT }}
+          STORAGE_ACCOUNT_KEY: ${{ secrets.STORAGE_ACCOUNT_KEY }}
+          STORAGE_CONTAINER_NAME: ${{ secrets.STORAGE_CONTAINER_NAME }}
+
         run: |
           cd ./backend/
           npm install
