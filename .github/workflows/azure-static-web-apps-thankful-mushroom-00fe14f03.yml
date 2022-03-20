@@ -5,7 +5,7 @@ on:
     branches:
       - feature/ci-cd-pipeline
     paths:
-      - 'frontend/**'
+      - frontend/**
   pull_request:
     types: [opened, synchronize, reopened, closed]
     branches:
