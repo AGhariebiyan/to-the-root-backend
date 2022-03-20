@@ -166,6 +166,7 @@
 ############################
 
 /backend/.tmp
+/backend/pgdata
 *.log
 *.sql
 *.sqlite
