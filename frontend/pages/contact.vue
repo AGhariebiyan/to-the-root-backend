@@ -86,9 +86,12 @@
               >
             </div>
 
-            <BaseButton buttonType="primary" class="contact__submit-button"
-              >Send message</BaseButton
+            <button
+              type="submit"
+              class="btn btn-primary contact__submit-button"
             >
+              Send message
+            </button>
           </div>
         </template>
       </BaseForm>

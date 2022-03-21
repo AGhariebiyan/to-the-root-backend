@@ -30,12 +30,13 @@
             {{ passwordValidationError }}
           </p>
           <p class="form__error-message" v-if="error">{{ error }}</p>
-          <BaseButton
-            buttonType="primary"
-            class="reset-password__submit"
+          <button
+            class="btn btn-primary reset-password__submit"
+            type="submit"
             :disabled="isResetClicked"
-            >Reset password</BaseButton
           >
+            Reset password
+          </button>
         </template>
       </BaseForm>
     </BaseContainer>
