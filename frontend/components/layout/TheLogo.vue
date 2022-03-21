@@ -12,7 +12,6 @@ export default {
     isFlat: {
       type: Boolean,
       default: false,
-      required: false,
     },
   },
 }
