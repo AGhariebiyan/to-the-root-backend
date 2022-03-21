@@ -1,10 +1,79 @@
 <template>
   <div class="flex-container">
-    <LayoutTheHeader />
-    <Nuxt />
+    <LayoutTheHeader
+      :is-large-screen="isLargeScreen"
+      :has-scrolled-down="hasScrolledDown"
+    />
+    <Nuxt
+      :class="{
+        'padding-small': hasScrolledDown,
+        'padding-mobile': !isLargeScreen,
+      }"
+    />
     <LayoutTheFooter />
   </div>
 </template>
+
+<script lang="ts">
+import {
+  defineComponent,
+  ref,
+  onMounted,
+  onUnmounted,
+} from '@nuxtjs/composition-api'
+
+export default defineComponent({
+  setup() {
+    const largeScreenSize = 1024
+    const scrollDownHeight = 200
+    const isMounted = ref(false)
+    const isLargeScreen = ref(true)
+    const hasScrolledDown = ref(false)
+
+    function resizeHandler() {
+      isLargeScreen.value = window.innerWidth >= largeScreenSize
+    }
+
+    function onScroll() {
+      if (
+        !hasScrolledDown.value &&
+        Math.round(document.documentElement.scrollTop) > scrollDownHeight
+      ) {
+        hasScrolledDown.value = true
+      } else if (
+        hasScrolledDown.value &&
+        Math.round(document.documentElement.scrollTop) <= scrollDownHeight
+      ) {
+        hasScrolledDown.value = false
+      }
+    }
+
+    onMounted(() => {
+      isMounted.value = true
+      window.addEventListener('resize', resizeHandler)
+      isLargeScreen.value = window.innerWidth >= largeScreenSize
+
+      if (Math.round(document.documentElement.scrollTop) > scrollDownHeight) {
+        hasScrolledDown.value = true
+      }
+
+      window.onscroll = () => {
+        onScroll()
+      }
+    })
+
+    onUnmounted(() => {
+      window.removeEventListener('resize', resizeHandler)
+    })
+
+    return {
+      hasScrolledDown,
+      isLargeScreen,
+      isMounted,
+    }
+  },
+})
+</script>
 
 <style lang="scss">
 * {
@@ -22,6 +91,19 @@
 
 html {
   scroll-behavior: smooth;
+}
+
+main {
+  padding-top: $header-height-large;
+  transition: padding $header-transition-time ease;
+}
+
+main.padding-small {
+  padding-top: $header-height-small;
+}
+
+main.padding-mobile {
+  padding-top: $header-height-mobile;
 }
 
 .flex-container {
