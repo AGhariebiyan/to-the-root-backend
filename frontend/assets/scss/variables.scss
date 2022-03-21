@@ -53,9 +53,10 @@ $desktop-max-width: 75em;
 $desktop-half-width: 37.5em;
 
 // Media query breakpoints
-$max-width-large-display: 75em;
-$max-width-tablet: 47.75em;
-$max-width-phone: 26.25em;
+$max-width-large-display: 75em; //1200px
+$max-width-small-display: 56.250em; //900px
+$max-width-tablet: 47.75em; //764px
+$max-width-phone: 26.25em; //420px
 
 // Variables
 $header-item-width: 13rem;

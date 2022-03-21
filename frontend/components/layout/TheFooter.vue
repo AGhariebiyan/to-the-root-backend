@@ -22,7 +22,7 @@
           </nav>
         </div>
       </div>
-      <span id="copyright"> © {{ currentYear }} Ordina </span>
+      <span class="footer__copyright"> © {{ currentYear }} Ordina </span>
     </div>
     <CookieModal v-if="showCookieModal" @close="showCookieModal = false" />
   </footer>
@@ -78,28 +78,35 @@ export default defineComponent({
   background-color: $gray-darker;
   color: $gray-lighter;
   padding: 5rem 0 2rem;
-  height: auto;
+
+  &__columns .column:not(:first-of-type) {
+    padding-left: 17.5rem;
+    @media (max-width: $max-width-small-display) {
+      padding-left: 12rem;
+    }
+    @media (max-width: $max-width-tablet) {
+      padding-left: 0;
+    }
+  }
 
   &__columns {
     display: flex;
     flex-wrap: wrap;
     margin-bottom: 5rem;
 
+    @media (max-width: $max-width-small-display) {
+      margin-bottom: 1rem;
+    }
     @media (max-width: $max-width-tablet) {
       justify-content: space-between;
-      margin-bottom: 1rem;
     }
 
     .column {
       margin-bottom: 2rem;
-      margin-right: 17.5rem;
-
-      @media (max-width: $max-width-tablet) {
-        margin-right: unset;
-      }
 
       &__header {
-        font-family: 'Poppins-Bold';
+        font-family: 'Poppins';
+        font-weight: 400;
         margin-bottom: 0.9rem;
         font-size: 1.1rem;
         color: $white;
@@ -125,6 +132,12 @@ export default defineComponent({
     }
   }
 
+  &__copyright {
+    align-self: center;
+    color: $gray-black;
+    font-size: 0.9rem;
+  }
+
   &__bottom {
     margin-top: 10rem;
     display: flex;
@@ -134,12 +147,6 @@ export default defineComponent({
     .ordina-legal {
       font-size: 0.7rem;
     }
-  }
-
-  #copyright {
-    align-self: center;
-    color: $gray-black;
-    font-size: 0.9rem;
   }
 
   @media (max-width: $max-width-phone) {
