@@ -176,6 +176,18 @@ const articles = [
   },
 ]
 
+const featureds = [
+  {
+    description: 'From our newest author',
+  },
+  {
+    description: 'New in Flutter',
+  },
+  {
+    description: 'Best read of 2021',
+  },
+]
+
 // Make sure you have the right permissions:
 // In Strapi > Settings > User & permissions > roles > public, tick the create permissions for all entities.
 // And have the permission for the Upload thingy
@@ -192,7 +204,8 @@ async function seedDb() {
   const categoryIds = await seedCategories()
   const tagIds = await seedTags()
   const imageIds = await seedImages()
-  await seedArticles(authorIds, categoryIds, tagIds, imageIds)
+  const articleIds = await seedArticles(authorIds, categoryIds, tagIds, imageIds)
+  await seedFeatureds(articleIds)
 }
 
 async function getArticles() {
@@ -369,9 +382,36 @@ async function seedArticles(authorIds, categoryIds, tagIds, imageIds) {
       )
     }
   }
+
   console.log(
     getConsoleColor(articles.length, articleIds.length),
     `${articleIds.length} articles set`,
+  )
+
+  return articleIds
+}
+
+async function seedFeatureds(articleIds) {
+  const featuredIds = []
+  for (let [index, featured] of featureds.entries())
+    try {
+      const newFeatured = {
+        ...featured,
+        article: {
+          id: getNextItemFrom(articleIds, index)
+        }
+      }
+      const response = await axios.post(`${process.env.URL}/featureds`, newFeatured)
+      featuredIds.push(response.data.id)
+    } catch (err) {
+      console.log(
+        'Setting featureds went wrong! See error above or the logging of the strapi server',
+        err,
+      )
+    }
+  console.log(
+    getConsoleColor(featureds.length, featuredIds.length),
+    `${featuredIds.length} featureds set`,
   )
 }
 
