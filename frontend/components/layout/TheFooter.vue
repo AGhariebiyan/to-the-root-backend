@@ -102,6 +102,7 @@ export default defineComponent({
         font-family: 'Poppins-Bold';
         margin-bottom: 0.9rem;
         font-size: 1.1rem;
+        color: $white;
       }
 
       &__links {
@@ -113,6 +114,7 @@ export default defineComponent({
         font-size: 0.9rem;
         color: $gray-lighter;
         text-decoration: none;
+        color: $white;
 
         &:hover,
         &:focus {
@@ -136,6 +138,8 @@ export default defineComponent({
 
   #copyright {
     align-self: center;
+    color: $gray-black;
+    font-size: 0.9rem;
   }
 
   @media (max-width: $max-width-phone) {
