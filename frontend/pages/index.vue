@@ -67,9 +67,11 @@ import {
   useContext,
 } from '@nuxtjs/composition-api'
 import { Featured } from '../utils/types'
+
 export default defineComponent({
   setup() {
     const { store } = useContext()
+
     onMounted(async () => {
       try {
         await loadFeaturedArticles()
@@ -77,19 +79,23 @@ export default defineComponent({
         console.log(err)
       }
     })
+
     const featuredArticles = computed(() => {
       return store.getters['featureds/featuredArticles']
     })
+
     const featuredArticleBig = computed(() => {
       const featuredArticles: Array<Featured> =
         store.getters['featureds/featuredArticles']
       return [...featuredArticles].splice(0, 1)
     })
+
     const featuredArticlesSmall = computed(() => {
       const featuredArticles: Array<Featured> =
         store.getters['featureds/featuredArticles']
       return [...featuredArticles].splice(1, 2)
     })
+
     async function loadFeaturedArticles() {
       await store.dispatch('featureds/fetchFeaturedArticles', {
         limit: 3,
@@ -97,6 +103,7 @@ export default defineComponent({
         sort: 'updated_at:DESC',
       })
     }
+
     const categories = [
       'backend',
       'frontend',
@@ -108,6 +115,7 @@ export default defineComponent({
       'business-development',
       'dev-ops',
     ]
+
     return {
       featuredArticles,
       featuredArticleBig,
@@ -121,17 +129,21 @@ export default defineComponent({
 <style lang="scss" scoped>
 .featured-articles {
   margin-bottom: 2.5rem;
+
   &__articles-wide {
     display: flex;
     justify-content: space-between;
   }
+
   &__articles-narrow {
     display: none;
     visibility: hidden;
   }
+
   &__main {
     width: 74%;
   }
+
   &__secondary {
     display: flex;
     flex-direction: column;
@@ -139,6 +151,7 @@ export default defineComponent({
     width: 25%;
   }
 }
+
 .categories {
   &__categories {
     display: flex;
@@ -146,36 +159,44 @@ export default defineComponent({
     justify-content: space-between;
   }
 }
+
 @media (max-width: 55rem) {
   .featured-articles {
     &__articles-wide {
       flex-direction: column;
     }
+
     &__main {
       width: 100%;
       margin-bottom: 0.5rem;
     }
+
     &__secondary {
       width: 100%;
       flex-direction: row;
     }
+
     &__article-small.first {
       margin-right: 0.3rem;
     }
+
     &__article-small.last {
       margin-left: 0.3rem;
     }
   }
 }
+
 @media (max-width: 42rem) {
   .featured-articles {
     &__articles-wide {
       display: none;
       visibility: hidden;
     }
+
     &__articles-narrow {
       display: block;
       visibility: visible;
+
       .featured-articles__article-big {
         margin-bottom: 1rem;
       }

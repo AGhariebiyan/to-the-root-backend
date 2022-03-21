@@ -96,7 +96,7 @@ export default defineComponent({
       categoryName.value = response.data[0].name
     }
 
-    const featuredArticle: Ref<Article> = ref()
+    const featuredArticle: Ref<Article[]> = ref([])
     const articles: Ref<Article[]> = ref([])
 
     async function loadArticles() {

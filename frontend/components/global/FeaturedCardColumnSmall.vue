@@ -66,6 +66,10 @@ export default defineComponent({
     overflow: hidden;
     background-position: center;
     position: relative;
+
+    @media (max-width: 55rem) {
+      height: calc(($article-card-height / 1.5) * 0.6);
+    }
   }
 
   &__image {
