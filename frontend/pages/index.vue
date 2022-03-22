@@ -7,7 +7,7 @@
           slash-color="orange"
           >Featured</BaseHeaderDivider
         >
-        <div class="featured-articles__articles-wide">
+        <div v-if="!isNarrowScreen" class="featured-articles__articles-wide">
           <div class="featured-articles__main">
             <div
               v-for="featuredArticle in featuredArticleBig"
@@ -32,15 +32,17 @@
             </div>
           </div>
         </div>
-        <div
-          class="featured-articles__articles-narrow"
-          v-for="featuredArticle in featuredArticles"
-          :key="featuredArticle.id"
-        >
-          <FeaturedCardVerticalBig
-            class="featured-articles__article-big"
-            :article="featuredArticle.article"
-          />
+        <div v-else>
+          <div
+            class="featured-articles__articles-narrow"
+            v-for="featuredArticle in featuredArticles"
+            :key="featuredArticle.id"
+          >
+            <FeaturedCardVerticalBig
+              class="featured-articles__article-big"
+              :article="featuredArticle.article"
+            />
+          </div>
         </div>
       </div>
 
@@ -65,6 +67,7 @@ import {
   computed,
   defineComponent,
   onMounted,
+  onUnmounted,
   ref,
   useContext,
 } from '@nuxtjs/composition-api'
@@ -74,12 +77,27 @@ export default defineComponent({
   setup() {
     const { store } = useContext()
 
+    const narrowScreenSize = 672
+    const isNarrowScreen = ref(false)
+
+    function resizeHandler() {
+      isNarrowScreen.value = window.innerWidth < narrowScreenSize
+      console.log(isNarrowScreen.value)
+    }
+
     onMounted(async () => {
+      isNarrowScreen.value = window.innerWidth < narrowScreenSize
+      window.addEventListener('resize', resizeHandler)
+
       try {
         await loadFeaturedArticles()
       } catch (err) {
         console.log(err)
       }
+    })
+
+    onUnmounted(() => {
+      window.removeEventListener('resize', resizeHandler)
     })
 
     const featuredArticles = computed(() => {
@@ -119,6 +137,7 @@ export default defineComponent({
     ]
 
     return {
+      isNarrowScreen,
       featuredArticles,
       featuredArticleBig,
       featuredArticlesSmall,
