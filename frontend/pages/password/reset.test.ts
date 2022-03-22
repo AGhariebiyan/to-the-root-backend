@@ -13,7 +13,6 @@ describe('User is not logged in', () => {
   beforeEach(() => {
     wrapper = mount(Reset, {
       stubs: {
-        BaseButton: true,
         NuxtLink: true,
         BaseForm: true,
         BasePageLayout: true,

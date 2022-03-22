@@ -47,7 +47,7 @@ Now that Strapi is setup, we can setup permission to populate the database with 
 1. Go to the [Strapi admin panel](http://localhost:1337/admin/) 
 2. Go to _Settings > Roles (Users & Permissions Plugin) > Public_ 
 3. Tick the 'find' permission for the Article entity
-4. Tick the 'create' permission for the Article, Author, Category and Tag entities
+4. Tick the 'create' permission for the Article, Author, Category, Tag and Featured entities
 5. Expand the _UPLOAD_ dropdown (below _APPLICATION_ permissions) and tick the 'upload' permission
 6. Be sure to to save your changes
 

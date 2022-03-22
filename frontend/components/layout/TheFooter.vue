@@ -3,48 +3,26 @@
     <div class="wrapper">
       <div class="footer__columns">
         <div class="column">
-          <div class="column__header">Socials</div>
-          <nav class="column__links--socials">
-            <a class="column__link" href="https://www.facebook.com/ordina/"
-              ><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20">
-                <path
-                  d="M15 4.129h-2.856c-.338 0-.715.444-.715 1.039V7.23H15v2.94h-3.571V19H8.057v-8.829H5V7.23h3.057V5.5c0-2.481 1.722-4.5 4.086-4.5H15v3.129z"
-                  fill="currentColor"
-                /></svg
-            ></a>
-            <a
-              class="column__link"
-              href="https://www.linkedin.com/company/ordina/"
-              ><svg width="18" height="17" xmlns="http://www.w3.org/2000/svg">
-                <path
-                  d="M17.963 10.42v6.562h-3.85V10.86c0-1.538-.557-2.588-1.95-2.588-1.064 0-1.697.708-1.976 1.392-.101.245-.128.585-.128.927v6.39H6.208s.052-10.368 0-11.442h3.851v1.622l-.025.037h.025v-.037c.512-.779 1.425-1.89 3.47-1.89 2.535 0 4.434 1.635 4.434 5.15zM2.18.023C.862.023 0 .877 0 2c0 1.098.837 1.978 2.128 1.978h.026c1.343 0 2.178-.88 2.178-1.978C4.307.877 3.497.023 2.18.023zM.23 16.982h3.85V5.539H.229v11.443z"
-                  fill="currentColor"
-                /></svg
-            ></a>
-          </nav>
-        </div>
-        <div class="column">
           <div class="column__header">Organisation</div>
           <nav class="column__links">
-            <a href="/contact" class="column__link">Contact</a>
-            <a href="/about" class="column__link">About us</a>
-            <a href="/discord" class="column__link">Join our Discord</a>
+            <NuxtLink to="/contact" class="column__link">Contact</NuxtLink>
+            <NuxtLink to="/about" class="column__link">About us</NuxtLink>
+            <NuxtLink to="/discord" class="column__link"
+              >Join our Discord</NuxtLink
+            >
           </nav>
         </div>
         <div class="column">
           <div class="column__header">Terms & Policies</div>
           <nav class="column__links">
-            <a href="/cookie-policy" class="column__link">Cookie Policy</a>
-            <a href="/privacy" class="column__link">Privacy</a>
+            <NuxtLink to="/cookie-policy" class="column__link"
+              >Code of conduct</NuxtLink
+            >
+            <NuxtLink to="/privacy" class="column__link">Privacy</NuxtLink>
           </nav>
         </div>
       </div>
-      <div class="footer__bottom">
-        <div class="ordina-legal">© 2022 Ordina NV</div>
-        <a class="footer__nav-link" @click="showCookieModal = true">
-          Cookies
-        </a>
-      </div>
+      <span class="footer__copyright"> © {{ currentYear }} Ordina </span>
     </div>
     <CookieModal v-if="showCookieModal" @close="showCookieModal = false" />
   </footer>
@@ -59,6 +37,11 @@ import {
 } from '@nuxtjs/composition-api'
 
 export default defineComponent({
+  computed: {
+    currentYear() {
+      return new Date().getFullYear()
+    },
+  },
   setup() {
     const context: any = useContext()
     const { $gtm, $cookies } = context
@@ -87,6 +70,8 @@ export default defineComponent({
   padding: 0 2rem;
   max-width: $desktop-max-width;
   margin: 0 auto;
+  display: flex;
+  flex-direction: column;
 }
 
 .footer {
@@ -94,18 +79,37 @@ export default defineComponent({
   color: $gray-lighter;
   padding: 5rem 0 2rem;
 
+  &__columns .column:not(:first-of-type) {
+    padding-left: 17.5rem;
+    @media (max-width: $max-width-small-display) {
+      padding-left: 12rem;
+    }
+    @media (max-width: $max-width-tablet) {
+      padding-left: 0;
+    }
+  }
+
   &__columns {
     display: flex;
-    justify-content: space-between;
     flex-wrap: wrap;
+    margin-bottom: 5rem;
+
+    @media (max-width: $max-width-small-display) {
+      margin-bottom: 1rem;
+    }
+    @media (max-width: $max-width-tablet) {
+      justify-content: space-between;
+    }
 
     .column {
       margin-bottom: 2rem;
 
       &__header {
-        font-family: 'Poppins-Bold';
+        font-family: 'Poppins';
+        font-weight: 400;
         margin-bottom: 0.9rem;
         font-size: 1.1rem;
+        color: $white;
       }
 
       &__links {
@@ -117,6 +121,7 @@ export default defineComponent({
         font-size: 0.9rem;
         color: $gray-lighter;
         text-decoration: none;
+        color: $white;
 
         &:hover,
         &:focus {
@@ -125,6 +130,12 @@ export default defineComponent({
         }
       }
     }
+  }
+
+  &__copyright {
+    align-self: center;
+    color: $gray-black;
+    font-size: 0.9rem;
   }
 
   &__bottom {
@@ -144,8 +155,8 @@ export default defineComponent({
       align-items: center;
       text-align: center;
 
-      .column:not(:last-child) {
-        margin-bottom: 4rem;
+      .column {
+        margin-bottom: 2.5rem;
       }
     }
 
@@ -163,12 +174,16 @@ export default defineComponent({
 
 .footer__nav-link {
   text-decoration: none;
-  color: $gray-darkest;
+  color: $gray;
   margin: 1.2rem;
+  background: transparent;
+  outline: none;
+  border: none;
 
-  &:hover {
+  &:hover,
+  &:focus {
     cursor: pointer;
-    text-decoration: underline;
+    color: $ordina-orange;
   }
 }
 </style>

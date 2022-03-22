@@ -12,12 +12,12 @@
             class="form__input"
             :disabled="isFormSubmitted"
           />
-          <BaseButton
-            buttonType="primary"
+          <button
             :disabled="isFormSubmitted"
-            class="reset-email__submit"
-            >Send reset email</BaseButton
+            class="btn btn-primary reset-email__submit"
           >
+            Send reset email
+          </button>
           <p v-if="emailValidationError.length > 0" class="form__error-message">
             {{ emailValidationError }}
           </p>

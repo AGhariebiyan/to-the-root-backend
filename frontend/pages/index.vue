@@ -11,15 +11,18 @@
           :sort-by="['name:asc']"
         >
           <template v-slot="{ items, createURL, refine }">
-            <li v-for="item in items" :key="item.value">
+            <div class="category-facets">
               <a
+                v-for="item in items"
+                :key="item.value"
                 :href="createURL(item.value)"
                 @click.prevent="refine(item.value)"
                 :class="item.isRefined ? 'selected' : ''"
+                class="btn btn-pill"
               >
                 {{ item.label }}
               </a>
-            </li>
+            </div>
           </template>
         </AisRefinementList>
 
@@ -37,13 +40,13 @@
 
           <template v-slot:loadMore="{ isLastPage, refineNext }">
             <div class="show-more__container">
-              <BaseButton
+              <button
                 :disabled="isLastPage"
-                buttonType="primary"
+                class="btn btn-primary"
                 @click="refineNext"
               >
                 Show more
-              </BaseButton>
+              </button>
             </div>
           </template>
         </AisInfiniteHits>
@@ -103,15 +106,31 @@ export default defineComponent({
   margin-top: 4rem;
 }
 
+.category-facets {
+  margin-bottom: 0.5rem;
+
+  & > .btn {
+    background-color: $white;
+    &:hover {
+      background-color: $accelerate-blue-2;
+    }
+
+    &.selected {
+      background-color: $ordina-orange;
+      color: $white;
+    }
+  }
+
+  & > .btn:not(:first-child) {
+    margin-left: 0.5rem;
+  }
+}
+
 .show-more {
   &__container {
     margin-top: 2rem;
     display: flex;
     justify-content: center;
   }
-}
-
-.selected {
-  background-color: red;
 }
 </style>
