@@ -24,7 +24,7 @@ export default defineComponent({
 <style lang="scss" scoped>
 .divider {
   background: $black;
-  color: $text;
+  color: $gray-lightest;
   text-transform: uppercase;
   font-family: 'Poppins-Bold', sans-serif;
   font-size: 1.4rem;
@@ -36,14 +36,14 @@ export default defineComponent({
     font-size: 1.6rem;
     margin-right: 0.7em;
     letter-spacing: -0.2em;
-  }
 
-  &__slashes.orange {
-    color: $ordina-orange;
-  }
+    &.orange {
+      color: $ordina-orange;
+    }
 
-  &__slashes.blue {
-    color: $ordina-blue;
+    &.blue {
+      color: $ordina-blue;
+    }
   }
 }
 </style>

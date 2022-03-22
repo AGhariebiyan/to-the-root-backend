@@ -89,8 +89,8 @@ export default defineComponent({
 
     const links = [
       {
-        name: 'Search',
-        to: '/search',
+        name: 'Explore',
+        to: '/explore',
       },
       {
         name: 'Connect',
@@ -191,7 +191,7 @@ export default defineComponent({
 }
 
 .header__menu--mobile {
-  background-color: $gray-light;
+  background-color: $gray-lighter;
   border-top: 1px solid $gray;
   height: calc(100% - 4.5rem);
   padding: 1rem;

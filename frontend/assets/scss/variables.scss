@@ -10,19 +10,17 @@ $ordina-orange-hover: #d06e19;
 $ordina-blue: #3da4bf;
 $ordina-blue-hover: #8bc8d9;
 
-$tiles-inside: #fff;
-$button-1: #f58220;
-$button-2: #3da4bf;
+$white: #fff;
+$gray-lightest: #e1e1e1;
+$gray-lighter: #d7d7d7;
+$gray-light: #999;
+$gray: #797979;
+$gray-dark: #4a4a4a;
+$gray-darker: #1c1c1c;
+$gray-darkest: #262626;
 $black: #252525;
-$icons: #999;
-$background: #e1e1e1;
-$text: #e1e1e1;
 
 // Old Design
-
-$white: #fff;
-
-$gray-darkest: #262626;
 
 $discovery-blue-primary: #007f92;
 $discovery-blue-2: #3399a8;
@@ -52,22 +50,15 @@ $success-green: #609d6d;
 
 $warning-yellow-hover: #d3bb00;
 
-// About Us Grays
-$gray-lighter: #e1e1e1;
-$gray-light: #d7d7d7;
-$gray: #797979;
-$gray-dark: #4a4a4a;
-$gray-darker: #1c1c1c;
-
 // Layout variables
 $desktop-max-width: 75em;
 $desktop-half-width: 37.5em;
 
 $header-item-width: 13rem;
 
-$article-card-height: 27rem;
-$article-card-image-width: 50rem;
-$category-featured-article-card-height: 9rem;
+$featured-card-height: 27rem;
+$featured-card-image-width: 50rem;
+$category-featured-article-content-height: 9rem;
 $category-featured-article-image-height: 12rem;
 
 // Media query breakpoints

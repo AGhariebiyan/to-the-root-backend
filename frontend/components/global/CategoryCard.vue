@@ -8,25 +8,33 @@
       :key="article.id"
       :to="`/content/${article.slug}`"
     >
-      <div class="featured-article__content">
-        <h5 class="featured-article__author">
-          <span class="featured-article__author-prefix">by</span
-          ><span class="featured-article__author-name">{{
-            article.author.name
-          }}</span>
-        </h5>
-        <h3 class="featured-article__title">{{ article.title }}</h3>
-      </div>
-      <div class="featured-article__image-container">
-        <img
-          class="featured-article__image"
-          :src="
-            article.cover_image
-              ? `${url}${article.cover_image.url}`
-              : require('~/assets/img/rainbow_ordina.png')
-          "
-          :alt="article.cover_image"
-        />
+      <div>
+        <div class="featured-article__content">
+          <NuxtLink
+            class="featured-article__author-link"
+            :to="`/author/${article.author.id}`"
+          >
+            <h5 class="featured-article__author">
+              <span class="featured-article__author-prefix">by</span
+              ><span class="featured-article__author-name">{{
+                article.author.name
+              }}</span>
+            </h5>
+          </NuxtLink>
+          <h3 class="featured-article__title">{{ article.title }}</h3>
+        </div>
+        <div class="featured-article__image-container">
+          <img
+            class="featured-article__image"
+            :src="
+              article.cover_image
+                ? `${url}${article.cover_image.url}`
+                : require('~/assets/img/rainbow_ordina.png')
+            "
+            :alt="article.cover_image"
+          />
+        </div>
+        <div class="featured-article__read-link-margin"></div>
         <ReadLink class="featured-article__read-link" :slug="article.slug" />
       </div>
     </NuxtLink>
@@ -117,7 +125,7 @@ $card-padding: 1rem;
 
 .card {
   background: $black;
-  color: $text;
+  color: $gray-lightest;
   padding: 1.2rem 0.75rem;
   margin-bottom: $card-padding;
   width: 32.5%;
@@ -143,10 +151,15 @@ $card-padding: 1rem;
   text-decoration: none;
 
   &__content {
-    background: $tiles-inside;
+    background: $white;
     color: $black;
     padding: 1.3rem $card-padding 0;
-    height: $category-featured-article-card-height;
+    height: $category-featured-article-content-height;
+  }
+
+  &__author-link {
+    color: $black;
+    text-decoration: none;
   }
 
   &__author {
@@ -193,16 +206,19 @@ $card-padding: 1rem;
     transition: transform 0.2s;
   }
 
+  &__read-link-margin {
+    height: 0.75rem;
+  }
+
   &__read-link {
     position: absolute;
-    bottom: 0.5rem;
-    right: 0.5rem;
+    right: calc($card-padding + 0.75rem);
   }
 }
 
 .divider {
-  margin: 1.5rem $card-padding;
-  border-bottom: 0.15rem solid $text;
+  margin: 2.75rem $card-padding 1.5rem;
+  border-bottom: 0.15rem solid $gray-lightest;
 }
 
 .article-list {
@@ -237,7 +253,7 @@ $card-padding: 1rem;
   }
 
   &__article-title {
-    color: $text;
+    color: $gray-lightest;
     font-size: 0.95rem;
     font-family: 'Poppins-Medium', sans-serif;
     line-height: 1.3rem;
@@ -253,7 +269,7 @@ $card-padding: 1rem;
 
   &__link {
     text-decoration: none;
-    color: $text;
+    color: $gray-lightest;
     position: absolute;
     inset: auto 0 1.3rem;
     margin: auto;
@@ -275,7 +291,7 @@ $card-padding: 1rem;
       width: $width;
       height: 2px;
       bottom: -0.02rem;
-      left: calc(50% - $width / 2);
+      left: calc(50% - #{$width} / 2);
       background: $ordina-orange;
     }
 

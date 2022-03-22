@@ -49,20 +49,20 @@ button.white {
 }
 
 button.gray-lighter {
+  color: $gray-lightest;
+  border: 1px solid $gray-lightest;
+
+  &:hover {
+    box-shadow: 4px 4px 10px rgba($gray-lightest, 0.3);
+  }
+}
+
+button.gray-light {
   color: $gray-lighter;
   border: 1px solid $gray-lighter;
 
   &:hover {
     box-shadow: 4px 4px 10px rgba($gray-lighter, 0.3);
-  }
-}
-
-button.gray-light {
-  color: $gray-light;
-  border: 1px solid $gray-light;
-
-  &:hover {
-    box-shadow: 4px 4px 10px rgba($gray-light, 0.3);
   }
 }
 

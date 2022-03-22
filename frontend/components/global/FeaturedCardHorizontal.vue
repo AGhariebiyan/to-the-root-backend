@@ -2,20 +2,6 @@
   <div>
     <NuxtLink class="article-link" :to="`/content/${article.slug}`">
       <div class="card article">
-        <div class="article__content">
-          <h5 class="article__author">
-            <span class="article__author-prefix">by</span
-            ><span class="article__author-name">{{ article.author.name }}</span>
-          </h5>
-          <h3 class="article__title">{{ article.title }}</h3>
-          <p class="article__description">{{ formattedArticleContent }}</p>
-          <div class="article__margin"></div>
-          <div class="article__additional-info">
-            <span class="article__date">{{ formattedDate }}</span>
-            <span class="article__slash-icon">/</span>
-            <span class="article__reading-time">{{ readingTime }}</span>
-          </div>
-        </div>
         <div class="article__image-container">
           <img
             class="article__image"
@@ -26,6 +12,28 @@
             "
             :alt="article.cover_image"
           />
+        </div>
+        <div class="article__content">
+          <NuxtLink
+            class="article__author-link"
+            :to="`/author/${article.author.id}`"
+          >
+            <h5 class="article__author">
+              <span class="article__author-prefix">by</span
+              ><span class="article__author-name">{{
+                article.author.name
+              }}</span>
+            </h5>
+          </NuxtLink>
+          <h3 class="article__title">{{ article.title }}</h3>
+          <p class="article__description">
+            <span v-html="article.content"></span>
+          </p>
+          <div class="article__additional-info">
+            <span class="article__date">{{ formattedDate }}</span>
+            <span class="article__slash-icon">/</span>
+            <span class="article__reading-time">{{ readingTime }}</span>
+          </div>
           <ReadLink class="article__read-link" :slug="article.slug" />
         </div>
       </div>
@@ -50,29 +58,19 @@ export default defineComponent({
 
     const url: string = $config.strapiUrl
 
-    const htmlToPlainTextRegExp = /<[^>]*>/g
     const propsArticle: Article = props.article
-    const formattedArticleContent = propsArticle.content.replace(
-      htmlToPlainTextRegExp,
-      '',
-    )
 
     const formattedDate = formatDate(propsArticle.original_date)
 
     const readingTime =
-      Math.ceil(estimateReadingTime(formattedArticleContent).minutes) + ' min'
+      Math.ceil(estimateReadingTime(propsArticle.content).minutes) + ' min'
 
-    return { url, formattedArticleContent, formattedDate, readingTime }
+    return { url, formattedDate, readingTime }
   },
 })
 </script>
 
 <style lang="scss" scoped>
-$card-image-height: 12.5rem;
-
-$author-font-size: 0.9rem;
-$title-font-size: 1.6rem;
-
 .article-link {
   text-decoration: none;
 }
@@ -82,6 +80,8 @@ $title-font-size: 1.6rem;
 }
 
 .article {
+  display: flex;
+
   &:hover {
     cursor: pointer;
     overflow: hidden;
@@ -92,69 +92,86 @@ $title-font-size: 1.6rem;
   }
 
   &__image-container {
-    width: 100%;
-    height: $card-image-height;
+    width: $featured-card-image-width;
+    height: $featured-card-height;
     overflow: hidden;
-    background-position: center;
-    position: relative;
+
+    @media (max-width: 65rem) {
+      width: calc($featured-card-image-width * 0.75);
+    }
+
+    @media (max-width: 55rem) {
+      width: 50%;
+    }
   }
 
   &__image {
     width: 100%;
-    height: auto;
+    height: $featured-card-height;
     object-fit: cover;
     transition: transform 0.2s; /* Animation */
   }
 
   &__content {
-    color: $text;
-    padding: 1.5rem 2rem 0;
+    color: $gray-lightest;
+    padding: 2.5rem 2.8rem 0;
+    height: $featured-card-height;
+    width: 30rem;
+    overflow-y: hidden;
     position: relative;
+
+    @media (max-width: 65rem) {
+      width: 35rem;
+    }
+
+    @media (max-width: 55rem) {
+      width: 50%;
+    }
+  }
+
+  &__author-link {
+    color: $gray-lightest;
+    text-decoration: none;
   }
 
   &__author {
     text-transform: uppercase;
-    margin-bottom: 1.2rem;
+    margin-bottom: 1.8rem;
   }
 
   &__author-prefix {
-    font-size: $author-font-size;
     font-family: 'Poppins-ExtraLight', sans-serif;
     margin-right: 0.2em;
   }
 
   &__author-name {
-    font-size: $author-font-size;
     font-family: 'Poppins-Bold', sans-serif;
   }
 
   &__title {
     text-transform: uppercase;
     font-family: 'Poppins-Bold', sans-serif;
-    font-size: $title-font-size;
+    font-size: 1.7rem;
     line-height: 2.3rem;
     margin-bottom: 1.8rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    word-wrap: break-word;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
   }
 
   &__description {
     font-size: 0.95rem;
     font-family: 'Poppins-Medium', sans-serif;
-    color: $icons;
+    color: $gray-light;
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
     word-wrap: break-word;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
-  }
-
-  &__margin {
-    height: 4rem;
-  }
-
-  &__additional-info {
-    position: absolute;
-    bottom: 1rem;
   }
 
   &__additional-info {
@@ -164,13 +181,13 @@ $title-font-size: 1.6rem;
 
   &__date,
   &__reading-time {
-    color: $icons;
+    color: $gray-light;
     font-size: 0.8rem;
     font-family: 'Poppins-Light', sans-serif;
   }
 
   &__slash-icon {
-    color: $icons;
+    color: $gray-light;
     font-size: 0.8rem;
     font-family: 'Poppins-Bold', sans-serif;
     margin: 0 0.3rem;
@@ -178,8 +195,8 @@ $title-font-size: 1.6rem;
 
   &__read-link {
     position: absolute;
-    right: 0.5rem;
-    bottom: 0.5rem;
+    bottom: 1rem;
+    right: 1rem;
   }
 }
 </style>

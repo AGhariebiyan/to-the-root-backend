@@ -2,7 +2,9 @@
   <BasePageLayout>
     <BaseContainer>
       <div class="featured-articles">
-        <BaseHeaderDivider class="featured-articles__header" slashColor="orange"
+        <BaseHeaderDivider
+          class="featured-articles__header"
+          slash-color="orange"
           >Featured</BaseHeaderDivider
         >
         <div class="featured-articles__articles-wide">
@@ -11,7 +13,7 @@
               v-for="featuredArticle in featuredArticleBig"
               :key="featuredArticle.id"
             >
-              <FeaturedCardRow
+              <FeaturedCardHorizontal
                 class="featured-articles__article-big"
                 :article="featuredArticle.article"
               />
@@ -22,7 +24,7 @@
               v-for="(featuredArticle, index) in featuredArticlesSmall"
               :key="index"
             >
-              <FeaturedCardColumnSmall
+              <FeaturedCardVerticalSmall
                 class="featured-articles__article-small"
                 :class="index == 0 ? 'first' : 'last'"
                 :article="featuredArticle.article"
@@ -35,7 +37,7 @@
           v-for="featuredArticle in featuredArticles"
           :key="featuredArticle.id"
         >
-          <FeaturedCardColumnBig
+          <FeaturedCardVerticalBig
             class="featured-articles__article-big"
             :article="featuredArticle.article"
           />
@@ -43,7 +45,7 @@
       </div>
 
       <div class="categories">
-        <BaseHeaderDivider class="categories__header" slashColor="orange"
+        <BaseHeaderDivider class="categories__header" slash-color="orange"
           >Categories</BaseHeaderDivider
         >
         <div class="categories__categories">

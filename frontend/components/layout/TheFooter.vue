@@ -95,7 +95,7 @@ export default defineComponent({
 
 .footer {
   background-color: $gray-darker;
-  color: $gray-lighter;
+  color: $gray-lightest;
   padding: 5rem 0 2rem;
 
   &__columns {
@@ -119,7 +119,7 @@ export default defineComponent({
 
       &__link {
         font-size: 0.9rem;
-        color: $gray-lighter;
+        color: $gray-lightest;
         text-decoration: none;
 
         &:hover,

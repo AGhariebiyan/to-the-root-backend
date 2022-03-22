@@ -62,13 +62,13 @@ export default defineComponent({
 
   &__image-container {
     width: 100%;
-    height: calc(($article-card-height / 2.05) * 0.6);
+    height: calc((#{$featured-card-height} / 2.05) * 0.6);
     overflow: hidden;
     background-position: center;
     position: relative;
 
     @media (max-width: 55rem) {
-      height: calc(($article-card-height / 1.5) * 0.6);
+      height: calc((#{$featured-card-height} / 1.5) * 0.6);
     }
   }
 
@@ -80,9 +80,9 @@ export default defineComponent({
   }
 
   &__content {
-    color: $text;
+    color: $gray-lightest;
     padding: 1rem 1rem 0;
-    height: calc(($article-card-height / 2.05) * 0.4);
+    height: calc((#{$featured-card-height} / 2.05) * 0.4);
   }
 
   &__title {
