@@ -22,6 +22,8 @@ async function getStrapiArticleIds() {
   }
 }
 
+
+
 async function deleteStrapiArticles() {
   const articleIds = await getStrapiArticleIds()
 

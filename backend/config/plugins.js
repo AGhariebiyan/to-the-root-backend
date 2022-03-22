@@ -9,7 +9,7 @@ module.exports = ({ env }) => ({
       defaultFrom: 'totherootdev@gmail.com',
       defaultReplyTo: 'totherootdev@gmail.com',
       testAddress: 'yourname@ordina.nl',
-    },
+    }
   },
   // ...
 });
