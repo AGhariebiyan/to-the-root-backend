@@ -8,9 +8,7 @@
             ><span class="article__author-name">{{ article.author.name }}</span>
           </h5>
           <h3 class="article__title">{{ article.title }}</h3>
-          <p class="article__description">
-            <span v-html="article.content"></span>
-          </p>
+          <p class="article__description">{{ formattedArticleContent }}</p>
           <div class="article__margin"></div>
           <div class="article__additional-info">
             <span class="article__date">{{ formattedDate }}</span>
@@ -52,14 +50,21 @@ export default defineComponent({
 
     const url: string = $config.strapiUrl
 
+    // Regex to remove HTML tags:
+    // Example: "<p>Hello World!</p>"" --> "Hello World"
+    const htmlToPlainTextRegExp = /<[^>]*>/g
     const propsArticle: Article = props.article
+    const formattedArticleContent = propsArticle.content.replace(
+      htmlToPlainTextRegExp,
+      '',
+    )
 
     const formattedDate = formatDate(propsArticle.original_date)
 
     const readingTime =
-      Math.ceil(estimateReadingTime(propsArticle.content).minutes) + ' min'
+      Math.ceil(estimateReadingTime(formattedArticleContent).minutes) + ' min'
 
-    return { url, formattedDate, readingTime }
+    return { url, formattedArticleContent, formattedDate, readingTime }
   },
 })
 </script>
