@@ -1,136 +1,227 @@
 <template>
   <BasePageLayout>
     <BaseContainer>
-      <AisInstantSearch
-        :search-client="searchClient"
-        :index-name="algoliaIndex"
-      >
-        <AisRefinementList
-          attribute="tags.name"
-          operator="or"
-          :sort-by="['name:asc']"
+      <div class="featured-articles">
+        <BaseHeaderDivider
+          class="featured-articles__header"
+          slash-color="orange"
+          >Featured</BaseHeaderDivider
         >
-          <template v-slot="{ items, createURL, refine }">
-            <div class="category-facets">
-              <a
-                v-for="item in items"
-                :key="item.value"
-                :href="createURL(item.value)"
-                @click.prevent="refine(item.value)"
-                :class="item.isRefined ? 'selected' : ''"
-                class="btn btn-pill"
-              >
-                {{ item.label }}
-              </a>
+        <div v-if="!isNarrowScreen" class="featured-articles__articles-wide">
+          <div class="featured-articles__main">
+            <div
+              v-for="featuredArticle in featuredArticleBig"
+              :key="featuredArticle.id"
+            >
+              <FeaturedCardHorizontal
+                class="featured-articles__article-big"
+                :article="featuredArticle.article"
+              />
             </div>
-          </template>
-        </AisRefinementList>
-
-        <AisSearchBox />
-        <AisConfigure :hits-per-page.camel="9" />
-        <AisInfiniteHits>
-          <template slot="item" slot-scope="{ item }">
-            <ArticleCard :article="item" />
-          </template>
-          <template v-slot="{ items }">
-            <p class="no-articles-text" v-if="items.length === 0">
-              We couldn't find any content.
-            </p>
-          </template>
-
-          <template v-slot:loadMore="{ isLastPage, refineNext }">
-            <div class="show-more__container">
-              <button
-                :disabled="isLastPage"
-                class="btn btn-primary"
-                @click="refineNext"
-              >
-                Show more
-              </button>
+          </div>
+          <div class="featured-articles__secondary">
+            <div
+              v-for="(featuredArticle, index) in featuredArticlesSmall"
+              :key="index"
+            >
+              <FeaturedCardVerticalSmall
+                class="featured-articles__article-small"
+                :class="index == 0 ? 'first' : 'last'"
+                :article="featuredArticle.article"
+              />
             </div>
-          </template>
-        </AisInfiniteHits>
-      </AisInstantSearch>
+          </div>
+        </div>
+        <div v-else>
+          <div
+            class="featured-articles__articles-narrow"
+            v-for="featuredArticle in featuredArticles"
+            :key="featuredArticle.id"
+          >
+            <FeaturedCardVerticalBig
+              class="featured-articles__article-big"
+              :article="featuredArticle.article"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="categories">
+        <BaseHeaderDivider class="categories__header" slash-color="orange"
+          >Categories</BaseHeaderDivider
+        >
+        <div class="categories__categories">
+          <CategoryCard
+            v-for="category in categories"
+            :key="category"
+            :categorySlug="category"
+          />
+        </div>
+      </div>
     </BaseContainer>
   </BasePageLayout>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, useMeta } from '@nuxtjs/composition-api'
-import { composePageTitle } from '~/utils/helpers'
-
 import {
-  AisConfigure,
-  AisInstantSearch,
-  AisInfiniteHits,
-  AisSearchBox,
-  AisRefinementList,
-} from 'vue-instantsearch'
-import algoliasearch from 'algoliasearch/lite'
+  computed,
+  defineComponent,
+  onMounted,
+  onUnmounted,
+  ref,
+  useContext,
+} from '@nuxtjs/composition-api'
+import { Featured } from '../utils/types'
 
 export default defineComponent({
-  name: 'PageContent',
-
-  head: {},
-
-  components: {
-    AisConfigure,
-    AisInstantSearch,
-    AisInfiniteHits,
-    AisSearchBox,
-    AisRefinementList,
-  },
-
   setup() {
-    useMeta(() => ({ title: composePageTitle('Search') }))
+    const { store } = useContext()
 
-    const query = ref('')
-    const algoliaIndex: string = process.env.algoliaIndex || ''
-    const appId: string = process.env.algoliaAppId || ''
-    const searchKey: string = process.env.algoliaSearchKey || ''
+    const narrowScreenSize = 672
+    const isNarrowScreen = ref(false)
 
-    const searchClient = algoliasearch(appId, searchKey)
+    function resizeHandler() {
+      isNarrowScreen.value = window.innerWidth < narrowScreenSize
+      console.log(isNarrowScreen.value)
+    }
+
+    onMounted(async () => {
+      isNarrowScreen.value = window.innerWidth < narrowScreenSize
+      window.addEventListener('resize', resizeHandler)
+
+      try {
+        await loadFeaturedArticles()
+      } catch (err) {
+        console.log(err)
+      }
+    })
+
+    onUnmounted(() => {
+      window.removeEventListener('resize', resizeHandler)
+    })
+
+    const featuredArticles = computed(() => {
+      return store.getters['featureds/featuredArticles']
+    })
+
+    const featuredArticleBig = computed(() => {
+      const featuredArticles: Array<Featured> =
+        store.getters['featureds/featuredArticles']
+      return [...featuredArticles].splice(0, 1)
+    })
+
+    const featuredArticlesSmall = computed(() => {
+      const featuredArticles: Array<Featured> =
+        store.getters['featureds/featuredArticles']
+      return [...featuredArticles].splice(1, 2)
+    })
+
+    async function loadFeaturedArticles() {
+      await store.dispatch('featureds/fetchFeaturedArticles', {
+        limit: 3,
+        offset: ref(0),
+        sort: 'updated_at:DESC',
+      })
+    }
+
+    const categories = [
+      'backend',
+      'frontend',
+      'design',
+      'security',
+      'hardware',
+      'ai-ml',
+      'agile',
+      'business-development',
+      'dev-ops',
+    ]
 
     return {
-      algoliaIndex,
-      query,
-      searchClient,
+      isNarrowScreen,
+      featuredArticles,
+      featuredArticleBig,
+      featuredArticlesSmall,
+      categories,
     }
   },
 })
 </script>
 
 <style lang="scss" scoped>
-.loader {
-  width: 100%;
-  margin-top: 4rem;
-}
+.featured-articles {
+  margin-bottom: 2.5rem;
 
-.category-facets {
-  margin-bottom: 0.5rem;
-
-  & > .btn {
-    background-color: $white;
-    &:hover {
-      background-color: $accelerate-blue-2;
-    }
-
-    &.selected {
-      background-color: $ordina-orange;
-      color: $white;
-    }
-  }
-
-  & > .btn:not(:first-child) {
-    margin-left: 0.5rem;
-  }
-}
-
-.show-more {
-  &__container {
-    margin-top: 2rem;
+  &__articles-wide {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
+  }
+
+  &__articles-narrow {
+    display: none;
+    visibility: hidden;
+  }
+
+  &__main {
+    width: 74%;
+  }
+
+  &__secondary {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 25%;
+  }
+}
+
+.categories {
+  &__categories {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+}
+
+@media (max-width: 55rem) {
+  .featured-articles {
+    &__articles-wide {
+      flex-direction: column;
+    }
+
+    &__main {
+      width: 100%;
+      margin-bottom: 0.5rem;
+    }
+
+    &__secondary {
+      width: 100%;
+      flex-direction: row;
+    }
+
+    &__article-small.first {
+      margin-right: 0.3rem;
+    }
+
+    &__article-small.last {
+      margin-left: 0.3rem;
+    }
+  }
+}
+
+@media (max-width: 42rem) {
+  .featured-articles {
+    &__articles-wide {
+      display: none;
+      visibility: hidden;
+    }
+
+    &__articles-narrow {
+      display: block;
+      visibility: visible;
+
+      .featured-articles__article-big {
+        margin-bottom: 1rem;
+      }
+    }
   }
 }
 </style>

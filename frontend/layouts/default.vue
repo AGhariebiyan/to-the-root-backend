@@ -89,6 +89,10 @@ export default defineComponent({
   box-sizing: border-box;
 }
 
+body {
+  background: $gray-lightest;
+}
+
 html {
   scroll-behavior: smooth;
 }
@@ -205,7 +209,7 @@ h3 {
 
   &:disabled {
     background-color: $gray;
-    color: $gray-light;
+    color: $gray-lighter;
     cursor: not-allowed;
   }
 }
@@ -261,14 +265,14 @@ p > a {
 blockquote {
   padding: 1rem 2rem;
   border-left: 0.125rem solid $gray-dark;
-  background: $gray-light;
+  background: $gray-lighter;
   font-style: italic;
 }
 
 // Inline code
 code {
   display: inline-block;
-  background-color: $gray-light;
+  background-color: $gray-lightest;
   font-family: 'Monaco', 'Consolas', 'Monospace';
   font-size: 0.875rem;
   padding: 0.1875rem;

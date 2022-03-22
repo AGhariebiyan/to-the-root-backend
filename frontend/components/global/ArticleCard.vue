@@ -80,13 +80,13 @@ export default defineComponent({
   }
 
   &__image-container {
-    height: $article-card-image-height;
+    height: 13.6875rem;
     overflow: hidden;
   }
 
   &__image {
     width: 100%;
-    height: $article-card-image-height;
+    height: 13.6875rem;
     object-fit: cover;
     border-radius: 3px 3px 0 0;
     transition: transform 0.2s; /* Animation */
@@ -94,7 +94,7 @@ export default defineComponent({
 
   &__content {
     padding: 0 1.3rem;
-    height: $article-card-content-height;
+    height: 10rem;
     overflow-y: hidden;
     position: relative;
 

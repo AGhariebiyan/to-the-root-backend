@@ -108,7 +108,7 @@ export default defineComponent({
       {
         name: 'Explore',
         icon: 'explore',
-        to: '/',
+        to: '/explore',
       },
       {
         name: 'Events',
@@ -216,6 +216,18 @@ export default defineComponent({
       cursor: pointer;
     }
   }
+}
+
+.header__menu--mobile {
+  background-color: $gray-lighter;
+  border-top: 1px solid $gray;
+  height: calc(100% - 4.5rem);
+  padding: 1rem;
+  position: fixed;
+  overflow-y: scroll;
+  top: 4.5rem;
+  width: 100%;
+  z-index: 50;
 }
 
 .header__slashes {

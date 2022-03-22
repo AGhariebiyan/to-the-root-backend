@@ -151,7 +151,7 @@ export default defineComponent({
 }
 
 .why-to-join {
-  background: $gray-light;
+  background: $gray-lighter;
   color: $gray-dark;
 
   &__paragraph {
