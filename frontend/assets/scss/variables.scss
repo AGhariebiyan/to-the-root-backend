@@ -1,16 +1,27 @@
 // Colors
 
+// New Design
+// ! Use these colors for the new design (and add if needed)
+// ! Old colors will be removed once the new design is implemented
+
 $ordina-orange: #f58220;
 $ordina-orange-hover: #d06e19;
 
-$black: #000;
-$white: #fff;
+$ordina-blue: #3da4bf;
+$ordina-blue-hover: #8bc8d9;
 
-$gray-light: #f8f8f8; // same as code highlight
-$gray: #e1e1e1;
-$gray-dark: #b2b2b2;
-$gray-darker: #58595b;
+$white: #fff;
+$gray-lightest: #e1e1e1;
+$gray-lighter: #d7d7d7;
+$gray-light: #999;
+$gray: #797979;
+$gray-dark: #4a4a4a;
+$gray-darker: #1c1c1c;
 $gray-darkest: #262626;
+$gray-black: #58595b;
+$black: #252525;
+
+// Old Design
 
 $discovery-blue-primary: #007f92;
 $discovery-blue-2: #3399a8;
@@ -34,131 +45,176 @@ $transparent-hover: rgba(0, 0, 0, 0.2);
 $danger-red: #d50000;
 $danger-red-hover: #a90000;
 
-$warning-yellow: #ffe100;
+$error-red: #d7263d;
+$warning-yellow: #f3e37c;
+$success-green: #609d6d;
+
 $warning-yellow-hover: #d3bb00;
 
-// Variables
+// Layout variables
+$desktop-max-width: 75em;
+$desktop-half-width: 37.5em;
+$header-height-small: 82px;
+$header-height-large: 304px;
+$header-height-mobile: 82px;
+$header-transition-time: 0.5s;
+
 $header-item-width: 13rem;
 
-$line-height: 1.3125rem;
+$featured-card-height: 27rem;
+$featured-card-image-width: 50rem;
+$category-featured-article-content-height: 9rem;
+$category-featured-article-image-height: 12rem;
 
-$desktop-max-width: 1260px;
-$desktop-half-width: 630px;
-
-$nav-max-width: 1440px;
-
-$article-card-width: 21.875rem;
-$article-card-width-landscape: 18rem;
-$article-card-image-height: 13.6875rem;
-$article-card-content-height: 10rem;
+// Media query breakpoints
+$max-width-large-display: 75em; //1200px
+$max-width-small-display: 56.250em; //900px
+$max-width-tablet: 47.75em; //764px
+$max-width-phone: 26.25em; //420px
 
 // Box shadows
 $box-shadow-small: 0px 0.25rem 0.25rem rgba(0, 0, 0, 0.25);
 
 // Fonts
-
 $default-font-size: 1rem;
+$letter-spacing: 0.015rem;
+$line-height: 1.7rem;
 
-// Roboto
+// Poppins
 @font-face {
-  font-family: 'Roboto';
+  font-family: 'Poppins-Thin';
+  font-weight: 100;
   font-style: normal;
-  font-weight: 400;
-  font-display: fallback;
-  src: url('~assets/fonts/Roboto/Roboto-Regular.ttf') format('truetype');
+  src: url('~assets/fonts/Poppins/Poppins-Thin.ttf') format('truetype');
 }
 
 @font-face {
-  font-family: 'RobotoItalic';
-  font-style: normal;
-  font-weight: 400;
-  font-display: fallback;
-  src: url('~assets/fonts/Roboto/Roboto-Italic.ttf') format('truetype');
+  font-family: 'Poppins-ThinItalic';
+  font-weight: 100;
+  font-style: italic;
+  src: url('~assets/fonts/Poppins/Poppins-ThinItalic.ttf') format('truetype');
 }
 
 @font-face {
-  font-family: 'RobotoBold';
+  font-family: 'Poppins-ExtraLight';
+  font-weight: 200;
   font-style: normal;
-  font-weight: 400;
-  font-display: fallback;
-  src: url('~assets/fonts/Roboto/Roboto-Bold.ttf') format('truetype');
+  src: url('~assets/fonts/Poppins/Poppins-ExtraLight.ttf') format('truetype');
 }
 
 @font-face {
-  font-family: 'RobotoBoldItalic';
-  font-style: normal;
-  font-weight: 400;
-  font-display: fallback;
-  src: url('~assets/fonts/Roboto/Roboto-BoldItalic.ttf') format('truetype');
-}
-
-@font-face {
-  font-family: 'RobotoLight';
-  font-style: normal;
-  font-weight: 400;
-  font-display: fallback;
-  src: url('~assets/fonts/Roboto/Roboto-Light.ttf') format('truetype');
-}
-
-@font-face {
-  font-family: 'RobotoLightItalic';
-  font-style: normal;
-  font-weight: 400;
-  font-display: fallback;
-  src: url('~assets/fonts/Roboto/Roboto-LightItalic.ttf') format('truetype');
-}
-
-// Roboto Condensed
-@font-face {
-  font-family: 'RobotoCondensed';
-  font-style: normal;
-  font-weight: 400;
-  font-display: fallback;
-  src: url('~assets/fonts/Roboto_Condensed/RobotoCondensed-Regular.ttf')
+  font-family: 'Poppins-ExtraLightItalic';
+  font-weight: 200;
+  font-style: italic;
+  src: url('~assets/fonts/Poppins/Poppins-ExtraLightItalic.ttf')
     format('truetype');
 }
 
 @font-face {
-  font-family: 'RobotoCondensedItalic';
+  font-family: 'Poppins-Light';
+  font-weight: 300;
   font-style: normal;
+  src: url('~assets/fonts/Poppins/Poppins-Light.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Poppins-LightItalic';
+  font-weight: 300;
+  font-style: italic;
+  src: url('~assets/fonts/Poppins/Poppins-LightItalic.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Poppins';
   font-weight: 400;
-  font-display: fallback;
-  src: url('~assets/fonts/Roboto_Condensed/RobotoCondensed-Italic.ttf')
+  font-style: normal;
+  src: url('~assets/fonts/Poppins/Poppins-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Poppins-Italic';
+  font-weight: 400;
+  font-style: italic;
+  src: url('~assets/fonts/Poppins/Poppins-Italic.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Poppins-Medium';
+  font-weight: 500;
+  font-style: normal;
+  src: url('~assets/fonts/Poppins/Poppins-Medium.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Poppins-MediumItalic';
+  font-weight: 500;
+  font-style: italic;
+  src: url('~assets/fonts/Poppins/Poppins-MediumItalic.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Poppins-SemiBold';
+  font-weight: 600;
+  font-style: normal;
+  src: url('~assets/fonts/Poppins/Poppins-SemiBold.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Poppins-SemiBoldItalic';
+  font-weight: 600;
+  font-style: italic;
+  src: url('~assets/fonts/Poppins/Poppins-SemiBoldItalic.ttf')
     format('truetype');
 }
 
 @font-face {
-  font-family: 'RobotoCondensedBold';
+  font-family: 'Poppins-Bold';
+  font-weight: 700;
   font-style: normal;
-  font-weight: 400;
-  font-display: fallback;
-  src: url('~assets/fonts/Roboto_Condensed/RobotoCondensed-Bold.ttf')
+  src: url('~assets/fonts/Poppins/Poppins-Bold.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Poppins-BoldItalic';
+  font-weight: 700;
+  font-style: italic;
+  src: url('~assets/fonts/Poppins/Poppins-BoldItalic.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Poppins-ExtraBold';
+  font-weight: 800;
+  font-style: normal;
+  src: url('~assets/fonts/Poppins/Poppins-ExtraBold.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Poppins-ExtraBoldItalic';
+  font-weight: 800;
+  font-style: italic;
+  src: url('~assets/fonts/Poppins/Poppins-ExtraBoldItalic.ttf')
     format('truetype');
 }
 
 @font-face {
-  font-family: 'RobotoCondensedBoldItalic';
+  font-family: 'Poppins-Black';
+  font-weight: 900;
   font-style: normal;
-  font-weight: 400;
-  font-display: fallback;
-  src: url('~assets/fonts/Roboto_Condensed/RobotoCondensed-BoldItalic.ttf')
-    format('truetype');
+  src: url('~assets/fonts/Poppins/Poppins-Black.ttf') format('truetype');
 }
 
 @font-face {
-  font-family: 'RobotoCondensedLight';
-  font-style: normal;
-  font-weight: 400;
-  font-display: fallback;
-  src: url('~assets/fonts/Roboto_Condensed/RobotoCondensed-Light.ttf')
-    format('truetype');
+  font-family: 'Poppins-BlackItalic';
+  font-weight: 900;
+  font-style: italic;
+  src: url('~assets/fonts/Poppins/Poppins-BlackItalic.ttf') format('truetype');
 }
 
+// Code Next
 @font-face {
-  font-family: 'RobotoCondensedLightItalic';
+  font-family: 'Code-Next-ExtraBold';
+  font-weight: 800;
   font-style: normal;
-  font-weight: 400;
-  font-display: fallback;
-  src: url('~assets/fonts/Roboto_Condensed/RobotoCondensed-LightItalic.ttf')
+  src: url('~assets/fonts/CodeNext/Code-Next-ExtraBold.ttf')
     format('truetype');
 }

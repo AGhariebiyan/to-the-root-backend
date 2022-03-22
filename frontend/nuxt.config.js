@@ -1,7 +1,7 @@
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'one-community',
+    title: 'To The Root',
     htmlAttrs: {
       lang: 'en',
     },
@@ -27,15 +27,16 @@ export default {
     },
   },
 
-  privateRuntimeConfig: {},
-
   env: {
+    platformName: process.env.PLATFORM_NAME,
     algoliaAppId: process.env.ALGOLIA_APP_ID,
     algoliaSearchKey: process.env.ALGOLIA_SEARCH_KEY,
     algoliaIndex: process.env.ALGOLIA_INDEX,
+    emailJSServiceID: process.env.EMAILJS_SERVICE_ID,
+    emailJSUserID: process.env.EMAILJS_USER_ID,
   },
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: ['~/plugins/axios-accessor.ts'],
+  plugins: ['~/plugins/axios-accessor.ts', { src: '~/plugins/prism' }],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
@@ -45,10 +46,8 @@ export default {
     // https://go.nuxtjs.dev/typescript
     '@nuxtjs/composition-api/module',
     '@nuxt/typescript-build',
-    '@nuxtjs/google-analytics',
   ],
 
-  // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     '@nuxtjs/auth-next',
     '@nuxtjs/axios',
@@ -56,8 +55,9 @@ export default {
     '@nuxtjs/style-resources',
     'nuxt-material-design-icons',
     'vue-social-sharing/nuxt',
-    '@nuxtjs/markdownit',
     'nuxt-lazy-load',
+    'cookie-universal-nuxt',
+    '@nuxtjs/gtm',
   ],
 
   auth: {
@@ -108,24 +108,16 @@ export default {
     scss: ['~/assets/scss/variables.scss', '~/assets/scss/mixins.scss'],
   },
 
-  css: ['highlight.js/styles/github.css', '~/assets/css/algolia.scss'],
+  css: ['~/assets/css/algolia.scss'],
 
-  markdownit: {
-    injected: true,
-    use: ['markdown-it-highlightjs'],
-    highlight: function (str, lang) {
-      if (lang && hljs.getLanguage(lang)) {
-        try {
-          return hljs.highlight(lang, str).value
-        } catch (__) { }
-        return '' // use external default escaping
-      }
-    },
+  gtm: {
+    id: process.env.GTM_ID,
+    autoInit: false,
+    enabled: false,
+    // debug: true, // Uncomment for debugging with the console
+    pageTracking: false,
   },
 
-  googleAnalytics: {
-    id: process.env.GOOGLE_ANALYTICS_ID,
-  },
   router: {
     middleware: ['loggedInGuard'],
   },

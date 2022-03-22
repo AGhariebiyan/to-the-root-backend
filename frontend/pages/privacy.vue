@@ -1,16 +1,20 @@
 <template>
   <BasePageLayout>
     <BaseContainer>
-      <h1>PRIVACY & COOKIES</h1>
+      <h1>PRIVACY</h1>
     </BaseContainer>
   </BasePageLayout>
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@nuxtjs/composition-api'
+import { defineComponent, useMeta } from '@nuxtjs/composition-api'
+import { composePageTitle } from '~/utils/helpers'
 
 export default defineComponent({
-  setup() {},
+  head: {},
+  setup() {
+    useMeta(() => ({ title: composePageTitle('Privacy') }))
+  },
 })
 </script>
 

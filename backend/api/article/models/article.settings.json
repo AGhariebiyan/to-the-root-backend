@@ -32,7 +32,7 @@
         "videos"
       ],
       "plugin": "upload",
-      "required": true,
+      "required": false,
       "pluginOptions": {}
     },
     "slug": {
@@ -47,9 +47,21 @@
       "via": "articles",
       "model": "author"
     },
-    "categories": {
+    "comments": {
+      "via": "article",
+      "collection": "comment"
+    },
+    "likes": {
+      "via": "article",
+      "collection": "like"
+    },
+    "category": {
       "via": "articles",
-      "collection": "category"
+      "model": "category"
+    },
+    "tags": {
+      "via": "articles",
+      "collection": "tag"
     }
   }
 }

@@ -26,6 +26,4 @@ async function setArticlesInAlgolia() {
   }
 }
 
-if (process.env.ENVIRONMENT === 'production') {
-  setArticlesInAlgolia()
-}
+setArticlesInAlgolia()

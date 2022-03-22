@@ -30,12 +30,13 @@
             {{ passwordValidationError }}
           </p>
           <p class="form__error-message" v-if="error">{{ error }}</p>
-          <BaseButton
-            buttonType="primary"
-            class="reset-password__submit"
+          <button
+            class="btn btn-primary reset-password__submit"
+            type="submit"
             :disabled="isResetClicked"
-            >Reset password</BaseButton
           >
+            Reset password
+          </button>
         </template>
       </BaseForm>
     </BaseContainer>
@@ -49,11 +50,15 @@ import {
   ref,
   useRouter,
   computed,
+  useMeta,
 } from '@nuxtjs/composition-api'
-import { errorMessageFromResponse } from '~/utils/helpers'
+import { errorMessageFromResponse, composePageTitle } from '~/utils/helpers'
 
 export default defineComponent({
+  head: {},
   setup() {
+    useMeta(() => ({ title: composePageTitle('Reset password') }))
+
     const { $auth, $axios, $strapi, query } = useContext()
     const newPassword1 = ref('')
     const newPassword2 = ref('')

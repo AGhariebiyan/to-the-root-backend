@@ -29,7 +29,7 @@ export default defineComponent({
 }
 .form {
   &__heading {
-    font-family: 'RobotoLight';
+    font-family: 'Poppins';
     margin-bottom: 1rem;
   }
 

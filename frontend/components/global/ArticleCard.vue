@@ -16,14 +16,15 @@
         <h3 class="article__title">{{ article.title }}</h3>
         <p class="article__description">{{ article.description }}</p>
       </div>
-      <div class="article__categories">
-        <BaseButton
-          buttonType="pill"
-          v-for="(category, index) in article.categories"
+      <div class="article__tags">
+        <NuxtLink
+          to="#"
+          class="btn btn-pill"
+          v-for="(tag, index) in article.tags"
           :key="index"
         >
-          {{ category.name }}
-        </BaseButton>
+          {{ tag.name }}
+        </NuxtLink>
       </div>
     </div>
   </NuxtLink>
@@ -79,13 +80,13 @@ export default defineComponent({
   }
 
   &__image-container {
-    height: $article-card-image-height;
+    height: 13.6875rem;
     overflow: hidden;
   }
 
   &__image {
     width: 100%;
-    height: $article-card-image-height;
+    height: 13.6875rem;
     object-fit: cover;
     border-radius: 3px 3px 0 0;
     transition: transform 0.2s; /* Animation */
@@ -93,7 +94,7 @@ export default defineComponent({
 
   &__content {
     padding: 0 1.3rem;
-    height: $article-card-content-height;
+    height: 10rem;
     overflow-y: hidden;
     position: relative;
 
@@ -125,7 +126,7 @@ export default defineComponent({
     position: relative;
   }
 
-  &__categories {
+  &__tags {
     height: 3.5rem;
     padding: 1rem 1.3rem;
 

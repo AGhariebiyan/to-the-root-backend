@@ -11,19 +11,21 @@
             by
             <NuxtLink
               class="article__author"
-              :to="`/content?author=${article.author.id}`"
+              :to="`/author/${article.author.id}`"
               >{{ article.author.name }}</NuxtLink
             >
           </template>
         </p>
+
         <share-buttons
           :article="{
             title: article.title,
             description: article.description,
-            categories: article.categories,
+            tags: article.tags,
           }"
           :url="articleUrl"
         />
+
         <div class="article__image-container">
           <img
             class="article__cover-image"
@@ -34,25 +36,31 @@
             "
           />
         </div>
-        <div
-          class="article__content"
-          v-html="$md.render(article.content)"
-        ></div>
+        <div class="article__content" v-html="article.content"></div>
+
+        <p class="article__contribute-text">
+          This article was written by {{ article.author.name }}. If you'd like
+          to have your name here under your own article,
+          <NuxtLink to="/contribute">click here to contribute.</NuxtLink>
+        </p>
+
         <div class="article__interactions">
-          <div class="article__likes">
-            <span class="material-icons-outlined">thumb_up</span>
-            <div class="article__number-of-likes">13</div>
-          </div>
+          <LikeButton :articleId="article.id" :articleSlug="slug" />
           <div class="article__reactions">
             <span class="material-icons-outlined">chat</span>
-            <div class="article__number-of-reactions">3</div>
+            <div class="article__number-of-reactions">
+              {{ comments.length }}
+            </div>
           </div>
         </div>
+
+        <CommentSection :articleId="article.id" :articleSlug="article.slug" />
       </article>
+
       <p v-else>
         The article with slug <code>{{ slug }}</code> was not found
-      </p></base-container
-    >
+      </p>
+    </base-container>
 
     <base-container class="related-articles" containerType="color">
       <template v-if="!isLoading && relatedArticles.length > 0">
@@ -77,15 +85,20 @@ import {
   useRoute,
   onMounted,
   ref,
+  useMeta,
 } from '@nuxtjs/composition-api'
 
 import { Article } from '~/utils/types'
+import { composePageTitle } from '~/utils/helpers'
 import ClipLoader from 'vue-spinner/src/ClipLoader.vue'
+import Prism from '~/plugins/prism'
 
 export default defineComponent({
   components: { ClipLoader },
 
   name: 'PageContentDetail',
+
+  head: {},
 
   setup() {
     const isLoading = ref(true)
@@ -95,7 +108,7 @@ export default defineComponent({
 
     const { store, $config } = useContext()
     const strapiUrl: string = $config.strapiUrl
-    const baseUrl = process.env.baseUrl
+    const baseUrl = $config.baseUrl
     const articleUrl = `${baseUrl}${route.value.fullPath}`
 
     const article = computed(() => {
@@ -104,6 +117,12 @@ export default defineComponent({
           (article: Article) => article.slug == slug,
         ) ?? {}
       )
+    })
+
+    useMeta(() => ({ title: composePageTitle(article.value.title) }))
+
+    const comments = computed(() => {
+      return store.getters['comments/comments']
     })
 
     const isArticleLoaded = computed(() => {
@@ -119,6 +138,7 @@ export default defineComponent({
       } catch (err) {
       } finally {
         isLoading.value = false
+        Prism.highlightAll()
       }
     })
 
@@ -136,22 +156,20 @@ export default defineComponent({
     const relatedArticles: any = ref([])
 
     async function loadRelatedArticles() {
-      const relatedCategoryParams = {
+      const relatedTagParams = {
         _where: [
           {
-            'categories.name': article.value.categories.map(
-              (category: any) => category.name,
-            ),
+            'tags.name': article.value.tags.map((tag: any) => tag.name),
           },
         ],
       }
 
-      const relatedCategoryArticles: Article[] = await store.dispatch(
+      const relatedTagArticles: Article[] = await store.dispatch(
         'articles/fetchArticles',
         {
           limit: 4,
           offset: ref(0),
-          params: relatedCategoryParams,
+          params: relatedTagParams,
         },
       )
 
@@ -169,10 +187,20 @@ export default defineComponent({
         })
       }
 
-      const combinedArticles = relatedCategoryArticles.concat(
+      // Always add the 3 most recent articles
+      const recentArticles = await store.dispatch('articles/fetchArticles', {
+        limit: 3,
+        offset: ref(0),
+        sort: 'updated_at',
+      })
+
+      // Combine all articles
+      const combinedArticles = relatedTagArticles.concat(
         relatedAuthorArticles,
+        recentArticles,
       )
 
+      // Remove duplicates
       const uniqueArticles: Article[] = Object.values(
         combinedArticles.reduce((uniqueArticles: any, article: Article) => {
           return uniqueArticles[article.id]
@@ -189,12 +217,14 @@ export default defineComponent({
     }
 
     return {
+      slug,
       article,
       isArticleLoaded,
       isLoading,
       strapiUrl,
       articleUrl,
       relatedArticles,
+      comments,
     }
   },
 })
@@ -243,10 +273,20 @@ export default defineComponent({
 
   &__content {
     margin-bottom: 2rem;
+
+    p {
+      margin-bottom: 1rem;
+    }
+  }
+
+  &__contribute-text {
+    color: $gray-darker;
+    font-style: italic;
   }
 
   &__interactions {
     display: flex;
+    margin-top: 50px;
   }
 
   &__likes {
@@ -283,20 +323,14 @@ export default defineComponent({
 
 .related-articles {
   &__heading {
-    margin-bottom: 1rem;
+    margin-bottom: 2rem;
+    text-align: center;
   }
   &__container {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    display: flex;
+    flex-wrap: wrap;
     gap: 1rem;
-
-    @include respond(tab-landscape) {
-      grid-template-columns: 1fr 1fr;
-    }
-
-    @media screen and (max-width: 36em) {
-      grid-template-columns: 1fr;
-    }
+    justify-content: center;
   }
 }
 </style>

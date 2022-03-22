@@ -42,17 +42,14 @@ export default defineComponent({
 .container {
   display: flex;
   justify-content: center;
-  padding: 5rem 0;
+  padding: 2rem 0;
 
   &__inner {
     max-width: $desktop-max-width;
-    width: 80%;
+    width: 100%;
+    padding: 0 1rem;
     display: flex;
     flex-direction: column;
-
-    @include respond(tab-portrait) {
-      width: 90%;
-    }
   }
 
   &--row > .container__inner {

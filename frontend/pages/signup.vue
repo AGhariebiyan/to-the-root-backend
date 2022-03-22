@@ -3,7 +3,7 @@
     <BaseContainer containerType="narrow">
       <h2 class="signup__title">Sign up</h2>
 
-      <BaseForm @submit="registerUser">
+      <BaseForm v-if="!isRegistrationComplete" @submit="registerUser">
         <template v-slot:socials>
           <LoginSocials divider-text="Or signup with email" />
         </template>
@@ -53,18 +53,25 @@
           <p class="form__error-message" v-if="error">{{ error }}</p>
 
           <div class="form__buttons">
-            <BaseButton buttonType="primary" class="form__button" type="submit"
-              >Sign up</BaseButton
-            >
-            <NuxtLink
-              class="
-                form__button
-                button-link button-link button-link--transparent
-              "
-              to="/login"
+            <button class="btn btn-primary form__button" type="submit">
+              Sign up
+            </button>
+
+            <NuxtLink class="form__button btn btn-transparent" to="/login"
               >Login instead</NuxtLink
             >
           </div>
+        </template>
+      </BaseForm>
+
+      <BaseForm v-else>
+        <template #form>
+          <h3 class="email-verification-pending__header">
+            Thank you for signing up!
+          </h3>
+          <p class="email-verification-pending__paragraph">
+            Please verify your email address before logging in.
+          </p>
         </template>
       </BaseForm>
     </BaseContainer>
@@ -77,13 +84,15 @@ import {
   ref,
   computed,
   useContext,
+  useMeta,
 } from '@nuxtjs/composition-api'
-import { errorMessageFromResponse } from '@/utils/helpers'
-import BaseButton from '@/components/base/BaseButton.vue'
+import { errorMessageFromResponse, composePageTitle } from '@/utils/helpers'
 
 export default defineComponent({
-  components: { BaseButton },
+  head: {},
   setup() {
+    useMeta(() => ({ title: composePageTitle('Sign up') }))
+
     const email = ref('')
     const error = ref('')
     const username = ref('')
@@ -93,6 +102,7 @@ export default defineComponent({
         return 'Please enter a valid password. Your password needs to be a minimum of 10 characters long.'
       }
     })
+    const isRegistrationComplete = ref(false)
     const isPasswordValid = computed(() => {
       return password.value.length >= 10
     })
@@ -124,13 +134,7 @@ export default defineComponent({
           password: password.value,
         })
 
-        await $auth.loginWith('local', {
-          data: {
-            identifier: username.value,
-            password: password.value,
-          },
-        })
-
+        isRegistrationComplete.value = true
         resetInput()
       } catch (e: any) {
         error.value = errorMessageFromResponse(e)
@@ -138,6 +142,7 @@ export default defineComponent({
     }
 
     return {
+      isRegistrationComplete,
       email,
       error,
       password,
@@ -154,5 +159,11 @@ export default defineComponent({
 <style lang="scss" scoped>
 .signup__title {
   margin-bottom: 2rem;
+}
+
+.email-verification-pending {
+  &__header {
+    margin-bottom: 1rem;
+  }
 }
 </style>

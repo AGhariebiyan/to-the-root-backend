@@ -38,17 +38,15 @@
           </p>
 
           <div class="form__buttons">
-            <BaseButton
-              buttonType="primary"
-              class="form__button"
+            <button
+              class="btn btn-primary form__button"
               type="submit"
               :disabled="isLoggedIn || error.length > 0"
-              >Login</BaseButton
             >
+              Log in
+            </button>
 
-            <NuxtLink
-              class="form__button button-link button-link--transparent"
-              to="/signup"
+            <NuxtLink class="form__button btn btn-transparent" to="/signup"
               >Sign up instead</NuxtLink
             >
           </div>
@@ -64,18 +62,26 @@ import {
   ref,
   defineComponent,
   computed,
+  useRoute,
+  useRouter,
+  useMeta,
 } from '@nuxtjs/composition-api'
-import { errorMessageFromResponse } from '@/utils/helpers'
+import { errorMessageFromResponse, composePageTitle } from '@/utils/helpers'
 import BaseForm from '../components/base/BaseForm.vue'
-import BaseButton from '../components/base/BaseButton.vue'
 
 export default defineComponent({
   name: 'PageLogin',
 
-  components: { BaseForm, BaseButton },
+  head: {},
+
+  components: { BaseForm },
 
   setup() {
+    useMeta(() => ({ title: composePageTitle('Login') }))
+
     const { $auth } = useContext()
+    const route = useRoute()
+    const router = useRouter()
 
     const isLoggedIn = computed(() => {
       return $auth.$state.loggedIn
@@ -111,6 +117,14 @@ export default defineComponent({
         })
 
         resetInput()
+
+        // Possible redirect to an article
+        const redirectSlug = route.value.query.redirectSlug
+        if (redirectSlug) {
+          router.push({
+            path: `/content/${redirectSlug}`,
+          })
+        }
       } catch (e: any) {
         const errorMessage = errorMessageFromResponse(e)
         error.value = errorMessage.replace('Identifier', 'Username or Email')

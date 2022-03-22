@@ -1,207 +1,226 @@
 <template>
   <BasePageLayout>
     <BaseContainer>
-      <div>this is a space for a header image or video</div>
-    </BaseContainer>
-    <BaseContainer containerType="color">
-      <section class="core-values">
-        <h2 class="core-values__heading">Our community core values</h2>
-        <ul class="core-values__list">
-          <li
-            class="core-values__item"
-            v-for="coreValue in coreValues"
-            :key="coreValue.name"
-          >
-            <CoreValue :core-value="coreValue" />
-          </li>
-        </ul>
-      </section>
-    </BaseContainer>
-    <BaseContainer class="mission" containerType="narrow">
-      <h2 class="mission__heading">Our mission</h2>
-      <p class="mission__paragraph">
-        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Commodi
-        incidunt voluptas atque sequi similique illo dolor exercitationem in
-        repellendus inventore consequuntur error laudantium ratione consequatur,
-        eligendi dolore odio sapiente et libero placeat, qui doloribus aliquid
-        dignissimos cupiditate. Debitis ipsam quisquam illum nisi, sit sunt
-        molestiae quidem dolores repellendus cupiditate non illo animi dolorem
-        omnis quaerat rem facilis fuga praesentium, mollitia necessitatibus
-        corporis. Deserunt perspiciatis animi magnam quibusdam aut porro at
-        quidem aliquid, minus totam dignissimos laudantium.
-      </p>
-      <div class="mission__buttons">
-        <NuxtLink to="/contact" class="mission__button button-link"
-          >Contact</NuxtLink
+      <div class="featured-articles">
+        <BaseHeaderDivider
+          class="featured-articles__header"
+          slash-color="orange"
+          >Featured</BaseHeaderDivider
         >
-        <NuxtLink to="/signup" class="mission__button button-link"
-          >Join</NuxtLink
-        >
-      </div>
-    </BaseContainer>
-    <BaseContainer class="discord">
-      <div class="discord__container">
-        <div class="discord__text">
-          <h2 class="discord__title">Join Our Discord Community</h2>
-          <p class="discord__paragraph">
-            Feel free to join our Discord Community. For everyone interested in
-            contributing to open-source Feel free to join our Discord Community.
-            For everyone interested in contributing to open-source Feel free to
-            join our Discord Community. For everyone interested in contributing
-            to open-source Feel free to join our Discord Community. For everyone
-            interested in contributing to open-source Feel free to join our
-            Discord Community. For everyone interested in contributing to
-            open-source
-          </p>
+        <div v-if="!isNarrowScreen" class="featured-articles__articles-wide">
+          <div class="featured-articles__main">
+            <div
+              v-for="featuredArticle in featuredArticleBig"
+              :key="featuredArticle.id"
+            >
+              <FeaturedCardHorizontal
+                class="featured-articles__article-big"
+                :article="featuredArticle.article"
+              />
+            </div>
+          </div>
+          <div class="featured-articles__secondary">
+            <div
+              v-for="(featuredArticle, index) in featuredArticlesSmall"
+              :key="index"
+            >
+              <FeaturedCardVerticalSmall
+                class="featured-articles__article-small"
+                :class="index == 0 ? 'first' : 'last'"
+                :article="featuredArticle.article"
+              />
+            </div>
+          </div>
         </div>
-        <iframe
-          src="https://discordapp.com/widget?id=845429016798035999&theme=dark"
-          width="350"
-          height="500"
-          allowtransparency="true"
-          frameborder="0"
-          sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"
-        ></iframe>
+        <div v-else>
+          <div
+            class="featured-articles__articles-narrow"
+            v-for="featuredArticle in featuredArticles"
+            :key="featuredArticle.id"
+          >
+            <FeaturedCardVerticalBig
+              class="featured-articles__article-big"
+              :article="featuredArticle.article"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="categories">
+        <BaseHeaderDivider class="categories__header" slash-color="orange"
+          >Categories</BaseHeaderDivider
+        >
+        <div class="categories__categories">
+          <CategoryCard
+            v-for="category in categories"
+            :key="category"
+            :categorySlug="category"
+          />
+        </div>
       </div>
     </BaseContainer>
   </BasePageLayout>
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@nuxtjs/composition-api'
+import {
+  computed,
+  defineComponent,
+  onMounted,
+  onUnmounted,
+  ref,
+  useContext,
+} from '@nuxtjs/composition-api'
+import { Featured } from '../utils/types'
 
 export default defineComponent({
   setup() {
-    const coreValues = [
-      {
-        name: 'discover',
-        heading: 'Discover',
-        icon: 'compass',
-        description:
-          'Discover the possibilities of contributing to open source',
-      },
-      {
-        name: 'learn',
-        heading: 'Learn',
-        icon: 'learn',
-        description: 'Get better at programming by learning from your peers',
-      },
-      {
-        name: 'contribute',
-        heading: 'Contribute',
-        icon: 'git_merge',
-        description:
-          'Make and share your contribution to the open source world',
-      },
-      {
-        name: 'network',
-        heading: 'Network',
-        icon: 'network',
-        description: 'See what other opportunities lie ahead for your career',
-      },
+    const { store } = useContext()
+
+    const narrowScreenSize = 672
+    const isNarrowScreen = ref(false)
+
+    function resizeHandler() {
+      isNarrowScreen.value = window.innerWidth < narrowScreenSize
+      console.log(isNarrowScreen.value)
+    }
+
+    onMounted(async () => {
+      isNarrowScreen.value = window.innerWidth < narrowScreenSize
+      window.addEventListener('resize', resizeHandler)
+
+      try {
+        await loadFeaturedArticles()
+      } catch (err) {
+        console.log(err)
+      }
+    })
+
+    onUnmounted(() => {
+      window.removeEventListener('resize', resizeHandler)
+    })
+
+    const featuredArticles = computed(() => {
+      return store.getters['featureds/featuredArticles']
+    })
+
+    const featuredArticleBig = computed(() => {
+      const featuredArticles: Array<Featured> =
+        store.getters['featureds/featuredArticles']
+      return [...featuredArticles].splice(0, 1)
+    })
+
+    const featuredArticlesSmall = computed(() => {
+      const featuredArticles: Array<Featured> =
+        store.getters['featureds/featuredArticles']
+      return [...featuredArticles].splice(1, 2)
+    })
+
+    async function loadFeaturedArticles() {
+      await store.dispatch('featureds/fetchFeaturedArticles', {
+        limit: 3,
+        offset: ref(0),
+        sort: 'updated_at:DESC',
+      })
+    }
+
+    const categories = [
+      'backend',
+      'frontend',
+      'design',
+      'security',
+      'hardware',
+      'ai-ml',
+      'agile',
+      'business-development',
+      'dev-ops',
     ]
-    return { coreValues }
+
+    return {
+      isNarrowScreen,
+      featuredArticles,
+      featuredArticleBig,
+      featuredArticlesSmall,
+      categories,
+    }
   },
 })
 </script>
 
 <style lang="scss" scoped>
-.core-values {
-  &__heading {
-    text-align: center;
-    margin-bottom: 4rem;
+.featured-articles {
+  margin-bottom: 2.5rem;
+
+  &__articles-wide {
+    display: flex;
+    justify-content: space-between;
   }
 
-  &__list {
-    list-style: none;
-    display: flex;
+  &__articles-narrow {
+    display: none;
+    visibility: hidden;
+  }
 
-    @include respond(tab-landscape) {
+  &__main {
+    width: 74%;
+  }
+
+  &__secondary {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 25%;
+  }
+}
+
+.categories {
+  &__categories {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+}
+
+@media (max-width: 55rem) {
+  .featured-articles {
+    &__articles-wide {
       flex-direction: column;
     }
-  }
 
-  &__item {
-    &:not(:last-child) {
-      margin-right: 3rem;
+    &__main {
+      width: 100%;
+      margin-bottom: 0.5rem;
+    }
 
-      @include respond(tab-landscape) {
-        margin-right: 0;
-        margin-bottom: 3rem;
-      }
+    &__secondary {
+      width: 100%;
+      flex-direction: row;
+    }
+
+    &__article-small.first {
+      margin-right: 0.3rem;
+    }
+
+    &__article-small.last {
+      margin-left: 0.3rem;
     }
   }
 }
 
-.mission {
-  margin-top: 1rem;
-
-  &__heading {
-    text-align: center;
-    margin-bottom: 2rem;
-  }
-
-  &__paragraph {
-    margin-bottom: 2rem;
-  }
-
-  &__buttons {
-    display: flex;
-    justify-content: center;
-
-    & > a:not(:last-child) {
-      margin-right: 2rem;
-    }
-  }
-
-  &__button {
-    min-width: 6rem;
-    text-align: center;
-  }
-}
-
-.discord {
-  &__container {
-    display: flex;
-    flex-direction: row;
-  }
-
-  &__title {
-    margin-bottom: 2rem;
-    margin-right: 1rem;
-  }
-
-  &__text {
-    .discord__paragraph {
-      width: 80%;
-    }
-  }
-
-  @include respond(tab-portrait) {
-    &__container {
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
+@media (max-width: 42rem) {
+  .featured-articles {
+    &__articles-wide {
+      display: none;
+      visibility: hidden;
     }
 
-    &__text {
-      padding-bottom: 2rem;
+    &__articles-narrow {
+      display: block;
+      visibility: visible;
 
-      .discord__paragraph {
-        margin: 0 auto 1rem;
-        text-align: left;
-        width: 100%;
+      .featured-articles__article-big {
+        margin-bottom: 1rem;
       }
-    }
-  }
-
-  @include respond(phone) {
-    padding: 3rem 0.5rem;
-    margin: 0;
-
-    iframe {
-      width: 18.75rem;
     }
   }
 }

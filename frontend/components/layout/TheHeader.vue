@@ -1,120 +1,140 @@
 <template>
   <header class="header">
-    <div class="header__content">
-      <div class="logo">
-        <NuxtLink class="logo__link" to="/">
-          <img class="logo__image" src="@/assets/Logo.svg" alt="Logo" />
-        </NuxtLink>
-      </div>
-      <span
-        v-if="!isHeaderMobileMenuActive"
-        class="material-icons header__mobile-menu-button"
-        @click="openMobileNavMenu"
-        @touch="openMobileNavMenu"
-        >menu</span
+    <template v-if="isLargeScreen">
+      <div
+        class="header__container header__container--desktop"
+        :class="{ 'header__container--flat': hasScrolledDown }"
       >
-      <span
-        v-else
-        class="material-icons header__mobile-menu-button"
-        @click="closeMobileNavMenu"
-        @touch="closeMobileNavMenu"
-        >close</span
-      >
-      <nav class="nav-links--desktop">
-        <NuxtLink
-          class="nav-links__item"
-          v-for="link in links"
-          :key="link.name"
-          :to="link.to"
-          >{{ link.name }}</NuxtLink
+        <nav
+          role="navigation"
+          aria-label="Main"
+          class="header__navigation header__navigation--desktop"
         >
-      </nav>
-      <LoginBox />
-      <div class="header__menu--mobile" v-if="isHeaderMobileMenuActive">
-        <nav class="nav-links--mobile">
-          <NuxtLink
-            class="nav-links__item"
-            v-for="link in links"
-            @click.native="closeMobileNavMenu"
-            :key="link.name"
-            :to="link.to"
-            >{{ link.name }}</NuxtLink
-          >
+          <TheLogo :isFlat="hasScrolledDown" />
+
+          <div class="header__links">
+            <HeaderMenuLink
+              v-for="link in links"
+              :key="link.name"
+              :link="link"
+              :has-scrolled-down="hasScrolledDown"
+              class="header__link"
+            />
+            <LoginBox :is-mobile="false" />
+          </div>
         </nav>
-        <LoginBox @closeMobileMenu="closeMobileNavMenu" :isMobile="true" />
+      </div>
+      <transition name="slide">
+        <HeaderSlashes v-if="!hasScrolledDown" class="header__slashes" />
+      </transition>
+    </template>
+
+    <!-- Mobile menu starts here -->
+    <div v-else class="header__container header__container--mobile">
+      <TheLogo :is-flat="true" />
+
+      <div class="header__menu-toggle">
+        <span
+          v-if="!isMobileMenuActive"
+          @click="openMobileNavMenu"
+          @touch="openMobileNavMenu"
+          class="material-icons header__mobile-menu-button"
+          aria-label="open mobile menu"
+          role="navigation"
+          >menu</span
+        >
+        <span
+          v-else
+          @click="closeMobileNavMenu"
+          @touch="closeMobileNavMenu"
+          class="material-icons header__mobile-menu-button"
+          aria-label="close mobile menu"
+          role="navigation"
+          >close</span
+        >
       </div>
     </div>
+
+    <transition name="fade">
+      <div
+        class="mobile-menu-wrapper"
+        v-if="isMobileMenuActive"
+        @click="closeMobileNavMenu"
+      >
+        <nav
+          role="navigation"
+          aria-label="Main"
+          class="header__navigation header__navigation--mobile"
+        >
+          <div class="header__links header__links--mobile">
+            <HeaderMenuLink
+              v-for="link in links"
+              :key="link.name"
+              :link="link"
+              :is-mobile="true"
+              @click.native="closeMobileNavMenu"
+              class="header__link"
+            />
+            <LoginBox @closeMobileMenu="closeMobileNavMenu" :is-mobile="true" />
+          </div>
+        </nav>
+      </div>
+    </transition>
   </header>
 </template>
 
 <script lang="ts">
-import {
-  defineComponent,
-  onMounted,
-  onUnmounted,
-  ref,
-} from '@nuxtjs/composition-api'
+import { defineComponent, ref } from '@nuxtjs/composition-api'
 import LoginBox from '../global/LoginBox.vue'
+import HeaderSlashes from './HeaderSlashes.vue'
+import TheLogo from './TheLogo.vue'
+import HeaderMenuLink from '../HeaderMenuLink.vue'
 
 export default defineComponent({
-  components: { LoginBox },
+  components: { LoginBox, HeaderMenuLink, HeaderSlashes, TheLogo },
+  props: {
+    hasScrolledDown: {
+      type: Boolean,
+      required: true,
+    },
+    isLargeScreen: {
+      type: Boolean,
+      required: true,
+    },
+  },
 
   setup() {
-    function resizeHandler() {
-      let resizeInterval
-      if (isHeaderMobileMenuActive.value) {
-        resizeInterval = setInterval(closeMobileMenuOnResize, 300)
-      } else if (resizeInterval) {
-        clearInterval(resizeInterval)
-      }
-    }
-
-    function closeMobileMenuOnResize() {
-      if (window.innerWidth >= 872) {
-        isHeaderMobileMenuActive.value = false
-      }
-    }
-
-    onMounted(() => {
-      window.addEventListener('resize', resizeHandler)
-    })
-
-    onUnmounted(() => {
-      window.removeEventListener('resize', resizeHandler)
-    })
-
     const links = [
       {
-        name: 'Community',
-        to: '/',
-      },
-      {
-        name: 'Content',
-        to: '/content',
+        name: 'Explore',
+        icon: 'explore',
+        to: '/explore',
       },
       {
         name: 'Events',
+        icon: 'events',
         to: '/events',
       },
       {
-        name: 'Get in touch',
-        to: '/contact',
+        name: 'About',
+        icon: 'about',
+        to: '/about',
       },
     ]
 
-    const isHeaderMobileMenuActive = ref(false)
+    const isMobileMenuActive = ref(false)
 
     function openMobileNavMenu() {
-      isHeaderMobileMenuActive.value = true
+      isMobileMenuActive.value = true
     }
 
     function closeMobileNavMenu() {
-      isHeaderMobileMenuActive.value = false
+      isMobileMenuActive.value = false
     }
 
     return {
       links,
-      isHeaderMobileMenuActive,
+      isMobileMenuActive,
       openMobileNavMenu,
       closeMobileNavMenu,
     }
@@ -124,68 +144,82 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .header {
-  background-color: $gray-light;
-  padding: 1rem;
-  position: sticky;
+  background-color: #262626;
+  position: fixed;
   top: 0;
   z-index: 50;
-}
+  width: 100%;
 
-.header__content {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  max-width: $nav-max-width;
-  margin: 0 auto;
-  position: relative;
-}
+  &__container {
+    position: relative;
 
-.logo {
-  width: $header-item-width;
-  margin-right: auto;
-  padding-top: 0.5rem;
+    &--desktop {
+      max-width: $desktop-max-width;
+      padding: 1rem 0 3rem;
+      margin: 0 auto;
+      flex-direction: row;
+      transition: padding $header-transition-time ease;
+    }
 
-  &__image {
-    height: 2rem;
-  }
-}
+    &--flat {
+      padding: 0;
+    }
 
-.nav-links--desktop {
-  flex-grow: 1;
-  display: flex;
-  justify-content: center;
-}
-
-.nav-links__item {
-  text-decoration: none;
-  position: relative;
-
-  &:not(:last-child) {
-    margin-right: 2.5rem;
+    &--mobile {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-right: 2rem;
+    }
   }
 
-  &:link,
-  &:visited {
-    color: $gray-darkest;
+  &__navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    &--desktop {
+    }
+
+    &--mobile {
+      position: fixed;
+      flex-direction: column;
+      background: #282828;
+      right: 0;
+      top: $header-height-mobile;
+    }
   }
 
-  &:hover {
-    color: $discovery-blue-primary;
+  &__links {
+    display: flex;
+    align-items: center;
+
+    &--mobile {
+      flex-direction: column;
+      padding: 3rem 4rem 2rem;
+
+      & > .header__link {
+        margin-right: 0;
+        margin-bottom: 2rem;
+      }
+    }
   }
 
-  &.nuxt-link-exact-active::after {
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 0.1875rem;
-    background-color: $discovery-blue-primary;
-    top: $default-font-size * 1.375;
-    left: 0;
+  &__link {
+    margin-right: 6rem;
+  }
+
+  &__menu-toggle {
+    color: white;
+
+    &:hover {
+      cursor: pointer;
+    }
   }
 }
 
 .header__menu--mobile {
-  background-color: $gray-light;
+  background-color: $gray-lighter;
   border-top: 1px solid $gray;
   height: calc(100% - 4.5rem);
   padding: 1rem;
@@ -196,49 +230,55 @@ export default defineComponent({
   z-index: 50;
 }
 
-.nav-links--mobile {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 1.5rem;
-
-  .nav-links__item {
-    margin: 1.5rem 0;
-  }
+.header__slashes {
+  position: absolute;
+  bottom: 0px;
+  left: -41px;
+  height: 385px;
+  width: calc(100% + 41px);
 }
 
-.nav-links--mobile + .login-box {
-  width: 60%;
-  margin: 0 auto;
-  flex-direction: column;
-  padding-top: 3rem;
-  border-top: 1px solid $gray;
+.mobile-menu-wrapper {
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  background: rgba(#262626, 0.4);
+  left: 0;
+  top: $header-height-mobile;
 }
 
-.login-box {
-  width: $header-item-width;
-  display: flex;
-  justify-content: flex-end;
+.slide-enter-active,
+.slide-leave-active {
+  transition: height $header-transition-time;
 }
 
-.header__mobile-menu-button {
-  display: none;
-  cursor: pointer;
+.slide-enter,
+.slide-leave-to {
+  height: 0;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity $header-transition-time;
+}
+
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
 }
 
 // breaking at 872px to avoid weird underline issues
-@media only screen and (max-width: 54.5em) {
-  .nav-links--desktop {
-    display: none;
-  }
+// @media only screen and (max-width: 54.5em) {
+//   .nav-links--desktop {
+//     display: none;
+//   }
 
-  .nav-links--desktop + .login-box {
-    display: none;
-  }
+//   .nav-links--desktop + .login-box {
+//     display: none;
+//   }
 
-  .header__mobile-menu-button {
-    display: flex;
-  }
-}
+//   .header__mobile-menu-button {
+//     display: flex;
+//   }
+// }
 </style>

@@ -20,7 +20,6 @@ describe('User is not logged in', () => {
   beforeEach(() => {
     wrapper = shallowMount(LoginBox, {
       stubs: {
-        BaseButton: { template: '<button><slot /></button>' },
         NuxtLink: { template: '<a><slot /></a>' },
       },
       mocks: {
@@ -41,7 +40,6 @@ describe('User is not logged in', () => {
   test('Component shows a link to the login page', () => {
     wrapper = mount(LoginBox, {
       stubs: {
-        BaseButton: { template: '<button><slot /></button>' },
         NuxtLink: { template: '<a><slot /></a>' },
       },
       mocks: {
@@ -66,7 +64,6 @@ describe('User is logged in', () => {
   beforeEach(() => {
     wrapper = shallowMount(LoginBox, {
       stubs: {
-        BaseButton: { template: '<button><slot /></button>' },
         NuxtLink: { template: '<a><slot /></a>' },
       },
       mocks: {

@@ -6,10 +6,10 @@ module.exports = ({ env }) => ({
       apiKey: env('SENDGRID_API_KEY'),
     },
     settings: {
-      defaultFrom: 'aheadofchange.org@gmail.com',
-      defaultReplyTo: 'aheadofchange.org@gmail.com',
+      defaultFrom: 'totherootdev@gmail.com',
+      defaultReplyTo: 'totherootdev@gmail.com',
       testAddress: 'yourname@ordina.nl',
-    },
+    }
   },
   // ...
 });

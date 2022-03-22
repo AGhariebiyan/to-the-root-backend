@@ -17,6 +17,8 @@ const article: Article = {
   title: 'Test',
   author: 'John Doe',
   categories: [category],
+  comments: [],
+  likes: [],
   content: '',
   cover_image: {},
   created_at: '',
@@ -37,7 +39,6 @@ describe('Article card', () => {
     wrapper = shallowMount(ArticleCard, {
       propsData: { article },
       stubs: {
-        BaseButton: { template: '<button><slot /></button>' },
         NuxtLink: true,
       },
       mocks: {

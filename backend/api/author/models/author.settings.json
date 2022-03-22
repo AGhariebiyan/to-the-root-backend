@@ -32,8 +32,25 @@
       "unique": true
     },
     "articles": {
-      "via": "author",
-      "collection": "article"
+      "collection": "article",
+      "via": "author"
+    },
+    "github": {
+      "type": "string",
+      "maxLength": 250
+    },
+    "twitter": {
+      "type": "string",
+      "maxLength": 250
+    },
+    "linkedIn": {
+      "type": "string",
+      "maxLength": 250
+    },
+    "biography": {
+      "type": "text",
+      "required": false,
+      "maxLength": 1200
     }
   }
 }
