@@ -105,7 +105,7 @@ export default defineComponent({
     overflow: hidden;
 
     @media (max-width: 65rem) {
-      width: calc($featured-card-image-width * 0.75);
+      width: calc(#{$featured-card-image-width} * 0.75);
     }
 
     @media (max-width: 55rem) {
