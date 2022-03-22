@@ -82,7 +82,7 @@ export default defineComponent({
   },
 
   setup() {
-    useMeta(() => ({ title: composePageTitle('Search') }))
+    useMeta(() => ({ title: composePageTitle('Explore') }))
 
     const query = ref('')
     const algoliaIndex: string = process.env.algoliaIndex || ''

@@ -212,7 +212,7 @@ $card-padding: 1rem;
 
   &__read-link {
     position: absolute;
-    right: calc($card-padding + 0.75rem);
+    right: calc(#{$card-padding} + 0.75rem);
   }
 }
 

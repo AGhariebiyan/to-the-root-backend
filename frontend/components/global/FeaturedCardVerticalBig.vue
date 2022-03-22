@@ -12,8 +12,6 @@
           <div class="article__margin"></div>
           <div class="article__additional-info">
             <span class="article__date">{{ formattedDate }}</span>
-            <span class="article__slash-icon">/</span>
-            <span class="article__reading-time">{{ readingTime }}</span>
           </div>
         </div>
         <div class="article__image-container">
@@ -26,7 +24,11 @@
             "
             :alt="article.cover_image"
           />
-          <ReadLink class="article__read-link" :slug="article.slug" />
+          <ReadLink
+            class="article__read-link"
+            :slug="article.slug"
+            :read-estimate="readingTime"
+          />
         </div>
       </div>
     </NuxtLink>
@@ -61,8 +63,9 @@ export default defineComponent({
 
     const formattedDate = formatDate(propsArticle.original_date)
 
-    const readingTime =
-      Math.ceil(estimateReadingTime(formattedArticleContent).minutes) + ' min'
+    const readingTime = Math.ceil(
+      estimateReadingTime(formattedArticleContent).minutes,
+    )
 
     return { url, formattedArticleContent, formattedDate, readingTime }
   },
