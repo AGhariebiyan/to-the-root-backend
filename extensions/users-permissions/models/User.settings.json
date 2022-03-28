@@ -66,6 +66,12 @@
     "likes": {
       "via": "user",
       "collection": "like"
+    },
+    "hasAgreedToNewsletter": {
+      "type": "boolean"
+    },
+    "hasAgreedToContactAboutOrdina": {
+      "type": "boolean"
     }
   }
 }
