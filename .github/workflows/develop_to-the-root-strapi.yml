@@ -6,13 +6,13 @@ name: Build and deploy Node.js app to Azure Web App - to-the-root-strapi
 on:
   push:
     branches:
-      - feature/ci-cd-pipeline
+      - develop
   workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    environment: Production
+    environment: acceptance
 
     steps:
       - uses: actions/checkout@v2
@@ -27,20 +27,16 @@ jobs:
           STORAGE_ACCOUNT: ${{ secrets.STORAGE_ACCOUNT }}
           STORAGE_ACCOUNT_KEY: ${{ secrets.STORAGE_ACCOUNT_KEY }}
           STORAGE_CONTAINER_NAME: ${{ secrets.STORAGE_CONTAINER_NAME }}
-          NODE_ENV: ${{ secrets.NODE_ENV }}
+          NODE_ENV: development
 
         run: |
-          cd ./backend/
-          npm ci
+          npm install
           npm run build --if-present
 
       - name: Zip artifact for deployment
         run: |
-          cd ./backend/
           zip release.zip ./** -r
-          mv release.zip ../
 
-      # replace with zip action
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
         with:
@@ -69,5 +65,5 @@ jobs:
         with:
           app-name: 'to-the-root-strapi'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_3A792DE741AD48BBAC98C1529B27202B }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_F19DB2D3D2B84DACBCF8D54AE5FE3B89 }}
           package: .

@@ -540,7 +540,12 @@ async function seedDb() {
   const categoryIds = await seedCategories()
   const tagIds = await seedTags()
   const imageIds = await seedImages()
-  const articleIds = await seedArticles(authorIds, categoryIds, tagIds, imageIds)
+  const articleIds = await seedArticles(
+    authorIds,
+    categoryIds,
+    tagIds,
+    imageIds,
+  )
   await seedFeatureds(articleIds)
 }
 
@@ -734,10 +739,13 @@ async function seedFeatureds(articleIds) {
       const newFeatured = {
         ...featured,
         article: {
-          id: getNextItemFrom(articleIds, index)
-        }
+          id: getNextItemFrom(articleIds, index),
+        },
       }
-      const response = await axios.post(`${process.env.URL}/featureds`, newFeatured)
+      const response = await axios.post(
+        `${process.env.URL}/featureds`,
+        newFeatured,
+      )
       featuredIds.push(response.data.id)
     } catch (err) {
       console.log(

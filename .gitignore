@@ -65,8 +65,13 @@ $RECYCLE.BIN/
 # Logs and databases
 ############################
 
+<<<<<<< HEAD
+/backend/.tmp
+/backend/pgdata
+=======
 .tmp
 pgdata
+>>>>>>> e842b78a2205864f96d14f8404e668e60e333095
 *.log
 *.sql
 *.sqlite
