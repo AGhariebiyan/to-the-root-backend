@@ -66,6 +66,51 @@
     "likes": {
       "via": "user",
       "collection": "like"
+    },
+    "name": {
+      "type": "string"
+    },
+    "biography": {
+      "type": "text"
+    },
+    "company": {
+      "type": "string"
+    },
+    "website": {
+      "type": "string"
+    },
+    "job_title": {
+      "type": "string"
+    },
+    "specific_vacancy_site": {
+      "type": "string"
+    },
+    "profile_picture": {
+      "model": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ],
+      "plugin": "upload",
+      "required": false,
+      "pluginOptions": {}
+    },
+    "display_email_on_profile": {
+      "type": "boolean"
+    },
+    "github": {
+      "type": "string"
+    },
+    "linked_in": {
+      "type": "string"
+    },
+    "twitter": {
+      "type": "string"
+    },
+    "facebook": {
+      "type": "string"
     }
   }
 }
