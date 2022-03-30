@@ -67,10 +67,10 @@
       "via": "user",
       "collection": "like"
     },
-    "hasAgreedToNewsletter": {
+    "has_agreed_to_newsletters_and_notifications": {
       "type": "boolean"
     },
-    "hasAgreedToContactAboutOrdina": {
+    "has_agreed_for_ordina_to_get_in_touch": {
       "type": "boolean"
     }
   }
