@@ -111,6 +111,10 @@
     },
     "facebook": {
       "type": "string"
+    },
+    "articles": {
+      "via": "author",
+      "collection": "article"
     }
   }
 }
