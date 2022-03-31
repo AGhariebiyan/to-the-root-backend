@@ -67,6 +67,57 @@
       "via": "user",
       "collection": "like"
     },
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "biography": {
+      "type": "text",
+      "required": true
+    },
+    "website": {
+      "type": "string"
+    },
+    "tagline": {
+      "type": "string"
+    },
+    "specific_vacancy_site": {
+      "type": "string"
+    },
+    "profile_picture": {
+      "model": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ],
+      "plugin": "upload",
+      "required": false,
+      "pluginOptions": {}
+    },
+    "display_email_on_profile": {
+      "type": "boolean"
+    },
+    "github": {
+      "type": "string"
+    },
+    "linked_in": {
+      "type": "string"
+    },
+    "twitter": {
+      "type": "string"
+    },
+    "facebook": {
+      "type": "string"
+    },
+    "articles": {
+      "via": "author",
+      "collection": "article"
+    },
+    "is_ordina_employee": {
+      "type": "boolean"
+    },
     "has_agreed_to_newsletters_and_notifications": {
       "type": "boolean"
     },
