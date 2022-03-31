@@ -7,14 +7,34 @@ const fsPromises = require('fs/promises')
 const FormData = require('form-data')
 const { type } = require('os')
 
-const authors = [
+const users = [
   {
-    name: 'Menno Wielhouwer',
-    email: 'menno.wielhouwer@ordina.nl',
+    name: 'Tester de Test',
+    email: 'test@test.com',
+    username: 'tester123',
+    password: 'test123',
+    tagline: 'I test things',
+    website: 'https://www.test.com',
+    linked_in: 'https://www.linkedin.com/test',
+    is_ordina_employee: true,
+    biography:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc congue arcu at enim accumsan vehicula. Etiam tellus lectus, fermentum vel ultricies nec, fermentum non magna. Praesent a quam eget eros vulputate rhoncus. Donec id ligula turpis. Aliquam finibus augue quis ante commodo viverra. Donec in ipsum dui. Curabitur sed semper metus. In porta, enim ut tempor semper, leo lacus eleifend orci, id rutrum sem nisl ut tellus. Aenean pretium ultricies ipsum, ornare suscipit lorem tempor a. Nunc eu sem vel risus rutrum pulvinar. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. In fermentum mi et sollicitudin tincidunt. Donec tempus ante ac magna egestas, posuere auctor neque hendrerit. Nam mattis mauris sed quam placerat euismod. Sed viverra molestie libero, non congue mauris finibus a. Donec posuere pretium tellus, vitae consequat erat vestibulum sed. Aenean mi purus, sagittis ut molestie et, rhoncus a ex. Morbi erat lectus, tincidunt gravida augue sed, ultricies molestie magna. Interdum et malesuada fames ac ante ipsum primis in faucibus. Morbi sollicitudin nulla quis elit convallis, ut mollis arcu pretium. Curabitur eu tempor magna. Pellentesque vel placerat ligula.',
+    has_agreed_to_newsletters_and_notifications: true,
+    has_agreed_to_ordina_getting_in_touch: false,
   },
   {
     name: 'Barack Obama',
-    email: 'barackobama@pdotus.com',
+    email: 'barack@whitehouse.com',
+    username: 'barackobama',
+    password: 'michelle123',
+    tagline: 'Dad, husband, president, citizen',
+    website: 'https://barackobama.medium.com',
+    linked_in: 'https://www.linkedin.com/barackobama',
+    is_ordina_employee: false,
+    biography:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc congue arcu at enim accumsan vehicula. Etiam tellus lectus, fermentum vel ultricies nec, fermentum non magna. Praesent a quam eget eros vulputate rhoncus. Donec id ligula turpis. Aliquam finibus augue quis ante commodo viverra. Donec in ipsum dui. Curabitur sed semper metus. In porta, enim ut tempor semper, leo lacus eleifend orci, id rutrum sem nisl ut tellus. Aenean pretium ultricies ipsum, ornare suscipit lorem tempor a. Nunc eu sem vel risus rutrum pulvinar. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. In fermentum mi et sollicitudin tincidunt. Donec tempus ante ac magna egestas, posuere auctor neque hendrerit. Nam mattis mauris sed quam placerat euismod. Sed viverra molestie libero, non congue mauris finibus a. Donec posuere pretium tellus, vitae consequat erat vestibulum sed. Aenean mi purus, sagittis ut molestie et, rhoncus a ex. Morbi erat lectus, tincidunt gravida augue sed, ultricies molestie magna. Interdum et malesuada fames ac ante ipsum primis in faucibus. Morbi sollicitudin nulla quis elit convallis, ut mollis arcu pretium. Curabitur eu tempor magna. Pellentesque vel placerat ligula.',
+    has_agreed_to_newsletters_and_notifications: false,
+    has_agreed_to_ordina_getting_in_touch: true,
   },
 ]
 
@@ -536,16 +556,11 @@ async function seedDb() {
   }
   // We can expect an empty database here
 
-  const authorIds = await seedAuthors()
+  const userIds = await seedUsers()
   const categoryIds = await seedCategories()
   const tagIds = await seedTags()
   const imageIds = await seedImages()
-  const articleIds = await seedArticles(
-    authorIds,
-    categoryIds,
-    tagIds,
-    imageIds,
-  )
+  const articleIds = await seedArticles(userIds, categoryIds, tagIds, imageIds)
   await seedFeatureds(articleIds)
 }
 
@@ -562,23 +577,23 @@ async function getArticles() {
   return result
 }
 
-async function seedAuthors() {
-  const authorIds = []
-  for (const author of authors)
+async function seedUsers() {
+  const userIds = []
+  for (const user of users)
     try {
-      const response = await axios.post(`${process.env.URL}/authors`, author)
-      authorIds.push(response.data.id)
+      const response = await axios.post(`${process.env.URL}/users`, user)
+      userIds.push(response.data.id)
     } catch (err) {
       console.log(
-        'Setting authors went wrong! See error above or the logging of the strapi server',
+        'Setting users went wrong! See error above or the logging of the strapi server',
         err,
       )
     }
   console.log(
-    getConsoleColor(authors.length, authorIds.length),
-    `${authorIds.length} authors set`,
+    getConsoleColor(users.length, userIds.length),
+    `${userIds.length} users set`,
   )
-  return authorIds
+  return userIds
 }
 
 async function seedCategories() {
@@ -687,7 +702,7 @@ async function seedImages() {
   return imageIds
 }
 
-async function seedArticles(authorIds, categoryIds, tagIds, imageIds) {
+async function seedArticles(userIds, categoryIds, tagIds, imageIds) {
   const articleIds = []
   for (let [index, article] of articles.entries()) {
     try {
@@ -701,7 +716,7 @@ async function seedArticles(authorIds, categoryIds, tagIds, imageIds) {
       const newArticle = {
         ...article,
         author: {
-          id: getNextItemFrom(authorIds, index),
+          id: getNextItemFrom(userIds, index),
         },
         category: {
           id: getNextItemFrom(categoryIds, index),
