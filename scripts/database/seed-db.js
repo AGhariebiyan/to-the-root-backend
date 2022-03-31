@@ -12,7 +12,7 @@ const users = [
     name: 'Tester de Test',
     email: 'test@test.com',
     username: 'tester123',
-    password: '1234567890',
+    password: 'test123',
     tagline: 'I test things',
     website: 'https://www.test.com',
     linked_in: 'https://www.linkedin.com/test',
@@ -21,6 +21,20 @@ const users = [
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc congue arcu at enim accumsan vehicula. Etiam tellus lectus, fermentum vel ultricies nec, fermentum non magna. Praesent a quam eget eros vulputate rhoncus. Donec id ligula turpis. Aliquam finibus augue quis ante commodo viverra. Donec in ipsum dui. Curabitur sed semper metus. In porta, enim ut tempor semper, leo lacus eleifend orci, id rutrum sem nisl ut tellus. Aenean pretium ultricies ipsum, ornare suscipit lorem tempor a. Nunc eu sem vel risus rutrum pulvinar. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. In fermentum mi et sollicitudin tincidunt. Donec tempus ante ac magna egestas, posuere auctor neque hendrerit. Nam mattis mauris sed quam placerat euismod. Sed viverra molestie libero, non congue mauris finibus a. Donec posuere pretium tellus, vitae consequat erat vestibulum sed. Aenean mi purus, sagittis ut molestie et, rhoncus a ex. Morbi erat lectus, tincidunt gravida augue sed, ultricies molestie magna. Interdum et malesuada fames ac ante ipsum primis in faucibus. Morbi sollicitudin nulla quis elit convallis, ut mollis arcu pretium. Curabitur eu tempor magna. Pellentesque vel placerat ligula.',
     has_agreed_to_newsletters_and_notifications: true,
     has_agreed_to_ordina_getting_in_touch: false,
+  },
+  {
+    name: 'Barack Obama',
+    email: 'barack@whitehouse.com',
+    username: 'barackobama',
+    password: 'michelle123',
+    tagline: 'Dad, husband, president, citizen',
+    website: 'https://barackobama.medium.com',
+    linked_in: 'https://www.linkedin.com/barackobama',
+    is_ordina_employee: false,
+    biography:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc congue arcu at enim accumsan vehicula. Etiam tellus lectus, fermentum vel ultricies nec, fermentum non magna. Praesent a quam eget eros vulputate rhoncus. Donec id ligula turpis. Aliquam finibus augue quis ante commodo viverra. Donec in ipsum dui. Curabitur sed semper metus. In porta, enim ut tempor semper, leo lacus eleifend orci, id rutrum sem nisl ut tellus. Aenean pretium ultricies ipsum, ornare suscipit lorem tempor a. Nunc eu sem vel risus rutrum pulvinar. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. In fermentum mi et sollicitudin tincidunt. Donec tempus ante ac magna egestas, posuere auctor neque hendrerit. Nam mattis mauris sed quam placerat euismod. Sed viverra molestie libero, non congue mauris finibus a. Donec posuere pretium tellus, vitae consequat erat vestibulum sed. Aenean mi purus, sagittis ut molestie et, rhoncus a ex. Morbi erat lectus, tincidunt gravida augue sed, ultricies molestie magna. Interdum et malesuada fames ac ante ipsum primis in faucibus. Morbi sollicitudin nulla quis elit convallis, ut mollis arcu pretium. Curabitur eu tempor magna. Pellentesque vel placerat ligula.',
+    has_agreed_to_newsletters_and_notifications: false,
+    has_agreed_to_ordina_getting_in_touch: true,
   },
 ]
 
