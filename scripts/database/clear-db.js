@@ -9,7 +9,8 @@ async function getArticleIds() {
     articles = await response.data
   } catch (err) {
     console.log(
-      `${err.toJSON().message
+      `${
+        err.toJSON().message
       } \n Getting articles went wrong! See error above or the logging of the strapi server`,
     )
   }
@@ -22,7 +23,8 @@ async function getCategoryIds() {
     categories = await response.data
   } catch (err) {
     console.log(
-      `${err.toJSON().message
+      `${
+        err.toJSON().message
       } \n Getting categories went wrong! See error above or the logging of the strapi server`,
     )
   }
@@ -35,25 +37,27 @@ async function getTagIds() {
     tags = await response.data
   } catch (err) {
     console.log(
-      `${err.toJSON().message
+      `${
+        err.toJSON().message
       } \n Getting tags went wrong! See error above or the logging of the strapi server`,
     )
   }
   return tags.map((tag) => tag.id)
 }
 
-async function getAuthorIds() {
-  let authors = []
+async function getUserIds() {
+  let users = []
   try {
-    const response = await axios.get(`${process.env.URL}/authors`)
-    authors = await response.data
+    const response = await axios.get(`${process.env.URL}/users`)
+    users = await response.data
   } catch (err) {
     console.log(
-      `${err.toJSON().message
-      } \n Getting authors went wrong! See error above or the logging of the strapi server`,
+      `${
+        err.toJSON().message
+      } \n Getting users went wrong! See error above or the logging of the strapi server`,
     )
   }
-  return authors.map((author) => author.id)
+  return users.map((user) => user.id)
 }
 
 async function getFeaturedIds() {
@@ -63,7 +67,8 @@ async function getFeaturedIds() {
     featureds = await response.data
   } catch (err) {
     console.log(
-      `${err.toJSON().message
+      `${
+        err.toJSON().message
       } \n Getting featureds went wrong! See error above or the logging of the strapi server`,
     )
   }
@@ -72,14 +77,14 @@ async function getFeaturedIds() {
 
 async function clearDB() {
   const articleIds = await getArticleIds()
-  const authorIds = await getAuthorIds()
+  const userIds = await getUserIds()
   const categoryIds = await getCategoryIds()
   const tagIds = await getTagIds()
   const featuredIds = await getFeaturedIds()
 
-  for (const id of authorIds) {
+  for (const id of userIds) {
     try {
-      axios.delete(`${process.env.URL}/authors/${id}`)
+      axios.delete(`${process.env.URL}/users/${id}`)
     } catch (err) {
       console.log(err)
     }
