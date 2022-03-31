@@ -68,10 +68,12 @@
       "collection": "like"
     },
     "name": {
-      "type": "string"
+      "type": "string",
+      "required": true
     },
     "biography": {
-      "type": "text"
+      "type": "text",
+      "required": true
     },
     "website": {
       "type": "string"
