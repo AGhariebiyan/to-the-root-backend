@@ -73,13 +73,10 @@
     "biography": {
       "type": "text"
     },
-    "company": {
-      "type": "string"
-    },
     "website": {
       "type": "string"
     },
-    "job_title": {
+    "tagline": {
       "type": "string"
     },
     "specific_vacancy_site": {
@@ -115,6 +112,9 @@
     "articles": {
       "via": "author",
       "collection": "article"
+    },
+    "is_ordina_employee": {
+      "type": "boolean"
     }
   }
 }
