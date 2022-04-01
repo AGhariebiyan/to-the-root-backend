@@ -23,8 +23,7 @@
     },
     "articles": {
       "via": "category",
-      "collection": "article",
-      "dominant": true
+      "collection": "article"
     }
   }
 }

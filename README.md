@@ -1,8 +1,9 @@
-# Enable Google login
+# Welcome To The Root!
 
-In Strapi, go to Settings > Providers
+The project is divided into 3 repo's:
 
-Set the toggle for Enable to ON
-Client ID: See Jira > Project Pages > Providers > Google
-Client Secret: See Jira > Project Pages > Providers > Google
-The redirect URL to your front-end app: http://localhost:3000/connect/google
+- [to-the-root-dockers](https://github.com/OrdinaNederland/to-the-root-dockers)
+- [to-the-root-backend](https://github.com/OrdinaNederland/to-the-root-backend) (you're here)
+- [to-the-root-frontend](https://github.com/OrdinaNederland/to-the-root-frontend)
+
+> To get started, make sure to follow the README in to-the-root-**dockers**
