@@ -27,6 +27,7 @@ jobs:
           STORAGE_ACCOUNT: ${{ secrets.STORAGE_ACCOUNT }}
           STORAGE_ACCOUNT_KEY: ${{ secrets.STORAGE_ACCOUNT_KEY }}
           STORAGE_CONTAINER_NAME: ${{ secrets.STORAGE_CONTAINER_NAME }}
+          HOST: ${{ secrets.HOST}}
           NODE_ENV: development
         run: |
           npm install
