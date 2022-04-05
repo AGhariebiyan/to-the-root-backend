@@ -69,11 +69,11 @@
     },
     "name": {
       "type": "string",
-      "required": true
+      "required": false
     },
     "biography": {
       "type": "text",
-      "required": true
+      "required": false
     },
     "website": {
       "type": "string"
