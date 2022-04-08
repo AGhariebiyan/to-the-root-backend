@@ -123,6 +123,15 @@
     },
     "has_agreed_to_ordina_getting_in_touch": {
       "type": "boolean"
+    },
+    "categories": {
+      "collection": "category"
+    },
+    "number_of_logins": {
+      "type": "integer"
+    },
+    "has_viewed_settings": {
+      "type": "boolean"
     }
   }
 }
