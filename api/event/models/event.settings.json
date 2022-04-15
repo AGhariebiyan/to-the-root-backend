@@ -34,7 +34,8 @@
     },
     "location": {
       "type": "string",
-      "maxLength": 20
+      "maxLength": 20,
+      "required": true
     },
     "country_code": {
       "type": "enumeration",
