@@ -123,6 +123,10 @@
     },
     "has_agreed_to_ordina_getting_in_touch": {
       "type": "boolean"
+    },
+    "events": {
+      "via": "speakers",
+      "collection": "event"
     }
   }
 }
