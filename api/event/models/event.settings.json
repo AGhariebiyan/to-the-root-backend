@@ -36,7 +36,6 @@
       "type": "string",
       "maxLength": 20
     },
-    // Country codes taken from https://www.iban.com/country-codes
     "country_code": {
       "type": "enumeration",
       "enum": [
