@@ -32,6 +32,7 @@ jobs:
           ALGOLIA_ADMIN_KEY: ${{ secrets.ALGOLIA_ADMIN_KEY }}
           ALGOLIA_SEARCH_KEY: ${{ secrets.ALGOLIA_SEARCH_KEY}}
           SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY}}
+          URL: ${{ secrets.URL}}
           NODE_ENV: development
 
         run: |
