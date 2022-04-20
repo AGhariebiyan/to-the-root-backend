@@ -127,6 +127,9 @@
     "events": {
       "via": "speakers",
       "collection": "event"
+    },
+    "number_of_logins": {
+      "type": "integer"
     }
   }
 }
