@@ -33,8 +33,13 @@ module.exports = {
     return users;
   },
 
-  async retrieveUser(ctx){
+  async retrieveUser(ctx) {
     const { id } = ctx.params;
+
+    if (id == 'me') {
+      return sanitizeUser(ctx.state.user)
+    }
+
     const user = await strapi.query('user', 'users-permissions').findOne({ id });
     return sanitizeUser(getUserWithoutPii(user));
   },
