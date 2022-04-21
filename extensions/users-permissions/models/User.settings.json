@@ -123,6 +123,9 @@
     },
     "has_agreed_to_ordina_getting_in_touch": {
       "type": "boolean"
+    },
+    "number_of_logins": {
+      "type": "integer"
     }
   }
 }

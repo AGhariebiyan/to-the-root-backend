@@ -1,5 +1,4 @@
 'use strict'
-
 /**
  * This code was mainly copied from https://github.com/strapi/strapi/blob/v3.0.0/packages/strapi-plugin-users-permissions/controllers/User.js
  * This is done in https://www.youtube.com/watch?v=ITk-pYtOCnQ
@@ -15,6 +14,7 @@
 
 const _ = require('lodash')
 const { sanitizeEntity } = require('strapi-utils')
+const { getUserWithoutPii } = require('../services/sanitize-user');
 
 const sanitizeUser = (user) =>
   sanitizeEntity(user, {
@@ -26,6 +26,24 @@ const formatError = (error) => [
 ]
 
 module.exports = {
+
+  async retrieveUsers() {
+    const queryResult = await strapi.query('user', 'users-permissions').find();
+    const users = queryResult.map(user => sanitizeUser(getUserWithoutPii(user)));
+    return users;
+  },
+
+  async retrieveUser(ctx) {
+    const { id } = ctx.params;
+
+    if (id == 'me') {
+      return sanitizeUser(ctx.state.user)
+    }
+
+    const user = await strapi.query('user', 'users-permissions').findOne({ id });
+    return sanitizeUser(getUserWithoutPii(user));
+  },
+
   /**
    * Retrieve user records.
    * @return {Object|Array}
