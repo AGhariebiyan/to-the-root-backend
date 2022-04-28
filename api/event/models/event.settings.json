@@ -292,9 +292,9 @@
       ]
     },
     "speakers": {
+      "via": "events",
       "plugin": "users-permissions",
       "collection": "user",
-      "via": "events",
       "dominant": true
     }
   }
