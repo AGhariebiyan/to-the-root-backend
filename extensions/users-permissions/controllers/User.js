@@ -17,18 +17,8 @@ const { sanitizeEntity } = require('strapi-utils')
 const {
   getFrontendFieldsUser,
   getUserId,
+  userFieldsToIgnoreOnUpdate,
 } = require('../services/sanitize-user')
-
-const userFieldsToIgnoreOnUpdate = [
-  'blocked',
-  'confirmed',
-  'created_at',
-  'role',
-  'provider',
-  'articles',
-  'specific_vacancy_site',
-  'is_ordina_employee',
-]
 
 const sanitizeUser = (user) =>
   sanitizeEntity(user, {

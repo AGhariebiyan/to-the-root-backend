@@ -1,20 +1,31 @@
 const userFrontendFields = [
-  'username',
-  'name',
-  'biography',
-  'profile_picture',
-  'tagline',
-  'github',
-  'linked_in',
-  'facebook',
-  'twitter',
-  'email',
-  'website',
-  'specific_vacancy_site',
-  'is_ordina_employee',
   'articles',
-  'id',
+  'biography',
   'display_email_on_profile',
+  'email',
+  'facebook',
+  'github',
+  'id',
+  'is_ordina_employee',
+  'linked_in',
+  'name',
+  'profile_picture',
+  'specific_vacancy_site',
+  'tagline',
+  'twitter',
+  'username',
+  'website',
+]
+
+const userFieldsToIgnoreOnUpdate = [
+  'articles',
+  'blocked',
+  'confirmed',
+  'created_at',
+  'is_ordina_employee',
+  'provider',
+  'role',
+  'specific_vacancy_site',
 ]
 
 const getUserId = (user) => {
@@ -40,4 +51,5 @@ const getFrontendFieldsUser = (user) => {
 module.exports = {
   getFrontendFieldsUser,
   getUserId,
+  userFieldsToIgnoreOnUpdate,
 }
