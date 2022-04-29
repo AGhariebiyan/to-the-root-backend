@@ -29,7 +29,7 @@
     },
     "password": {
       "type": "password",
-      "minLength": 6,
+      "minLength": 10,
       "configurable": false,
       "private": true
     },
@@ -69,17 +69,20 @@
     },
     "name": {
       "type": "string",
-      "required": false
+      "required": false,
+      "maxLength": 50
     },
     "biography": {
       "type": "text",
-      "required": false
+      "required": false,
+      "maxLength": 500
     },
     "website": {
       "type": "string"
     },
     "tagline": {
-      "type": "string"
+      "type": "string",
+      "maxLength": 50
     },
     "specific_vacancy_site": {
       "type": "string"
