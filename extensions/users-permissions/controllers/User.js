@@ -19,6 +19,17 @@ const {
   getUserId,
 } = require('../services/sanitize-user')
 
+const userFieldsToIgnoreOnUpdate = [
+  'blocked',
+  'confirmed',
+  'created_at',
+  'role',
+  'provider',
+  'articles',
+  'specific_vacancy_site',
+  'is_ordina_employee',
+]
+
 const sanitizeUser = (user) =>
   sanitizeEntity(user, {
     model: strapi.query('user', 'users-permissions').model,
@@ -117,9 +128,14 @@ module.exports = {
       }
     }
 
-    let updateData = {
-      ...ctx.request.body,
-    }
+    let updateData = Object.entries(ctx.request.body).reduce((body, entry) => {
+      const [key, value] = entry
+      if (userFieldsToIgnoreOnUpdate.includes(key)) {
+        return body
+      }
+      body[key] = value
+      return body
+    }, {})
 
     if (_.has(ctx.request.body, 'password') && password === user.password) {
       delete updateData.password
