@@ -14,7 +14,10 @@
 
 const _ = require('lodash')
 const { sanitizeEntity } = require('strapi-utils')
-const { getUserWithoutPii } = require('../services/sanitize-user');
+const {
+  getFrontendFieldsUser,
+  getUserId,
+} = require('../services/sanitize-user')
 
 const sanitizeUser = (user) =>
   sanitizeEntity(user, {
@@ -26,22 +29,21 @@ const formatError = (error) => [
 ]
 
 module.exports = {
-
-  async retrieveUsers() {
-    const queryResult = await strapi.query('user', 'users-permissions').find();
-    const users = queryResult.map(user => sanitizeUser(getUserWithoutPii(user)));
-    return users;
+  async retrieveUserIds() {
+    const queryResult = await strapi.query('user', 'users-permissions').find()
+    const users = queryResult.map((user) => sanitizeUser(getUserId(user)))
+    return users
   },
 
   async retrieveUser(ctx) {
-    const { id } = ctx.params;
+    const { id } = ctx.params
 
     if (id == 'me') {
       return sanitizeUser(ctx.state.user)
     }
 
-    const user = await strapi.query('user', 'users-permissions').findOne({ id });
-    return sanitizeUser(getUserWithoutPii(user));
+    const user = await strapi.query('user', 'users-permissions').findOne({ id })
+    return sanitizeUser(getFrontendFieldsUser(user))
   },
 
   /**
