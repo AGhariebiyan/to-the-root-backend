@@ -1,10 +1,4 @@
 'use strict'
-/**
- * This code was mainly copied from https://github.com/strapi/strapi/blob/v3.0.0/packages/strapi-plugin-users-permissions/controllers/User.js
- * This is done in https://www.youtube.com/watch?v=ITk-pYtOCnQ
- * Note that it is an old version of Strapi (3.0.0)
- * 03-02-22 JM
- */
 
 /**
  * User.js controller
@@ -46,6 +40,13 @@ module.exports = {
     const user = await strapi.query('user', 'users-permissions').findOne({ id })
     return sanitizeUser(getFrontendFieldsUser(user))
   },
+
+  /**
+   * This code was mainly copied from https://github.com/strapi/strapi/blob/v3.0.0/packages/strapi-plugin-users-permissions/controllers/User.js
+   * This is done in https://www.youtube.com/watch?v=ITk-pYtOCnQ
+   * Note that it is an old version of Strapi (3.0.0)
+   * 03-02-22 JM
+   */
 
   /**
    * Retrieve user records.
