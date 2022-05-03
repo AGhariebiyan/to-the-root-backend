@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { CKEditor } from '@ckeditor/ckeditor5-react'
-import ClassicEditor from '@drklonk/ckeditor5-build-classic-with-code-block'
+import ClassicEditor from '@dennis-ordina/ckeditor5-to-the-root'
 import styled from 'styled-components'
 
 const Wrapper = styled.div`
@@ -19,20 +19,35 @@ const configuration = {
     '|',
     'bold',
     'italic',
+    'underline',
+    'strikethrough',
+    'highlight',
     'link',
     'bulletedList',
     'numberedList',
     '|',
-    'indent',
+    'alignment',
     'outdent',
+    'indent',
     '|',
+    'code',
     'codeBlock',
     '|',
     'blockQuote',
     'insertTable',
     'mediaEmbed',
+    'horizontalLine',
+    '|',
+    'specialCharacters',
+    'subscript',
+    'superscript',
+    '|',
+    'sourceEditing',
+    'removeFormat',
+    'findAndReplace',
+    '|',
     'undo',
-    'redo',
+    'redo'
   ],
 }
 

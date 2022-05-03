@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "@ckeditor/ckeditor5-react": "^3.0.3",
-    "@drklonk/ckeditor5-build-classic-with-code-block": "^31.1.0"
+    "@dennis-ordina/ckeditor5-to-the-root": "^0.0.1"
   },
   "author": {
     "name": "A Strapi developer",
