@@ -24,6 +24,12 @@ const userArticleFields = [
   'username',
 ]
 
+const userEventFields = [
+  'id',
+  'name',
+  'username',
+]
+
 const userFieldsToIgnoreOnUpdate = [
   'articles',
   'blocked',
@@ -50,6 +56,15 @@ const transformUserForArticlePage = (user) => {
   }, {})
 }
 
+const transformUserForEventPage = (user) => {
+  if (!user) return null
+
+  return userEventFields.reduce((newUser, key) => {
+    newUser[key] = user[key]
+    return newUser
+  }, {})
+}
+
 const transformUserForProfilePage = (user) => {
   if (!user) return null
 
@@ -71,5 +86,6 @@ module.exports = {
   transformUserForProfilePage,
   getUserId,
   transformUserForArticlePage,
+  transformUserForEventPage,
   userFieldsToIgnoreOnUpdate,
 }
