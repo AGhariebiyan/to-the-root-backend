@@ -17,6 +17,13 @@ const userProfileFields = [
   'website',
 ]
 
+const userArticleFields = [
+  'id',
+  'name',
+  'profile_picture',
+  'username',
+]
+
 const userFieldsToIgnoreOnUpdate = [
   'articles',
   'blocked',
@@ -34,22 +41,35 @@ const getUserId = (user) => {
   return { id: user.id }
 }
 
+const transformUserForArticlePage = (user) => {
+  if (!user) return null
+
+  return userArticleFields.reduce((newUser, key) => {
+    newUser[key] = user[key]
+    return newUser
+  }, {})
+}
+
 const transformUserForProfilePage = (user) => {
   if (!user) return null
 
   const newUser = userProfileFields.reduce((_newUser, key) => {
-    _newUser[key] = user[key]
+    if (user[key]) {
+      _newUser[key] = user[key]
+    }
     return _newUser
   }, {})
 
   if (!user.display_email_on_profile) {
     delete newUser.email
-    return newUser
   }
+
+  return newUser
 }
 
 module.exports = {
   transformUserForProfilePage,
   getUserId,
+  transformUserForArticlePage,
   userFieldsToIgnoreOnUpdate,
 }
