@@ -1,3 +1,22 @@
+const userArticleFields = [
+  'id',
+  'name',
+  'profile_picture',
+  'username',
+]
+
+const userCommentFields = [
+  'id',
+  'name',
+  'username',
+]
+
+const userEventFields = [
+  'id',
+  'name',
+  'username',
+]
+
 const userProfileFields = [
   'articles',
   'biography',
@@ -15,19 +34,6 @@ const userProfileFields = [
   'twitter',
   'username',
   'website',
-]
-
-const userArticleFields = [
-  'id',
-  'name',
-  'profile_picture',
-  'username',
-]
-
-const userEventFields = [
-  'id',
-  'name',
-  'username',
 ]
 
 const userFieldsToIgnoreOnUpdate = [
@@ -51,6 +57,15 @@ const transformUserForArticlePage = (user) => {
   if (!user) return null
 
   return userArticleFields.reduce((newUser, key) => {
+    newUser[key] = user[key]
+    return newUser
+  }, {})
+}
+
+const transformUserForComments = (user) => {
+  if (!user) return null
+
+  return userCommentFields.reduce((newUser, key) => {
     newUser[key] = user[key]
     return newUser
   }, {})
@@ -83,9 +98,10 @@ const transformUserForProfilePage = (user) => {
 }
 
 module.exports = {
-  transformUserForProfilePage,
   getUserId,
   transformUserForArticlePage,
+  transformUserForComments,
   transformUserForEventPage,
+  transformUserForProfilePage,
   userFieldsToIgnoreOnUpdate,
 }
