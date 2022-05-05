@@ -27,6 +27,7 @@ module.exports = {
 
         return sanitizeEntity(entity, { model: strapi.models.comment });
     },
+
     async like(ctx) {
         ctx.request.body.article = ctx.params.id;
         const entity = await strapi.services.like.create(ctx.request.body);

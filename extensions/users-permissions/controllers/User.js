@@ -38,8 +38,6 @@ module.exports = {
     }
 
     const user = await strapi.query('user', 'users-permissions').findOne({ id })
-    const transformed = transformUserForProfilePage(user)
-    console.log("san:", transformed);
     return sanitizeUser(transformUserForProfilePage(user))
   },
 
