@@ -1,4 +1,4 @@
-const userFrontendFields = [
+const userProfileFields = [
   'articles',
   'biography',
   'display_email_on_profile',
@@ -34,10 +34,10 @@ const getUserId = (user) => {
   return { id: user.id }
 }
 
-const getFrontendFieldsUser = (user) => {
+const transformUserForProfilePage = (user) => {
   if (!user) return null
 
-  const newUser = userFrontendFields.reduce((_newUser, key) => {
+  const newUser = userProfileFields.reduce((_newUser, key) => {
     _newUser[key] = user[key]
     return _newUser
   }, {})
@@ -49,7 +49,7 @@ const getFrontendFieldsUser = (user) => {
 }
 
 module.exports = {
-  getFrontendFieldsUser,
+  transformUserForProfilePage,
   getUserId,
   userFieldsToIgnoreOnUpdate,
 }
