@@ -17,12 +17,9 @@ const index = searchClient.initIndex(process.env.ALGOLIA_INDEX)
 module.exports = {
     lifecycles: {
         afterUpdate: async (entry) => {
-            console.log(entry.published_at)
             if (entry.published_at != null) {
-                console.log("set")
                 setArticleInAlgolia(entry);
             } else {
-                console.log("delete")
                 deleteArticleInAlgolia(entry)
             }
         },
