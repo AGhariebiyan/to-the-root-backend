@@ -9,7 +9,7 @@
 const _ = require('lodash')
 const { sanitizeEntity } = require('strapi-utils')
 const {
-  getFrontendFieldsUser,
+  transformUserForProfilePage,
   getUserId,
   userFieldsToIgnoreOnUpdate,
 } = require('../services/sanitize-user')
@@ -38,7 +38,7 @@ module.exports = {
     }
 
     const user = await strapi.query('user', 'users-permissions').findOne({ id })
-    return sanitizeUser(getFrontendFieldsUser(user))
+    return sanitizeUser(transformUserForProfilePage(user))
   },
 
   /**
