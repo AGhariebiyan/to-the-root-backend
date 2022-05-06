@@ -1,10 +1,4 @@
 'use strict'
-/**
- * This code was mainly copied from https://github.com/strapi/strapi/blob/v3.0.0/packages/strapi-plugin-users-permissions/controllers/User.js
- * This is done in https://www.youtube.com/watch?v=ITk-pYtOCnQ
- * Note that it is an old version of Strapi (3.0.0)
- * 03-02-22 JM
- */
 
 /**
  * User.js controller
@@ -14,7 +8,11 @@
 
 const _ = require('lodash')
 const { sanitizeEntity } = require('strapi-utils')
-const { getUserWithoutPii } = require('../services/sanitize-user');
+const {
+  transformUserForProfilePage,
+  getUserId,
+  userFieldsToIgnoreOnUpdate,
+} = require('../services/sanitize-user')
 
 const sanitizeUser = (user) =>
   sanitizeEntity(user, {
@@ -26,23 +24,29 @@ const formatError = (error) => [
 ]
 
 module.exports = {
-
-  async retrieveUsers() {
-    const queryResult = await strapi.query('user', 'users-permissions').find();
-    const users = queryResult.map(user => sanitizeUser(getUserWithoutPii(user)));
-    return users;
+  async retrieveUserIds() {
+    const queryResult = await strapi.query('user', 'users-permissions').find()
+    const users = queryResult.map((user) => sanitizeUser(getUserId(user)))
+    return users
   },
 
   async retrieveUser(ctx) {
-    const { id } = ctx.params;
+    const { id } = ctx.params
 
     if (id == 'me') {
       return sanitizeUser(ctx.state.user)
     }
 
-    const user = await strapi.query('user', 'users-permissions').findOne({ id });
-    return sanitizeUser(getUserWithoutPii(user));
+    const user = await strapi.query('user', 'users-permissions').findOne({ id })
+    return sanitizeUser(transformUserForProfilePage(user))
   },
+
+  /**
+   * This code was mainly copied from https://github.com/strapi/strapi/blob/v3.0.0/packages/strapi-plugin-users-permissions/controllers/User.js
+   * This is done in https://www.youtube.com/watch?v=ITk-pYtOCnQ
+   * Note that it is an old version of Strapi (3.0.0)
+   * 03-02-22 JM
+   */
 
   /**
    * Retrieve user records.
@@ -115,9 +119,14 @@ module.exports = {
       }
     }
 
-    let updateData = {
-      ...ctx.request.body,
-    }
+    let updateData = Object.entries(ctx.request.body).reduce((body, entry) => {
+      const [key, value] = entry
+      if (userFieldsToIgnoreOnUpdate.includes(key)) {
+        return body
+      }
+      body[key] = value
+      return body
+    }, {})
 
     if (_.has(ctx.request.body, 'password') && password === user.password) {
       delete updateData.password

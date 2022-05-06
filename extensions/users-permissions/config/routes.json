@@ -1,43 +1,43 @@
 {
   "routes": [{
-    "method": "PUT",
-    "path": "/users/me",
-    "handler": "User.updateMe",
-    "config": {
-      "policies": [],
-      "prefix": ""
-    }
-  },
-  {
-    "method": "GET",
-    "path": "/users",
-    "handler": "User.retrieveUsers",
-    "config": {
+      "method": "PUT",
+      "path": "/users/me",
+      "handler": "User.updateMe",
+      "config": {
+        "policies": [],
+        "prefix": ""
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/users",
+      "handler": "User.retrieveUserIds",
+      "config": {
         "policies": [],
         "prefix": "",
         "description": "Retrieve all user documents",
         "tag": {
-            "plugin": "users-permissions",
-            "name": "User",
-            "actionType": "find"
+          "plugin": "users-permissions",
+          "name": "User",
+          "actionType": "find"
         }
-    }
-},
-  {
-    "method": "GET",
-    "path": "/users/:id",
-    "handler": "User.retrieveUser",
-    "config": {
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/users/:id",
+      "handler": "User.retrieveUser",
+      "config": {
         "policies": [],
         "prefix": "",
         "description": "Retrieve single user document",
         "tag": {
-            "plugin": "users-permissions",
-            "name": "User",
-            "actionType": "find"
+          "plugin": "users-permissions",
+          "name": "User",
+          "actionType": "find"
         }
+      }
     }
-}
 
-]
+  ]
 }
