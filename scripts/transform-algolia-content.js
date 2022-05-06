@@ -1,6 +1,8 @@
-'use strict'
+// Note how this script only transfers Articles, not other entities like Authors, Comments etc.
+// This script is for testing and development purposes only
 
 require('dotenv').config()
+
 const algoliasearch = require('algoliasearch')
 
 const appId = process.env.ALGOLIA_APP_ID
@@ -8,33 +10,18 @@ const adminKey = process.env.ALGOLIA_ADMIN_KEY
 const searchClient = algoliasearch(appId, adminKey)
 const index = searchClient.initIndex(process.env.ALGOLIA_INDEX)
 
-/**
- * Read the documentation (https://strapi.io/documentation/developer-docs/latest/development/backend-customization.html#lifecycle-hooks)
- * to customize this model
- */
+async function transformArticlesForAlgolia() {
+    const articles = await index.search('*').then((result) => {
+        return result.hits
+    })
 
-module.exports = {
-    lifecycles: {
-        afterUpdate: async (entry) => {
-            if (entry.published_at != null) {
-                setArticleInAlgolia(entry);
-            } else {
-                deleteArticleInAlgolia(entry)
-            }
-        },
-        afterDelete: async (entry) => {
-            deleteArticleInAlgolia(entry)
-        },
-    }
-}
+    const transformedArticles = articles.map((article) => {
+        return transformArticleForAlgolia(article)
+    })
 
-async function setArticleInAlgolia(entry) {
-    const article = transformArticleForAlgolia(entry)
-    index.saveObjects([article]).catch((error) => console.log(error));
-}
-
-async function deleteArticleInAlgolia(entry) {
-    index.deleteObjects([entry.id]).catch((error) => console.log(error));
+    index.saveObjects(transformedArticles, {
+        autoGenerateObjectIDIfNotExist: true,
+    })
 }
 
 function transformArticleForAlgolia(entry) {
@@ -68,3 +55,5 @@ function removeHTMLTags(htmlString) {
         '',
     )
 }
+
+transformArticlesForAlgolia()
