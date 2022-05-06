@@ -1,4 +1,23 @@
-const userFrontendFields = [
+const userArticleFields = [
+  'id',
+  'name',
+  'profile_picture',
+  'username',
+]
+
+const userCommentFields = [
+  'id',
+  'name',
+  'username',
+]
+
+const userEventFields = [
+  'id',
+  'name',
+  'username',
+]
+
+const userProfileFields = [
   'articles',
   'biography',
   'display_email_on_profile',
@@ -34,22 +53,55 @@ const getUserId = (user) => {
   return { id: user.id }
 }
 
-const getFrontendFieldsUser = (user) => {
+const transformUserForArticlePage = (user) => {
   if (!user) return null
 
-  const newUser = userFrontendFields.reduce((_newUser, key) => {
-    _newUser[key] = user[key]
+  return userArticleFields.reduce((newUser, key) => {
+    newUser[key] = user[key]
+    return newUser
+  }, {})
+}
+
+const transformUserForComments = (user) => {
+  if (!user) return null
+
+  return userCommentFields.reduce((newUser, key) => {
+    newUser[key] = user[key]
+    return newUser
+  }, {})
+}
+
+const transformUserForEventPage = (user) => {
+  if (!user) return null
+
+  return userEventFields.reduce((newUser, key) => {
+    newUser[key] = user[key]
+    return newUser
+  }, {})
+}
+
+const transformUserForProfilePage = (user) => {
+  if (!user) return null
+
+  const newUser = userProfileFields.reduce((_newUser, key) => {
+    if (user[key]) {
+      _newUser[key] = user[key]
+    }
     return _newUser
   }, {})
 
   if (!user.display_email_on_profile) {
     delete newUser.email
-    return newUser
   }
+
+  return newUser
 }
 
 module.exports = {
-  getFrontendFieldsUser,
   getUserId,
+  transformUserForArticlePage,
+  transformUserForComments,
+  transformUserForEventPage,
+  transformUserForProfilePage,
   userFieldsToIgnoreOnUpdate,
 }
