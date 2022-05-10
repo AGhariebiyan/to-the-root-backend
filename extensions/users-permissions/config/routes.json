@@ -1,5 +1,15 @@
 {
-  "routes": [{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/users/me",
+      "handler": "User.retrieveMe",
+      "config": {
+        "policies": [],
+        "prefix": ""
+      }
+    },
+    {
       "method": "PUT",
       "path": "/users/me",
       "handler": "User.updateMe",
@@ -38,6 +48,5 @@
         }
       }
     }
-
   ]
 }

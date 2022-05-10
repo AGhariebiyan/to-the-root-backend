@@ -97,11 +97,25 @@ const transformUserForProfilePage = (user) => {
   return newUser
 }
 
+const transformUserForSettingsPage = (user) => {
+  if (!user) return null
+
+  const newUser = userProfileFields.reduce((_newUser, key) => {
+    if (user[key]) {
+      _newUser[key] = user[key]
+    }
+    return _newUser
+  }, {})
+
+  return newUser
+}
+
 module.exports = {
   getUserId,
   transformUserForArticlePage,
   transformUserForComments,
   transformUserForEventPage,
   transformUserForProfilePage,
+  transformUserForSettingsPage,
   userFieldsToIgnoreOnUpdate,
 }

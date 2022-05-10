@@ -10,6 +10,7 @@ const _ = require('lodash')
 const { sanitizeEntity } = require('strapi-utils')
 const {
   transformUserForProfilePage,
+  transformUserForSettingsPage,
   getUserId,
   userFieldsToIgnoreOnUpdate,
 } = require('../services/sanitize-user')
@@ -24,6 +25,11 @@ const formatError = (error) => [
 ]
 
 module.exports = {
+  async retrieveMe(ctx) {
+    const user = await strapi.query('user', 'users-permissions').findOne({ id: ctx.state.user.id })
+    return sanitizeUser(transformUserForSettingsPage(user))
+  },
+
   async retrieveUserIds() {
     const queryResult = await strapi.query('user', 'users-permissions').find()
     const users = queryResult.map((user) => sanitizeUser(getUserId(user)))
