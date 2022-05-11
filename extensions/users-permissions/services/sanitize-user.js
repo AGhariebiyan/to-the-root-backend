@@ -36,6 +36,25 @@ const userProfileFields = [
   'website',
 ]
 
+const userSettingsFields = [
+  'biography',
+  'display_email_on_profile',
+  'email',
+  'facebook',
+  'github',
+  'has_agreed_to_newsletters_and_notifications',
+  'has_agreed_to_ordina_getting_in_touch',
+  'id',
+  'linked_in',
+  'name',
+  'profile_picture',
+  'specific_vacancy_site',
+  'tagline',
+  'twitter',
+  'username',
+  'website',
+]
+
 const userFieldsToIgnoreOnUpdate = [
   'articles',
   'blocked',
@@ -100,7 +119,7 @@ const transformUserForProfilePage = (user) => {
 const transformUserForSettingsPage = (user) => {
   if (!user) return null
 
-  const newUser = userProfileFields.reduce((_newUser, key) => {
+  const newUser = userSettingsFields.reduce((_newUser, key) => {
     if (user[key]) {
       _newUser[key] = user[key]
     }
