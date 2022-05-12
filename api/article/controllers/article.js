@@ -81,11 +81,11 @@ module.exports = {
       slug: ctx.params.slug,
     })
 
-    let articleCategory = await strapi.services.category.findOne({
+    let category = await strapi.services.category.findOne({
       slug: article.category.slug
     })
     
-    let articles = articleCategory.articles.filter(filterOneYear);
+    let articles = category.articles.filter(filterOneYear);
 
     if (articles.length < 4) {
       // get all articles if category has less than 3 articles
