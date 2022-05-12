@@ -27,6 +27,50 @@ module.exports = {
       slug: ctx.params.slug,
     })
 
+    let pageview = article.pageview
+    console.log("test" + article.category)
+    console.log("init: " + pageview)
+    if (pageview == null) {
+      pageview = 0
+      console.log("if " + pageview)
+    }
+
+    await strapi.query('article').update({ id: article.id }, {
+      pageview: ++pageview
+    })
+
+    let articleCategory = await strapi.services.category.findOne({
+      slug: article.category.slug
+    })
+
+    if (articleCategory.articles.length < 3) {
+      // get all articles if category has less than 3 articles
+      articles = await strapi.services.article.find()
+    }
+    else {
+      // use the articles belonging to this category
+      articles = articleCategory.articles
+    }
+
+    //map to sort by views
+    let map = new Map();
+    for (let i = 0; i < articles.length; i++) {
+      let date = new Date(articles[i].original_date)
+      let dateDiff = Math.abs(new Date() - date)
+      //monthdiff can be 0, so we add 1
+      monthDiff = parseInt(dateDiff / (1000 * 60 * 60 * 24 * 30)) + 1
+      let weightedDiff = articles[i].pageview / monthDiff
+      map.set(articles[i].id, weightedDiff)
+    }
+    
+    // als publicatiedatum ouder is dan 1 jaar moeten die eruit gehaald worden en niet opgeslagen worden in de map.
+    // aanmaken recommendation engine calculator functie ()
+    // artikelen ophalen van categorie x
+    // if (artikelen.length >= 3)
+    // functie gebruiken om top 3 artikelen te filteren
+    // else ophalen alle artikelen
+    // functie gebruiken om top 3 artikelen te filteren
+
     article.comments = await Promise.all(
       article.comments.map(async (comment) => {
         const user = await strapi
