@@ -13,6 +13,26 @@ function filterOneYear(article) {
   return dateNow - articleDate <= oneYear;
 }
 
+function deleteRedundancy(articles) {
+  let filteredArticles = new Set(articles)
+  return Array.from(filteredArticles)
+}
+
+// Calculate and sort by scores
+function sortByScore(articles) {
+  articles.map(article => {
+    let articleDate = new Date(article.original_date).getTime;
+    let dateNow = new Date().getTime();
+    let timeAgoUnix = dateNow - articleDate;
+    let pageView = article.pageView || 1;
+
+    let score = timeAgoUnix / pageView;
+
+    article.score = score;
+  })
+  return articles.sort((a, b) => a.score - b.score);
+}
+
 module.exports = {
   async find(ctx) {
     let articles
@@ -81,32 +101,32 @@ module.exports = {
       slug: ctx.params.slug,
     })
 
-    let category = await strapi.services.category.findOne({
-      slug: article.category.slug
+    let categoryArticles = await strapi.services.article.find({
+      category: article.category.id
     })
-    
-    let articles = category.articles.filter(filterOneYear);
 
-    if (articles.length < 4) {
+    categoryArticles = categoryArticles.filter(filterOneYear)
+
+    if (categoryArticles.length < 4) {
       // get all articles if category has less than 3 articles
-      articles = await strapi.services.article.find().filter(filterOneYear)
+      let allArticles = await strapi.services.article.find()
+      allArticles = allArticles.filter(filterOneYear)
+      
+      categoryArticles = sortByScore(categoryArticles)
+      allArticles = sortByScore(allArticles)
+      articles = categoryArticles.concat(allArticles)
+    } else {
+      categoryArticles = sortByScore(categoryArticles)
+      articles = categoryArticles
     }
 
-    // Calculate and sort by scores
-    articles = articles.map(article => {
-        let articleDate = new Date(article.original_date).getTime;
-        let dateNow = new Date().getTime();
-        let timeAgoUnix = dateNow - articleDate;
-        let pageView = article.pageView || 1;
-
-        let score = timeAgoUnix / pageView;
-
-        article.score = score;
-
-        return article;
+    // articles = deleteRedundancy(articles)
+    const index = articles.findIndex( currentArticle => {
+      return currentArticle.slug === article.slug
     })
-    articles.sort((a, b) => a.score - b.score);
-    
+
+    articles.splice(index, 1)
+
     // Return 3 recommendations
     return articles.slice(0, 3).map((article) => {
       if (article.author) {
