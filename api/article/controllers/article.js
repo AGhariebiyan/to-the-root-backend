@@ -121,11 +121,7 @@ module.exports = {
     }
 
     // articles = deleteRedundancy(articles)
-    const index = articles.findIndex( currentArticle => {
-      return currentArticle.slug === article.slug
-    })
-
-    articles.splice(index, 1)
+    articles = articles.filter(filteredArticle => filteredArticle.id !== article.id)
 
     // Return 3 recommendations
     return articles.slice(0, 3).map((article) => {
