@@ -14,22 +14,30 @@ function filterOneYear(article) {
 }
 
 function deleteRedundancy(articles) {
-  let filteredArticles = new Set(articles)
-  return Array.from(filteredArticles)
+  // variabel namen fiksen
+  let allArticles = articles.map(article => {
+    return [article.id, article]
+  }) 
+
+  let deleteRedundantArticles = new Map(allArticles)
+  let result = [...deleteRedundantArticles.values()]
+
+  return result
 }
 
-// Calculate and sort by scores
 function sortByScore(articles) {
   articles.map(article => {
-    let articleDate = new Date(article.original_date).getTime;
+    let articleDate = new Date(article.original_date).getTime();
     let dateNow = new Date().getTime();
     let timeAgoUnix = dateNow - articleDate;
-    let pageView = article.pageView || 1;
+    let pageView = article.pageview || 1;
 
     let score = timeAgoUnix / pageView;
 
+
     article.score = score;
   })
+
   return articles.sort((a, b) => a.score - b.score);
 }
 
@@ -106,24 +114,21 @@ module.exports = {
     })
 
     categoryArticles = categoryArticles.filter(filterOneYear)
+    categoryArticles = sortByScore(categoryArticles)
 
-    if (categoryArticles.length < 4) {
-      // get all articles if category has less than 3 articles
+    if (categoryArticles.length < 3) {
       let allArticles = await strapi.services.article.find()
-      allArticles = allArticles.filter(filterOneYear)
-      
-      categoryArticles = sortByScore(categoryArticles)
+
+      allArticles = allArticles.filter(filterOneYear)      
       allArticles = sortByScore(allArticles)
       articles = categoryArticles.concat(allArticles)
     } else {
-      categoryArticles = sortByScore(categoryArticles)
       articles = categoryArticles
     }
 
-    // articles = deleteRedundancy(articles)
+    articles = deleteRedundancy(articles)
     articles = articles.filter(filteredArticle => filteredArticle.id !== article.id)
 
-    // Return 3 recommendations
     return articles.slice(0, 3).map((article) => {
       if (article.author) {
         article.author = transformUserForArticlePage(article.author)
