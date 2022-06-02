@@ -25,6 +25,14 @@
       }
     },
     {
+      "method": "GET",
+      "path": "/articles/:slug/recommended",
+      "handler": "article.getRecommendedArticles",
+      "config": {
+        "policies": []
+      }
+    },
+    {
       "method": "POST",
       "path": "/articles",
       "handler": "article.create",
@@ -63,6 +71,6 @@
       "config": {
         "policies": []
       }
-    }
+    }    
   ]
 }
