@@ -14,7 +14,6 @@ function filterOneYear(article) {
 }
 
 function deleteRedundancy(articles) {
-  // variabel namen fiksen
   let allArticles = articles.map(article => {
     return [article.id, article]
   }) 
